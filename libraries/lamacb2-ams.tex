@@ -1,0 +1,33 @@
+%  for  math books
+%  Uses package amsthm
+%   only uses chapter number, no section number
+
+% NUMBERED ENVIRONMENTS
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{theorem}[thm]{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{corollary}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{proposition}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{conjecture}[thm]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\newtheorem{examples}[example]{Examples}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{defin}[definition]{Definition}
+\newtheorem{problem}{Problem}[chapter]
+\newtheorem{prob}[problem]{Problem}
+\newtheorem{note}{Note}[chapter]
+
+\newcommand{\epigraph}[3]
+{\vspace{2ex}\begin{quote}\small
+   {#1} \vspace{0.3ex}\\
+{\bf{---#2}$\;$}{#3}
+    \end{quote}
+}
+

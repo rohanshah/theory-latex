@@ -1,0 +1,325 @@
+\documentclass[12pt]{article}
+\author{Brooke Fugate, Rohan Shah, Michael O'Conner}
+\title{Homework One}
+\usepackage{fixltx2e}
+\usepackage{xcolor}
+\usepackage{comment}
+
+\begin{comment}
+\usepackage{pstricks}
+% \usepackage{pstcol}
+\usepackage{pst-node}
+\usepackage{auto-pst-pdf} 
+
+\input lamacb2-ams.tex
+\input mac.tex
+\input mathmac.tex
+\input mathmac-v2.tex
+\input mac-new.tex
+\input nerode.tex
+\end{comment}
+
+\def\SPSB#1#2{\rlap{\textsuperscript{\textcolor{black}{#1}}}\SB{#2}}
+\def\SP#1{\textsuperscript{\textcolor{black}{#1}}}
+\def\SB#1{\textsubscript{\textcolor{black}{#1}}}
+\newcommand{\tab}{\hspace*{2em}}
+
+\begin{document}
+\maketitle
+
+\section*{B1} 
+\subsection*{i} 
+Proof by induction on i: $ \\
+$ Base Case: $i = 0 \\
+Q\SPSB{0}{r} = \{q\SB{0}\} $ by definition, and $ \delta^{\ast} (q\SB{0}, \epsilon) = q\SB{0} \\ 
+$Inductive Case: $i + 1 \\
+$By the inductive hypothesis, we have $Q\SPSB{i}{r} = \forall u \in \Sigma^{\ast}$ where $|u|=i$ \\
+ and $ \exists s \in Q\SPSB{i}{r}$ such that $\delta^{\ast} (q\SB{0}, u) = s$. \\
+$\forall a \in \Sigma$, $\exists w \in \Sigma^{\ast}$ such that $w = ua, |w| = i+1$ \\
+$\delta^{\ast} (q\SB{0}), w) = \delta^{\ast} (q\SB{0}), ua) = \delta (\delta^{\ast} (q\SB{0},u),a)$ \\
+$=\delta(s, a) = p \in Q$ thus we have $\delta^{\ast}(q\SB{0},w) = p$ and is thus reachable using a \\
+path of length $i+1$
+\\
+\\
+Example of a DFA where $Q\SPSB{i+1}{r} \quad \neq Q\SPSB{i}{r}$
+
+\vspace{20 mm}
+
+\subsection*{ii}
+\vspace{30 mm}
+
+\subsection*{iii}
+Given a DFA D, there exists a finite set of states in Q and therefore a finite set of states in $Q_r$ since $Q_r$ $\subseteq Q$.
+Furthermore, by the definition of a DFA and $Q_r$, there exist a finite number of transistions from $q_0$ to any state $q \epsilon Q_r$.
+By definition every state $q \epsilon Q\SPSB{i\SB{0}}{r}$, can be reached using $i$ or less transitions. Let $i_0$ be the minimum number
+of transitions required to reach every state $q \epsilon Q_r$. In other words, at most $i_0$ transitions are needed to reach any state in $Q_r$
+and no additional states in $Q_r$ require $i_0 + 1$ transitions to be reached, since all states in $Q_r$ have already been reached with
+$i_0$ transitions. If this were not true, then $i_0$ would not be the minimum number of edges required to reach every reachable state,
+which is a contradiction to our original assignment of $i_0$. Therefore $i_0$ is a smallest integer such that
+$Q\SPSB{ \tiny i\SB{0}+1}{r}$ \tiny = \small $Q\SPSB{i\SB{0}}{r} = Q_r$.
+
+\section*{B2}
+
+Let $n = hp + kq$ for natural numbers h, k. Define $q > p \ge 2$ (If p = 1, it is trivial)$ \\
+p,q \ge 1$ and $ gcd(p,q)=1$ and $p \neq q$ and $q >p \\
+$Need k. Show $n \ge (p-1)(q-1) \rightarrow n, n-q, n-2q$. We divide by p to get the total number in the sequence. $ \\
+$So, $n - kq = hp$ and $q, n, n-q, n-2q, ..., n-(p-2)q \\
+$ There are p total cases. $ \\
+r_0, r_1, ..., r_{p-1}$ \\
+Suppose 0 is not present. Then, by Euclid's lemma, if a number divides the product of two numbers, and that number is relatively prime to one of them,
+then it is relatively prime to the other as well. Since p and q are relatively prime, p divides (j-1)q, and since gcd(p,q)=1, p divides j-1. But $
+0 <j-1<p-1$. This is a contradiction. Formally:
+$-1 \rightarrow p - 2$ \\
+and at least 2 are the same \\
+$n - iq = pb_i + r_i \\
+r_i = r_j \\
+0 \le i < j \le p-1 \\
+n-iq-pb_i = r_i \\
+n-jq-pb_j = r_j \\
+n-jq = pb_j + r_j \\
+n-iq - pb_i = n - jq - pb_j \\
+q(j-1)=p(b_i-b_j) \\
+gcd(p,q)=1$ \\
+so it has to divide (j-i) but j-i < p \\
+Contradiction $ \rightarrow  0 \epsilon {r_i} $ 
+
+New case: k=-1 gives us n+q=hp. h cannot be too small, in fact h=q. 
+$n+q=hp$ and $n \ge pq-p-q+1 \equiv n+q \ge p(q-1)+1$ so, $h \ge q$ and $h=q+m,m \ge 0$. 
+
+
+\section*{B3}
+Proof: uv=vu if and only if there is some $w \epsilon \Sigma^\ast$ such that $u=w^m$ and $v=w^n$ for some $m,n \ge 0$. \\
+
+Case: $\rightarrow $ 
+Given $u=w^m $ and $ v= w^n$ for some $w \epsilon \Sigma^{\ast}  \\
+$We must show $ uv =vu \\
+uv =vu \equiv w^m w^n = w^n w^m \equiv w^{mn} = w^{nm} $. This follows from reflexivity.  
+
+Case: $\leftarrow $ 
+Given $uv=vu$. Prove $u= w^m$ and $v=w^n$ for some $w \epsilon \Sigma^{\ast} $ and $ m,n \ge 0 \\
+$By induction on the length of n=$|u|+|v| \\
+$Base: n=0 therefore $u= \epsilon$ and $v= \epsilon$ (since $|u|=0,|v|=0$). $ \epsilon \epsilon = \epsilon \epsilon \equiv \epsilon = \epsilon$ where $w= \epsilon , m=n=1, u= \epsilon ' , v= \epsilon '. \\
+$Case: n+1. The inductive hypothesis is uv=vu implies $u=w^m,v=w^n,w \epsilon \Sigma^\ast , m,n \ge 0$ when $|u| +|v| \le n \\
+$SubCase: u or v = $ \epsilon $ is trivial. w=u, m=1, n=0, i.e. $u=w^1,v=w^0$ and vice versa. \\
+SubCase: $|u|=|v|$ is trivial. For uv=vu with $|u|=|v|$, u must equal v, therefore w=u=v, m=n=1. \\
+SubCase: $|u| > |v|$ symmetrical to $|u|<|v|$ so prove uv = vu implies u=vz where v is the prefix of u. The v cancels to give us zv=vz where $|z|+|v| \le n$ because $|v|+|v|+|z| \ge n+1$ implies $|v|+|z| \le n$ since v is non empty.  By the induction hypothesis $z=w^m$ and $v=w^n$ for some $w \epsilon \Sigma^\ast , m,n \ge 0 \\
+$So $u=w^n w^m = w^{nm}$ and $v = w^n$. 
+
+\section*{B4}
+\subsection*{a}
+Given: $f: D_1 \rightarrow D_2$, $ g: D_2 \rightarrow D_3$ are morphisms. 
+Prove: $g \circ f: D_1 \rightarrow D_3$ is a morphism of DFAs.
+Must show two conditions:
+\begin{enumerate}
+	\item
+	$g \circ f( \delta_1(p,a))= \delta_3(g \circ f(p),a) \\
+	g (f( \delta_1(p,a)))= \delta_3(g(f(p),a)) \\
+	g (\delta_2(f(p),a))= \delta_3(g(f(p),a)) \\
+        \delta_3(g(f(p),a))= \delta_3(g(f(p),a)) \\ $
+	\item
+        $ g \circ f (q_{0,1})=q_{0,3} \\
+        g (f (q_{0,1}))=q_{0,3} \\
+        g (q_{0,2})=q_{0,3} \\
+        q_{0,3}=q_{0,3} \\ $
+\end{enumerate}
+
+Given: $f: D_1 \rightarrow D_2$, $ g: D_2 \rightarrow D_3$ are F-maps, then $f(F_1) \subseteq F_2$ and $g(F_2) \subseteq F_3$.
+Prove: $g \circ f: D_1 \rightarrow D_3$ is an F-map of DFAs.
+We must show: \\
+         $g \circ f(F_1) \subseteq F_3 \\
+         g(f(F_1)) \subseteq F_3 \\
+         g(f(F_1)) \subseteq g(F_2) \subseteq F_3 \\ $
+
+Given: $f: D_1 \rightarrow D_2$, $ g: D_2 \rightarrow D_3$ are B-maps, then $f^{-1}(F_2) \subseteq F_1$ and $g^{-1}(F_3) \subseteq F_2$.
+Prove: $g \circ f: D_1 \rightarrow D_3$ is an B-map of DFAs.
+We must show: \\
+         $g \circ f^{-1}(F_3) \subseteq F_1 \\
+         f^{-1}(g^{-1}(F_3)) \subseteq F_1 \\
+         f^{-1}(g^{-1}(F_3)) \subseteq f^{-1}(F_2) \subseteq F_1 \\ $
+
+Given: $f: D_1 \rightarrow D_2$ is an F-map and an isomorphism. Prove: f is a B-map. We must show: $f(F_1) \subseteq F_2$. We know that there exists
+$g: D_2 \rightarrow D_1$ such that $g \circ f(p)=p$ so $ \\
+f \circ g(q)=q$ i.e. $g=f^{-1} \\
+$Show $ f^{-1}(F_2) \subseteq F_1 \\
+$g is an F-map, therefore $g(F_2) \subseteq F_1$ and $f^{-1}(F_2) \subseteq F_1 \\ $
+
+Given: $f: D_1 \rightarrow D_2$ is an B-map and an isomorphism. Prove: f is a F-map. We must show: $f^{-1}(F_2) \subseteq F_1$. We know that there exists
+$g: D_2 \rightarrow D_1$ such that $g \circ f(p)=p \epsilon Q_1$ so $ \\
+f \circ g(q)=q \epsilon Q_2  \\
+$Show $ f(F_1) \subseteq F_2 \\
+g^{-1}=f $and g is an B-map, so $g^{-1}(F_1) \subseteq F_2$ and $f(F_1) \subseteq F_2 \\ $ 
+
+
+\subsection*{b}
+Given: $h: D_1 \rightarrow D_2$ is a morphism. 
+Prove: $h( \delta_1^\ast (p,w))= \delta_2^\ast (h(p),w)$ for all $p \epsilon Q$, $w \epsilon \Sigma^\ast $. Proof by induction on the length of w. \\
+Base: $|w|=0$, therefore $w= \epsilon \\
+h( \delta_1^\ast (p, \epsilon ))= \delta_2^\ast (h(p), \epsilon ) \\
+h(p)=h(p) \\ $
+Inductive Case: $|w|=n+1$ therefore w=ua where $|u|=n$, $u \epsilon \Sigma^\ast , a \epsilon \Sigma \\ $
+and with $h( \delta_1^\ast(p,u))= \delta_2^\ast (h(p),u)$ as the inductive hypothesis. $ \\
+h( \delta_1^\ast(p,ua))= \delta_2^\ast (h(p),ua) \\
+h( \delta_1 (\delta_1^\ast(p,u), a))= \delta_2 ( \delta_2^\ast (h(p),u),a)$ by definition of $ \delta^\ast \\
+h( \delta_1 (\delta_1^\ast(p,u), a))= \delta_2 (h( \delta_1^\ast (p,u)),a)$ by the inductive hypothesis $ \\
+h( \delta_1 (\delta_1^\ast(p,u), a))= h( \delta_1 ( \delta_1^\ast (p,u),a))$ by the definition of morphism. \\
+
+Given: h is an F-map and $h: D_1 \rightarrow D_2$. Prove: $L(D_1) \subseteq L(D_2) \\
+$For all $w \epsilon L(D_1) \\
+$There exists $q \epsilon Q_1 and F_1 \\
+q= \delta_1^\ast (q_0 , w) \\
+h(F_1) \subseteq F_2$ shows$
+h( \delta_1^\ast (q_0 , w)) \subseteq F_2 $ for all w in the language $L(D_1)$. Also by the definition of morphism $
+h( \delta_1^\ast (q_{0,1} , w)) = \delta_2^\ast (q_{0,2} , w) $. Therefore, $\\
+\delta_2^\ast (q_{0,2} , w) \subseteq F_2 \\
+$There exists $q_2 \epsilon Q_2 $ and $q_2 \epsilon F_2 \\
+\delta_2^\ast (q_{0,2} , w) = q_2$ So, $\\
+L(D_1) \subseteq L(D_2) \\ $
+
+Given: h is an B-map and $h: D_1 \rightarrow D_2$. Prove: $L(D_2) \subseteq L(D_1)$, so $h^{-1}(F_2) \subseteq F_1 \\
+$For all $w \epsilon L(D_2)$, there exists $q_2 \epsilon F_2$ where $q_2 = \delta_2^\ast (q_{0,2} , w). \\
+\delta_2^\ast (q_{0,2} , w) =h(\delta_1^\ast (q_{0,1} , w) ) = F_2 \\
+$And we know $h^{-1}(F_2) \subseteq F_1 \\
+h^{-1}(h(\delta_1^\ast (q_{0,1} , w) ) \subseteq F_1$, therefore $L(D_2) \subseteq L(D_1) \\
+$So given that $h: D_1 \rightarrow D_2$ is a proper homomorphism, we know that it is also an F-map and a B-map. Since h is an F-map, $L(D_1) \subseteq L(D_2)$, and since h is a B-map, $L(D_2) \subseteq L(D_1)$, therefore $L(D_1)=L(D_2)$.
+
+\subsection*{c}
+The essential property of a morphism $h: D_1 \rightarrow D_2$ is if you take the same string on two DFA's ($D_1$ and $D_2$), h will map one state from $D_1$ to a state in $D_2$. Let $D_1r$ and $D_2r$ be trim DFA's such that all of their states are reachable. We must show that if $h:D_1 \rightarrow D_2$ and $h':D_1 \rightarrow D_2$ are morphisms, then $h(p)=h'(p)$ for all $p \epsilon (Q_1)_r$ and the restriction of h to $(D_1)_r$ is surjective onto $(D_2)_r$.
+If h exists, and is a morphism, then it is uniqely defined on the state of reachable states of $D_1$.
+Given state q $\epsilon Q_1r$, then $h(q)= \delta_2^\ast (q_{0,2},w)$.
+So this definition uniquely defines q.
+Therefore two different $h$ and $h'$ must agree, so they are the same function h and there is one uniqe function h.
+Everything is determined by the initial state which then propagates down through the rest of the states of the DFA. How states are mapped is forced. Formally: \\
+Pick $q \epsilon (Q_2)_r \\
+\delta \ast_2 (q_{0_2},w) = q \\
+h( \delta \ast_1 (q_{0_1}, w) = q \\
+$There exists $q \epsilon$ 
+
+\subsection*{d}
+Start in $D_1$ and travel on h to $h(q_{0,1})=q_{0,2}'$.  
+There is a way to enter $D_2$ from $D_2$'s starting state.
+a new start behaves the same once you get past "u" just remove the prefox and look at the suffix. You cannot assume anything given that it is not trim, There may be no relationship whatsoever
+As long as it is trim, you get surjectivity
+a morphism must be surjective. 
+
+
+
+
+Note: Two string are equivalent if they take you to the same state.
+
+\section*{B5}
+\subsection*{i}
+
+Given: U is finite or U = F $\cup$ $\bigcup\limits_{i=1}^k$ \{$m_i + jp | j \epsilon N$\} \\
+Prove: U is ultimately periodic i.e. exists m, p and $p \ge 1$ and $n \epsilon U$ $\rightarrow$ forall $n \ge m, n+p \epsilon U$
+Case U is finite: $ \\
+$Let U = {$x_1,x_2,...,x_n$} such that $x_1 \le x_2 ... \le x_n \\
+$Let $m=x_n +1$. Then, n+p $\epsilon U$ since for all n $\ge m$, and $n \ge m$ is equal to the empty set. Therefore p can be any natural number and U will be ultimately periodic. \\
+Case $U=F \cup$ $\bigcup\limits_{i=1}^k$ \{$m_i + jp | j \epsilon N$\}. Let m $ \le m_1$ and then all $n \epsilon U \le m$ are in F. If n $\epsilon U$ and $n \ge m$ then we must show that $n+p \epsilon U
+$But we know that all n $ \ge m$ are of the form $m_i +jp$ for all $m_i$ where $1\le i \le k$ which is the definition of an ultimately periodic set.   \\
+\\
+An example of an ultimately periodic set U such that m and p are not unique i.e. exists $m_1, m_2, p_1, p_2$ such that $m_1 \neq m_2$ and $p_1 \neq p_2$ that makes U ultimately periodic is: \\
+U = \{3,5,6,7,8,9,10\} $\cup$ \{i: i $\ge$ 11 : i $\epsilon$ N\} where $m_1 = 3, p_1 = 2$ and $m_2 = 5, p_2 = 1$
+
+\subsection*{ii}
+$h: \Sigma^\ast \rightarrow \Delta^\ast$ homomorphism, $h(uv) = h(u)h(v)$ of languages $h( \epsilon ) = \epsilon$ \\
+$ L \le {a}^\ast$ and the language L is regular. The set of length of the strings $=|L|=$\{$|w|$ such that $w \epsilon L$\}$=$\{$n \epsilon $ natural numbers$ | a^n \epsilon L$\}. L is obviously finite, so $|L|$ is finite. If L is infinite then it has a frying pan DFA (several states in sucession, then a loop. 
+The loop ends in the base of the handle (which is the only final state). A DFA on one letter has exactly one cycle on it. 
+We have shown that if a language on one letter is reguar, the corresponding set of lengths is ultimately periodic. But then we can form the language $L_u = $\{$a^n | n \epsilon U$\}
+So if U is ultimately periodic then L is regular on one letter and vice versa. We can transfer the closure operations to ultimately periodic sets.\\
+The map $U \rightarrow L_U$ and $L \rightarrow |L|$ are inverse to each other.
+Furthermore, the map U $\rightarrow L_U$ preserves $\cup , \cap$ and complements $U_1,U_2, U1 \cup U_2 \rightarrow L_{U_1} \cup L_{U_2}$ and similarly for $\cap$.
+
+\subsection*{iii}
+When you have a string of length one letter, then it is accepted by a frying pan DFA and it is a periodic set. 
+WE can take the same defintion from ii, except we will allow an arbitrary alphabet. We need to show that the set of lengths is ultimately periodic. We have notion of homomorphism between langauges (these perserve concatentation). The length of a string only depends on teh number of occurances, not the letters themselves. the homomorphism is only dependent on the alphabet.
+use homomorhpism that sends every letter to a, because the lenght will be the same. DEfine the homomorphism from $\Sigma to a, h(a_i) = a$. The set of $|h(L)| = |L|$. We know that L is regular. We need to show that $|h(L)|$ is also regular, this will prove ultimate periodic. Regular languages are preserved under homomorphisms of languages. Can quote this result (it is everywhere) and can be finished.
+
+
+
+
+\begin{comment}
+Case: U is finite. , pick m greater than every element in U. \\ 
+Case: U is infinite. We have that m and p exist, such that if $n' \ge m$ then $n' \epsilon U$ iff $n' +p \epsilon U$. Since U is infinite, there is a smallest $m_1 \ge m$ such that $m_1 \epsilon U$. Pick any $n \epsilon U$ with $n > m_1 \ge m$. $n-p \ge m$ or $n-p < m$, $n-p \epsilon U$. Again either $n-2p \ge  m$ and if $n \epsilon U$ and $n \ge m$, $ \exists k \epsilon$ natural numbers such that $n-kp \epsilon U$ and $n-kp$ is the smallest such number $\ge m_1$. \\
+$n-kp = m_1 + k$ where $m_1 \le n-kp < m_1 + p \rightarrow 0 \le k < p$ \\
+The above reasoning implies that there exist $m_1, m_2, ..., m+k \epsilon U$ such that $m_1 < m_2 < ... < m_k < m_1 + p$ and $n-kp = m_i$. \\
+The above is correct but more correct would be proof by decending induction from q to 0: $n \epsilon {m_i +jp | j \ge 0}$ and $n \epsilon U, n\ge m_1$ and $n - m_1 = pq +k$ with $0 \le k \le p-1$. Then $n=m_1 + k + pq$ with $m_1 + k = m_i$. Need to show if $m \epsilon U$ then ${m+jp | i \ge 0} \subseteq U$. Induction on j with a panhandle DFA. 
+Special case of the 3rd part (from part 2 also)
+homomorphism
+\end{comment}
+
+
+
+
+\section*{B6}
+\subsection*{a}
+First, consider a product of sets (cartesian product) which is every combination of the two values (states of a DFA) in an ordered pair. In this way you can have a 
+universal mapping property of products called categorical products, which take a pair and output the first component or the second. We then generalize this concept to DFAs,
+noting that the cross product of a DFA D = $D1 x D2$. For $\pi_1$ we can take this pair and ignore the second component, and vice versa for $\pi_2$. These are morphisms of DFA's
+, they do map the final states to the final states. Under the cross prodect the $\pi_1$ and $\pi_2$ are F-maps.
+$f(m) = \pi_1 (h(m))= \pi_1 (p_1 , p_2 ) = p_1 \\
+g(m) = \pi_2 (h(m))= \pi_2 (p_1 , p_2 ) = p_2$
+
+$h(m)=(p_1,p_2)$  maps to cross product machine
+$h(m)=(f(m),g(m))$
+Cross Products: 
+$D=D_1xD_2
+F_1xF_2$
+
+$\pi_1: Q_1 x Q_2 \rightarrow Q_1 \\
+\pi_2 : Q_1 x Q_2 \rightarrow Q_2$
+
+\begin{comment}
+D in upto a uniqe isomorhpism. There is another construction of a D' that has the exact same property
+upto isomorphism  means they are the same upto isomorphism...
+\end{comment}
+
+We have a DFA D which satisfies the universal property. Assume D' also satisfies the universal property. So then we also have $\pi_1' h' \pi_2' h'$.
+Then we can conclude that D and D' are isomorphic.
+
+Proof: For every m and every f and g. We can use D' with the projections and apply the universal property. Uniqeness of universal constructions
+m can be anything (even D'). The identity tells you that one is the inverse of the other and this leads to isomorphism. If we generalize a little bit, $D_1$ and $D_2$ pointing to $D_3$. We can construct a pull back. We want to come up with a D with projections $\pi_1$ and $\pi_2$ to $D_1$ and $D_2$ and M maps into $D_1$ and $D_2$ in such a way that M on h goes to D, M to $D_1$ on f' and M to $D_2$ on g' $D_2$ to $D_3$ on g, $D_1$ to $D_3$ on f. We need to find D. Persumably there is a relationship. If you pick $D_3$ to be a one state DFA then f and g only go to $D_1$ and $D_2$ onto it. D looks like $D1xD2$, but the product is too big. $f \circ f' = g \circ g'$. Apply $\pi_1$ to a pair of states $f(\pi_1(p_1,p2))) = g(\pi_2(p_1,p2)))$ and $f(p_1) = g(p_2)$. D a sub DFA of $D1 x D2$ and $Q = {(\pi, p_2) \epsilon Q_1 x Q_2 | f(p_1) = g(p_2)}$. Finally the identities will comute.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

@@ -1,0 +1,476 @@
+%%
+%  macros to make a list of symbols index
+%%
+
+\newbox\sample
+\newif\ifproofmode
+\newif\ifsymindex
+\global\symindexfalse
+\newwrite\inx
+\def\indsyma#1#2{\ifproofmode\marginpar{$\scriptstyle#1$}\fi%
+\ifx#2\empty\write\inx{$\noexpand#1$,\space\thepage}%
+\write\inx{\string\newline}\else%
+\write\inx{$\noexpand#1$,\space#2,\space\thepage}%
+\write\inx{\string\newline}\fi\ignorespaces}%
+%
+\def\indsym#1#2{\ifsymindex%
+\ifproofmode\marginpar{$\scriptstyle#1$}\fi%
+\ifx#2\empty\write\inx{\string\item \space$\noexpand#1$,\space\thepage}%
+\else%
+\write\inx{\string\item \space$\noexpand#1$,\space#2,\space\thepage}%
+\fi\ignorespaces\fi}%
+%
+\def\openifile#1{\ifsymindex\immediate\openout\inx=#1\fi}
+\def\closeifile#1{\ifsymindex\immediate\closeout#1\fi}
+%  open file for symbol index
+%  and turn on printing symbol in the margin
+\def\makesymt#1{\global\proofmodetrue\global\symindextrue\openifile{#1}}
+%  open file for symbol index
+%  but turn off printing symbol in the margin
+\def\nomargs#1{\global\proofmodefalse\global\symindextrue\openifile{#1}}
+%  index, but ignore spaces after item
+\def\nsindex#1{\index{#1}\ignorespaces}
+
+%%
+% web page abbreviation
+%%
+
+\def\webref{\ http://www.cis.upenn.edu/$\widetilde{\;}$jean/gbooks/geom2.html}
+\def\webpage{web page}%
+
+%%
+%  needed for danger sign
+%%
+\newskip\dangerskipb
+\newskip\dangerskip
+\dangerskip=20pt
+\dangerskipb=42pt
+\def\hang{\hangindent\dangerskip}
+\def\hangb{\hangindent\dangerskipb}
+
+
+\def\union{\cup}
+\def\s#1{{\cal #1}}
+\def\tensor{\otimes}
+\def\lag{\left\langle}
+\def\rag{\right\rangle}
+\def\blag{\bigl\langle}
+\def\brag{\bigr\rangle}
+\def\lbr{\lbrack\!\lbrack}
+\def\rbr{\rbrack\!\rbrack}
+
+%\def\pairt#1#2{\lag #1,\; #2\rag}
+\def\pairt#1#2{\lag #1, #2\rag}
+
+\def\beginit{\begingroup\it}
+
+\def\endit{\endgroup}
+
+\def\proof{\noindent{\it Proof\/}.\enspace}
+\def\proofs{\noindent{\it Proofs\/}.\enspace}
+\def\hint{\noindent{\it Hint\/}.\enspace}
+\def\anote{\noindent{\it Note\/}.\enspace}
+\def\acase{\medskip\noindent{\it Case\/}\enspace}
+
+%\def\endproof{$\bigsquare$}
+\def\endproof{\bigskip}
+
+\def\remark{\bigskip\noindent{\bf Remark:}\enspace}
+\def\endremark{\bigskip}
+\def\remarks{\bigskip\noindent{\bf Remarks:}\enspace}
+\def\endanger{\medskip}
+
+% dangerous bend sign
+\font\manual=manfnt at 12pt
+%\font\specialfont=cmssmc40
+%\font\specialfont=cmss17
+\def\danbend{{\manual\char127}}
+%
+\def\datanger{\medbreak\begingroup\clubpenalty=10000
+ \def\par{\endgraf\endgroup\medbreak} \noindent\hang\hangafter=-2
+ \hbox to0pt{\hskip-3.5pc\danbend\hfill}}
+\outer\def\danger{\datanger}%
+%
+\def\datangerb{\medbreak\begingroup\clubpenalty=10000
+ \def\par{\endgraf\endgroup\medbreak} \noindent\hangb\hangafter=-2
+ \hbox to0pt{\hskip-3.5pc\danbend\hfill}}
+\outer\def\dangerb{\datangerb}
+%
+\def\datangerc{\medbreak\begingroup\clubpenalty=10000
+ \def\par{\endgraf\endgroup\medbreak} \noindent\hang\hangafter=-3
+ \hbox to0pt{\hskip-3.5pc\danbend\hfill}}
+\outer\def\dangerc{\datangerc}
+%
+\def\datangerd{\medbreak\begingroup\clubpenalty=10000%
+\def\par{\endgraf\endgroup\medbreak}\noindent\hang\hangafter=-4%
+\hbox to0pt{\hskip-3.5pc\danbend\hfill}}%
+\outer\def\dangerd{\datangerd}
+%
+\outer\def\dangerg#1{\medbreak\begingroup\clubpenalty=10000%
+\def\par{\endgraf\endgroup\medbreak}\noindent\hang\hangafter=-#1%
+\hbox to0pt{\hskip-3.5pc\danbend\hfill}}%
+
+%
+%
+\def\datangerbis{\medbreak\begingroup\clubpenalty=10000
+\vbox to0pt{\hbox to0pt{\hskip-3.5pc\danbend\hfill}}
+\endgraf\endgroup}
+\outer\def\dangerbis{\datangerbis}
+%
+%
+% double dangerous bend sign
+%
+\def\ddatanger{\medbreak\begingroup\clubpenalty=10000
+ \def\par{\endgraf\endgroup\medbreak} \noindent\hang\hangafter=-2
+ \hbox to0pt{\hskip-3.5pc\danbend\kern1pt%
+\danbend\hfill}}
+\outer\def\ddanger{\ddatanger}
+\def\enddanger{\endgraf\endgroup}% omits the \medbreak
+% For example, a \smallskip\item might be used to give an itemized list
+% within the scope of the dangerous bend sign
+%
+
+\def\bull{\vrule height 1.7ex width 1.7ex depth -.1ex} 
+
+\def\whyeq{\buildrel \rm ? \over =}
+
+\def\forkmapp#1#2#3{ \succ\joinrel\rightarrow_{[#1,#2,#3]} }
+
+\def\forkmappfour#1#2#3#4{ \succ\joinrel\rightarrow_{[#1,#2,#3,#4]} }
+
+\def\bigjoinrelat{\mathrel{\mkern-26mu}}
+
+\def\dobrightarrow{\longrightarrow\bigjoinrelat\longrightarrow}
+
+%\def\dobrightarrow{\longrightarrow\!\!\!\!\!\longrightarrow}
+
+\def\dobdownarrow{\mathop{\vbox{\kern2pt \hbox{$\Big\downarrow$}\kern-16.5pt
+                          \nointerlineskip\hbox{$\Big\downarrow$}}}}
+
+\def\maprightu#1{\smash{
+   \mathop{\longrightarrow}\limits^{#1}}}
+
+\def\mapleftu#1{\smash{
+   \mathop{\longleftarrow}\limits^{#1}}}
+
+\def\mapleftd#1{\smash{
+   \mathop{\longleftarrow}\limits_{#1}}}
+
+\def\maprightd#1{\smash{
+   \mathop{\longrightarrow}\limits_{#1}}}
+
+\def\mapdownr#1{\Big\downarrow
+  \rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+
+\def\mapdownl#1{\llap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+\Big\downarrow}
+
+\def\mapupr#1{\Big\uparrow
+  \rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+
+\def\mapupl#1{\llap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+\Big\uparrow}
+
+\def\maprightrewr#1#2#3{\longrightarrow_{[#1,#2,#3]}}
+
+\def\maprightnarr#1#2#3{\forkmapp{#1}{#2}{#3}}
+
+\def\maprightnarrfour#1#2#3#4{\forkmappfour{#1}{#2}{#3}{#4}}
+
+% down, left to right, left label
+\def\mapdiag#1{\llap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+\searrow}
+
+% down, right to left, right label
+\def\mapantidiag#1{\rlap{$\vcenter{\hbox{$\quad\enspace\scriptstyle#1$}}$}
+\swarrow}
+
+%\def\mapdiagdr#1{\smash{\mathop{\searrow}\limits^{#1}}}
+
+% down, left to right, left label
+\def\mapdiagdr#1{\llap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+\searrow}
+
+% down, left to right, right label
+\def\mapdiagdrr#1{\searrow\rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+
+% up, left to right, left label
+\def\mapdiagul#1{\llap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+\nearrow}
+
+% up, left to right, right label
+\def\mapdiagull#1{\nearrow\rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+
+% down, right to left, left label
+\def\mapdiagdl#1{\llap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+\swarrow}
+
+% down, right to left, right label
+\def\mapdiagdlr#1{\swarrow \rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+
+% up, right to left, left label
+\def\mapdiaglu#1{\llap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+\nwarrow}
+
+% up, right to left, right label
+\def\mapdiaglur#1{\nwarrow \rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+
+% up, left to right, left label
+\def\mapdiagur#1{\rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+\nearrow}
+
+%  down, left to right, left label
+\def\mapdiagdur#1{\rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+\searrow}
+
+%\def\mapdiagur#1{\smash{\mathop{\nearrow}\limits_{#1}}}
+
+%, up, left to right, right label
+\def\mapdiagurr#1{\nearrow\rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+
+%\def\mapdiagul#1{\smash{\mathop{\nearrow}\limits^{#1}}}
+
+%\def\mapdiagdl#1{\smash{\mathop{\swarrow}\limits_{#1}}}
+
+
+
+
+
+
+
+\def\mapadiagr#1{\swarrow \rlap{$\vcenter{\hbox{$\scriptstyle\>#1$}}$}}
+
+
+\def\maprightudob#1{\smash{
+   \mathop{\dobrightarrow}\limits^{#1}}}
+
+
+\def\mapdownrdob#1{\dobdownarrow%
+  \rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+
+
+\def\mapdownL#1{\llap{$\vcenter{\hbox{$\scriptstyle#1$}}$}
+  \Big\downarrow}
+
+\def\mapdownR#1{\Big\downarrow
+  \rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+
+
+\def\lrightarrow{\hbox to 25pt{\rightarrowfill}}
+
+
+
+\def\supexp{exp(m,n,p)=m^{m^{m^{\cdot^{\cdot^{\cdot^{m^{p}}}}}}}
+\vbox{\hbox{$\Big\}\scriptstyle n$}\kern0pt}}
+
+\def\supexpo#1#2#3{#1^{#1^{\cdot^{\cdot^{\cdot^{#1^{#2}}}}}}
+\vbox{\hbox{$\Big\}\scriptstyle #3$}\kern0pt}}
+
+\def\sqr#1#2{{\vcenter{\hrule height .#2pt
+         \hbox{\vrule width.#2pt height#1pt \kern#1pt
+             \vrule width.#2pt}
+         \hrule height.#2pt}}}
+
+\def\square{\mathchoice\sqr64\sqr64\sqr{2.1}3\sqr{1.5}3}
+
+\def\bigsquare{\mathchoice\sqr76\sqr76\sqr{2.1}3\sqr{1.5}3}
+\def\husquare{\mathchoice\sqr{16}{8}\sqr{16}{8}\sqr{2.1}3\sqr{1.5}3}
+
+\def\lag{\langle}
+\def\rag{\rangle}
+\def\sequen{\triangleright}
+\def\termdecl#1#2{#1\sequen #2}
+\def\tdecomp#1#2{#1[#2]}
+\def\co{\colon}
+
+
+\def\rewrites#1{\ {\buildrel * \over \longleftrightarrow}_{#1}\ }
+
+%
+% These are needed to fake \displaylines, \eqalignno, \item 
+% and \itemitem, when
+% plain TEX would interfere (also \cases for LATEX)
+%
+
+% from page 347 of TEX manual
+%
+\newskip\bogcentering \bogcentering= 0pt plus 1000pt minus 1000pt 
+
+%from page 353 of TEX manual
+%
+\def\matth{\mathsurround=0pt}
+%
+%from page 355 of TEX manual
+%
+\def\itemm{\par\hang\textindent}
+\def\itemitemm{\par\indent \hangindent2\parindent \textindent}
+
+%
+%from page 357 of TEX manual
+%
+\def\fakrightarrowfill{$\matth \mathord- \mkern-6mu
+  \cleaders\hbox{$\mkern-2mu \mathord- \mkern-2mu$}\hfill
+ \mkern-6mu \mathord\rightarrow$}
+
+%
+%from page 359 of TEX manual
+%
+\def\fakoverrightarrow#1{\vbox{\ialign{##\crcr
+  \fakrightarrowfill\crcr\noalign{\kern-1pt\nointerlineskip}
+ $\hfil\displaystyle{#1}\hfil$\crcr}}}
+
+
+%from page 362 of TEX manual
+%
+\def\cases#1{\left\{\,\vcenter{\normalbaselines\matth
+  \ialign{$##\hfil$&\quad##\hfil\crcr#1\crcr}}\right.}
+
+%
+\def\oldcases#1{\left\{\,\vcenter{\normalbaselines\matth
+  \ialign{$##\hfil$&\quad##\hfil\crcr#1\crcr}}\right.}
+
+\newif\ifdtatp
+
+\def\displaty{%
+\global \dtatptrue \openup \jot \matth \everycr{\noalign{\ifdtatp \global 
+\dtatpfalse \vskip -\lineskiplimit \vskip \normallineskiplimit \else 
+\penalty \interdisplaylinepenalty \fi }}}
+
+%
+% Fake \displaylines
+%
+\def\displaylignes#1{\displaty
+   \halign{\hbox to\displaywidth{$\displaystyle##$}\crcr
+   #1\crcr}}
+%
+% Fake \eqalignno
+%
+\def\eqaligneno#1{\displaty \tabskip=\bogcentering
+ \halign to\displaywidth{\hfil$\displaystyle{##}$\tabskip=0pt
+ &$\displaystyle{{}##}$\hfil\tabskip=\bogcentering
+ &\llap{$##$}\tabskip=0pt\crcr
+ #1\crcr}}
+%
+% Fake \leqalignno
+%
+\def\leqaligneno#1{\displaty \tabskip=\bogcentering
+ \halign to\displaywidth{\hfil$\displaystyle{##}$\tabskip=0pt
+ &$\displaystyle{{}##}$\hfil\tabskip=\bogcentering
+ &\kern-\displaywidth\rlap{$##$}\tabskip=\displaywidthpt\crcr
+ #1\crcr}}
+%
+% Fake \line (from page 353 of TEX manual
+%
+\def\ligne{\hbox to\hsize}
+%
+% End of macros to fool LATEX
+%
+
+
+
+% macro to put a box around something (a \box)
+\newdimen\nouvpagewidth
+\newdimen\offwidth
+\newdimen\lawidthoui
+\lawidthoui=5.5truein
+\offwidth=5truepc
+\nouvpagewidth=\lawidthoui
+%\nouvpagewidth=\hsize %\advance\newpagewidth by -\offwidth
+\def\kboxit#1{\vbox{\hrule\hbox{\vrule\kern3pt
+              \vbox{\kern3pt#1\kern3pt}\kern3pt\vrule}\hrule}}
+
+
+% a single box around some text in #1, centered
+
+\def\boxit#1{\setbox4=\vbox{\hsize \nouvpagewidth\noindent\strut#1\strut}
+                 $$\kboxit{\box4}$$}
+
+% a double box around some text in #1, centered
+
+\def\dboxit#1{\setbox4=\vbox{\hsize \nouvpagewidth\noindent\strut#1\strut}
+                 $$\kboxit{\kboxit{\box4}}$$}
+
+% a single box around some text in #1
+
+\def\boxaround#1{\setbox4=\hbox{\strut#1\strut}\kboxit{\box4}}
+
+% special boxaround
+\def\kboxitb#1{\vbox{\hrule\hbox{\vrule\kern3pt
+              \vbox{\kern3pt#1\kern3pt}\kern3pt\vrule}\hrule}}
+
+\def\laboxaround#1{
+\aboxaround{\hbox to\hsize{\hfill\box2\hfill}}{#1}
+}
+
+\def\boxar#1#2{
+\aboxaround{\hbox to\hsize{\hfill#1\hfill}}{#2}
+}
+
+\def\aboxaround#1#2{
+\setbox4=\vbox{\hsize #2\noindent\strut#1\strut}
+\kboxitb{\box4}}
+
+% a double box around some text in #1
+
+\def\dboxaround#1{\setbox4=\hbox{\strut#1\strut}\kboxit{\kboxit{\box4}}}
+
+
+% macro to frame a box in order to make nice tables
+\def\kframeit#1{\vbox{\hrule\hbox{\vrule\kern5pt
+              \vbox{\kern5pt#1\kern5pt}\kern5pt\vrule}\hrule}}
+% a single box around some \vbox in #1, centered
+\def\frameit#1{\setbox4=#1$$\kframeit{\box4}$$}
+
+% to frame a box, argument in math mode displaystyle
+\def\laframe#1{\setbox4=\hbox{\strut{$\displaystyle #1$}\strut}%
+\kframeit{\box4}}
+
+% to double frame a box, argument in math mode displaystyle
+\def\dlaframe#1{\setbox4=\hbox{\strut{$\displaystyle #1$}\strut}%
+\kboxit{\kframeit{\box4}}}
+
+\newskip\savnormalbaselineskip
+\newskip\savnormallineskip
+\newdimen\savnormallineskiplimit
+
+\def\matrixx#1{
+\savnormalbaselineskip=\normalbaselineskip
+\savnormallineskip=\normallineskip
+\savnormallineskiplimit=\normallineskiplimit
+%
+\normalbaselineskip=16pt
+\normallineskip=3pt \normallineskiplimit3pt
+%
+\matrix{#1}
+%
+\normalbaselineskip=\savnormalbaselineskip
+\normallineskip=\savnormallineskip
+\normallineskiplimit=\savnormallineskiplimit}
+
+% For use with LATEX
+%
+\def\matrice#1{
+\savnormalbaselineskip=\normalbaselineskip
+\savnormallineskip=\normallineskip
+\savnormallineskiplimit=\normallineskiplimit
+%
+\normalbaselineskip=16pt
+\normallineskip=2pt \normallineskiplimit2pt
+%
+\matrix{#1}
+%
+\normalbaselineskip=\savnormalbaselineskip
+\normallineskip=\savnormallineskip
+\normallineskiplimit=\savnormallineskiplimit}
+
+
+\def\square{\bigsquare}
+
+
+
+
+
+
+
+
+

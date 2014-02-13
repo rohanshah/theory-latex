@@ -23,6 +23,7 @@
 *.nlo
 *.out
 *.pdfsync
+*.pdf
 *.ps
 *.snm
 *.synctex.gz
@@ -30,3 +31,5 @@
 *.vrb
 *.xdy
 *.tdo
+*.swp
+*.swo

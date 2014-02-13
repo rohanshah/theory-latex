@@ -1,0 +1,405 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+
+\setlength{\topmargin}{-.5in}
+\setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in}
+\setlength{\textwidth}{6.5truein}
+\setlength{\textheight}{8.5truein}
+%
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+%
+\input xy
+\xyoption{all}
+\def\fseq#1#2{(#1_{#2})_{#2\geq 1}}
+\def\fsseq#1#2#3{(#1_{#3(#2)})_{#2\geq 1}}
+\def\qleq{\sqsubseteq}
+\def\Hom#1#2#3{\mathrm{Hom}_{#1}(#2, #3)}
+
+%
+\begin{document}
+\begin{center}
+\fbox{{\Large\bf Spring, 2014 \hspace*{0.4cm} CIS 511}}\\
+\vspace{1cm}
+{\Large\bf Introduction to the Theory of Computation\\
+Jean Gallier \\
+\vspace{0.5cm}
+Homework 2}\\[10pt]
+February 4,  2014; Due February 18, 2014, {\it beginning of class}\\
+\end{center}
+
+
+``A problems'' are for practice only, and should not
+be turned in.
+
+\medskip\noindent
+{\bf Problem A1.} 
+Recall that two regular expressions $R$ and $S$ are equivalent, denoted
+as $R \cong S$, iff they denote the same regular language 
+${\cal L}[R] = {\cal L}[S]$.
+Show that the following identities hold for regular expressions:
+\begin{align*}
+R^{**} &\cong  R^{*}\\
+(R + S)^{*} &\cong  (R^{*} + S^{*})^{*}\\
+(R + S)^{*} &\cong  (R^{*}S^{*})^{*}\\
+(R + S)^{*} &\cong  (R^{*}S)^{*}R^{*}
+\end{align*}
+
+
+\vspace {0.25cm}\noindent
+{\bf Problem A2.} 
+Recall that a homomorphism $\mapdef{h}{\Sigma^*}{\Delta^*}$
+is a function such that $h(uv) = h(u)h(v)$
+for all $u, v\in\Sigma^*$.
+Given any language $L\subseteq \Sigma^*$, we define $h(L)$ as
+$$h(L) = \{h(w)\ |\ w\in L\}.$$
+Given any language $L'\subseteq \Delta^*$, we define $h^{-1}(L')$ as
+$$h^{-1}(L') = \{w\in \Sigma^*\ | \ h(w) \in L'\}.$$
+
+\medskip
+Prove that if  $L\subseteq \Sigma^*$ and
+$L'\subseteq \Delta^*$ are regular languages, then
+so are $h(L)$ and $h^{-1}(L')$.
+
+
+\medskip\noindent
+{\bf Problem A3.} 
+Construct an NFA accepting the language
+$L = \{aa, aaa\}^*$. Apply the subset construction
+to get a DFA accepting $L$.
+
+\vspace {0.25cm}
+``B3  problems'' must be turned in.
+
+% cis51104hw2.tex
+
+\vspace{0.25cm}\noindent
+{\bf Problem B1 (40 pts).}  
+Let $\Sigma = \{a_1,\ldots, a_n\}$ 
+be an alphabet of $n$ symbols.
+
+\medskip
+(a) Construct an NFA with $2n+1$ (or $2n$) states accepting the
+set $L_n$ of strings over $\Sigma$ such that,
+every string in $L_n$ has an odd number of $a_i$, for some $a_i\in\Sigma$.
+Equivalently, if $L_{n}^{i}$ is the set of all strings
+over $\Sigma$ with an odd number of $a_i$, then
+$L_n = L_{n}^{1}\cup \cdots \cup L_{n}^{n}$.
+
+\medskip
+(b) Prove that there is a DFA with $2^n$ states accepting the language
+$L_n$.
+
+\medskip
+(c)
+Prove that every DFA accepting $L_n$ has at least $2^n$ states.
+
+\medskip\noindent
+{\it Hint\/}: If a DFA $D$ with $k < 2^n$ states accepts $L_n$, show
+that there are two strings $u, v$ with the property
+that, for some $a_i\in\Sigma$, 
+$u$ contains an odd number of $a_i$'s, 
+$v$ contains an even number of $a_i$'s, 
+and $D$ ends in the same state after processing
+$u$ and $v$. From this, conclude that $D$ accepts 
+incorrect strings.
+
+\vspace{0.25cm}\noindent
+{\bf Problem B2 (30 pts).}  
+(a)
+Let $T = \{0, 1, 2\}$, let $C$ be the set of $20$ strings
+of length three over the alphabet $T$,
+\[
+C = \{u\in T^3 \mid u \notin \{110, 111, 112, 101, 121, 011, 211\}\},
+\]
+let $\Sigma = \{0, 1, 2, c\}$ and consider the language
+\[
+L_M = \{w \in \Sigma^* \mid
+w = u_1cu_2c \cdots cu_n,\, n \geq 1, u_i \in C\}.
+\]
+Prove that $L$ is regular.
+
+\medskip
+(b)
+The language $L_M$ has a geometric interpretation as a certain
+subset of $\reals^3$ (actually, $\rats^3$), as follows:
+Given any string,
+$w = u_1cu_2c \cdots cu_n \in L_M$, denoting the $j$th character
+in $u_i$ by $u_i^j$, where $j\in \{1, 2, 3\}$, we obtain three
+strings
+\begin{eqnarray*}
+w^1 & = & u_1^1u_2^1 \cdots u_n^1 \\
+w^2 & = & u_1^2u_2^2 \cdots u_n^2 \\
+w^3 & = & u_1^3u_2^3 \cdots u_n^3.
+\end{eqnarray*}
+For example, if $w = 012c001c222c122$ we have
+$w^1 = 0021$, $w^2 = 1022$, and $w^3 = 2122$.
+Now, a string $v\in T^+$ can be interpreted as a decimal real number
+written in base three! Indeed, if
+\[
+v = b_1b_2\cdots b_k,
+\quad\hbox{where}\quad
+b_i\in \{0, 1, 2\} = T\>\> (1\leq i \leq k),
+\]
+we interpret $v$ as $n(v) = 0.b_1b_2\cdots b_k$, i.e.,
+\[
+n(v) = b_1 3^{-1} + b_2 3^{-2} + \cdots + b_k 3^{-k}.
+\]
+Finally, a string, $w = u_1cu_2c \cdots cu_n \in L_M$, is interpreted
+as the point, $(x_w, y_w, z_w)\in \reals^3$, where
+\[
+x_w  = n(w^1),\> y_w = n(w^2),\> z_w = n(w^3).
+\]
+Therefore, the language, $L_M$, is the encoding of a set of
+rational points in $\reals^3$, call it $M$.
+This turns out to be the rational part of a fractal known as
+the {\it Menger sponge\/}. 
+
+\medskip
+Explain the best you can what are the recursive rules to create
+the Menger sponge, starting from a unit cube in $\reals^3$.
+Draw some pictures illustrating this process and showing
+approximations of the Menger sponge.
+
+\medskip\noindent
+{\bf Extra Credit (20 points).}
+Write a computer program to draw  the Menger sponge (based on the ideas
+above).
+
+
+\vspace {0.25cm}
+\noindent
+{\bf Problem B3 (60 pts).} 
+Let $R$ be any regular language
+over some alphabet $\Sigma$. 
+
+\medskip
+(1)
+Prove that the language
+$$L_1 = \{u \mid \exists v\in\Sigma^*,\, uv\in R,\, |v| = 2|u|\}$$
+is regular.
+
+\medskip
+(2) Let $k\geq 1$ be any integer.
+Prove that the language
+$$L_1^k = \{u \mid \exists v\in\Sigma^*,\, uv\in R,\, |v| = k|u|\}$$
+is regular.
+
+
+
+\vspace{0.25cm}
+\noindent
+{\bf Problem B4 (30 pts).}
+Let $L$ be a regular language. Are the following languages regular,
+and if so, give a proof (or construction).
+
+\medskip
+(a) $\mathrm{Pre}(L) =\{u \mid \hbox{$u$ is a prefix of some $w\in L$}\}$
+
+\medskip
+(b) $\mathrm{Suf}(L) =\{u \mid \hbox{$u$ is a suffix of some $w\in L$}\}$
+
+\medskip
+(c) $\mathrm{Sub}(L) =\{u \mid \hbox{$u$ is a substring of some $w\in L$}\}$
+
+
+\vspace{0.25cm}
+\noindent
+{\bf Problem B5 (20 pts).}
+Let $L$ be any language over some alphabet $\Sigma$.
+
+\medskip
+(a) Prove that $L = L^+$ iff $LL \subseteq L$.
+
+\medskip
+(b) Prove that $(L =\emptyset$ or $L = L^*)$ iff $LL = L$.
+
+
+\vspace {0.5cm}\noindent
+{\bf Problem B6 (90 pts).} ({\it wqo's\/})
+We let $\natnums$ denote the set $\{0,1,2,\ldots\}$ of natural numbers,
+and $\natnums_{+}$ denote the set 
+$\{1,2,\ldots\}$ of positive natural numbers. Given a set $S$,
+an {\it infinite sequence\/} is a function $s : {\bf N}_{+} \rightarrow S$.
+An infinite sequence $s$ is also denoted by $\fseq{s}{i}$, or
+by $\langle s_{1},s_{2},\ldots,s_{i},\ldots\rangle$.
+Given an infinite sequence $s=\fseq{s}{i}$, an {\it infinite subsequence\/}
+of $s$ is any infinite sequence
+$s'=\fseq{s'}{j}$ such that there is a strictly monotonic function
+$\mapdef{f}{\natnums_+}{\natnums_+}$ 
+and
+$s'_{i}=s_{f(i)}$ for  all $i>0$
+(recall that
+a function $\mapdef{f}{\natnums_+}{\natnums_+}$ 
+is {\it strictly monotonic\/} (or {\it increasing\/}) 
+iff for all $i, j>0$, $i<j$ implies that $f(i)<f(j)$).
+An infinite subsequence $s'$ of $s$ associated with
+the function $f$ is also denoted as
+$s'=\fsseq{s}{i}{f}$.
+
+\medskip
+We now review preorders and well-foundedness. 
+
+\medskip
+Given a set $A$, a binary relation $\preceq\ \subseteq A\times A$ 
+on the set $A$ is
+a {\it preorder\/} (or {\it quasi-order\/}) iff it is reflexive
+and transitive. A preorder that is also antisymmetric is called
+a {\it partial order\/}. A preorder is {\it total\/} iff
+for every $x, y\in A$, either $x\preceq y$ or $y\preceq x$.
+The relation $\succeq$ is defined such that
+$x\succeq y$ iff $y\preceq x$, the relation $\prec$ such that 
+$$x \prec y\quad\hbox{iff}\quad x \preceq y\quad\hbox{and}\quad
+y \not\preceq x,$$
+and the relation $\succ$ such that
+$x \succ y$ iff $y\prec x$.
+We say that $x$ and $y$ are {\it incomparable\/} iff
+$x\not\preceq y$ and $y\not\preceq x$, and this is also denoted
+by $x\mid  y$. 
+
+\medskip
+Given a preorder $\preceq$ over a set $A$, an infinite sequence
+$\fseq{x}{i}$ is an {\it infinite decreasing chain\/} iff
+$x_{i} \succ x_{i+1}$ for all $i\geq 1$.
+An infinite sequence
+$\fseq{x}{i}$ is an {\it infinite antichain\/} iff
+$x_{i}\mid   x_{j}$ for all $i, j$, $1\leq i<j$.
+We say that $\preceq$ is {\it well-founded\/} and that
+$\succ$ is {\it Noetherian\/} iff there are no infinite decreasing chains
+w.r.t. $\succ$.
+
+\medskip
+We now turn to the fundamental concept of a well quasi-order (wqo).
+
+\medskip
+Given a preorder $\preceq$ over a set $A$, 
+an infinite sequence $\fseq{a}{i}$ of elements in $A$ 
+is termed {\it good\/} iff there exist positive integers
+$i$, $j$ such that $i < j$ and $a_{i}\preceq a_{j}$, and otherwise, 
+it is termed a {\it bad\/} sequence.
+A preorder $\preceq$ is a {\it well quasi-order\/},
+abbreviated as {\it wqo\/}, iff  every infinite
+sequence of elements of $A$ is good.
+
+\medskip
+Prove that the standard total ordering $\leq$ on $\natnums$ is a wqo.
+If  $\preceq$ is a wqo on a set $A$, a {\it finite\/}
+sequence is not  necessarily good (why?).
+
+\medskip
+(a)
+Prove the following characterizations of {\it wqo\/}'s.
+Given a preorder $\preceq$ on a set $A$, the following conditions
+are equivalent:
+\begin{enumerate}
+\item[(1)]
+Every infinite sequence is good (w.r.t. $\preceq$).
+\medskip
+\item[(2)]
+There are no infinite decreasing chains 
+and no infinite antichains (w.r.t. $\preceq$).
+\end{enumerate}
+
+\medskip
+Given a preorder $\preceq$ on a set $A$, 
+say that a member $s_{i}$ of an infinite sequence $s$ is {\it terminal\/} iff
+there is no $j>i$ such that $s_{i}\preceq s_{j}$. 
+
+\medskip
+(b) 
+Prove that the following statements 
+are equivalent:
+\begin{enumerate}
+\item[(1)]
+$\preceq$ is a {\it wqo\/} on $A$.
+\medskip
+\item[(2)]
+Every infinite sequence $s=\fseq{s}{i}$ over $A$ 
+contains some infinite subsequence
+$s'=\fsseq{s}{i}{f}$ such that $s_{f(i)}\preceq s_{f(i+1)}$ for all $i>0$.
+\end{enumerate}
+
+\medskip\noindent
+{\it Hint\/}. First, prove that if $\preceq$ is a wqo, then
+the number of terminal elements in any infinite  sequence $s$ is finite. 
+
+\medskip
+Given two preorders $\langle \preceq_{1},A_{1}\rangle$
+and $\langle \preceq_{2},A_{2}\rangle$, the cartesian product
+$A_{1}\times A_{2}$ is equipped with the preorder $\preceq$ defined
+such that $(a_{1},a_{2})\preceq (a_{1}',a_{2}')$ iff
+$a_{1} \preceq_{1} a_{1}'$ and $a_{2} \preceq_{2} a_{2}'$.
+
+\medskip
+(c) 
+Prove that
+if  $\preceq_{1}$ and $\preceq_{2}$ are {\it wqo\/}, 
+then  $\preceq$ is a {\it wqo\/} on $A_{1}\times A_{2}$.
+
+\remark
+This is due to Nash-Williams.
+
+\medskip
+(d) 
+Prove the following result.
+
+\medskip
+Let $n$ be any  integer such that $n>1$.
+Given any infinite sequence $\fseq{s}{i}$ of $n$-tuples of
+natural numbers, there exist positive integers $i, j$ such that
+$i<j$ and $s_{i}\preceq_{n} s_{j}$, where $\preceq_{n}$ is the
+partial order on $n$-tuples of natural numbers
+induced by the natural ordering $\leq$ on $\natnums$
+
+\remark
+This is due to 
+Dickson, 1913!
+
+\medskip
+Let $\qleq$ be a preorder on a set $A$. We define the 
+preorder $\ll$ ({\it string embedding\/})
+on $A^{*}$ as follows:
+
+\medskip\noindent
+$\epsilon \ll u$ for each $u\in A^{*}$, and,
+for any two strings $u=u_{1}u_{2}\ldots u_{m}$ and
+$v=v_{1}u_{2}\ldots v_{n}$, $1\leq m\leq n$, 
+$$u_{1}u_{2}\ldots u_{m} \ll v_{1}v_{2}\ldots v_{n}$$
+iff there exist  integers $j_{1},\ldots,j_{m}$ such that
+$1\leq j_{1} < j_{2} < \ldots < j_{m-1} < j_{m} \leq n$ and
+$$u_{1} \qleq v_{j_{1}},\ \ldots,\ u_{m} \qleq v_{j_{m}}.$$
+
+\medskip
+(e)
+Prove that $\ll$ is a preorder. Prove that
+$\ll$ is a partial order if $\qleq$ is a
+partial order.
+Prove  that $\ll$ is the least preorder on
+$A^{*}$ satisfying the following two properties:
+
+\begin{enumerate}
+\item[(1)] (deletion property)
+$uv \ll uav$, for all $u, v\in A^{*}$ and $a\in A$;
+\medskip
+\item[(2)] (monotonicity)
+$uav\ll ubv$ whenever $a\qleq b$, for all $u, v\in A^{*}$ and $a, b\in A$.
+\end{enumerate}
+
+\remark
+The following theorem due to  Higman can be proved, but the proof
+is quite tricky.
+
+\medskip\noindent
+{\bf Theorem\/}
+If $\qleq$ is a {\it wqo\/} on $A$, then $\ll$ is a {\it wqo\/} on
+$A^{*}$.
+
+
+
+
+\vspace{0.5cm}\noindent
+{\bf TOTAL:   270 $+$ 20 points.}
+
+\end{document}

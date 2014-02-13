@@ -1,0 +1,919 @@
+%
+% macros for differentials, partial derivatives, Jacobian matrices
+\def\vectorsmal#1{#1}
+\def\vecsmal#1{\vbox{\ialign{##\crcr
+    \rightarrowfill\crcr\noalign{\kern-1pt\nointerlineskip}
+    $\hfil\scriptstyle{#1}\hfil$\crcr}}}
+\def\monom#1#2#3{#1_{1}^{#2_{1}}\cdots #1_{#3}^{#2_{#3}}}
+\def\Sym#1{\hbox{Sym}^#1}
+\def\Ispac#1#2{#1^{(#2)}}
+%\def\affspac#1#2{{\bf A}^{#1}_{#2}}
+\def\affspac#1#2{{\mathbb A}^{#1}_{#2}}
+%\def\affreal{{\bf A}}
+\def\affreal{{\mathbb A}}
+\def\fixset{\mathrm{Fix}}
+\def\natop#1#2{\genfrac{}{}{0pt}{}{#1}{#2}}
+\def\indlim{\varinjlim}
+\def\projlim{\varprojlim}
+\def\inLim#1{\displaystyle {\indlim}_{#1}}
+\def\projLim#1{\displaystyle {\projlim}_{#1}}
+\def\mod{\hbox{mod}}
+\def\sgnam{\hbox{sg}}
+\def\volum{\hbox{vol}}
+\def\Lambatp#1{\Lambda_{\mathrm{at}\>#1}}
+\def\Rat#1#2{\mathrm{Rat}(#1,#2)}
+\def\Mer#1{\s{M}\mathrm{er}(#1)}
+\def\Irred#1{\mathrm{Irred}/#1}
+\def\FncFlds#1{\mathrm{FncFlds}/#1}
+\def\trace{\mathrm{tr}}
+\def\Sing{\mathrm{Sing}}
+\def\qtrace{\hbox{Tr}}
+\def\diag{\hbox{diag}}
+\def\Gram{\hbox{Gram}}
+\def\Ad{\mathrm{Ad}}
+\def\Frac{\mathrm{Frac}}
+\def\app{\hbox{app}}
+\def\smad{\mathrm{ad}}
+%\def\eucreal{{\bf E}}
+\def\eucreal{{\mathbb E}}
+\def\qone{{\bf 1}}
+\def\qi{{\bf i}}
+\def\qj{{\bf j}}
+\def\qk{{\bf k}}
+\def\quat{{\mathbb H}}
+\def\setscat{\mathbf{Sets}}
+\def\grcat{\mathbf{Grp}}
+\def\abcat{\mathbf{Ab}}
+\def\crngcat{\mathbf{CRng}}
+\def\kalgcat{\hbox{\bf k-alg}}
+\def\affalgcat{\hbox{\bf k-affalg}}
+\def\Ob{\mathrm{Ob}}
+\def\Mor{\mathrm{Mor}}
+\def\Ar{\mathrm{Ar}}
+%
+%\def\res{\upharpoonright}
+\def\res{|}
+\def\brokrarrow{\>\raise1.5pt\hbox{$\scriptstyle -\, -\, \rightarrow$}\>}
+\def\ratmap#1#2#3{#1\co #2 \brokrarrow #3}
+%\def\ratmap#1#2#3{#1\co #2 - -\rightarrow #3}
+\def\blowup#1#2{\hbox{Bl}_{#1} #2}
+\def\mGL#1{{\bf GL}(#1)}
+\def\mGA#1{{\bf GA}(#1)}
+\def\mGAa#1{{\bf GA}_a(#1)}
+\def\cech#1{\check{#1}}
+\def\mE#1{{\bf E}(#1)}
+\def\mIs#1{{\bf Is}(#1)}
+\def\mMo#1{{\bf Mo}(#1)}
+\def\mPGL#1{{\bf PGL}(#1)}
+\def\mSL#1{{\bf SL}(#1)}
+\def\mEA#1{{\bf EA}(#1)}
+\def\mIA#1{{\bf IA}(#1)}
+\def\mSE#1{{\bf SE}(#1)}
+\def\mU#1{{\bf U}(#1)}
+\def\mUpq#1#2{{\bf U}(#1,#2)}
+\def\mSU#1{{\bf SU}(#1)}
+\def\mSUpq#1#2{{\bf SU}(#1,#2)}
+\def\mSA#1{{\bf SA}(#1)}
+\def\mPSL#1{{\bf PSL}(#1)}
+\def\mO#1{{\bf O}(#1)}
+\def\mOpq#1#2{{\bf O}(#1,#2)}
+\def\mSO#1{{\bf SO}(#1)}
+\def\mSOpq#1#2{{\bf SO}(#1,#2)}
+\def\mPSO#1{{\bf PSO}(#1)}
+\def\mAut#1{{\bf Aut}(#1)}
+\def\mDIL#1{{\bf DIL}(#1)}
+\def\Grassm{{\bf G}}
+\def\PGrassm{{\bf PG}}
+\def\zozo#1{\vector{#1}}
+\def\zozor#1{\novect{#1}}
+\def\affvec#1{\vector{#1}}
+\def\intd{\int\!\!\!\int}
+\def\hli#1{\widehat{#1}}
+\def\osc#1#2{{\rm Osc}_{#1} #2}
+\def\Span{{\rm Span\/}}
+\def\fallpow#1#2{#1^{\underline{#2}}}
+\def\ringpoly#1#2{#1[#2]}
+\def\fracfpoly#1#2{#1(#2)}
+\def\ftranspos#1{\hbox{$^{t}#1$}}
+\def\transpos#1{#1^{\top}}
+\def\flecheabov#1{\buildrel #1\over\longrightarrow}
+\def\flechea#1#2#3{#1\,\flecheabov{#2}\,#3}
+\def\flecheb#1#2#3#4#5{#1\,\flecheabov{#2}\,#3\,\flecheabov{#4}\,#5}
+\def\flechec#1#2#3#4#5#6#7{#1\,\flecheabov{#2}\,#3
+\,\flecheabov{#4}\,#5\,\flecheabov{#6}\,#7}
+\def\fleched#1#2#3#4#5#6#7#8#9{#1\,\flecheabov{#2}\,#3\,\flecheabov{#4}\,#5
+\,\flecheabov{#6}\,#7\,\flecheabov{#8}\,#9}
+\def\flechel#1#2{#1\,\flecheabov{#2}\,}
+\def\flecher#1#2{\,\flecheabov{#1}\,#2}
+\def\shortexact#1#2#3#4#5{0\,\flecheabov{}\,#1\,\flecheabov{#2}\,#3
+\,\flecheabov{#4}\,#5\,\flecheabov{}\,0}
+\def\libvec#1#2{\overrightarrow{#1#2}}
+\def\toto#1#2{\overrightarrow{#1#2}}
+\def\libvecb#1#2{#2 - #1}
+\def\libvecbo#1#2{{\bf #1#2}}
+%\def\vectorr#1{\overrightarrow{#1}}
+\def\vectorr#1{#1}
+\def\bvect#1{{\bf #1}}
+\def\novect#1{#1}
+\def\vector#1{\fakoverrightarrow{#1}}
+\def\vectorforced#1{\fakoverrightarrow{#1}}
+\def\ptb#1{\overline{#1}}
+\def\covec#1{#1^{*}}
+\def\ortho#1{#1^{0}}
+\def\orthog#1{#1^{\perp}}
+\def\biortho#1{#1^{00}}
+\def\biorthog#1{#1^{\perp\perp}}
+\def\translat#1#2{#1 + \novect{#2}}
+\def\translatv#1#2{#1 + \vector{#2}}
+\def\binvec#1#2{\pmatrix{#1\cr #2\cr}}
+\def\amsbinvec#1#2{%
+\begin{pmatrix}
+#1\\ 
+#2\end{pmatrix}
+}
+\def\trivec#1#2#3{\pmatrix{#1\cr #2\cr #3\cr}}
+\def\bincoef#1#2{#1\choose #2}
+\def\mapdef#1#2#3{#1\co #2\rightarrow #3}
+\def\famil#1#2#3{(#1_{#2})_{#2\in #3}}
+\def\familvec#1#2#3{(\vector{#1_{#2}})_{#2\in #3}}
+\def\linspac#1#2{{\rm L}(#1; #2)}
+\def\slinspac#1#2{{\rm S}(#1; #2)}
+\def\clinspac#1#2#3{{\cal L}_{#1}(#2; #3)}
+\def\lincomb#1#2#3#4{\sum_{#3\in #4} #1_{#3}\vector{#2_{#3}}}
+\def\lincombin#1#2#3#4{\sum_{#3\in #4} #1_{#3} #2_{#3}}
+\def\linsum#1#2#3{#1_{1}\vector{#2_{1}} + \cdots + #1_{#3}\vector{#2_{#3}}} 
+\def\linsom#1#2#3{#1_{1}#2_{1} + \cdots + #1_{#3}#2_{#3}} 
+\def\pmatrice#1{\left( \matrice{#1} \right)}
+\def\dmatrice#1{\left| \matrix{#1} \right|}
+\def\amsdmatrice#1{\begin{vmatrix}#1\end{vmatrix}}
+%\def\dmatrice#1{\left\mid \matrix{#1} \right\mid}
+\def\dmatriceb#1{\left| \matrice{#1} \right|}
+\def\colvec#1#2{\pmatrix{#1_{1}\cr \vdots\cr #1_{#2}\cr}}
+\def\trivec#1#2#3{\pmatrix{#1\cr #2\cr #3\cr}}
+\def\colvector#1#2{\pmatrix{#1_{1}\cr #1_{2}\cr\vdots\cr #1_{#2}\cr}}
+\def\linvec#1#2{(#1_{1},\ldots, #1_{#2})}
+\def\specrow#1#2#3{(\matel{#1}{#2}{1},\ldots,\matel{#1}{#2}{#3})}
+\def\speccol#1#2#3{\pmatrix{\matel{#1}{1}{#2}\cr \vdots\cr 
+\matel{#1}{#3}{#2}\cr}}
+\def\linbasis#1#2{(\vector{#1_{1}},\ldots, \vector{#1_{#2}})} 
+\def\lbasis#1#2{(#1_{1},\ldots, #1_{#2})} 
+\def\eunorme#1#2{\left(|#1_{1}|^{2} + \cdots + |#1_{#2}|^{2}\right)^{\frac{1}{2}}}
+\def\eunorm#1#2{\sqrt{|#1_{1}|^{2} + \cdots + |#1_{#2}|^{2})}}
+\def\eudist#1#2#3{\left(|#1_{1} - #2_{1}|^{2}+ \cdots + 
+|#1_{#3} - #2_{#3}|^{2}\right)^{\frac{1}{2}}}
+\def\norme#1{\left\|#1\right\|}
+\def\smnorme#1{\|#1\|}
+\def\dist#1#2#3{d_{#1}(#2,\,#3)}
+\def\inprod#1#2{(#1 | #2)}
+\def\dotprod#1#2{#1\cdot #2}
+\def\absval#1#2{|#1 - #2|}
+\def\cloball#1#2{B(#1,#2)}
+\def\opball#1#2{B_{0}(#1,#2)}
+\def\ncloball#1{B(#1)}
+\def\nopball#1{B_{0}(#1)}
+\def\adher#1{\overline{#1}}
+%\def\interio#1{\buildrel \circ\over #1}
+\def\interio#1{\stackrel{\circ}{#1}}
+\def\fr#1{{\rm Fr}\>#1}
+%
+\def\polynom#1#2#3{#1_{0}+#1_{1}#3+\cdots +#1_{#2}#3^{#2}}
+\def\hpolynom#1#2#3{#1_{#2}#3^{#2} + #1_{#2 - 1}#3^{#2 - 1} + \cdots  + #1_{0}}
+\def\derivpol#1#2#3{#2#1_{#2}#3^{#2 - 1} + (#2 - 1)#1_{#2 - 1}#3^{#2 - 2} 
++ \cdots + 2#1_{2}#3 + #1_{1}}
+\def\rpolynom#1#2#3{#1_{0}#3^{#2} + #1_{1}#3^{#2 - 1} + \cdots  + #1_{#2}}
+\def\monic#1#2#3{#3^{#2} + #1_{#2 - 1}#3^{#2 - 1} + \cdots  + #1_{0}}
+\def\rmonic#1#2#3{#3^{#2} + #1_{1}#3^{#2 - 1} + \cdots  + #1_{#2}}
+\def\pcoef#1#2#3{#1_{(#2_{1},\ldots,#2_{#3})}}
+\def\mpolynom#1#2#3#4{\sum_{(#2_{1},\ldots,#2_{#3})\in\natnums^{(#3)}}
+\pcoef{#1}{#2}{#3}\monom{#4}{#2}{#3}}
+\def\myfrac#1#2{{\displaystyle {#1\strut\over\strut #2}}}
+%\def\dfrac#1#2{{\displaystyle #1 \strut\over\strut \displaystyle #2}}
+\def\difrac#1#2{{\displaystyle {{\displaystyle #1}\strut\over\strut #2}}}
+\def\batop#1#2{{\displaystyle #1\atop \displaystyle #2}}
+\def\derivpderivDo#1{#1'}
+\def\derivp#1{#1'}
+\def\derivD#1#2{{\rm D}^{#2}#1}
+\def\derivDof#1#2{{\rm D}#1#2}
+\def\vfderiv#1#2{{\rm D}_{#1}#2}
+\def\parderiv#1#2{\displaystyle{{\partial{#1}}\strut\over\strut{\partial{#2}}}}
+\def\amsparderiv#1#2{\displaystyle \frac{\partial #1}{\partial #2}}
+\def\parderivb#1#2{\displaystyle{{\partial^2{#1}}
+\over\strut{\partial{#2^{2}}}}}
+\def\parderivc#1#2#3{\displaystyle{{\partial^2{#1}}
+\strut\over\strut{\partial{#2}\partial{#3}}}}
+\def\parderivd#1#2#3#4#5{\displaystyle{{\partial^{#2}{#1}}
+\strut\over\strut{\partial{#3_{#4}}\ldots\partial{#3_{#5}}}}}
+\def\vparderiv#1#2{\displaystyle{{\partial{#1}}
+\strut\over\strut{\partial{\vector{#2}}}}}
+%
+\def\vparderivh#1#2#3{\displaystyle{{\partial^{#3} {#1}}
+\strut\over\strut{\partial{\vector{#2}}^{#3}}}}
+%
+%
+\def\vparderivb#1#2#3{\displaystyle{%
+\partial^{2} {#1}\strut\over\strut{%
+\partial{\vector{#2}}\partial{\vector{#3}}%
+}%
+}%
+}
+%
+\def\vparderivc#1#2#3#4#5{\displaystyle{%
+\partial^{#4 + #5} {#1}\strut\over\strut{%
+\partial{\vector{#2}}^{#4}\partial{\vector{#3}}^{#5}%
+}%
+}%
+}
+%
+\def\Der#1#2#3#4{\mathrm{Der}_{#1}(#2, #3; #4)}
+\def\sDer#1#2#3{\mathrm{Der}_{#1}(#2, #3)}
+\def\Dparderiv#1#2{\partial_{#2}{#1}}
+\def\Dparder#1#2{{\rm D}_{#2}{#1}}
+\def\deriv#1#2{{\displaystyle{d#1\strut\over\strut d#2}}}
+\def\dotderiv#1{{\dot #1}}
+\def\dotdderiv#1{{\ddot #1}}
+\def\vderiv#1#2{{\rm D}_{\vectorsmal{#1}}{#2}}
+%
+\def\vderivb#1#2#3{{\rm D}^{2}_{\vectorsmal{#1},\vectorsmal{#2}}{#3}}
+\def\vderivc#1#2#3{{\rm D}_{\vectorsmal{#1}}{\rm D}_{\vectorsmal{#2}}{#3}}
+\def\vderivd#1#2#3{{\rm D}_{\vectorsmal{#1}}\ldots
+{\rm D}_{\vectorsmal{#2}}{#3}}
+%
+\def\vderivdd#1#2#3#4#5{\underbrace{{\rm D}_{\vectorsmal{#1}}\ldots
+{\rm D}_{\vectorsmal{#2}}}_{i}\underbrace{{\rm D}_{\vectorsmal{#3}}\ldots
+{\rm D}_{\vectorsmal{#4}}}_{j}\,{#5}}
+%
+\def\matdef#1#2{{\rm M}_{#1}#2}
+\def\matdefin#1#2#3{{\rm M}_{#1, #2}#3}
+%
+\def\jacob#1#2#3#4#5{%
+\pmatrix{\parderiv{#1_{1}}{#2_{1}}(#3)&\parderiv{#1_{1}}{#2_{2}}(#3)&\ldots&
+\parderiv{#1_{1}}{#2_{#5}}(#3)\cr
+\parderiv{#1_{2}}{#2_{1}}(#3)&\parderiv{#1_{2}}{#2_{2}}(#3)&\ldots&
+\parderiv{#1_{2}}{#2_{#5}}(#3)\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\parderiv{#1_{#4}}{#2_{1}}(#3)&\parderiv{#1_{#4}}{#2_{2}}(#3)&\ldots&
+\parderiv{#1_{#4}}{#2_{#5}}(#3)\cr}}
+%
+%
+\def\amsjacob#1#2#3#4#5{%
+\begin{pmatrix}
+\amsparderiv{#1_{1}}{#2_{1}}(#3)&\amsparderiv{#1_{1}}{#2_{2}}(#3)&\ldots&
+\amsparderiv{#1_{1}}{#2_{#5}}(#3)\\[10pt]
+\amsparderiv{#1_{2}}{#2_{1}}(#3)&\amsparderiv{#1_{2}}{#2_{2}}(#3)&\ldots&
+\amsparderiv{#1_{2}}{#2_{#5}}(#3)\\[8pt]
+\vdots&\vdots&\ddots&\vdots\\[3pt]
+\amsparderiv{#1_{#4}}{#2_{1}}(#3)&\amsparderiv{#1_{#4}}{#2_{2}}(#3)&\ldots&
+\amsparderiv{#1_{#4}}{#2_{#5}}(#3)
+\end{pmatrix}
+}
+%
+\def\Djacob#1#2#3#4{%
+\pmatrix{\Dparderiv{#1_{1}}{1}(#4)&\Dparderiv{#1_{1}}{2}(#4)&\ldots& 
+\Dparderiv{#1_{1}}{#3}(#4)\cr
+\Dparderiv{#1_{2}}{1}(#4)&\Dparderiv{#1_{2}}{2}(#4)&\ldots& 
+\Dparderiv{#1_{2}}{#3}(#4)\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\Dparderiv{#1_{#2}}{1}(#4)&\Dparderiv{#1_{#2}}{2}(#4)&\ldots& 
+\Dparderiv{#1_{#2}}{#3}(#4)\cr}}
+%
+%
+\def\amsDjacob#1#2#3#4{%
+\begin{pmatrix}
+\Dparderiv{#1_{1}}{1}(#4)&\Dparderiv{#1_{1}}{2}(#4)&\ldots& 
+\Dparderiv{#1_{1}}{#3}(#4)\\
+\Dparderiv{#1_{2}}{1}(#4)&\Dparderiv{#1_{2}}{2}(#4)&\ldots& 
+\Dparderiv{#1_{2}}{#3}(#4)\\
+\vdots&\vdots&\ddots&\vdots\\
+\Dparderiv{#1_{#2}}{1}(#4)&\Dparderiv{#1_{#2}}{2}(#4)&\ldots& 
+\Dparderiv{#1_{#2}}{#3}(#4)
+\end{pmatrix}
+}
+%
+%
+\def\cjacob#1#2#3#4#5{%
+\pmatrix{\parderiv{#1}{#4}(#5)\cr
+\parderiv{#2}{#4}(#5)\cr
+\parderiv{#3}{#4}(#5)\cr}}
+%
+%
+\def\amscjacob#1#2#3#4#5{%
+\begin{pmatrix}
+\amsparderiv{#1}{#4}(#5)\\[10pt]
+\amsparderiv{#2}{#4}(#5)\\[10pt]
+\amsparderiv{#3}{#4}(#5)
+\end{pmatrix}
+}
+%
+%
+\def\ljacob#1#2#3#4#5{%
+\left(\parderiv{#1}{#2}(#5)\>\> \parderiv{#1}{#3}(#5)\>\> 
+\parderiv{#1}{#4}(#5)\right)}
+%
+%
+\def\amsljacob#1#2#3#4#5{%
+\left(\amsparderiv{#1}{#2}(#5)\>\> \amsparderiv{#1}{#3}(#5)\>\> 
+\amsparderiv{#1}{#4}(#5)\right)}
+%
+\def\jacoba#1#2#3#4#5{%
+\pmatrix{\parderiv{#1}{#3}(#5)&\parderiv{#1}{#4}(#5)\cr
+\parderiv{#2}{#3}(#5)&\parderiv{#2}{#4}(#5)\cr}}
+%
+%
+\def\jacobb#1#2#3#4#5#6{%
+\pmatrix{\parderiv{#1}{#4}(#6)&\parderiv{#1}{#5}(#6)\cr
+\parderiv{#2}{#4}(#6)&\parderiv{#2}{#5}(#6)\cr
+\parderiv{#3}{#4}(#6)&\parderiv{#3}{#5}(#6)\cr}}
+%
+%
+\def\amsjacobb#1#2#3#4#5#6{%
+\begin{pmatrix}
+\amsparderiv{#1}{#4}(#6)&\amsparderiv{#1}{#5}(#6)\\[10pt]
+\amsparderiv{#2}{#4}(#6)&\amsparderiv{#2}{#5}(#6)\\[10pt]
+\amsparderiv{#3}{#4}(#6)&\amsparderiv{#3}{#5}(#6)
+\end{pmatrix}
+}
+%
+%
+\def\rowjacob#1#2#3#4{%
+\left(\parderiv{#1}{#2_{1}}(#3)\> \cdots\> \parderiv{#1}{#2_{#4}}(#3)\right)}
+%
+\def\amsrowjacob#1#2#3#4{%
+\left(\amsparderiv{#1}{#2_{1}}(#3)\> \cdots\> 
+\amsparderiv{#1}{#2_{#4}}(#3)\right)}
+%
+\def\hessien#1#2#3#4{%
+\pmatrix{\parderivb{#1}{#2_{1}}(#3)&\parderivc{#1}{#2_{1}}{#2_{2}}(#3)&\ldots&
+\parderivc{#1}{#2_{1}}{#2_{#4}}(#3)\cr
+\parderivc{#1}{#2_{1}}{#2_{2}}(#3)&\parderivb{#1}{#2_{2}}(#3)&\ldots&
+\parderivc{#1}{#2_{2}}{#2_{#4}}(#3)\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\parderivc{#1}{#2_{1}}{#2_{#4}}(#3)&\parderivc{#1}{#2_{2}}{#2_{#4}}(#3)&\ldots&
+\parderivb{#1}{#2_{#4}}(#3)\cr}}
+%
+%
+\def\matel#1#2#3{#1_{#2\, #3}}
+%
+%\def\mata#1#2#3#4{%
+%\pmatrice{#1& #2\cr
+%#3&#4\cr}}
+
+\def\mata#1#2#3#4{%
+\pmatrice{#1& #2\cr
+#3&#4\cr}}
+
+%
+\def\matta#1#2#3#4{%
+\left(
+\matrix{
+#1 & #2\cr
+#3 & #4\cr
+}
+\right)}
+%
+\def\amsmata#1#2#3#4{%
+\begin{pmatrix}
+#1 & #2\\
+#3 & #4
+\end{pmatrix}
+}
+%
+\def\matb#1{%
+\pmatrix{\matel{#1}{1}{1}& \matel{#1}{1}{2}& \matel{#1}{1}{3}\cr
+\matel{#1}{2}{1}& \matel{#1}{2}{2}& \matel{#1}{2}{3}\cr
+\matel{#1}{3}{1}& \matel{#1}{3}{2}& \matel{#1}{3}{3}\cr}}
+%
+%
+\def\matc#1#2#3#4#5#6#7#8#9{%
+\pmatrice{#1& #2& #3\cr
+#4 & #5 & #6\cr
+#7 & #8 & #9\cr}}
+%
+\def\mattc#1#2#3#4#5#6#7#8#9{%
+\left(
+\matrix{
+#1 & #2 & #3\cr
+#4 & #5 & #6\cr
+#7 & #8 & #9\cr
+}
+\right)}
+%
+%
+\def\amsmatc#1#2#3#4#5#6#7#8#9{%
+\begin{pmatrix}
+#1 & #2 & #3\\
+#4 & #5 & #6\\
+#7 & #8 & #9
+\end{pmatrix}
+}
+%
+%
+\def\genmat#1#2#3{%
+\pmatrix{\matel{#1}{1}{1}& \matel{#1}{1}{2}&\ldots& \matel{#1}{1}{#3}\cr
+\matel{#1}{2}{1}& \matel{#1}{2}{2}&\ldots& \matel{#1}{2}{#3}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\matel{#1}{#2}{1}& \matel{#1}{#2}{2}&\ldots& \matel{#1}{#2}{#3}\cr}}
+%
+\def\genmatrix#1#2#3{%
+\pmatrix{\matel{#1}{1}{1}& \ldots& \matel{#1}{1}{#3}\cr
+\vdots&\ddots&\vdots\cr
+\matel{#1}{#2}{1}& \ldots& \matel{#1}{#2}{#3}\cr}}
+%
+\def\idmat{%
+\pmatrix{\matel{1}{}{}& \matel{0}{}{}&\ldots& \matel{0}{}{}\cr
+\matel{0}{}{}& \matel{1}{}{}&\ldots& \matel{0}{}{}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\matel{0}{}{}& \matel{0}{}{}&\ldots& \matel{1}{}{}\cr}}
+%
+%
+\def\uptmat#1#2#3{%
+\pmatrix{
+\matel{#1}{1}{1}&\matel{#1}{1}{2}&\matel{#1}{1}{3}&\ldots& 
+\matel{#1}{1}{#3 -1}&\matel{#1}{1}{#3}\cr
+0& \matel{#1}{2}{2}&\matel{#1}{2}{3}&\ldots& \matel{#1}{2}{#3 -1}& \matel{#1}{2}{#3}\cr
+0& 0&\matel{#1}{3}{3}&\ldots& \matel{#1}{3}{#3 - 1}& \matel{#1}{3}{#3}\cr
+\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\cr
+0& 0&0&\ldots&\matel{#1}{#2 -1}{#3 -1} &\matel{#1}{#2 - 1}{#3}\cr
+0& 0&0&\ldots& 0 &\matel{#1}{#2}{#3}\cr}}
+%
+\def\amsuptmat#1#2#3{%
+\begin{pmatrix}
+\matel{#1}{1}{1}&\matel{#1}{1}{2}&\matel{#1}{1}{3}&\ldots& 
+\matel{#1}{1}{#3 -1}&\matel{#1}{1}{#3}\\
+0& \matel{#1}{2}{2}&\matel{#1}{2}{3}&\ldots& \matel{#1}{2}{#3 -1}& \matel{#1}{2}{#3}\\
+0& 0&\matel{#1}{3}{3}&\ldots& \matel{#1}{3}{#3 - 1}& \matel{#1}{3}{#3}\\
+\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
+0& 0&0&\ldots&\matel{#1}{#2 -1}{#3 -1} &\matel{#1}{#2 - 1}{#3}\\
+0& 0&0&\ldots& 0 &\matel{#1}{#2}{#3}
+\end{pmatrix}
+}
+%
+%
+%
+\def\uptmatb#1#2#3#4{%
+\pmatrix{
+#4_{1} - #4&\matel{#1}{1}{2}&\matel{#1}{1}{3}&\ldots& 
+\matel{#1}{1}{#3 -1}&\matel{#1}{1}{#3}\cr
+0& #4_{2} - #4&\matel{#1}{2}{3}&\ldots& \matel{#1}{2}{#3 -1}& \matel{#1}{2}{#3}\cr
+0& 0&#4_{3} - #4&\ldots& \matel{#1}{3}{#3 - 1}& \matel{#1}{3}{#3}\cr
+\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\cr
+0& 0&0&\ldots&#4_{#2 - 1} - #4&\matel{#1}{#2 - 1}{#3}\cr
+0& 0&0&\ldots& 0 &#4_{#3}- #4\cr}}
+%
+%
+\def\amsuptmatb#1#2#3#4{%
+\begin{pmatrix}
+#4_{1} - #4&\matel{#1}{1}{2}&\matel{#1}{1}{3}&\ldots& 
+\matel{#1}{1}{#3 -1}&\matel{#1}{1}{#3}\\
+0& #4_{2} - #4&\matel{#1}{2}{3}&\ldots& \matel{#1}{2}{#3 -1}& \matel{#1}{2}{#3}\\
+0& 0&#4_{3} - #4&\ldots& \matel{#1}{3}{#3 - 1}& \matel{#1}{3}{#3}\\
+\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
+0& 0&0&\ldots&#4_{#2 - 1} - #4&\matel{#1}{#2 - 1}{#3}\\
+0& 0&0&\ldots& 0 &#4_{#3}- #4
+\end{pmatrix}
+}
+%
+%
+%
+\def\onecolmat#1#2#3{%
+\pmatrix{\matel{#1}{1}{1}& \matel{#1}{1}{2}&\ldots& \matel{#1}{1}{#3}\cr
+0& \matel{#1}{2}{2}&\ldots& \matel{#1}{2}{#3}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+0& \matel{#1}{#2}{2}&\ldots& \matel{#1}{#2}{#3}\cr}}
+%
+%
+%
+\def\amsonecolmat#1#2#3{%
+\begin{pmatrix}
+\matel{#1}{1}{1}& \matel{#1}{1}{2}&\ldots& \matel{#1}{1}{#3}\\
+0& \matel{#1}{2}{2}&\ldots& \matel{#1}{2}{#3}\\
+\vdots&\vdots&\ddots&\vdots\\
+0& \matel{#1}{#2}{2}&\ldots& \matel{#1}{#2}{#3}
+\end{pmatrix}
+}
+%
+
+\def\idmatrix{%
+\pmatrix{\matel{1}{}{}& \matel{0}{}{}&\ldots& \matel{0}{}{}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\matel{0}{}{}& \matel{0}{}{}&\ldots& \matel{1}{}{}\cr}}
+%
+\def\diagmat#1#2{%
+\pmatrix{#1_{1}&        &\ldots& \cr
+                & #1_{2}  &\ldots& \cr
+\vdots&\vdots&\ddots&\vdots\cr
+      &      &\ldots& #1_{#2}\cr}}
+\def\amsdiagmat#1#2{%
+%\pmatrix{
+\begin{pmatrix}
+#1_{1}&        &\ldots& \\
+                & #1_{2}  &\ldots& \\
+\vdots&\vdots&\ddots&\vdots\\
+      &      &\ldots& #1_{#2}
+%}
+\end{pmatrix}
+}
+%
+\def\expdiagmat#1#2{%
+\pmatrix{e^{i #1_{1}}&        &\ldots& \cr
+                & e^{i #1_{2}}  &\ldots& \cr
+\vdots&\vdots&\ddots&\vdots\cr
+      &      &\ldots& e^{i #1_{#2}}\cr}}
+%
+%
+\def\amsexpdiagmat#1#2{%
+\begin{pmatrix}
+e^{i #1_{1}}&        &\ldots& \\
+                & e^{i #1_{2}}  &\ldots& \\
+\vdots&\vdots&\ddots&\vdots\\
+      &      &\ldots& e^{i #1_{#2}}
+\end{pmatrix}
+}
+%
+%
+\def\diagmatso#1#2#3#4{%
+\pmatrix{
+I_{#3}&         &         & \ldots &         \cr
+      & -I_{#4} &         &        &         \cr
+      &         & #1_{1}  & \ldots &         \cr
+\vdots&         &\vdots   & \ddots & \vdots  \cr
+      &         &         & \ldots & #1_{#2} \cr}
+}
+%
+
+%
+\def\diagmatsob#1#2#3#4{%
+\pmatrix{
+ #1_{1}  & \ldots &        &        &        \cr
+\vdots   & \ddots & \vdots &        &\vdots  \cr
+         & \ldots & #1_{#2}&        &        \cr
+         &        &        &-I_{#4} &        \cr
+\ldots   &        &        &        & I_{#3} \cr
+}
+}
+%
+
+%
+\def\diagmatsobb#1#2#3{%
+\pmatrix{
+ #1_{1}  & \ldots &        &        \cr
+\vdots   & \ddots & \vdots &        \cr
+         & \ldots & #1_{#2}&        \cr
+\ldots   &        &        &  I_{#3}\cr
+}
+}
+%
+
+%
+\def\diagmatlsobb#1#2#3{%
+\pmatrix{
+ #1_{1}  & \ldots &        &        \cr
+\vdots   & \ddots & \vdots &        \cr
+         & \ldots & #1_{#2}&        \cr
+\ldots   &        &        &  0_{#3}\cr
+}
+}
+%
+
+\def\diagmatrecm#1#2{%
+\pmatrix{#1_{1}&        &\ldots& \cr
+                & #1_{2}  &\ldots& \cr
+\vdots&\vdots&\ddots&\vdots\cr
+      &      &\ldots& #1_{#2}\cr
+ 0    &  \vdots & \ldots & 0\cr
+\vdots&\vdots&\ddots&\vdots\cr
+ 0    &  \vdots & \ldots & 0\cr
+}}
+%
+
+\def\diagmatrecn#1#2{%
+\pmatrix{#1_{1}&        &\ldots& & 0 &\ldots &0\cr
+                & #1_{2}  &\ldots& & 0&\ldots& 0 \cr
+\vdots&\vdots&\ddots&\vdots& 0 &\vdots & 0\cr
+      &      &\ldots& #1_{#2}& 0 & \ldots & 0\cr}}
+%
+
+%
+\def\kappamatrix{%
+\pmatrix{
+0        & \kappa_1&        &              &              \cr
+-\kappa_1&     0   &\kappa_2&              &              \cr
+         & -\kappa_2& 0     &\ddots        &              \cr
+         &          &\ddots &\ddots        &\kappa_{n-1}  \cr
+         &          &       &-\kappa_{n-1} & 0            \cr}}
+%
+
+%
+\def\omegamatrix#1#2{%
+\pmatrix{
+0        & #1_{1\, 2}&        &              &              \cr
+-#1_{1\, 2}&     0   &#1_{2\, 3}&              &              \cr
+         & -#1_{2\, 3}& 0     &\ddots        &              \cr
+         &          &\ddots &\ddots        &#1_{#2-1\, #2}  \cr
+         &          &       &-#1_{#2-1\, #2} & 0            \cr}}
+%
+
+
+\def\gendet#1#2{%
+\dmatrice{\matel{#1}{1}{1}& \matel{#1}{1}{2}&\ldots& \matel{#1}{1}{#2}\cr
+\matel{#1}{2}{1}& \matel{#1}{2}{2}&\ldots& \matel{#1}{2}{#2}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\matel{#1}{#2}{1}& \matel{#1}{#2}{2}&\ldots& \matel{#1}{#2}{#2}\cr}}
+%
+%
+\def\charpoly#1#2#3{%
+\dmatrice{\matel{#1}{1}{1} - #3& \matel{#1}{1}{2}&\ldots& \matel{#1}{1}{#2}\cr
+\matel{#1}{2}{1}& \matel{#1}{2}{2} - #3&\ldots& \matel{#1}{2}{#2}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\matel{#1}{#2}{1}& \matel{#1}{#2}{2}&\ldots& \matel{#1}{#2}{#2}- #3\cr}}
+%
+\def\charpoly2#1#2#3{%
+\dmatrice{#3 - \matel{#1}{1}{1}& -\matel{#1}{1}{2}&\ldots& -\matel{#1}{1}{#2}\cr
+-\matel{#1}{2}{1}& #3 - \matel{#1}{2}{2} &\ldots& -\matel{#1}{2}{#2}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+-\matel{#1}{#2}{1}& -\matel{#1}{#2}{2}&\ldots& #3 - \matel{#1}{#2}{#2}\cr}}
+%
+%
+\def\vecdet#1#2#3{%
+\dmatrice{\matel{#1}{1}{1}& \ldots& \matel{#1}{1}{#2 -1}& #3_{1}\cr
+\matel{#1}{2}{1}& \ldots&\matel{#1}{2}{#2 -1}& #3_{2}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\matel{#1}{#2}{1}&\ldots& \matel{#1}{#2}{#2 -1}& #3_{#2}\cr}}
+%
+%
+\def\detb#1{%
+\dmatrice{\matel{#1}{1}{1}& \matel{#1}{1}{2}& \matel{#1}{1}{3}\cr
+\matel{#1}{2}{1}& \matel{#1}{2}{2}& \matel{#1}{2}{3}\cr
+\matel{#1}{3}{1}& \matel{#1}{3}{2}& \matel{#1}{3}{3}\cr}}
+%
+%
+\def\detc#1#2#3#4#5#6#7#8#9{%
+\dmatrice{#1& #2& #3\cr
+#4& #5& #6\cr
+#7& #8& #9\cr}}
+%
+\newcommand\ndetc[9]{%
+\begin{tabular}{|ccc|}
+$#1$ & $#2$ & $#3$\\
+$#4$ & $#5$ & $#6$\\
+$#7$ & $#8$ & $#9$
+\end{tabular}
+}
+
+
+%
+\def\detcb#1#2#3#4#5#6#7#8#9{%
+\dmatriceb{#1& #2& #3\cr
+#4& #5& #6\cr
+#7& #8& #9\cr}}
+%
+%
+%
+\def\deta#1#2#3#4{%
+\dmatrice{#1& #2\cr
+#3& #4\cr}}
+
+
+\newcommand\ndeta[4]{%
+\begin{tabular}{|cc|}
+$#1$ & $#2$\\
+$#3$ & $#4$
+\end{tabular}
+}
+
+
+\def\resultant#1#2#3#4{%
+\dmatrice{
+#1_0 & #1_1 & \cdots & \cdots & #1_{#3} & 0 &\cdots &\cdots &\cdots &\cdots & 0\cr
+0 &  #1_0 & #1_1 & \cdots & \cdots & #1_{#3} & 0 &\cdots &\cdots &\cdots  & 0\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+0 & \cdots &\cdots  &\cdots &\cdots & 0 & #1_0 & #1_1 & \cdots & \cdots &  #1_{#3}\cr
+#2_0 & #2_1 & \cdots &  \cdots &\cdots &\cdots &\cdots & #2_{#4} & 0 & \cdots & 0\cr
+0 &  #2_0 & #2_1 & \cdots &  \cdots & \cdots &\cdots &\cdots & #2_{#4} &  0 &\cdots\cr
+\cdots  &\cdots  &\cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots & \cdots &\cdots \cr
+0 & \cdots & 0 & #2_0 & #2_1 &  \cdots & \cdots&\cdots &\cdots &\cdots   & #2_{#4}\cr
+}}
+
+\def\resultantht#1#2#3#4#5{%
+\dmatrice{
+#1_0 & #5#1_1 & \cdots & \cdots & #5^{#3}#1_{#3} & 0 &\cdots &\cdots &\cdots &\cdots & 0\cr
+0 &  #1_0 & #5#1_1 & \cdots & \cdots & #5^{#3}#1_{#3} & 0 &\cdots &\cdots &\cdots  & 0\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+0 & \cdots &\cdots  &\cdots &\cdots & 0 & #1_0 & #5#1_1 & \cdots & \cdots &  #5^{#3}#1_{#3}\cr
+#2_0 & #5#2_1 & \cdots &  \cdots &\cdots &\cdots &\cdots & #5^{#4}#2_{#4} & 0 & \cdots & 0\cr
+0 &  #2_0 & #5#2_1 & \cdots &  \cdots & \cdots &\cdots &\cdots & #5^{#4}#2_{#4} &  0 &\cdots\cr
+\cdots  &\cdots  &\cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots & \cdots &\cdots \cr
+0 & \cdots & 0 & #2_0 & #5#2_1 &  \cdots & \cdots&\cdots &\cdots &\cdots   & #5^{#4}#2_{#4}\cr
+}}
+
+\def\resultanthtt#1#2#3#4#5{%
+\dmatrice{
+#5#1_0 & #5^{2}#1_1 & \cdots & \cdots & #5^{#3+1}#1_{#3} & 0 
+&\cdots &\cdots &\cdots &\cdots & 0\cr
+0 &  #5^{2}#1_0 & #5^{3}#1_1 & \cdots & \cdots & #5^{#3+2}#1_{#3} & 0 
+&\cdots &\cdots &\cdots  & 0\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+\cdots  &\cdots  &\cdots  & \cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots &\cdots\cr
+0 & \cdots &\cdots  &\cdots &\cdots & 
+0 & #5^{#4}#1_0 & #5^{#4+1}#1_1 & \cdots & \cdots &  #5^{#3+#4}#1_{#3}\cr
+#5#2_0 & #5^{2}#2_1 & \cdots &  \cdots &\cdots &\cdots &\cdots &
+ #5^{#4+1}#2_{#4} & 0 & \cdots & 0\cr
+0 &  #5^{2}#2_0 & #5^{3}#2_1 & \cdots &  \cdots & \cdots &\cdots &\cdots &
+ #5^{#4+2}#2_{#4} &  0 &\cdots\cr
+\cdots  &\cdots  &\cdots & \cdots &\cdots &\cdots &\cdots &\cdots & \cdots & \cdots &\cdots \cr
+0 & \cdots & 0 & #5^{#3}#2_0 & #5^{#3+1}#2_1 &  
+\cdots & \cdots&\cdots &\cdots &\cdots   & #5^{#3+#4}#2_{#4}\cr
+}}
+
+\def\resultantb#1#2#3#4{%
+\dmatrice{
+1 & #1_1 & \cdots & \cdots & \cdots & #1_{#3} & 0 &  \cdots &\cdots & 0\cr
+0 &  1 & #1_1 & \cdots &  \cdots &  \cdots & #1_{#3} & 0 & \cdots&\cdots\cr
+\cdots  &\cdots  &\cdots &\cdots & \cdots & \cdots &  \cdots & \cdots &\cdots &\cdots \cr
+0 & \cdots & 0 & 1 & #1_1 & \cdots & \cdots&\cdots&\cdots& #1_{#3}\cr
+#3 & (#3-1)#2_1 & \cdots & \cdots &#2_{#4} & 0 &  \cdots &  \cdots &  \cdots & 0\cr
+0 &  #3 & (#3-1)#2_1 & \cdots &\cdots& #2_{#4} & 0 & \cdots &\cdots &  \cdots & \cr
+\cdots  &\cdots  &\cdots &\cdots & \cdots &\cdots & \cdots &  \cdots & \cdots &\cdots \cr
+0 & \cdots & \cdots & 0 & #3 & (#3-1)#2_1 &  \cdots &  \cdots & \cdots& #2_{#4}\cr
+}}
+
+%
+\def\vandermonde#1#2{%
+\dmatrice{1& 1&\ldots& 1\cr
+#1_1& #1_2&\ldots& #1_{#2}\cr
+#1_{1}^{2}& #1_{2}^{2}&\ldots& #1_{#2}^{2}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+#1_{1}^{#2 - 1}& #1_{2}^{#2 - 1}&\ldots& #1_{#2}^{#2 - 1}\cr}}
+%
+%
+\def\svandermonde#1#2{%
+\dmatrice{1& 1&\ldots& 1\cr
+0& #1_2 - #1_1&\ldots& #1_{#2} - #1_1\cr
+0& #1_{2}(#1_{2} - #1_1)&\ldots& #1_{#2}(#1_{#2} - #1_1)\cr
+\vdots&\vdots&\ddots&\vdots\cr
+0& #1_{2}^{#2 - 2}(#1_{2} - #1_1)&\ldots& #1_{#2}^{#2 - 2}(#1_{#2} - #1_1)\cr}}
+%
+
+\def\sindeta#1#2{%
+\dmatrice{
+\sin #2_1 & \sin #2_2 & \ldots & \sin #2_{#1}\cr
+-\sin^3 #2_1 & -\sin^3 #2_2 & \ldots & -\sin^3 #2_{#1}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+(-1)^{#1 -1}\sin^{2#1-1} #2_1 & (-1)^{#1 -1}\sin^{2#1-1} #2_2 & \ldots & 
+(-1)^{#1 -1}\sin^{2#1-1} #2_{#1}\cr
+}}
+
+\def\sindetb#1#2{%
+\dmatrice{
+\sin #2_1 & \sin #2_2 & \ldots & \sin #2_{#1}\cr
+\sin 2#2_1 & \sin 2#2_2 & \ldots & \sin 2#2_{#1}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\sin #1#2_1 & \sin #1#2_2 & \ldots & \sin #1#2_{#1}\cr
+}}
+
+\def\sindetc#1#2{%
+\dmatrice{
+ #2_1 &  #2_2 & \ldots &  #2_{#1}\cr
+- #2_1^3 &  -#2_2^3 & \ldots &  -#2_{#1}^3\cr
+\vdots&\vdots&\ddots&\vdots\cr
+(-1)^{#1-1} #2_1^{2#1-1} & (-1)^{#1-1} #2_2^{2#1-1} & \ldots & 
+(-1)^{#1-1} #2_{#1} ^{2#1-1}\cr
+}}
+
+%
+\def\castel#1#2{%
+\dmatrice{
+1& \sigma_1(#1_{1},\ldots,#1_{#2})&\ldots&
+\sigma_{#2}(#1_{1},\ldots,#1_{#2}) \cr
+1& \sigma_1(#1_{2},\ldots,#1_{#2+1})&\ldots&
+\sigma_{#2}(#1_{2},\ldots,#1_{#2+1}) \cr
+1& \sigma_1(#1_{3},\ldots,#1_{#2+2})&\ldots&
+\sigma_{#2}(#1_{3},\ldots,#1_{#2+2}) \cr
+\vdots&\vdots&\ddots&\vdots\cr
+1& \sigma_1(#1_{#2+1},\ldots,#1_{2#2})&\ldots&
+\sigma_{#2}(#1_{#2+1},\ldots,#1_{2#2}) \cr}}
+%
+\def\amscastel#1#2{%
+\left|
+\begin{matrix}
+1& \sigma_1(#1_{1},\ldots,#1_{#2})&\ldots&
+\sigma_{#2}(#1_{1},\ldots,#1_{#2}) \\
+1& \sigma_1(#1_{2},\ldots,#1_{#2+1})&\ldots&
+\sigma_{#2}(#1_{2},\ldots,#1_{#2+1}) \\
+1& \sigma_1(#1_{3},\ldots,#1_{#2+2})&\ldots&
+\sigma_{#2}(#1_{3},\ldots,#1_{#2+2}) \\
+\vdots&\vdots&\ddots&\vdots\\
+1& \sigma_1(#1_{#2+1},\ldots,#1_{2#2})&\ldots&
+\sigma_{#2}(#1_{#2+1},\ldots,#1_{2#2})
+\end{matrix}
+\right|
+}
+
+
+%
+%\def\natnums{{\bf N}}
+\def\natnums{\mathbb{N}}
+%\def\integs{{\bf Z}}
+\def\integs{\mathbb{Z}}
+%\def\rats{{\bf Q}}
+\def\rats{\mathbb{Q}}
+%\def\reals{{\bf R}}
+\def\reals{\mathbb{R}}
+%\def\complex{{\bf C}}
+\def\complex{\mathbb{C}}
+\def\Ker{{\rm Ker}\,}
+\def\coker{{\rm Coker}\,}
+\def\Kerof#1{\Ker(#1)}
+\let\Immag=\Im
+\def\Im{{\rm Im}\,}
+\def\Imof#1{\Im(#1)}
+\def\dual#1{#1^{*}}
+\def\dualh#1{{#1}'}
+\def\bdual#1{#1^{**}}
+\def\id{{\rm id}}
+\def\dimm{{\rm dim}}
+\def\codim{{\rm codim}}
+\def\rg{{\rm rk}}
+\def\card{{\rm card}}
+\def\deg#1{{\rm deg}#1}
+\def\mdeg{m}
+\def\ndeg{n}
+\def\pdeg{p}
+\def\qdeg{q}
+\def\ddeg{d}
+\def\Ndeg{N}
+\def\Jet{{\rm Jet}}
+\def\coJet{\hbox{co-Jet}}
+\def\gr{{\rm gr}}
+\def\ratio{{\rm ratio}}
+\def\ideal#1{\mfrac{#1}}
+\def\hatplus{\>\widehat{+}\>}
+\def\hatminus{\>\widehat{-}\>}
+\def\pcompl#1{\widetilde{#1}}
+\def\ptinf#1{{#1}_{\infty}}
+%\def\ptinf#1{\vector{#1}_{\infty}}
+\def\homog#1{#1_{*}}
+\def\tensalg{{\rm T}}
+\def\salg{{\rm S}}
+\def\symalg{{\rm Sym}}
+\def\extalg{\bigwedge}
+\def\domm{{\rm dom}}
+\def\Bezierbc#1#2#3#4#5{{\cal B}\Big[#1_{#2},\ldots,#1_{#3};\, [#4,\,#5]\Big]}
+\def\Bezierc#1#2#3{{\cal B}\Big[#1;\, [#2,\,#3]\Big]}
+%\def\prospac#1#2{{\bf P}^{#1}_{#2}}
+\def\prospac#1#2{{\mathbb{P}}^{#1}_{#2}}
+%\def\rprospac#1{{\bf RP}^{#1}}
+\def\rprospac#1{{\mathbb{RP}}^{#1}}
+%\def\cprospac#1{{\bf CP}^{#1}}
+\def\cprospac#1{{\mathbb{CP}}^{#1}}
+\def\projs#1{{\bf P}(#1)}
+\def\Proj{\mathrm{Proj}}
+\def\bprojs#1{{\bf P}\bigl(#1\bigr)}
+%\def\projr#1{{\bf P}^{#1}}
+\def\projr#1{{\mathbb{P}}^{#1}}
+\def\projv{\mathrm{Proj}}
+\def\affs{\s{E}}
+\def\christofa#1#2#3{[#1\, #2;\, #3]}
+\def\christofb#1#2#3{\Gamma_{#1\, #2}^{#3}}
+%\def\pairtb#1#2{\left< #1,\; #2\right>}
+\def\pairtb#1#2{\left< #1, #2\right>}
+\def\mbold#1{{\bf #1}}
+%\def\mfrac#1{{\EuFrak #1}}
+\def\mfrac#1{{\mathfrak{#1}}}
+\def\voldeta#1#2{%
+\dmatrice{
+\matel{#1}{0}{1}&\matel{#1}{0}{2}&\ldots & \matel{#1}{0}{#2}& 1\cr
+\matel{#1}{1}{1}&\matel{#1}{1}{2}&\ldots & \matel{#1}{1}{#2}& 1\cr
+\vdots&\vdots&\ddots&\vdots&\vdots\cr
+\matel{#1}{#2}{1}&\matel{#1}{#2}{2}&\ldots& \matel{#1}{#2}{#2}& 1\cr}}
+%
+
+\def\voldetb#1#2{%
+\dmatrice{
+\matel{#1}{1}{1} - \matel{#1}{0}{1}&\matel{#1}{1}{2} - \matel{#1}{0}{2}&
+\ldots & \matel{#1}{1}{#2} - \matel{#1}{0}{#2}\cr
+\matel{#1}{2}{1} - \matel{#1}{0}{1}&\matel{#1}{2}{2} - \matel{#1}{0}{2}&
+\ldots & \matel{#1}{2}{#2} - \matel{#1}{0}{#2}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\matel{#1}{#2}{1} - \matel{#1}{0}{1}&\matel{#1}{#2}{2} - \matel{#1}{0}{2}&
+\ldots&\matel{#1}{#2}{#2} - \matel{#1}{0}{#2}\cr}}
+%
+
+\def\gramdet#1#2{%
+\dmatrice{
+\norme{#1_1}^2 &\pairt{#1_1}{#1_2}&\ldots & \pairt{#1_1}{#1_{#2}}\cr
+\pairt{#1_2}{#1_1} &\norme{#1_2}^2&\ldots & \pairt{#1_2}{#1_{#2}}\cr
+\vdots&\vdots&\ddots&\vdots\cr
+\pairt{#1_{#2}}{#1_1} &\pairt{#1_{#2}}{#1_2}&\ldots & \norme{#1_{#2}}^2\cr
+}}
+%
+
+\def\chull#1{\s{C}(#1)}
+\def\chullb#1{\mathrm{conv}(#1)}

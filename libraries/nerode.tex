@@ -1,0 +1,1846 @@
+\chapter[Regular Languages, Minimization of DFA's]
+{Regular Languages and Equivalence Relations,
+The Myhill-Nerode Characterization, State Equivalence}
+\label{chapmn}
+\section{The Closure Definition of the Regular Languages}
+\label{sec1}
+Let $\Sigma = \{a_1, \ldots, a_m\}$ be some alphabet.
+We would like to define a family of languages,
+$R(\Sigma)$, by singling out some very basic (atomic)
+languages, namely the languages
+$\{a_1\}, \ldots, \{a_m\}$, the empty language, and the
+trivial language, $\{\epsilon\}$, and then
+forming more complicated languages by repeatedly forming
+union, concatenation and Kleene $*$ of previously
+constructed languages. By doing so, we hope to get
+a family of languages ($R(\Sigma)$) that is closed under union,
+concatenation, and Kleene $*$. This means that
+for any two languages, $L_1, L_2\in R(\Sigma)$,
+we also have $L_1\cup L_2\in R(\Sigma)$ and
+$L_1 L_2\in R(\Sigma)$, and for
+any language $L\in R(\Sigma)$, we have $L^*\in R(\Sigma)$.
+Furthermore, we would like $R(\Sigma)$ to be the smallest
+family with these properties. How do we achieve this
+rigorously?
+
+\medskip
+First, let us look more closely at what we mean by a family
+of languages. Recall that a language (over $\Sigma$) is
+{\it any\/} subset, $L$, of $\Sigma^*$. Thus, the set
+of all languages is $2^{\Sigma^*}$, the power set of $\Sigma^*$.
+If $\Sigma$ is nonempty, this is an uncountable set.
+Next, we define a {\it family\/}, $\s{L}$, of languages to be any
+subset of $2^{\Sigma^*}$. This time, the set of families
+of languages is $2^{2^{\Sigma^*}}$. This is a huge set.
+We can use the inclusion relation on 
+$2^{2^{\Sigma^*}}$ to define a partial order on families
+of languages. So, $\s{L}_1\subseteq \s{L}_2$ iff
+for every language, $L$, if $L\in \s{L}_1$ then
+$L\in \s{L}_2$.
+
+\medskip
+We can now state more precisely what we are trying to do.
+Consider the following properties for a family
+of languages, $\s{L}$:
+\begin{enumerate}
+\item[(1)]
+We have $\{a_1\}, \ldots, \{a_m\}, \emptyset, \{\epsilon\}\in \s{L}$,
+i.e., $\s{L}$ contains the ``atomic'' languages.
+\item[(2a)]
+For all $L_1, L_2\in \s{L}$, we also have $L_1\cup L_2\in \s{L}$.
+\item[(2b)]
+For all $L_1, L_2\in \s{L}$, we also have $L_1 L_2\in \s{L}$.
+\item[(2c)]
+For all $L\in \s{L}$, we also have $L^*\in \s{L}$.
+\end{enumerate}
+In other words, $\s{L}$ is closed under union, concatenation
+and Kleene $*$.
+
+
+\medskip
+Now, what we want is the smallest (w.r.t. inclusion)
+family of languages
+that satisfies properties (1) and (2)(a)(b)(c).
+We can  construct such a family using an 
+{\it inductive definition\/}. This inductive definition
+constructs a sequence of families of languages,
+$(R(\Sigma)_n)_{n \geq 0}$, called the
+{\it stages of the inductive definition\/}, as follows:
+\begin{eqnarray*}
+R(\Sigma)_0 &= & \{\{a_1\}, \ldots, \{a_m\}, \emptyset, \{\epsilon\}\},\\
+R(\Sigma)_{n+1} &= & R(\Sigma)_{n}\cup \{L_1\cup L_2,\, L_1L_2,\, L^*\ \mid 
+ L_1, L_2, L \in  R(\Sigma)_{n}\}.
+\end{eqnarray*}
+
+Then, we define $R(\Sigma)$ by
+\[
+R(\Sigma) = \bigcup_{n\geq 0} R(\Sigma)_{n}.
+\]
+Thus, a language $L$ belongs to $R(\Sigma)$ iff
+it belongs $L_n$, for some $n\geq 0$.
+Observe that
+\[
+R(\Sigma)_0 \subseteq R(\Sigma)_1 \subseteq  R(\Sigma)_2 \subseteq 
+\cdots  R(\Sigma)_n \subseteq R(\Sigma)_{n+1} \subseteq \cdots
+\subseteq R(\Sigma),
+\]
+so that if $L\in R(\Sigma)_n$, then  $L\in R(\Sigma)_p$, 
+for all $p \geq n$. Also, there is some smallest
+$n$ for which $L\in R(\Sigma)_n$ (the {\it birthdate\/} of $L$!).
+In fact, all these inclusions are strict.
+Note that each $R(\Sigma)_n$ only contains a finite
+number of languages (but some of the languages in $R(\Sigma)_n$
+are infinite, because of Kleene $*$).
+%
+Then we define the {\it Regular languages, Version 2\/}, as
+the family $R(\Sigma)$. 
+
+\medskip
+Of course, it is far from obvious that $R(\Sigma)$ coincides
+with the family of languages accepted by DFA's (or NFA's),
+what we call the regular languages, version 1.
+However, this is the case, and this can be demonstrated by giving
+two algorithms. Actually, it will be slightly more convenient
+to define a notation system, the {\it regular expressions\/},
+to denote the languages in $R(\Sigma)$.  Then,
+we will give an algorithm that converts a regular expression,
+$R$, into an NFA, $N_R$, so that $L_R = L(N_R)$, where
+$L_R$ is the language (in $R(\Sigma)$) denoted by $R$.
+We will also give an algorithm that converts an NFA, $N$, into
+a regular expression, $R_N$, so that $L(R_N) = L(N)$.
+
+\medskip
+But before doing all this, we should make sure that
+$R(\Sigma)$ is indeed the family that
+we are seeking. This is the content of
+
+
+\begin{lemma}
+\label{clolem1}
+The family, $R(\Sigma)$, is the smallest family
+of languages which contains the atomic languages
+$\{a_1\}$, $\ldots, \{a_m\}$, $\emptyset$, $\{\epsilon\}$, 
+and is closed under union, concatenation, and Kleene $*$.
+\end{lemma}
+
+\proof
+There are two things to prove. 
+\begin{enumerate}
+\item[(i)]
+We need to prove
+that $R(\Sigma)$ has properties (1) and (2)(a)(b)(c).
+\item[(ii)]
+We need to prove that $R(\Sigma)$ is the smallest
+family having  properties (1) and \\
+(2)(a)(b)(c).
+\end{enumerate}
+
+\medskip
+(i) Since
+\[
+R(\Sigma)_0 =  \{\{a_1\}, \ldots, \{a_m\}, \emptyset, \{\epsilon\}\},
+\]
+it is obvious that (1) holds.
+Next, assume that $L_1, L_2\in R(\Sigma)$.
+This means that there are some integers $n_1, n_2\geq 0$,
+so that $L_1\in R(\Sigma)_{n_1}$ and
+$L_2\in R(\Sigma)_{n_2}$. Now, it is possible that 
+$n_1 \not= n_2$, but if we let $n = \max\{n_1, n_2\}$,
+as we observed that $R(\Sigma)_p \subseteq R(\Sigma)_q$
+whenever $p \leq q$, we are garanteed that 
+both $L_1, L_2\in R(\Sigma)_n$.
+However, by the definition of $R(\Sigma)_{n+1}$
+(that's why we defined it this way!), we have 
+$L_1\cup L_2 \in R(\Sigma)_{n+1} \subseteq R(\Sigma)$.
+The same argument proves that 
+$L_1 L_2 \in R(\Sigma)_{n+1} \subseteq R(\Sigma)$.
+Also, if $L\in R(\Sigma)_n$, we immediately have
+$L^*\in R(\Sigma)_{n+1} \subseteq R(\Sigma)$.
+Therefore, $R(\Sigma)$  has properties (1) and (2)(a)(b)(c).
+
+\medskip
+(ii)
+Let $\s{L}$ be any family of languages having
+properties (1) and (2)(a)(b)(c). We need to prove that
+$R(\Sigma) \subseteq \s{L}$. If we can prove
+that $R(\Sigma)_n \subseteq \s{L}$, for all $n \geq 0$,
+we are done (since then,
+$R(\Sigma) = \bigcup_{n\geq 0} R(\Sigma)_{n} \subseteq \s{L}$).
+We prove by induction on $n$ that 
+$R(\Sigma)_n \subseteq \s{L}$, for all $n \geq 0$.
+
+\medskip
+The base case $n = 0$ is trivial, since
+$\s{L}$ has (1), which says that
+$R(\Sigma)_0 \subseteq \s{L}$.
+Assume inductively that $R(\Sigma)_n \subseteq \s{L}$.
+We need to prove that  $R(\Sigma)_{n+1} \subseteq \s{L}$.
+Pick any $L\in R(\Sigma)_{n+1}$. Recall that
+\[
+R(\Sigma)_{n+1} =  R(\Sigma)_{n}\cup \{L_1\cup L_2,\, L_1L_2,\, L^*\ \mid 
+ L_1, L_2, L \in  R(\Sigma)_{n}\}.
+\]
+If $L\in R(\Sigma)_n$, then $L\in \s{L}$, since
+$R(\Sigma)_n \subseteq \s{L}$, by the induction hypthesis.
+Otherwise, there are three cases:
+\begin{enumerate}
+\item[(a)]
+$L = L_1\cup L_2$, where $L_1, L_2\in R(\Sigma)_n$.
+By the induction hypothesis, $R(\Sigma)_n \subseteq \s{L}$, 
+so, we get $L_1, L_2\in \s{L}$; since $\s{L}$
+has 2(a), we have $L_1\cup L_2\in \s{L}$.
+\item[(b)]
+$L = L_1  L_2$, where $L_1, L_2\in R(\Sigma)_n$.
+By the induction hypothesis, $R(\Sigma)_n \subseteq \s{L}$, 
+so, we get $L_1, L_2\in \s{L}$; since $\s{L}$
+has 2(b), we have $L_1  L_2\in \s{L}$.
+\item[(c)]
+$L = L_1^*$, where $L_1\in R(\Sigma)_n$.
+By the induction hypothesis, $R(\Sigma)_n \subseteq \s{L}$, 
+so, we get $L_1\in \s{L}$; since $\s{L}$
+has 2(c), we have $L_1^*\in \s{L}$.
+\end{enumerate}
+Thus, in all cases, we showed that $L\in \s{L}$, and so,
+ $R(\Sigma)_{n+1} \subseteq \s{L}$, 
+which proves the induction step.
+$\bigsquare$
+
+\medskip
+Students should study carefully the above proof.
+Although simple, it is the prototype of many proofs
+appearing in the theory of computation.
+
+\section[Morphisms, $F$-Maps, $F^{-1}$-Maps and 
+Homomorphisms of DFA's]
+{Morphisms, $F$-Maps, $F^{-1}$-Maps and \\
+Homomorphisms of DFA's}
+\label{DFAmaps}
+It is natural to wonder whether there is a reasonable
+notion of a mapping between DFA's. It turns out that this is indeed
+the case and there is a  notion of a map between
+DFA's which is very useful
+in the theory of DFA minimization (given a DFA, find
+an equivalent DFA of minimal size).
+Obviously, a map between DFA's should be
+a certain kind of graph homomorphism, which means that 
+given two DFA's 
+$D_1 = (Q_1, \Sigma, \delta_1, q_{0, 1}, F_1)$ and
+$D_2 = (Q_2, \Sigma, \delta_2, q_{0, 2}, F_2)$, we have a
+function, $\mapdef{h}{Q_1}{Q_2}$, mapping every state,
+$p\in Q_1$, of $D_1$, to some state, $q = h(p)\in Q_2$, of $D_2$ in such a way
+that for every input symbol, $a\in \Sigma$,
+the transition on $a$ from $p$ to $\delta_1(p, a)$ is mapped to the
+transition on $a$ from $h(p)$ to $h(\delta_1(p, a))$, 
+so that 
+\[
+h(\delta_1(p, a)) = \delta_2(h(p), a),
+\]
+which can be expressed by the commutativity of the following
+diagram:
+\[
+\xymatrix{
+p \ar[r]^-{h}\ar[d]_-{a} & \> h(p) \ar[d]^-{a} \\
+\delta_1(p, a) \ar[r]^-h &  \delta_2(h(p), a) 
+}
+\]
+
+\medskip
+In order to be useful, a map of DFA's, $\mapdef{h}{D_1}{D_2}$,
+should induce a relationship between the languages, $L(D_1)$
+and $L(D_2)$, such as $L(D_1) \subseteq L(D_2)$,
+$L(D_2) \subseteq L(D_1)$ or $L(D_1) = L(D_2)$.
+This can indeed be achieved by requiring some simple
+condition on the way final states are related by $h$.
+
+\medskip
+The following Definition is adapted from Eilenberg:
+
+\begin{defin}
+\label{DFAmapdef}
+{\em 
+Given two DFA's,
+$D_1 = (Q_1, \Sigma, \delta_1, q_{0, 1}, F_1)$
+and 
+$D_2 = (Q_2, \Sigma, \delta_2, q_{0, 2}, F_2)$,
+a {\it  morphism, $\mapdef{h}{D_1}{D_2}$, of DFA's\/} is a function,
+$\mapdef{h}{Q_1}{Q_2}$, satisfying the following conditions:
+\begin{enumerate}
+\item[(1)]
+\[
+h(\delta_1(p, a)) = \delta_2(h(p), a),
+\quad
+\hbox{for all $p\in Q_1$ and all $a\in \Sigma$};
+\]
+\item[(2)]
+$h(q_{0, 1}) = q_{0, 2}$.
+\end{enumerate}
+
+\medskip
+An {\it  $F$-map  of DFA's\/}, for short,
+a {\it  map\/},  is a morphism of DFA's, 
+$\mapdef{h}{D_1}{D_2}$,
+that satisfies the condition
+
+\medskip
+(3a)
+$h(F_1) \subseteq F_2$.
+
+\medskip
+An {\it  $F^{-1}$-map of DFA's\/} is a 
+morphism of DFA's, 
+$\mapdef{h}{D_1}{D_2}$, 
+that satisfies the condition
+
+\medskip
+(3b)
+$h^{-1}(F_2) \subseteq F_1$.
+
+\medskip
+A {\it  proper homomorphism of DFA's\/}, for short, a 
+{\it  homomorphism\/}, is an $F$-map
+of DFA's that is also an $F^{-1}$-map of DFA's namely,
+a  homomorphism satisfies  (3a) \& (3b).
+
+\medskip
+Now, for any function $\mapdef{f}{X}{Y}$ and any two subsets
+$A\subseteq X$ and $B\subseteq Y$,
+\[
+f(A) \subseteq B\quad\hbox{iff}\quad A\subseteq f^{-1}(B).
+\]
+Thus, (3a) \& (3b) is equivalent
+to the condition (3c) below, that is, a homomorphism of DFA's
+is a morphism satisfying the condition
+
+\medskip
+(3c)
+$h^{-1}(F_2) = F_1$.
+}
+\end{defin}
+
+
+\medskip
+Note that the condition for being a proper homomorphism of DFA's
+is {\bf not} equivalent to
+\[
+h(F_1) = F_2.
+\]
+It forces $h(F_1) = F_2 \cap h(Q_1)$,
+and furthermore, 
+for every $p\in Q_1$, whenever
+$h(p) \in F_2$, then $p\in F_1$.
+
+\medskip
+Figure \ref{DFA3} shows a map, $h$,  of DFA's, with
+\begin{eqnarray*}
+h(A) = h(C) & = & 0 \\
+h(B)   & = & 1 \\
+h(D) & = & 2 \\
+h(E) & = & 3.
+\end{eqnarray*}
+It is easy to check that $h$ is actually a (proper) homomorphism.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{pspicture}(0,-0.4)(10,4.5)
+    \pnode(0.25,2){s}
+    \cnodeput(1,2){n0}{$A$}
+    \cnodeput(4,3.5){n1}{$B$}
+    \cnodeput(4,0.5){n2}{$C$}
+    \cnodeput(7,2){n3}{$D$}
+    \cnodeput[linecolor=green](10,2){n5}{$E$}
+    \cnode[linecolor=green](10,2){0.48cm}{n4}
+    \ncline[linewidth=1pt]{->}{s}{n0}
+    \ncline[linewidth=1pt]{->}{n0}{n1}
+    \aput{:U}{$a$}
+    \ncline[linewidth=1pt]{->}{n0}{n2}
+    \bput{:U}{$b$}
+    \ncline[linewidth=1pt]{->}{n2}{n1}
+    \aput{:R}{$a$}
+    \ncline[linewidth=1pt,offset=4pt]{->}{n1}{n3}
+    \aput{:U}{$b$}
+    \ncline[linewidth=1pt,offset=4pt]{->}{n3}{n1}
+    \aput{:D}{$a$}
+    \ncline[linewidth=1pt]{->}{n3}{n4}
+    \aput{:U}{$b$}
+    \ncline[linewidth=1pt]{->}{n4}{n2}
+    \aput{:D}{$b$}
+    \nccircle[linewidth=1pt,angleA=10]{<-}{n1}{0.4cm}
+    \lput{:L}{\rput[u]{40}(0,.7){$a$}}
+    \nccircle[linewidth=1pt,angleA=180]{<-}{n2}{0.4cm}
+    \lput{:L}{\rput[u]{40}(1.0,-0.7){$b$}}
+    \ncarc[arcangle=-20, linewidth=1pt]{->}{n4}{n1}
+    \bput{:D}{$a$}
+    \end{pspicture} 
+ \end{center}
+ \begin{center}
+    \begin{pspicture}(0,0)(10,5)
+    \pnode(0.25,1.5){s}
+    \cnodeput(1,1.5){n0}{$0$}
+    \cnodeput(4,1.5){n1}{$1$}
+    \cnodeput(7,1.5){n2}{$2$}
+    \cnodeput[linecolor=green](10,1.5){n4}{$3$}
+%    \cnodeput(3,0){n2}{\circlenode{n1}{$1$}}
+    \cnode[linecolor=green](10,1.5){0.45cm}{n3}
+    \ncline[linewidth=1pt]{->}{s}{n0}
+    \ncline[linewidth=1pt]{->}{n0}{n1}
+    \aput{:U}{$a$}
+    \ncline[linewidth=1pt,offset=4pt]{->}{n1}{n2}
+    \aput{:U}{$b$}
+    \ncline[linewidth=1pt,offset=4pt]{->}{n2}{n1}
+    \aput{:D}{$a$}
+    \ncline[linewidth=1pt]{->}{n2}{n3}
+    \aput{:U}{$b$}
+    \nccircle[linewidth=1pt,angleA=20]{<-}{n0}{0.4cm}
+    \lput{:L}{\rput[u]{45}(-0.1,.6){$b$}}
+    \nccircle[linewidth=1pt]{<-}{n1}{0.4cm}
+    \lput{:L}{\rput[u]{45}(0,.5){$a$}}
+    \ncarc[arcangle=-35, linewidth=1pt]{->}{n3}{n0}
+    \bput{:D}{$b$}
+    \ncarc[arcangle=40, linewidth=1pt]{->}{n3}{n1}
+    \aput{:D}{$a$}
+    \uput[0](0,4.2){$A \longrightarrow 0;\> B \longrightarrow 1;\> 
+C \longrightarrow 0;\> D \longrightarrow 2;\> E \longrightarrow 3$}
+%    \psdots[dotstyle=o,dotscale=1.5](0,0)
+%    \uput[-90](0,0){$v_1$}
+    \end{pspicture}
+  \end{center}
+  \caption{A map of DFA's}
+  \label{DFA3}
+\end{figure}
+
+
+
+\medskip
+The reader should check that if
+$\mapdef{f}{D_1}{D_2}$ and 
+$\mapdef{g}{D_2}{D_3}$ are
+morphisms (resp. $F$-map, resp. 
+$F^{-1}$-map), then
+$\mapdef{g\circ f}{D_1}{D_3}$ is also a morphism 
+(resp. $F$-map, resp. $F^{-1}$-map).
+
+
+\remark
+In previous versions of these notes, an $F$-map was called simply a 
+{\it  map\/} and
+an $F^{-1}$-map was called a {\it  homomorphism\/}.
+Over the years, the old terminology proved to be confusing.
+We hope the new one is less confusing!
+
+\medskip
+Note that an $F$-map or an  $F^{-1}$-map is a special case
+of the concept of {\it  simulation\/} of automata.
+A proper homomorphism is a special case of a
+{\it  bisimulation\/}. Bisimulations play an important role
+in real-time systems and in concurrency theory.
+
+\medskip
+The main motivation behind these definitions is that
+when there is an $F$-map $\mapdef{h}{D_1}{D_2}$, somewhow,
+$D_2$ simulates $D_1$, and it turns out that
+$L(D_1) \subseteq L(D_2)$.
+
+\medskip
+When there is an $F^{-1}$-map $\mapdef{h}{D_1}{D_2}$, somewhow,
+$D_1$ simulates $D_2$, and it turns out that
+$L(D_2) \subseteq L(D_1)$.
+
+\medskip
+When there is a proper homomorphism $\mapdef{h}{D_1}{D_2}$, somewhow,
+$D_1$ bisimulates $D_2$, and it turns out that
+$L(D_2) = L(D_1)$.
+
+\medskip
+A DFA morphism (resp. $F$-map, resp. $F^{-1}$-map), 
+$\mapdef{f}{D_1}{D_2}$,
+is an {\it  isomorphism\/} iff there is a DFA morphism (resp. $F$-map,
+resp. $F^{-1}$-map), $\mapdef{g}{D_2}{D_1}$, so that
+\[
+g\circ  f = \id_{D_1}
+\quad\hbox{and}\quad
+f\circ g = \id_{D_2}.
+\]
+The map $g$ is unique and it is denoted $f^{-1}$.
+The reader should prove that if a DFA $F$-map 
+is an isomorphism, then it is also a proper homomorphism
+and if a DFA $F^{-1}$-map is an isomorphism, then it is also
+a proper homomorphism.
+
+\medskip
+If $\mapdef{h}{D_1}{D_2}$  is a morphism
+of DFA's, it is easily shown by 
+induction on the length of $w$ that
+
+\[h(\delta_1^*(p, w)) = \delta_2^*(h(p), w),\]
+
+\medskip
+for all $p\in Q_1$ and all $w\in \Sigma^*$.
+
+\medskip
+As a consequence, we have the following Lemma:
+
+
+\begin{lemma}
+\label{DFAmaplem1}
+If $\mapdef{h}{D_1}{D_2}$  is an $F$-map of DFA's, then
+$L(D_1) \subseteq L(D_2)$. \\
+If $\mapdef{h}{D_1}{D_2}$  is an $F^{-1}$-map of DFA's, then
+$L(D_2) \subseteq L(D_1)$.
+Finally, if $\mapdef{h}{D_1}{D_2}$  is a proper homomorphism of DFA's, then 
+$L(D_1) = L(D_2)$.
+\end{lemma}
+
+\medskip
+One might think that there may be many DFA morphisms
+between two DFA's $D_1$ and $D_2$, but  this is not the case.
+In fact, if every state of $D_1$ is reachable from the start state,
+then there is at most one morphism from $D_1$ to $D_2$. 
+
+\medskip
+A DFA is {\it  accessible, or trim,\/} if every state is reachable from 
+the start state. 
+A morphism (resp. $F$-map, $F^{-1}$-map)
+$\mapdef{h}{D_1}{D_2}$  is {\it  surjective\/} 
+if $h(Q_1) = Q_2$.
+
+\medskip
+The following lemma is easy to show:
+\begin{lemma}
+\label{DFAmaplem2}
+If $D_1$ is trim, then there is a most 
+one morphism $\mapdef{h}{D_1}{D_2}$  
+(resp. $F$-map, resp. $F^{-1}$-map).
+If $D_2$ is also trim and we have a
+morphism, $\mapdef{h}{D_1}{D_2}$, then $h$ is surjective.  
+\end{lemma}
+
+\medskip
+It can also be shown that a minimal DFA $D_L$ for $L$ is 
+characterized by the property that there is unique surjective
+proper homomorphism
+$\mapdef{h}{D}{D_L}$ from any trim DFA $D$ accepting $L$ to $D_L$.
+
+\medskip
+Another useful notion is the notion of a congruence on a DFA.
+
+\begin{defin}
+\label{DFcongdef}
+{\em 
+Given any  DFA,
+$D = (Q, \Sigma, \delta, q_{0}, F)$,
+a {\it  congruence $\equiv$ on $D$\/} is an equivalence
+relation $\equiv$ on $Q$ satisfying the following
+conditions:
+\begin{enumerate}
+\item[(1)] 
+If $p \equiv q$, then $\delta(p, a)\equiv \delta(q, a)$,
+for all $p, q\in Q$ and all $a\in \Sigma$.
+\item[(2)] 
+If $p \equiv q$ and $p\in F$, then $q\in F$,
+for all $p, q\in Q$.
+\end{enumerate}
+}
+\end{defin}
+
+\medskip
+It can be shown that
+a proper  homomorphism of DFA's
+$\mapdef{h}{D_1}{D_2}$ induces a
+congruence $\equiv_h$ on $D_1$ defined as follows:
+
+\medskip
+$$p\equiv_h q\quad
+\hbox{iff}\quad
+h(p) = h(q).$$
+
+\medskip
+Given a congruence $\equiv$ on a DFA $D$, we can define
+the {\it  quotient DFA $D/\equiv$\/}, and there is a 
+surjective proper
+homomorphism $\mapdef{\pi}{D}{D/\equiv}$.
+
+\medskip
+We will come back to
+this point when we study minimal DFA's.
+
+
+\section{Right-Invariant Equivalence Relations on $\Sigma^*$}
+\label{secmn1}
+The purpose of this section is to give one more
+characterization of the regular languages in terms
+of certain kinds of equivalence relations on strings.
+Pushing this characterization a bit further, we will
+be able to show how  minimal DFA's can be found.
+
+\medskip
+Let $D = (Q, \Sigma, \delta, q_0, F)$ be a DFA.
+The DFA $D$ may be redundant, for example, if there
+are states that are not accessible from the start state.
+This motivates the following definition:
+The set $Q_{r}$ of {\it accessible or reachable states\/} is the subset of $Q$
+defined as
+$$Q_{r} = \{p \in Q\ |\ \exists w\in\Sigma^*,\ \delta^*(q_0,w) = p\}.$$
+The set $Q_{r}$ can be easily computed by stages.
+If $Q\not= Q_{r}$, we can ``clean up'' $D$ by deleting the states
+in $Q - Q_{r}$ and restricting the transition function $\delta$
+to $Q_{r}$. This way, we get an equivalent DFA $D_r$
+such that $L(D) = L(D_r)$, where all the states of $D_r$ are
+reachable. From now on, we assume that we are dealing with
+DFA's such that $D = D_{r}$, called {\it reachable, or trim\/}.
+
+\medskip
+Recall that an {\it equivalence relation\/} $\simeq$ on a set $A$ is
+a relation which is {\it reflexive\/}, {\it symmetric\/},
+and {\it transitive\/}. Given any $a\in A$, the set
+$$\{b\in A\ |\ a\simeq b\}$$
+is called the {\it equivalence class of $a$\/}, and it is denoted
+as $[a]_{\simeq}$, or even as $[a]$.
+Recall that for any two elements $a, b\in A$,
+$[a]\cap [b] = \emptyset$ iff $a\not\simeq b$, and
+$[a] = [b]$ iff $a\simeq b$. The set of equivalence classes associated
+with the equivalence relation $\simeq$ is a {\it partition\/} $\Pi$
+of $A$ (also denoted as $A/\simeq$).
+This means that it is a family of nonempty pairwise
+disjoint sets whose union is equal to $A$ itself.
+The equivalence classes are also called the {\it blocks\/}
+of the partition $\Pi$.
+The number of blocks in the partition $\Pi$
+is called the {\it index\/} of $\simeq$ (and $\Pi$).
+
+\medskip
+Given any two equivalence relations $\simeq_1$ and $\simeq_2$
+with associated partitions $\Pi_1$ and $\Pi_2$, 
+$$\simeq_1\> \subseteq\> \simeq_2$$
+iff
+every block of the partition $\Pi_1$ is contained in some
+block of the partition $\Pi_2$.
+Then, every block of the partition $\Pi_2$ is the union of
+blocks of the partition $\Pi_1$, and we say that
+$\simeq_1$ is a {\it refinement\/} of $\simeq_2$
+(and similarly, $\Pi_1$ is a refinement of $\Pi_2$).
+Note that $\Pi_2$ has at most as many blocks as $\Pi_1$ does.
+
+\medskip
+We now define an equivalence relation on strings
+induced by a DFA. This equivalence is a kind of ``observational''
+equivalence, in the sense that we decide that two strings
+$u, v$ are equivalent iff, when feeding first $u$ and then $v$
+to the DFA, $u$ and $v$ drive the DFA to the same state. From the point
+of view of the observer, $u$ and $v$ have the same effect
+(reaching the same state).
+
+\begin{defin}
+\label{equiv1}
+{\em 
+Given a DFA 
+$D = (Q, \Sigma, \delta, q_0, F)$, we define the relation
+$\simeq_D$ on $\Sigma^*$ as follows:
+for any two strings $u, v\in \Sigma^*$,
+$$u\simeq_D v\quad\hbox{iff}\quad \delta^*(q_0,u) = \delta^*(q_0,v).$$
+}
+\end{defin}
+
+
+\medskip
+We can figure out what the equivalence classes of
+$\simeq_D$ are for the following DFA:
+
+\[
+\matrice{
+           &   a   &  b  \cr
+0          &   1   &  0  \cr
+1          &   2   &  1  \cr
+2          &   0   &  2  \cr
+}
+\]
+
+\medskip\noindent
+with $0$ both start state and (unique)  final state.
+For example
+\begin{eqnarray*} 
+abbabbb & \simeq_D & aa\\
+ababab &\simeq_D & \epsilon\\
+bba & \simeq_D & a.
+\end{eqnarray*} 
+
+There are three equivalences classes:
+\[[\epsilon]_{\simeq},\quad [a]_{\simeq},\quad [aa]_{\simeq}.\]
+Observe that $L(D) = [\epsilon]_{\simeq}$.
+Also, the equivalence classes are in one--to--one
+correspondence with the states of $D$.
+
+\medskip
+The relation $\simeq_D$ turns out to have some interesting
+properties. In particular, it is {\it right-invariant\/},
+which means that for all $u, v, w\in\Sigma^*$, if
+$u\simeq v$, then $uw\simeq vw$.
+
+\begin{lemma}
+\label{lem1}
+Given any (accessible) DFA $D = (Q, \Sigma, \delta, q_0, F)$, the relation
+$\simeq_D$ is an equivalence relation which is right-invariant
+and has finite index. Furthermore, if $Q$ has $n$ states,
+then the index of $\simeq_D$ is $n$, and every equivalence
+class of $\simeq_D$ is a regular language.
+Finally, $L(D)$ is the union of some of the equivalence classes
+of $\simeq_D$.
+\end{lemma}
+
+\proof
+The fact that $\simeq_D$ is an equivalence
+relation is a trivial verification.
+To prove that $\simeq_D$ is right-invariant, we first prove
+by induction on the length of $v$ that for all $u, v\in\Sigma^*$,
+for all $p\in Q$,
+$$\delta^*(p,uv) = \delta^*(\delta^*(p,u),\, v).$$
+Then, if $u\simeq_D v$, which means that
+$\delta^*(q_0,u) = \delta^*(q_0,v)$,  we have
+$$\delta^*(q_0,uw) = \delta^*(\delta^*(q_0,u),\, w) 
+= \delta^*(\delta^*(q_0,v),\, w) = \delta^*(q_0,vw),$$
+which means that $uw\simeq_D vw$.
+Thus, $\simeq_D$ is right-invariant.
+We still have to prove that $\simeq_D$ has index $n$.
+Define the function $\mapdef{f}{\Sigma^*}{Q}$ such that
+$$f(u) = \delta^*(q_0,u).$$
+Note that if $u\simeq_D v$, which means that
+$\delta^*(q_0,u) = \delta^*(q_0,v)$, then
+$f(u) = f(v)$. Thus, the function $\mapdef{f}{\Sigma^*}{Q}$ 
+induces a function $\mapdef{\hli{f}}{\Pi}{Q}$
+defined such that
+$$\hli{f}([u]) = f(u),$$
+for every equivalence class $[u]\in \Pi$, where $\Pi = \Sigma^*/\simeq$
+is the partition associated with $\simeq_D$.
+However, the function $\mapdef{\hli{f}}{\Pi}{Q}$ is injective
+(one-to-one), since $\hli{f}([u]) = \hli{f}([v])$ means that
+$\delta^*(q_0,u) = \delta^*(q_0,v)$, which means precisely
+that $u\simeq_D v$, i.e., $[u] = [v]$.
+Since $Q$ has $n$ states, $\Pi$ has at most $n$ blocks.
+Moreover, since every state is accessible, for every $q\in Q$, there
+is some $w\in \Sigma^*$ so that $\delta^*(q_0, w) = q$, which
+shows that $\hli{f}([w]) = f(w) = q$. Consequently, $\hli{f}$ is
+also surjective. But then, being injective and surjective, $\hli{f}$ is
+bijective and $\Pi$ has exactly $n$ blocks. 
+
+\medskip
+Every equivalence class of $\Pi$ is a set of strings of the form
+$$\{w\in\Sigma^*\ |\ \delta^*(q_0, w) = p\},$$
+for some $p\in Q$, which is accepted by the DFA
+obtained from $D$ by changing $F$ to $\{p\}$.
+Thus, every equivalence class is a regular language.
+Finally, $L(D)$ is the union of the equivalence classes
+corresponding to the final states in $F$.
+$\square$
+
+\medskip
+The remarkable fact due to Myhill and Nerode, is that
+Lemma \ref{lem1} has a converse.
+
+\begin{lemma}
+\label{lem2}
+Given any equivalence relation $\simeq$ on $\Sigma^*$,
+if $\simeq$ is right-invariant and has finite index $n$,
+then every equivalence class (block) in the partition $\Pi$
+associated with $\simeq$ is a regular language.
+\end{lemma}
+
+\proof
+Let $C_1, \ldots, C_n$ be the blocks of $\Pi$,
+and assume that $C_1 = [\epsilon]$ is the equivalence class
+of the empty string.
+
+\medskip
+First, we claim that for every  block
+$C_i$ and every $w\in \Sigma^*$, there is a unique block $C_j$
+such that $C_i w \subseteq C_j$,
+where $C_i w = \{uw\ |\ u\in C_i\}$.
+
+\medskip
+For every $u\in C_i$, the string $uw$ belongs to one 
+and only one of the
+blocks of $\Pi$, say $C_j$.
+For any other string $v\in C_i$, since (by definition) $u\simeq v$,
+by right invariance, we get $uw\simeq vw$,
+but since $uw\in C_j$ and $C_j$
+is an equivalence class,  we also have $vw\in C_j$.
+This proves the first claim.
+
+\medskip
+We also claim that for every $w\in\Sigma^*$, for every block $C_i$,
+$$C_1 w\subseteq C_i\quad\hbox{iff}\quad w\in C_i.$$
+
+\medskip
+If $C_1 w\subseteq C_i$, since $C_1 = [\epsilon]$, we have
+$\epsilon w = w\in C_i$. Conversely, if $w\in C_i$,
+for any $v\in C_1 = [\epsilon]$, since $\epsilon \simeq v$,
+by right invariance we have $w \simeq vw$,
+and thus $vw \in C_i$, which shows that $C_1 w\subseteq C_i$.
+
+\medskip
+For every class $C_k$, let
+$$D_k = (\{1,\ldots, n\}, \Sigma, \delta, 1, \{k\}),$$
+where $\delta(i, a) = j$ iff $C_i a\subseteq C_j$.
+We will prove the following equivalence:
+\[
+\delta^*(i, w) = j\quad\hbox{iff}\quad
+C_iw \subseteq C_j.
+\]
+For this, we prove the following two implications
+by induction on $|w|$:
+\begin{enumerate}
+\item[(a)]
+If $\delta^*(i, w) = j$, then $C_iw \subseteq C_j$, and
+\item[(b)]
+If  $C_iw \subseteq C_j$, then $\delta^*(i, w) = j$.
+\end{enumerate}
+The base case ($w = \epsilon$) is trivial for both (a) and (b).
+We leave the proof of the induction step for (a) as an exercise and 
+give the proof of the  induction step for (b) because it is more subtle.
+Let $w = ua$, with $a\in \Sigma$  and $u\in \Sigma^*$.
+If $C_iua \subseteq C_j$, then by the first claim, we know that
+there is a unique block, $C_k$, such that $C_iu \subseteq C_k$.
+Furthermore, there is a unique block, $C_h$, such that
+$C_ka \subseteq C_h$, but $C_iu \subseteq C_k$ implies
+$C_iua \subseteq C_ka$ so we get $C_iua \subseteq C_h$. However,
+by the uniqueness of the block, $C_j$, such  that $C_iua \subseteq C_j$,
+we must have $C_h = C_j$. By the induction hypothesis, as
+$C_iu \subseteq C_k$, we have
+\[
+\delta^*(i, u) = k 
+\]
+and, by definition of $\delta$, as $C_ka \subseteq C_j\, (= C_h)$,
+we have 
+$\delta(k, a) = j$,
+so we deduce that
+\[
+\delta^*(i, ua) = \delta(\delta^*(i, u), a) = \delta(k, a) = j,
+\]
+as desired.
+Then, using the equivalence just proved  and the second claim, we have
+\begin{eqnarray*}
+L(D_k)  & = & \{w\in \Sigma^* \mid \delta^*(1, w) \in \{k\}\} \\
+  & = & \{w\in \Sigma^* \mid \delta^*(1, w)  = k\} \\
+  & = & \{w\in \Sigma^* \mid C_1 w  \subseteq C_k\} \\
+  & = & \{w\in \Sigma^* \mid w\in C_k\} = C_k,
+\end{eqnarray*}
+proving that every block, $C_k$, is a regular language.
+$\square$
+
+\medskip
+\danger
+In general it is false that $C_i a = C_j$ for some block
+$C_j$, and we can only claim that $C_i a \subseteq C_j$.
+
+\medskip
+We can combine Lemma \ref{lem1} and Lemma \ref{lem2}
+to get the following characterization of a regular language
+due to Myhill and Nerode:
+
+\begin{thm} (Myhill-Nerode)
+\label{myne}
+A language $L$ (over an alphabet $\Sigma$) is a regular
+language iff it is the union of some of the equivalence
+classes of an equivalence relation $\simeq$ on $\Sigma^*$,
+which is right-invariant and has finite index.
+\end{thm}
+
+\medskip
+Given two DFA's $D_1$ and $D_2$, whether or not 
+there is a morphism $\mapdef{h}{D_1}{D_2}$
+depends on the relationship between
+$\simeq_{D_1}$ and $\simeq_{D_2}$.
+More specifically, we have the following lemma:
+
+\begin{lemma}
+\label{existmorph}
+Given two DFA's $D_1$ and $D_2$, the following
+properties hold:
+\begin{enumerate}
+\item[(1)]
+There is a DFA morphism $\mapdef{h}{D_1}{D_2}$
+iff 
+\[\simeq_{D_1}\>\subseteq\>\simeq_{D_2}.\]
+\item[(2)]
+There is a DFA $F$-map
+$\mapdef{h}{D_1}{D_2}$ iff
+\[\simeq_{D_1}\>\subseteq\> \simeq_{D_2}
+\quad\hbox{and}\quad
+L(D_1) \subseteq  L(D_2);\]
+\item[(3)]
+There is a DFA $F^{-1}$-map
+$\mapdef{h}{D_1}{D_2}$ iff
+\[\simeq_{D_1}\>\subseteq\> \simeq_{D_2}
+\quad\hbox{and}\quad
+L(D_2) \subseteq  L(D_1).\]
+\end{enumerate}
+Furthermore, if $D_1$ is trim, $h$ is surjective iff
+$D_2$ is trim.
+\end{lemma}
+
+
+\medskip
+Theorem \ref{myne} can also be used to prove that certain
+languages are not regular. 
+A general scheme (not the only one) goes as follows:
+If $L$ is not regular, then it must be infinite. Now, we argue by 
+contradiction.  If $L$ was regular, then by Myhill-Nerode,
+there would be some equivalence relation, $\simeq$, which is right-invariant
+and of finite index and such that $L$ is the union of some of the classes
+of $\simeq$. Because $\Sigma^*$ is infinite and $\simeq$
+has only finitely many equivalence classes, there are 
+strings $x, y\in \Sigma^*$ with $x\not = y$ so that
+\[
+x \simeq y.
+\]
+If we can find a third string, $z\in\Sigma^*$, such that
+\[
+xz\in L\quad\hbox{and}\quad yz\notin L,
+\]
+then we reach a contradiction. Indeed, by right invariance, from
+$x\simeq y$, we get $xz\simeq yz$. But, $L$ is the union of
+equivalence classes of $\simeq$, so if $xz\in L$, then we should
+also have $yz\in L$, contradicting $yz\notin L$.
+Therefore, $L$ is not regular.
+
+\medskip
+For example, we prove that
+$L = \{a^nb^n\ |\ n\geq 1\}$ is not regular.
+
+\medskip
+Assuming for the sake of contradiction that $L$ is regular,
+there is some equivalence relation $\simeq$ which is right-invariant
+and of finite index and such that $L$ is the union of some of the classes
+of $\simeq$. Since the set
+$$\{a, aa, aaa, \ldots, a^i, \ldots\}$$
+is infinite and $\simeq$ has a finite number of classes,
+two of these strings must belong to the same class, which means
+that $a^i \simeq a^j$ for some $i\not= j$.
+But since $\simeq$ is right invariant, by concatenating with
+$b^i$ on the right, we see that $a^ib^i \simeq a^jb^i$ for some $i\not= j$.
+However $a^ib^i\in L$, and since $L$ is the union of classes
+of $\simeq$, we also have $a^jb^i\in L$ for  $i\not= j$,
+which is absurd, given the definition of $L$. Thus, in fact,
+$L$ is not regular.
+
+\medskip
+Here is another illustration of the use of the Myhill-Nerode Theorem
+to prove that a language is not regular.
+We claim that the language,
+\[
+L = \{a^{n!} \mid n \geq 1\},
+\]
+is not regular, where $n!$ ($n$ factorial) is given by
+$0! = 1$ and $(n+1)! = (n + 1)n!$.
+
+\medskip
+Assume $L$ is regular. Then, 
+there is some equivalence relation $\simeq$ which is right-invariant
+and of finite index and such that $L$ is the union of some of the classes
+of $\simeq$. Since the sequence
+\[
+a, a^2, \ldots, a^n, \ldots
+\]
+is infinite, two of these strings must belong to the same class, which means
+that $a^p \simeq a^q$ for some $p, q$ with $1 \leq p < q$. 
+As $q! \geq q$ for all $q \geq 0$ and $q > p$,
+we can concatenate on the right with $a^{q! - p}$  and we get
+\[
+a^{p}a^{q! - p} \simeq a^q a^{q! - p},
+\] 
+that is, 
+\[
+a^{q!} \simeq a^{q! + q - p}.
+\]
+If we can show that 
+\[
+q! + q - p < (q + 1)!
+\]
+we will obtain a contradiction because then
+$a^{q! + q - p}\notin L$, yet $a^{q! + q - p} \simeq a^{q!}$
+and $a^{q!}\in L$, contradicting Myhill-Nerode.
+Now, as $1 \leq  p < q$, we have $q - p \leq q - 1$, so if we can prove that
+\[
+q! + q - p \leq q! + q - 1 < (q + 1)!
+\]
+we will be done.
+However, $q! + q - 1 < (q + 1)!$ is equivalent to
+\[
+q - 1 < (q + 1)! - q!,
+\]
+and since $(q + 1)! - q! = (q + 1)q! - q! = qq!$,
+we simply need to prove that
+\[
+q - 1 < q \leq qq!,
+\]
+which holds for $q \geq 1$.
+
+\medskip
+There is another version of the Myhill-Nerode Theorem involving congruences
+which is also quite useful. An equivalence relation, $\simeq$,
+on $\Sigma^*$ is {\it left and right-invariant\/} iff for all
+$x, y, u, v\in \Sigma^*$, 
+\[
+\hbox{if}\quad x\simeq y\quad\hbox{then}\quad
+uxv \simeq uyv. 
+\]
+An equivalence relation, $\simeq$,
+on $\Sigma^*$ is a {\it congruence\/} iff for all
+$u_1, u_2, v_1, v_2\in \Sigma^*$, 
+\[
+\hbox{if}\quad u_1\simeq v_1\quad\hbox{and}\quad u_2\simeq v_2
+\quad\hbox{then}\quad
+u_1u_2 \simeq v_1v_2. 
+\]
+It is easy to prove that an equivalence relation is a congruence
+iff it is left and right-invariant, the proof is left as an exercise.
+
+\medskip
+There is a version of Lemma \ref{lem1} that applies to congruences
+and for this we define the relation $\sim_D$ as follows:
+For any (trim) DFA, $D = (Q, \Sigma, \delta, q_0, F)$, for all
+$x, y\in \Sigma^*$,
+\[
+x \sim_D y\quad\hbox{iff}\quad
+(\forall q\in Q)(\delta^*(q, x) = \delta^*(q, y)).
+\]
+
+
+\begin{lemma}
+\label{lem1b}
+Given any (trim) DFA, $D = (Q, \Sigma, \delta, q_0, F)$, the relation
+$\sim_D$ is an equivalence relation which is left and right-invariant
+and has finite index. Furthermore, if $Q$ has $n$ states,
+then the index of $\sim_D$ is at most $n^n$ and every equivalence
+class of $\sim_D$ is a regular language.
+Finally, $L(D)$ is the union of some of the equivalence classes
+of $\sim_D$.
+\end{lemma}
+
+\proof
+We leave the proof of Lemma \ref{lem1b} as an exercise.
+We just make the following remark: Observe that
+\[
+\sim_D \>\subseteq\> \simeq_D,
+\]
+since the condtion $\delta^*(q, x) = \delta^*(q, y)$ holds for
+every $q\in Q$, so in particular for $q = q_0$.
+But then, every equivalence class of $\simeq_D$ is the union
+of equivalence classes of $\sim_D$ and since, by Lemma \ref{lem1},
+$L$ is the union of equivalence classes of $\simeq_D$, we
+conclude that $L$ is also the union of equivalence classes of $\sim_D$.
+$\bigsquare$
+
+\medskip
+Using Lemma \ref{lem1b} and Lemma \ref{lem2},
+we obtain another version of the Myhill-Nerode Theorem.
+
+
+\begin{thm} (Myhill-Nerode, Conguence Version)
+\label{myneb}
+A language $L$ (over an alphabet $\Sigma$) is a regular
+language iff it is the union of some of the equivalence
+classes of an equivalence relation $\simeq$ on $\Sigma^*$,
+which is a congruence and has finite index.
+\end{thm}
+
+\medskip
+Another useful tool for proving that languages are not regular is the 
+so-called {\it pumping lemma\/}.
+
+\begin{lemma}
+\label{plem}
+Given any DFA $D = (Q, \Sigma, \delta, q_0, F)$,
+there is some $m\geq 1$ such that
+for every $w\in \Sigma^*$, if $w\in L(D)$ and $|w|\geq m$,
+then there exists a decomposition of $w$ as 
+$w = uxv$, where
+\begin{enumerate}
+\item[(1)] 
+$x\not= \epsilon$,
+\item[(2)] 
+$ux^iv \in L(D)$, for all $i\geq 0$, and
+\item[(3)] 
+$|ux| \leq m$.
+\end{enumerate}
+Moreover, $m$ can be chosen to be
+the number of states of the DFA $D$.
+\end{lemma}
+
+\proof
+Let $m$ be the number of states in $Q$, and let
+$w = w_1\ldots w_n$. Since $Q$ contains the start state $q_0$,
+$m\geq 1$. Since $|w|\geq m$, we have $n\geq m$.
+Since $w\in L(D)$, let
+$(q_0, q_1,\ldots, q_n)$,
+be the sequence of states in the accepting computation of $w$
+(where $q_n\in F$).
+Consider the subsequence 
+$$(q_0, q_1,\ldots, q_m).$$
+This sequence contains $m + 1$ states, but there are only $m$ states
+in $Q$, and thus, we have $q_i = q_j$, for some $i, j$ such that
+$0\leq i < j \leq m$. Then, letting $u = w_1\ldots w_{i}$,
+$x = w_{i+1}\ldots w_{j}$, and
+$v = w_{j+1}\ldots w_{n}$, it is clear that the conditions
+of the lemma hold.
+$\square$
+
+\medskip
+Typically, the pumping lemma is used to prove that
+a language is not regular. The method is to proceed by
+contradiction, i.e., to assume (contrary to what
+we wish to prove) that a language $L$ is indeed
+regular, and derive a contradiction of the pumping lemma.
+Thus, it would be helpful to see what the negation
+of the pumping lemma is, and for this, we first
+state the pumping lemma as a logical formula.
+We will use the following abbreviations:
+$$\eqaligneno{
+nat &= \{0, 1, 2, \ldots\},\cr
+pos &= \{1, 2, \ldots\},\cr
+A&\equiv w = uxv,\cr
+B&\equiv x\not= \epsilon,\cr
+C&\equiv |ux| \leq m,\cr
+P&\equiv \forall i\co nat\> (ux^iv \in L(D)).\cr 
+}$$
+The pumping lemma can be stated as
+$$
+\forall D\co \hbox{DFA}\>\exists m\co pos\>\forall w\co \Sigma^*
+\biggl((w\in L(D) \land |w|\geq m)\supset
+(\exists u, x, v\co\Sigma^*\>A\land B \land C\land P)\biggr).$$
+Recalling that 
+$$\neg (A\land B \land C\land P)\equiv \neg(A\land B \land C)\lor \neg P
+\equiv (A\land B \land C)\supset \neg P$$
+and
+$$\neg(R\supset S) \equiv R \land \neg S,$$
+the negation of the pumping lemma can be stated as
+%
+$$\exists D\co \hbox{DFA}\>\forall m\co pos\>\exists w\co \Sigma^*
+\biggl((w\in L(D) \land |w|\geq m)\land
+(\forall u, x, v\co\Sigma^*\>(A\land B \land C)\supset\neg P)\biggr).$$
+Since 
+$$\neg P \equiv \exists i\co nat\> (ux^iv \notin L(D)),$$
+in order to show that the pumping lemma is contradicted,
+one needs to show that for some DFA $D$, for every $m\geq 1$,
+there is some string $w\in L(D)$ of length at least $m$,
+such that for every possible decomposition
+$w = uxv$ satisfying the constraints $x\not=\epsilon$
+and $|ux| \leq m$, there is some $i\geq 0$ such that
+$ux^iv\notin L(D)$. When proceeding by contradiction,
+we have a language $L$  that we are (wrongly) assuming to be regular,
+and we can use any DFA $D$ accepting $L$. The creative
+part of the argument is to pick the right $w\in L$
+(not making any assumption on $m\leq |w|$).
+
+\medskip
+As an illustration, let us use the pumping lemma to prove that
+$L = \{a^nb^n\ |\ n\geq 1\}$ is not regular.
+The usefulness of the condition $|ux| \leq m$ lies in the fact
+that it reduces the number of legal decomposition $uxv$ of $w$.
+We proceed by contradiction. Thus, let us assume that
+$L = \{a^nb^n\ |\ n\geq 1\}$ is regular. 
+If so, it is accepted by some DFA $D$.
+Now, we wish to contradict the pumping lemma.
+For every $m\geq 1$, let $w = a^{m}b^{m}$.
+Clearly, $w = a^{m}b^{m}\in L$ and   $|w|\geq m$. Then,
+every legal decomposition $u, x, v$ of $w$ is such that
+$$w = \underbrace{a \ldots a}_{u} \underbrace{a \ldots a}_{x}
+\underbrace{a \ldots a b\ldots b }_{v}$$  
+where $x\not=\epsilon$ and $x$ ends within the $a$'s, since 
+$|ux| \leq m$. Since $x\not= \epsilon$,
+the string $uxxv$ is of the form $a^nb^{m}$ where $n > m$,
+and thus $uxxv\notin L$, contradicting the pumping lemma.
+
+\medskip
+We now consider an equivalence relation associated with a language $L$.
+\section{Finding minimal DFA's}
+\label{secmn2}
+Given any language $L$ (not necessarily regular), we can define
+an equivalence relation $\rho_L$ which is right-invariant,
+but not necessarily of finite index. However, when $L$ is
+regular, the relation $\rho_L$ has finite index. In fact,
+this index is the size of a smallest DFA accepting $L$.
+This will lead us to a construction of  minimal DFA's.
+
+\begin{defin}
+\label{equivL}
+{\em 
+Given any language $L$ (over $\Sigma$),  we define the relation
+$\rho_L$ on $\Sigma^*$ as follows:
+for any two strings $u, v\in \Sigma^*$,
+$$u\rho_L v\quad\hbox{iff}\quad 
+\forall w\in\Sigma^*(uw\in L\quad\hbox{iff}\quad vw\in L).$$
+}
+\end{defin}
+
+\medskip
+We leave as an easy exercise to prove that $\rho_L$ is
+an equivalence relation which is right-invariant.
+It is also clear that $L$ is the union of the equivalence
+classes of strings in $L$. This is because if $u\in L$ and
+$u \rho_L v$, by letting $w = \epsilon$ in the definition
+of $\rho_L$, we get 
+\[
+u\in L \quad\hbox{iff}\quad v \in L,
+\]
+and since $u \in L$, we also have $v\in L$. This implies that
+if $u\in L$ then $[u]_{\rho_L} \subseteq L$ and so,
+\[
+L = \bigcup_{u\in L}\> [u]_{\rho_L}.
+\]
+When $L$ is also regular, we have the following
+remarkable result:
+
+\begin{lemma}
+\label{lem3}
+Given any regular language $L$, for any
+(accessible) DFA $D = (Q, \Sigma, \delta, q_0, F)$
+such that $L = L(D)$, $\rho_L$ is a right-invariant
+equivalence relation, and
+we have $\simeq_D\>\subseteq\> \rho_L$.
+Furthermore, if $\rho_L$ has $m$ classes and  $Q$ has $n$ states,
+then $m \leq n$. 
+\end{lemma}
+
+\proof
+By definition, $u\simeq_D v$ iff $\delta^*(q_0,u) = \delta^*(q_0,v)$.
+Since $w\in L(D)$ iff $\delta^*(q_0, w)\in F$, the fact that
+$u\rho_L v$ can be expressed as
+$$\displaylignes{
+\hfill\forall w\in\Sigma^*(uw\in L\quad\hbox{iff}\quad vw\in L),\qquad
+\hbox{iff},\hfill\cr
+\hfill\forall w\in\Sigma^*(\delta^*(q_0,uw)\in F\quad\hbox{iff}\quad
+                           \delta^*(q_0,vw)\in F),\qquad\hbox{iff}\hfill\cr
+\hfill\forall w\in\Sigma^*(\delta^*(\delta^*(q_0,u), w)\in F\quad\hbox{iff}
+\quad\delta^*(\delta^*(q_0,v), w)\in F),\hfill\cr
+}$$
+and if   $\delta^*(q_0,u) = \delta^*(q_0,v)$,
+this shows that $u\rho_L v$.
+Since the number of classes of $\simeq_D$ is $n$ and
+$\simeq_D\>\subseteq\> \rho_L$, 
+the equivalence relation $\rho_L$ has fewer classes than $\simeq_D$,
+and $m\leq n$.
+$\square$
+
+\medskip
+Lemma \ref{lem3} shows that when $L$ is regular, the index $m$ of
+$\rho_L$ is finite, and it is a lower bound on the size of
+all DFA's accepting $L$. It remains to show that 
+a DFA with $m$ states accepting $L$ exists.
+However, going back to the proof of Lemma \ref{lem2}
+starting with the right-invariant equivalence relation
+$\rho_L$ of finite index $m$, if $L$ is the union of the classes
+$C_{i_{1}},\ldots, C_{i_{k}}$, the DFA
+$$D_{\rho_{L}} = (\{1,\ldots, m\}, \Sigma, \delta, 1, 
+\{i_1,\ldots,i_k\}),$$
+where $\delta(i, a) = j$ iff $C_i a\subseteq C_j$,
+is such that $L = L(D_{\rho_{L}})$.
+Thus, $D_{\rho_{L}}$ is a minimal DFA accepting $L$.
+
+\medskip
+In the next section, we give an algorithm which allows
+us to find $D_{\rho_{L}}$, given any DFA $D$ accepting $L$.
+This algorithms finds which states of $D$ are equivalent.
+
+\section{State Equivalence and Minimal DFA's}
+\label{secmn3}
+The proof of Lemma \ref{lem3} suggests the following definition
+of an equivalence between states:
+
+\begin{defin}
+\label{equivS}
+{\em 
+Given any DFA  $D = (Q, \Sigma, \delta, q_0, F)$,
+the relation $\equiv$ on $Q$, called {\it state equivalence\/},
+is defined as follows: for all $p, q\in Q$,
+$$p\equiv q\quad\hbox{iff}\quad
+\forall w\in\Sigma^*(\delta^*(p,w)\in F\quad\hbox{iff}\quad
+                           \delta^*(q,w)\in F).$$
+When $p\equiv q$, we say that {\it $p$ and $q$ are indistinguishable\/}.
+}
+\end{defin}
+
+\medskip
+It is trivial to verify that $\equiv$ is an equivalence relation,
+and that it satisfies the following property:
+$$\hbox{if}\ p\equiv q\ \hbox{then}\ \delta(p, a) \equiv \delta(q, a),$$
+for all $a\in \Sigma$. 
+
+\medskip
+The reader should check that states $A$ and $C$ in the DFA
+below are equivalent and that no other distinct states are equivalent.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{pspicture}(0,-0.4)(10,4.5)
+    \pnode(0.25,2){s}
+    \cnodeput(1,2){n0}{$A$}
+    \cnodeput(4,3.5){n1}{$B$}
+    \cnodeput(4,0.5){n2}{$C$}
+    \cnodeput(7,2){n3}{$D$}
+    \cnodeput[linecolor=green](10,2){n5}{$E$}
+    \cnode[linecolor=green](10,2){0.48cm}{n4}
+    \ncline[linewidth=1pt]{->}{s}{n0}
+    \ncline[linewidth=1pt]{->}{n0}{n1}
+    \aput{:U}{$a$}
+    \ncline[linewidth=1pt]{->}{n0}{n2}
+    \bput{:U}{$b$}
+    \ncline[linewidth=1pt]{->}{n2}{n1}
+    \aput{:R}{$a$}
+    \ncline[linewidth=1pt,offset=4pt]{->}{n1}{n3}
+    \aput{:U}{$b$}
+    \ncline[linewidth=1pt,offset=4pt]{->}{n3}{n1}
+    \aput{:D}{$a$}
+    \ncline[linewidth=1pt]{->}{n3}{n4}
+    \aput{:U}{$b$}
+    \ncline[linewidth=1pt]{->}{n4}{n2}
+    \aput{:D}{$b$}
+    \nccircle[linewidth=1pt,angleA=10]{<-}{n1}{0.4cm}
+    \lput{:L}{\rput[u]{40}(0,.7){$a$}}
+    \nccircle[linewidth=1pt,angleA=180]{<-}{n2}{0.4cm}
+    \lput{:L}{\rput[u]{40}(1.0,-0.7){$b$}}
+    \ncarc[arcangle=-20, linewidth=1pt]{->}{n4}{n1}
+    \bput{:D}{$a$}
+    \end{pspicture}
+  \end{center}
+  \caption{A non-minimal DFA for $\{a, b\}^*\{abb\}$}
+  \label{DFA4}
+\end{figure}
+
+\medskip
+It might be illuminating to express state equivalence as the
+equality of two languages. Given the DFA $D = (Q, \Sigma, \delta, q_0, F)$,
+let $D_p =  (Q, \Sigma, \delta, p, F)$ be the DFA obtained from $D$
+by redefining the start state to be $p$. Then, it is clear that
+\[
+p\equiv q \quad\hbox{iff}\quad
+L(D_p) = L(D_q).
+\]
+
+This simple observation implies that there is an algorithm
+to test state equivalence. Indeed, we simply have to test
+whether the DFA's $D_p$ and $D_q$ accept the same language
+and this can be done using the cross-product construction.
+Indeed, $L(D_p) = L(D_q)$  iff $L(D_p) -  L(D_q) = \emptyset$ and
+$L(D_q) -  L(D_p) = \emptyset$. Now, if $(D_p\times D_q)_{1 - 2}$
+denotes the cross-product DFA with starting state $(p , q)$ and
+with final states $F\times (Q - F)$
+and  $(D_p\times D_q)_{2 - 1}$ denotes the cross-product DFA  
+also  with starting state $(p , q)$ and with final 
+states $(Q - F)\times F$, we know that 
+\[
+L((D_p\times D_q)_{1 - 2}) = L(D_p) -  L(D_q) 
+\quad\hbox{and}\quad
+L((D_p\times D_q)_{2 - 1}) = L(D_q) -  L(D_p), 
+\]
+so all we need to do if to test whether $(D_p\times D_q)_{1 - 2}$
+and $(D_p\times D_q)_{2 - 1}$ accept the empty language.
+However, we know that this is the case iff the set of  states
+reachable from $(p, q)$ in  $(D_p\times D_q)_{1 - 2}$ contains no 
+state in $F\times (Q - F)$
+and the set of  states
+reachable from $(p, q)$ in  $(D_p\times D_q)_{2 - 1}$ contains no 
+state in $(Q - F)\times F$. Actually, the graphs of $(D_p\times D_q)_{1 - 2}$
+and  $(D_p\times D_q)_{2 - 1}$ are identical, so we only need to check 
+that no state in $(F\times (Q - F))\cup (Q - F)\times F$ is
+reachable from $(p, q)$ in that graph.
+This algorithm to test state equivalence is not the most efficient
+but it is quite reasonable (it runs in polyomial time).
+
+
+\medskip
+If $L = L(D)$,
+the lemma below shows the relationship between $\rho_L$ and
+$\equiv$ and, more generally, between the DFA, $D_{\rho_L}$, and the
+DFA, $D/\equiv$, obtained as the quotient
+of the DFA $D$ modulo the equivalence relation $\equiv$ on $Q$
+and defined as follows:
+$$D/\equiv\> = (Q/\equiv, \Sigma, \delta/\equiv, [q_0]_{\equiv}, F/\equiv),$$
+where 
+$$\delta/\equiv([p]_{\equiv}, a) = [\delta(p, a)]_\equiv.$$
+
+\medskip
+The  DFA $D/\equiv$ is obtained by merging the states
+in each block of the partition $\Pi$ associated with $\equiv$,
+forming states corresponding to the blocks of $\Pi$,
+and drawing a transition on input $a$
+from a block $C_i$ to a block $C_j$ of $\Pi$
+iff there is a transition $q = \delta(p, a)$ from any state
+$p\in C_i$ to any state $q\in C_j$ on input $a$.
+The start state is the block containing $q_0$, and the final states
+are the blocks consisting of  final states.
+
+
+\begin{lemma}
+\label{lem4}
+For any (accessible) DFA $D = (Q, \Sigma, \delta, q_0, F)$
+accepting the regular language $L = L(D)$, the
+function $\mapdef{\varphi}{\Sigma^*}{Q}$
+defined such that 
+$$\varphi(u) = \delta^*(q_0, u)$$
+induces a bijection
+$\mapdef{\hli{\varphi}}{\Sigma^*/\rho_{L}}{Q/\equiv}$,
+defined such that
+$$\hli{\varphi}([u]_{\rho_{L}}) = [\delta^*(q_0, u)]_{\equiv}.$$
+Furthermore, we have
+$$[u]_{\rho_{L}} a \subseteq [v]_{\rho_{L}}\quad\hbox{iff}\quad
+\delta(\varphi(u), a)\equiv \varphi(v).$$
+Consequently, $\hli{\varphi}$
+induces an isomorphism of DFA's,
+$\mapdef{\hli{\varphi}}{D_{\rho_L}}{D/\equiv}$
+(i.e., an invertible $F$-map whose inverse is also an $F$-map;
+we know from a homework problem that such a map,
+$\hli{\varphi}$, must be a proper homomorphism whose  
+inverse  is also a proper homomorphism).
+\end{lemma}
+
+\proof
+Since $\varphi(u) = \delta^*(q_0, u)$ and $\varphi(v) = \delta^*(q_0, v)$,
+the fact that $\varphi(u) \equiv \varphi(v)$ 
+can be expressed as
+$$\displaylignes{
+\hfill\forall w\in\Sigma^*(\delta^*(\delta^*(q_0,u), w)\in F\quad\hbox{iff}
+\quad\delta^*(\delta^*(q_0,v), w)\in F),\qquad\hbox{iff}\hfill\cr
+\hfill\forall w\in\Sigma^*(\delta^*(q_0,uw)\in F\quad\hbox{iff}\quad
+                           \delta^*(q_0,vw)\in F),\hfill\cr
+}$$
+which is exactly $u\rho_L v$. Therefore,
+\[
+ u\rho_L v
+\quad\hbox{iff}\quad
+\varphi(u) \equiv \varphi(v).
+\]
+From the above, we see that the function
+$\mapdef{\varphi}{\Sigma^*}{Q}$ maps
+each equivalence class $[u]$ modulo $\rho_L$ to the
+equivalence class $[\varphi(u)]$ modulo $\equiv$ and so, the
+function 
+$\mapdef{\hli{\varphi}}{\Sigma^*/\rho_{L}}{Q/\equiv}$ 
+given by
+\[
+\hli{\varphi}([u]_{\rho_{L}}) = [\delta^*(q_0, u)]_{\equiv}
+\]
+is well-defined. Moreover, $\hli{\varphi}$ is injective, since
+$\hli{\varphi}([u]) = \hli{\varphi}([v])$ iff
+$\varphi(u) = \varphi(v)$ iff (from above) $u \rho_v v$ iff
+$[u] = [v]$. Since every state in $Q$ is accessible,
+for every $q\in Q$, there is some $u\in \Sigma^*$ so that
+$\varphi(u) = \delta^*(q_0, u) = q$, so
+$\hli{\varphi}([u]) = [q]_{\equiv}$ and $\hli{\varphi}$ is surjective.
+Therefore, we have a bijection
+$\mapdef{\hli{\varphi}}{\Sigma^*/\rho_{L}}{Q/\equiv}$.
+
+\medskip
+Since $\varphi(u) = \delta^*(q_0, u)$, we have
+$$\delta(\varphi(u), a) = \delta(\delta^*(q_0, u), a) = \delta^*(q_0, ua)
+= \varphi(ua),$$
+and thus, $\delta(\varphi(u), a)\equiv \varphi(v)$ can be expressed
+as $\varphi(ua)\equiv \varphi(v)$. By the previous part,
+this is equivalent to $ua\rho_L v$, which 
+is equivalent to
+$$[u]_{\rho_{L}} a \subseteq [v]_{\rho_{L}}.$$
+It is then easy to check (do it!) that  $\hli{\varphi}$
+induces an $F$-map of DFA's which is an  isomorphism
+(i.e., an invertible $F$-map whose  inverse is also an $F$-map),
+$\mapdef{\hli{\varphi}}{D_{\rho_L}}{D/\equiv}$.
+$\square$
+
+\medskip
+Lemma \ref{lem4} shows that the DFA $D_{\rho_{L}}$
+is isomorphic to the  DFA $D/\equiv$ obtained as the quotient
+of the DFA $D$ modulo the equivalence relation $\equiv$ on $Q$.
+Since $D_{\rho_{L}}$ is a minimal DFA accepting $L$,
+so is $D/\equiv$.
+
+\medskip
+There are other characterizations of the regular languages.
+Among those, the characterization in terms of right derivatives
+is of particular interest because it yields an alternative construction
+of minimal DFA's.
+
+\begin{defin}
+\label{rightderiv}
+{\em 
+Given any language, $L \subseteq \Sigma^*$, for any
+string, $u\in \Sigma^*$, the {\it right derivative of $L$ by $u$\/},
+denoted $L/u$, is the language
+\[
+L/u = \{w\in \Sigma^* \mid uw\in L\}.
+\]
+}
+\end{defin}
+
+\begin{thm}
+\label{regderivthm}
+If $L\subseteq \Sigma^*$ is any language, then $L$ is regular iff
+it has finitely many right derivatives. Furthermore, 
+if $L$ is regular, then all its right derivatives are regular and
+their number is equal to the number of states of the minimal DFA's for $L$.
+\end{thm}
+
+\proof
+It is easy to check that
+\[
+L/u = L/v \qquad\hbox{iff}\qquad
+u \rho_L v.
+\]
+The above shows that $\rho_L$ has a finite number of classes,
+say $m$, 
+iff there is a finite number of right derivatives, say $n$, and if so,
+$m = n$.
+If $L$ is regular, then we know that the number of equivalence
+classes of $\rho_L$ is the number of states of the minimal DFA's for $L$,
+so the number of right derivatives of $L$
+is equal to the size of the minimal DFA's for $L$.
+
+\medskip
+Conversely, if  the number of derivatives is finite, say $m$,
+then $\rho_L$ has $m$ classes and by Myhill-Nerode, $L$ is regular.
+It remains to show that if $L$ is regular then
+every right derivative is regular. 
+
+\medskip
+Let $D = (Q, \Sigma, \delta, q_0, F)$ be a DFA
+accepting $L$. If $p = \delta^*(q_0, u)$, then let
+\[
+D_p = (Q, \Sigma, \delta, p, F),
+\]
+that is, $D$ with with $p$ as start state. It is clear that
+\[
+L/u = L(D_p),
+\]
+so $L/u$ is regular for every $u\in \Sigma^*$.
+Also observe that
+if $|Q| = n$, then there are at most $n$ DFA's $D_p$, so there
+is at most $n$ right derivatives, which is another proof
+of the fact that a regular language has a finite number of right
+derivatives.
+$\bigsquare$
+
+\medskip
+If $L$ is regular then
+the construction of a minimal DFA for $L$
+can be recast in terms of right derivatives.
+Let $L/u_1, L/u_2, \ldots ,L/u_m$ be the set of all
+the right derivatives of $L$. Of course, we may assume that $u_1 = \epsilon$.
+We form a DFA whose states are the right derivatives, $L/u_i$.
+For every state, $L/u_i$, for every $a\in \Sigma$,
+there is a transition on input $a$ from 
+$L/u_i$ to $L/u_j = L/(u_ia)$. The start state is $L = L/u_1$
+and the final states are the right derivatives, $L/u_i$, for which 
+$\epsilon \in L/u_i$.  
+
+\medskip
+We leave it as an exercise to check that the above DFA
+accepts $L$. One way to do this is to recall that
+$L/u = L/v$ iff $u \rho_L v$ and to observe that the above
+construction mimics the construction of $D_{\rho_L}$
+as in the Myhill-Nerode lemma (Lemma \ref{lem2}).
+This DFA is minimal since the number of right derivatives
+is equal to the size of the minimal DFA's for $L$.
+
+
+\medskip
+We now return to state equivalence.
+Note that if $F = \emptyset$, then $\equiv$ has a single block
+$(Q)$, and if $F = Q$, then $\equiv$ has a single block $(F)$.
+In the first case, the minimal DFA is the one state DFA rejecting
+all strings. In the second case, the minimal DFA is the one state
+DFA accepting all strings. When $F\not=\emptyset$ and $F\not= Q$,
+there are at least two states in $Q$, and $\equiv$ also has at least two
+blocks, as we shall see shortly.
+It remains to compute $\equiv$ explicitly.
+This is done using a sequence of approximations.
+In view of the previous discussion, we are assuming that
+$F\not=\emptyset$ and $F\not= Q$, which means that $n\geq 2$, where
+$n$ is the number of states in $Q$.
+
+\begin{defin}
+\label{equivSi}
+{\em 
+Given any DFA  $D = (Q, \Sigma, \delta, q_0, F)$, for every $i\geq 0$,
+the relation $\equiv_i$ on $Q$, called {\it $i$-state equivalence\/},
+is defined as follows: for all $p, q\in Q$,
+$$p\equiv_i q\quad\hbox{iff}\quad
+\forall w\in\Sigma^*,\> |w| \leq i\> (\delta^*(p,w)\in F\quad\hbox{iff}\quad
+                           \delta^*(q,w)\in F).$$
+When $p\equiv_i q$, we say that {\it $p$ and $q$ are $i$-indistinguishable\/}.
+}
+\end{defin}
+
+\medskip
+Since state equivalence $\equiv$ is defined such that
+$$p\equiv q\quad\hbox{iff}\quad
+\forall w\in\Sigma^*(\delta^*(p,w)\in F\quad\hbox{iff}\quad
+                           \delta^*(q,w)\in F),$$
+we note that testing the condition
+$$\delta^*(p,w)\in F\quad\hbox{iff}\quad  \delta^*(q,w)\in F$$
+for all strings in $\Sigma^*$
+is equivalent to testing the above condition for
+all strings of length at most $i$ for all $i\geq 0$, i.e.
+$$p\equiv q\quad\hbox{iff}\quad
+\forall i\geq 0\, \forall w\in\Sigma^*,\ |w|\leq i\>
+(\delta^*(p,w)\in F\quad\hbox{iff}\quad
+                           \delta^*(q,w)\in F).$$
+Since $\equiv_i$ is defined such that
+$$p\equiv_i q\quad\hbox{iff}\quad
+\forall w\in\Sigma^*,\> |w| \leq i\> (\delta^*(p,w)\in F\quad\hbox{iff}\quad
+                           \delta^*(q,w)\in F),$$
+we conclude that
+$$p\equiv q\quad \hbox{iff}\quad \forall i\geq 0\,(p \equiv_i q).$$
+This identity can also be expressed as
+$$\equiv\> = \bigcap_{i\geq 0} \equiv_i.$$
+
+\medskip
+If we assume that $F\not=\emptyset$ and $F\not= Q$,
+observe that $\equiv_0$ has exactly two equivalence
+classes $F$ and $Q - F$, since $\epsilon$ is the only
+string of length $0$, and since the condition
+$$\delta^*(p,\epsilon)\in F\quad\hbox{iff}\quad  \delta^*(q,\epsilon)\in F$$
+is equivalent to the condition
+$$p\in F\quad\hbox{iff}\quad q\in F.$$
+It is also obvious from the definition of $\equiv_i$ that
+$$\equiv\> \subseteq \cdots \subseteq\> \equiv_{i+1}\> 
+\subseteq\> \equiv_{i}\> \subseteq
+\cdots \subseteq \> \equiv_1\>\subseteq\> \equiv_0.$$
+If this sequence was strictly decreasing for all $i \geq 0$, 
+the partition associated
+with $\equiv_{i+1}$ would contain at least one more block than
+the partition associated with $\equiv_i$ and since
+we start with a partition with two blocks, the partition
+associated with $\equiv_i$ would have at least $i + 2$ blocks.
+But then, for $i = n - 1$, the partition associated with
+$\equiv_{n-1}$ would have at least $n + 1$ blocks,
+which is absurd since $Q$ has only $n$ states. Therefore,
+there is a smallest integer,  $i_0\leq n - 2$, such that
+\[
+\equiv_{i_{0} + 1}\> = \> \equiv_{i_{0}}.
+\]
+
+\medskip
+Thus, it remains to compute $\equiv_{i+1}$ from $\equiv_i$,
+which can be done using the following lemma:
+The  lemma also shows that
+$$\equiv\> = \> \equiv_{i_{0}}.$$
+
+\begin{lemma}
+\label{lem5}
+For any (accessible) DFA $D = (Q, \Sigma, \delta, q_0, F)$,
+for all $p, q\in Q$,
+$p  \equiv_{i+1} q$ iff $p \equiv_{i} q$ and
+$\delta(p,a) \equiv_{i} \delta(q,a)$, for every $a\in \Sigma$.
+Furthermore, if  $F\not=\emptyset$ and $F\not= Q$,
+there is a smallest integer $i_0\leq n-2$, such that
+$$\equiv_{i_{0} + 1}\> = \> \equiv_{i_{0}}\> = \> \equiv.$$
+\end{lemma}
+
+\proof
+By the definition of the relation $\equiv_i$,
+$$p\equiv_{i+1} q\quad\hbox{iff}\quad
+\forall w\in\Sigma^*,\> |w| \leq i+1\> (\delta^*(p,w)\in F\quad\hbox{iff}\quad
+                           \delta^*(q,w)\in F).$$
+The trick is to observe that the condition
+$$\delta^*(p,w)\in F\quad\hbox{iff}\quad \delta^*(q,w)\in F$$
+holds for all strings of length at most $i+1$ iff
+it holds for all strings of length at most $i$ and
+for all strings of length between $1$ and $i+1$.
+This is expressed as
+$$\displaylignes{
+\hfill p\equiv_{i+1} q\quad\hbox{iff}\hfill\cr
+\hfill
+\forall w\in\Sigma^*,\> |w| \leq i\> (\delta^*(p,w)\in F\quad\hbox{iff}\quad
+                           \delta^*(q,w)\in F)\quad\hbox{and}\hfill\cr
+\hfill
+\forall w\in\Sigma^*,\>1\leq |w| \leq i+1\> (\delta^*(p,w)\in F\quad\hbox{iff}\quad
+                           \delta^*(q,w)\in F).\hfill\cr
+}$$
+
+\medskip
+Obviously, the first condition in the conjunction is  $p\equiv_i q$,
+and since every string $w$ such that $1\leq |w|\leq i+1$ can be written
+as $au$ where $a\in\Sigma$ and $0\leq |u|\leq i$,
+the second condition in the conjunction can be written as
+$$\forall a\in\Sigma\, 
+\forall u\in\Sigma^*,\ |u| \leq i\> (\delta^*(p,au)\in F\quad\hbox{iff}\quad
+                           \delta^*(q,au)\in F).$$
+However, $\delta^*(p,au) = \delta^*(\delta(p, a), u)$ and
+$\delta^*(q,au) = \delta^*(\delta(q, a), u)$, so that the above condition 
+is really 
+$$\forall a\in\Sigma\, (\delta(p,a) \equiv_i \delta(q,a)).$$
+Thus, we showed that
+$$p\equiv_{i+1} q\quad\hbox{iff}\quad p\equiv_i q\quad\hbox{and}\quad
+\forall a\in\Sigma\, (\delta(p,a) \equiv_i \delta(q,a)).$$
+Thus, if $\equiv_{i + 1}\> =\> \equiv_{i}$ for some $i\geq 0$,
+using induction, we also have
+$\equiv_{i + j}\> =\> \equiv_{i}$ for all $j\geq 1$.
+Since
+$$\equiv\> = \> \bigcap_{i\geq 0}\equiv_{i},\quad
+\equiv_{i+1}\> \subseteq\> \equiv_{i},$$
+and since we know that
+there is a smallest index say $i_0$, such that
+$\equiv_{j}\> = \> \equiv_{i_{0}}$, for all $j \geq i_0 + 1$,
+we have $\equiv\> =\> \equiv_{i_{0}}$.
+$\square$
+
+\medskip
+Using Lemma \ref{lem5}, we can compute $\equiv$ inductively,
+starting from $\equiv_0\> = (F, Q - F)$, and
+computing $\equiv_{i+1}$ from   $\equiv_{i}$, until
+the sequence of partitions associated with the $\equiv_i$ stabilizes.
+
+\medskip
+Note that if $F = Q$ or $F = \emptyset$, then
+$\equiv\> =\> \equiv_0$, and the inductive characterization
+of Lemma \ref{lem5} holds trivially.
+
+\medskip
+There are a number of algorithms for computing $\equiv$,
+or to determine whether $p\equiv q$ for some given $p, q\in Q$.
+
+\medskip
+A simple method to compute $\equiv$ is described in Hopcroft and Ullman.
+It consists in forming a triangular array corresponding to all 
+unordered pairs $(p, q)$, with $p\not= q$ (the rows and the columns
+of this triangular array are indexed by the states in $Q$, where
+the entries are below the descending diagonal).
+Initially, the entry $(p, q)$ is
+marked iff $p$ and $q$ are {\bf not} $0$-equivalent, which
+means that $p$ and $q$ are not both in $F$ or not both in $Q - F$.
+Then, we process every unmarked entry on every row as follows:
+for any unmarked  pair $(p, q)$, 
+we consider pairs $(\delta(p, a), \delta(q, a))$,
+for all $a\in\Sigma$. If any pair  $(\delta(p, a), \delta(q, a))$
+is already marked, this means that $\delta(p, a)$ and
+$\delta(q, a)$ are inequivalent, and thus $p$ and $q$ are inequivalent,
+and we mark the pair $(p, q)$.
+We continue in this fashion, until at the end of a round
+during which all the rows are  processed,
+nothing has changed.
+When the algorithm stops, all marked pairs are inequivalent,
+and all unmarked pairs correspond to  equivalent states.
+
+
+\medskip
+Let us illustrates the above method.
+Consider the following DFA accepting 
+$\{a, b\}^*\{abb\}$:
+
+\medskip
+\[
+\matrice{
+           &   a         &  b   \cr
+     A     &   B         &  C   \cr
+     B     &   B         &  D   \cr
+     C     &   B         &  C   \cr
+     D     &   B         &  E   \cr
+     E     &   B         &  C   \cr
+}
+\]
+The start state is $A$, and the 
+set of final states is $F = \{E\}$.
+(This is the DFA displayed in Figure \ref{DFA4}.)
+
+\medskip
+The initial (half) array is as follows, using $\times$
+to indicate that the corresponding pair (say, $(E, A)$)
+consists of inequivalent states, and $\square$ to
+indicate that nothing is known  yet. 
+
+\medskip
+\[
+\matrice{
+B &\square &        &        &       &        \cr
+C &\square &\square &        &       &        \cr
+D &\square &\square &\square &       &        \cr
+E &\times  &\times  &\times  &\times          \cr
+  & A      & B      & C      & D              \cr
+}
+\]
+
+\medskip
+After the first round, we have
+
+\[
+\matrice{
+B &\square &        &        &       &        \cr
+C &\square &\square &        &       &        \cr
+D &\times  &\times  &\times  &       &        \cr
+E &\times  &\times  &\times  &\times          \cr
+  & A      & B      & C      & D              \cr
+}
+\]
+
+\medskip
+After the second round, we have
+
+\[
+\matrice{
+B &\times  &        &        &       &        \cr
+C &\square &\times  &        &       &        \cr
+D &\times  &\times  &\times  &       &        \cr
+E &\times  &\times  &\times  &\times          \cr
+  & A      & B      & C      & D              \cr
+}
+\]
+
+\medskip
+Finally, nothing changes during the third round, and thus,
+only $A$ and $C$ are equivalent, and we get the four equivalence classes
+\[(\{A, C\}, \{B\}, \{D\}, \{E\}).\] 
+We obtain the minimal DFA showed in Figure \ref{DFA5}.
+
+\begin{figure}[H]
+ \begin{center}
+    \begin{pspicture}(0,0)(10,4.5)
+    \pnode(0.25,1.5){s}
+    \cnodeput(1,1.5){n0}{$0$}
+    \cnodeput(4,1.5){n1}{$1$}
+    \cnodeput(7,1.5){n2}{$2$}
+    \cnodeput[linecolor=green](10,1.5){n4}{$3$}
+%    \cnodeput(3,0){n2}{\circlenode{n1}{$1$}}
+    \cnode[linecolor=green](10,1.5){0.45cm}{n3}
+    \ncline[linewidth=1pt]{->}{s}{n0}
+    \ncline[linewidth=1pt]{->}{n0}{n1}
+    \aput{:U}{$a$}
+    \ncline[linewidth=1pt,offset=4pt]{->}{n1}{n2}
+    \aput{:U}{$b$}
+    \ncline[linewidth=1pt,offset=4pt]{->}{n2}{n1}
+    \aput{:D}{$a$}
+    \ncline[linewidth=1pt]{->}{n2}{n3}
+    \aput{:U}{$b$}
+    \nccircle[linewidth=1pt,angleA=20]{<-}{n0}{0.4cm}
+    \lput{:L}{\rput[u]{45}(-0.1,.6){$b$}}
+    \nccircle[linewidth=1pt]{<-}{n1}{0.4cm}
+    \lput{:L}{\rput[u]{45}(0,.5){$a$}}
+    \ncarc[arcangle=-35, linewidth=1pt]{->}{n3}{n0}
+    \bput{:D}{$b$}
+    \ncarc[arcangle=40, linewidth=1pt]{->}{n3}{n1}
+    \aput{:D}{$a$}
+%    \psdots[dotstyle=o,dotscale=1.5](0,0)
+%    \uput[-90](0,0){$v_1$}
+    \end{pspicture}
+  \end{center}
+  \caption{A minimal DFA accepting $\{a, b\}^*\{abb\}$}
+  \label{DFA5}
+\end{figure}
+
+
+
+\medskip
+There are ways of improving the efficiency of this algorithm,
+see Hopcroft and Ullman for such improvements.
+Fast algorithms for testing whether $p\equiv q$ for some given $p, q\in Q$
+also exist. One of these algorithms is based on ``forward closures'',
+following an idea of Knuth.
+Such an algorithm is related to a fast unification algorithm.
+
+%\end{document}
+
+
+
+
+
+
+
+
+
+
+
