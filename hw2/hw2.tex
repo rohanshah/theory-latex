@@ -2,6 +2,9 @@
 \usepackage{fullpage}
 \usepackage{titlesec}
 \usepackage{tikz}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
 \usetikzlibrary{automata, positioning}
 
 \pagestyle{plain}
@@ -79,6 +82,11 @@ NFA with $2n+1$ states accepting $L_n$:
 \section*{Problem B2}
 \subsection*{(a)}
 \subsection*{(b)}
+
+\section*{Problem B3}
+\subsection*{(1)}
+\subsection*{(2)}
+
 \section*{Problem B4}
 \subsection*{(a)}
   Let $D = (Q, \sum, F, q_0, \delta)$ be the DFA that accepts the regular
@@ -87,4 +95,160 @@ NFA with $2n+1$ states accepting $L_n$:
   as follows.
 \subsection*{(b)}
 \subsection*{(c)}
+
+\section*{Problem B5}
+\subsection*{a}
+Prove that $L=L^+$ iff LL $\subseteq$ L.
+
+\medskip
+
+Case $\implies$ : Let $L=L^+ = (n \ge 1)$, $ \cup L^n$. $(n \ge 1)$, $ \cup L^n \supseteq L^2 = LL$. So, $(n \ge 1)$, $ \cup L^n = L \supseteq LL$.
+
+\medskip
+
+Case $\Longleftarrow$ : Let $LL \subseteq L$, then prove by induction on n that $L^n \subseteq L$.
+
+\medskip
+
+Base Case: n = 0. So $L^n = L^0  = \epsilon$ and $\epsilon \subseteq L$.
+
+Inductive Case: Assume $L^n \subseteq L$. Show $L^{n+1} \subseteq L$. $L^{n+1} = LL^{n}$ STUCK. Use $(n \ge 1)$, $ \cup L^n$ to prove.
+
+
+\subsection*{b}
+($L=\emptyset$ or $L=L^*$) iff LL=L. Recall $L^\ast = (n \ge 0) \cup L^n \implies L^n \subseteq L^\ast , \forall n \ge 0$.
+
+\medskip
+
+Case $\implies$ : Prove ($L=\emptyset$ or $L=L^*$) $\implies LL=L$. $L = L^\ast \implies {\epsilon } \in L$
+Since ${\epsilon } \in L \implies L \subseteq LL = L^2 \implies L \subseteq LL$. From part (a) we know $L=L^+ \implies LL \subseteq L$. Since ${\epsilon } \in L \implies L^\ast = L^+$.
+
+
+Case $\Longleftarrow$ : $L=LL \implies L = L^\ast$. (The case where $L= \emptyset$ is trivial).
+Claim: $L=L^2 \implies {\epsilon } \in L$ SHOW PROOF. By part (a), $LL=L \implies LL \subseteq L \implies
+L = L^+$ and since ${\epsilon } \in L$, $L^+=L^\ast$.
+
+
+\section*{Problem B6}
+
+\subsection*(c)
+$ A1 = \le_1$ and $A2 = \le_2$ are wqo's. The crossproduct ordering $(a_1,a_2) \le (b_1, b_2) iff a_1 \le_1 b_1 and a_2 \le_2 b_2$.
+Show $\le$ is also a wqo on $A_1 x A_2$. Consider an infinite sequence $(s_i ' , s_i '') \in A_1 x A_2, i = 1,2,...$.
+Have the prime sequence in A1 and have the double prime sequence in A2.
+Use part (b), which says that if you have a wqo, that means the (infinite sequence is "good") you can extend
+Take first subsequence, know it is in wqo (can extract a subsequence specified by the function f). we knoe this subsequence is in incrasing order. use these indicies to extract from infinite sequence.
+
+\subsection*{d}
+Prove the following result.
+
+\medskip
+Let $n$ be any  integer such that $n>1$.
+Given any infinite sequence $s_i$ with $i \ge 1$ of $n$-tuples of
+natural numbers, there exist positive integers $i, j$ such that
+$i<j$ and $s_{i}\preceq_{n} s_{j}$, where $\preceq_{n}$ is the
+partial order on $n$-tuples of natural numbers
+induced by the natural ordering $\le$ on $\mathbb{N}$
+To prove: $A_i$'s are equal to $\mathbb{N}$. So we can extend c by induction on $\preceq_{n}$ on $\mathbb{N}$.
+Given that $\preceq_{n}$ is a preorder on A ($\preceq_{n} \subseteq AxA$), then $\preceq_{n}$ is reflexive ($ x \preceq_{n} x,\forall x \in A$)
+and transitive ($x \preceq_{n} y, y \preceq_{n} z \implies x \preceq_{n} z, \forall x,y,z \in A$). NEED COMPLETE PROOF HERE.
+
+\subsection*{e}
+
+Let $\sqsubseteq$ be a preorder on a set $A$. We define the
+preorder $\ll$ ({\it string embedding\/})
+on $A^{*}$ as follows:
+
+\medskip\noindent
+$\epsilon \ll u$ for each $u\in A^{*}$, and,
+for any two strings $u=u_{1}u_{2}\ldots u_{m}$ and
+$v=v_{1}u_{2}\ldots v_{n}$, $1\leq m\leq n$,
+$$u_{1}u_{2}\ldots u_{m} \ll v_{1}v_{2}\ldots v_{n}$$
+iff there exist  integers $j_{1},\ldots,j_{m}$ such that
+$1\leq j_{1} < j_{2} < \ldots < j_{m-1} < j_{m} \leq n$ and
+$$u_{1} \sqsubseteq v_{j_{1}},\ \ldots,\ u_{m} \sqsubseteq v_{j_{m}}.$$
+
+\medskip
+
+Solution (part 1): Prove that $\ll$ is a preorder by showing (1) $u \ll u$ and (2) $u \ll v, v \ll w \implies u \ll w$.
+
+\medskip
+
+(1) By the definition of $\ll$, $u \ll u$ (with $u=u_{1}u_{2}\ldots u_{m}$) iff there exist integers $j_{1},\ldots,j_{m}$ such that
+$1\leq j_{1} < j_{2} < \ldots < j_{m-1} < j_{m} \leq m$ and
+$u_{1} \sqsubseteq u_{j_{1}},\ \ldots,\ u_{m} \sqsubseteq u_{j_{m}}.$ This follows from definition of preorder $\sqsubseteq $
+is reflexive.
+
+\medskip
+
+(2) By the definition of $\ll$, $u \ll v$ (with $u=u_{1}u_{2}\ldots u_{m}$ and
+$v=v_{1}v_{2}\ldots v_{n}$, $1\leq m\leq n$) iff there exist integers $j_{1},\ldots,j_{m}$ such that
+$1\leq j_{1} < j_{2} < \ldots < j_{m-1} < j_{m} \leq n$ and
+$u_{1} \sqsubseteq v_{j_{1}},\ \ldots,\ u_{m} \sqsubseteq v_{j_{m}}.$
+
+\medskip
+Additionally, by the definition of $\ll$, $v \ll w$ (with $v=v_{1}v_{2}\ldots v_{n}$ and
+$w=w_{1}w_{2}\ldots w_{p}$, $1\leq n\leq p$) iff there exist integers $k_{1},\ldots,k_{n}$ such that
+$1\leq k_{1} < k_{2} < \ldots < k_{n-1} < k_{n} \leq p$ and
+$v_{1} \sqsubseteq w_{k_{1}},\ \ldots,\ v_{n} \sqsubseteq w_{k_{n}}.$
+
+\medskip
+By the transitivity of preorder $\sqsubseteq $, $u_{1} \sqsubseteq v_{j_{1}},\ \ldots,\ u_{m} \sqsubseteq v_{j_{m}}$
+and $v_{1} \sqsubseteq w_{k_{1}},\ \ldots,\ v_{n} \sqsubseteq w_{k_{n}} \implies u_{1} \sqsubseteq w_{k_{1}},\ \ldots,\ u_{n} \sqsubseteq w_{k_{n}}$.
+And by the definition of $\ll$, $u_{1} \sqsubseteq w_{k_{1}},\ \ldots,\ u_{n} \sqsubseteq w_{k_{n}} \implies u \ll w$.
+
+\medskip
+\medskip
+
+Solution (part 2): Prove that if $\sqsubseteq $ is a partial order, $\ll$ is a partial order, by showing that $\ll$ is anti-symmetric. If $\sqsubseteq $ is a
+partial order, then it must be anti-symmetric. Let $u=u_{1}u_{2}\ldots u_{m}$ and
+$v=v_{1}v_{2}\ldots v_{n}$. Show if u $\ll$ v, and v $\ll$ u, then u = v (definition of antisymmetry).
+\medskip
+
+By the definition of $\ll$, $u \ll v$ (with $u=u_{1}u_{2}\ldots u_{m}$ and
+$v=v_{1}v_{2}\ldots v_{n}$, $1\leq m\leq n$) iff there exist integers $j_{1},\ldots,j_{m}$ such that
+$1\leq j_{1} < j_{2} < \ldots < j_{m-1} < j_{m} \leq n$ and
+$u_{1} \sqsubseteq v_{j_{1}},\ \ldots,\ u_{m} \sqsubseteq v_{j_{m}}.$
+
+By the definition of $\ll$, $v \ll u$ (with $u=u_{1}u_{2}\ldots u_{m}$ and
+$v=v_{1}v_{2}\ldots v_{n}$, $1\leq n\leq m$) iff there exist integers $j_{1},\ldots,j_{n}$ such that
+$1\leq j_{1} < j_{2} < \ldots < j_{n-1} < j_{n} \leq m$ and
+$v_{1} \sqsubseteq u_{j_{1}},\ \ldots,\ v_{n} \sqsubseteq u_{j_{n}}.$
+
+\medskip
+
+Because $\sqsubseteq $ is anti-symmetric, $u_{1} \sqsubseteq v_{j_{1}},\ \ldots,\ u_{m} \sqsubseteq v_{j_{m}}$ and
+$v_{1} \sqsubseteq u_{j_{1}},\ \ldots,\ v_{n} \sqsubseteq u_{j_{n}} \implies u = v.$
+
+
+\medskip
+\medskip
+
+Solution (part 3): Prove $\ll$ is the least preorder on $A^\ast$ satisfying:
+\begin{enumerate}
+\item[(1)] (deletion property)
+$uv \ll uav$, for all $u, v\in A^{*}$ and $a\in A$;
+\medskip
+\item[(2)] (monotonicity)
+$uav \ll ubv$ whenever $a \sqsubseteq b$, for all $u, v\in A^{*}$ and $a, b\in A$.
+\end{enumerate}
+
+Prove (1): Let $|uv| = m = m_1 + m_2 = |u| + |v|$, so $|uav| = m+1$.
+STUCK
+
+\medskip
+
+Prove (2): STUCK
+
+Next, must show $u \ll v \implies u \preceq v$ for any preorder $ \preceq $ that satisfies (1) and (2).
+Show that $\forall n \ge 1, \forall u_i \in \Sigma^\ast , (1 \le i \le n+1)$ and $ \forall v_i \in \Sigma^\ast (1 \le i \le n)$,
+$v_1...v_n \le u_1v_1u_2...u_nv_nu_{n-1}$. Prove by induction on length of $k= |u_1|+|u_2|+ ... +|u_{n+1}|.$ Secondly, prove
+$ \forall n \ge 1, \forall u_i \in \Sigma^\ast$ $(1 \le i \le n+1)$ and $\forall a_i,b_i \in \Sigma$ $(1 \le i \le n)$ if $a_i \sqsubseteq b_i, i \ge 1.$
+
+\medskip
+
+$u_1a_1u_2...u_na_nu_{n+1} \le u_1b_1u_2...u_nb_nu_{n+1}$ by induction on n.
+
+\medskip
+
+Using these two facts for any strings u $\ll \implies u \preceq v$ where $\preceq$ is a preorder satisfying (1) and (2) and $|u| \le |v|$.
 \end{document}
