@@ -149,13 +149,16 @@ $LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n = L$
 \end{center}
 
 \subsubsection*{Case $\Longleftarrow$:}
+NOTES
 Given $LL \subseteq L$, prove $L^+ = L$.
 \newline
-NOTES
 Proof by induction on n where $L^+ = \bigcup\limits_{n\ge1} L^n$
-Base Case: n = 0. So $L^n = L^0  = \epsilon$ and $\epsilon \subseteq L$.
-Inductive Case: Assume $L^n \subseteq L$.
-Show $L^{n+1} \subseteq L$. $L^{n+1} = LL^{n}$
+Base Case: n = 1. So $L^n = L^1  = L$.
+Inductive Case: Assume $L^n = L$.
+Show $L^{n+1} =L$. 
+\newline 
+$L^{n+1} = LL^{n} = LL$. If we can show that $L \subseteq LL$, then 
+$LL=L$.
 STUCK. Use $(n \ge 1)$, $ \cup L^n$ to prove.
 ENDNOTES
 
