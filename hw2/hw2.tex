@@ -278,18 +278,26 @@ Prove (1): Let $|uv| = m = m_1 + m_2 = |u| + |v|$, so $|uav| = m+1$.
 STUCK
 \newline
 Prove (2): STUCK
-Next, must show $u \ll v \implies u \preceq v$ for any preorder $\preceq$
-that satisfies (1) and (2). Show that $\forall n \ge 1,
-\forall u_i \in \Sigma^\ast , (1 \le i \le n+1)$ and
-$ \forall v_i \in \Sigma^\ast (1 \le i \le n)$,
-$v_1...v_n \le u_1v_1u_2...u_nv_nu_{n-1}$.
-Prove by induction on length of $k= |u_1|+|u_2|+ ... +|u_{n+1}|.$
-Secondly, prove $ \forall n \ge 1, \forall u_i \in \Sigma^\ast$
-$(1 \le i \le n+1)$ and $\forall a_i,b_i \in \Sigma$ $(1 \le i \le n)$
+Next, must show $u \ll v \implies u \preceq v$ for any preorder $ \preceq $ that satisfies (1) and (2).
+Show that $\forall n \ge 1, \forall u_i \in \Sigma^\ast , (1 \le i \le n+1)$ and $ \forall v_i \in \Sigma^\ast (1 \le i \le n)$,
+$v_1...v_n \le u_1v_1u_2...u_nv_nu_{n-1}$. Prove by induction on length of $k= |u_1|+|u_2|+ ... +|u_{n+1}|.$ 
+begin office hours. Base Case: k=0 is automatic. Inductive Case: There is some $u_i$ not equal to $ \epsilon$, say $u_i = u_i ' a, a \in A$.
+$u_1 ,u_2 , ... , u_i ' , ... , u_{n+1}$  so  $|u_1| + ... + |u_i '| + ... + |u_{n+1}| = k-1$. By the inductive hypothesis,
+$v_1 ... v_n \le u_1 v_1 u_2 ... v_{i-1} u_i ' v_{i+1}$ by (1) end office hours.
+Secondly, prove
+$ \forall n \ge 1, \forall u_i \in \Sigma^\ast$ $(1 \le i \le n+1)$ and $\forall a_i,b_i \in \Sigma$ $(1 \le i \le n)$ 
 if $a_i \sqsubseteq b_i, i \ge 1.$
-\newline
+
+\medskip
+
 $u_1a_1u_2...u_na_nu_{n+1} \le u_1b_1u_2...u_nb_nu_{n+1}$ by induction on n.
-\newline
-Using these two facts for any strings u $\ll \implies u \preceq v$ where
-$\preceq$ is a preorder satisfying (1) and (2) and $|u| \le |v|$.
+Start office hours: Base Case: $n=1$. This is exactly condition two. Inductive Case: Apply the inductive hypothesis to the 
+first n elements. Then set the first n elements to the value of u and apply (2) to get n + 1. end office hours
+\medskip
+
+Using these two facts for any strings u $\ll v \implies u \preceq v$ where $\preceq$ is a preorder satisfying (1) and 
+(2) and $|u| \le |v|$. begin office hours: String embedding $u \ll v$ means if $u=a_1 ...a_n$, then $v=w_1 b_1 ... b_n w_{n+1}$
+with $a_i \sqsubseteq b_i$ and $w_i \epsilon A^{\ast}$. So, $a_1 ... a_n  \preceq w_1 a_1 w_2 ... w_n a_n w_{n+1}$, then convert
+a's to b's with proven part 2. $a_1 ... a_n  \preceq w_1 a_1 w_2 ... w_n a_n w_{n+1} \preceq w_1 b_1 w_2 ... w_n b_n w_{n+1}$
+And we are done! end office hours.
 \end{document}
