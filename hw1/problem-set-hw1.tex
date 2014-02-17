@@ -1,0 +1,490 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+
+\setlength{\topmargin}{-.5in}
+\setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in}
+\setlength{\textwidth}{6.5truein}
+\setlength{\textheight}{8.5truein}
+
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+
+\input xy
+\xyoption{all}
+\def\fseq#1#2{(#1_{#2})_{#2\geq 1}}
+\def\fsseq#1#2#3{(#1_{#3(#2)})_{#2\geq 1}}
+\def\qleq{\sqsubseteq}
+
+\begin{document}
+\begin{center}
+\fbox{{\Large\bf Spring, 2014 \hspace*{0.4cm} CIS 511}}\\
+\vspace{1cm}
+{\Large\bf Introduction to the Theory of Computation\\
+Jean Gallier \\
+\vspace{0.5cm}
+Homework 1}\\[10pt]
+January 21, 2014; Due February 4, 2014, {\it beginning of class}\\
+\end{center}
+
+``A problems'' are for practice only, and should not
+be turned in.
+
+\medskip\noindent
+{\bf Problem A1.} 
+Given an alphabet $\Sigma$, prove
+that the relation $\leq_1$ over $\Sigma^*$ defined such that
+$u \leq_1 v$ iff $u$ is a prefix of $v$, is a partial ordering.
+Prove that the relation $\leq_2$ over $\Sigma^*$ defined such that
+$u \leq_2 v$ iff $u$ is a substring of $v$, is a partial ordering.
+
+
+\medskip\noindent
+{\bf Problem A2.} 
+Given an alphabet $\Sigma$, for any language $L\subseteq \Sigma^*$,
+prove that $L^{**} = L^*$ and $L^*L^* = L^*$.
+
+\vspace {0.5cm}\noindent
+{\bf Problem A3.} 
+Let $D = (Q,\Sigma,\delta,q_0,F)$ be a DFA.
+Prove that for all $p\in Q$ and all $u, v\in \Sigma^*$,
+\[
+\delta^*(p, uv) = \delta^*(\delta^*(p, u), v).
+\]
+
+\vspace {0.5cm}
+``B problems'' must be turned in.
+
+\vspace {0.25cm}\noindent
+{\bf Problem B1 (30 pts).} 
+Let $D = (Q,\Sigma,\delta,q_0,F)$ be a DFA.
+Recall that a state $p\in Q$ is {\it accessible\/} or {\it reachable\/}
+iff there is some string $w\in\Sigma^*$, such that
+$$\delta^{*}(q_0,w) = p,$$
+i.e., there is some path from $q_0$ to $p$ in $D$.
+Consider the following method for computing the set $Q_{r}$ of
+reachable states (of $D$): define the sequence of sets
+$Q_{r}^{i}\subseteq Q$, where
+
+\medskip
+$Q_{r}^{0} = \{q_0\}$,
+ 
+\medskip
+$Q_{r}^{i+1} = \{q\in Q \mid \exists p\in Q_{r}^{i}, \exists a\in\Sigma,\>
+q = \delta(p,a)\}$.
+
+\medskip
+(i) Prove by induction on $i$ that $Q_{r}^{i}$ is the set of
+all states reachable from $q_0$ using paths of length $i$
+(where $i$ counts the number of edges).
+
+\medskip
+Give an example of a DFA such that
+$Q_{r}^{i+1} \not= Q_{r}^{i}$ for all $i\geq 0$.
+
+\medskip
+(ii) Give an example of a DFA such that
+$Q_{r}^{i} \not= Q_{r}$
+for all $i \geq 0$.
+
+\medskip
+(iii) Change the inductive definition of $Q^i_r$ as follows:
+\[
+Q_{r}^{i+1} = Q^i_r\cup
+\{q\in Q \mid \exists p\in Q_{r}^{i}, \exists a\in\Sigma,\>
+q = \delta(p,a)\}.
+\]
+Prove that there is a smallest integer $i_0$ such that
+\[
+Q_{r}^{i_{0}+1} = Q_{r}^{i_{0}} = Q_{r}.
+\]
+
+Define the DFA $D_r$ as follows:
+$D_r = (Q_r,\Sigma,\delta_r,q_0,F\cap Q_r)$,
+where $\mapdef{\delta_r}{Q_r\times\Sigma}{Q_r}$
+is the restriction of $\delta$ to $Q_r$.
+Explain why $D_r$ is indeed a DFA, and 
+prove that $L(D_r) = L(D)$.
+A DFA is said to be {\it reachable, or trim\/}, if
+$D = D_r$.
+
+% cis511-10hw1
+\vspace{0.25cm}
+\noindent
+{\bf Problem B2 (50 pts).} 
+Given any two relatively prime integers $p, q\geq 1$, with $p\not= q$,
+($p$ and $q$ are relatively prime iff
+their greatest common divisor  is $1$), consider
+the language
+$L = \{a^p, a^q\}^*$. Prove that
+$$\{a^p, a^q\}^* = \{a^n\ |\ n \geq (p-1)(q-1)\}\cup F,$$
+where $F$ is some finite set of strings (of length $< (p - 1)(q - 1)$).
+Prove that $L$ is a regular language.
+
+\medskip\noindent
+{\bf Extra Credit (20 pts).}
+Given any two relatively prime integers $p, q\geq 1$, with $p\not= q$,
+prove that $pq - p - q = (p-1)(q-1) -1$
+is the largest integer not
+expressible as $ph + kq$ with $h, k\geq 0$.
+
+\vspace {0.25cm}
+\noindent
+{\bf Problem B3 (30 pts).} 
+Given any alphabet $\Sigma$, prove the following
+property: for any two strings $u, v\in\Sigma^*$, $uv = vu$ iff
+there is some $w\in\Sigma^*$ such that $u = w^m$ and $v = w^n$, for
+some $m, n\geq 0$.
+
+
+
+\vspace{0.25cm}
+\noindent
+{\bf Problem B4 (60 pts).}
+Given any two DFA's 
+$D_1 = (Q_1, \Sigma, \delta_1, q_{0, 1}, F_1)$
+and \\
+$D_2 = (Q_2, \Sigma$, $\delta_2, q_{0, 2}, F_2)$,
+a {\it morphism $\mapdef{h}{D_1}{D_2}$ of DFA's\/} is a function
+$\mapdef{h}{Q_1}{Q_2}$ satisfying the following two conditions:
+
+\begin{enumerate}
+\item[(1)]
+$h(\delta_1(p, a)) = \delta_2(h(p), a)$,
+for all $p\in Q_1$ and all $a\in \Sigma$;
+\item[(2)]
+$h(q_{0, 1}) = q_{0, 2}$.
+\end{enumerate}
+
+An {\it $F$-map $\mapdef{h}{D_1}{D_2}$ of DFA's\/} is a morphism
+satisfying the condition 
+\begin{enumerate}
+\item[(3a)]
+$h(F_1) \subseteq F_2$.
+\end{enumerate}
+
+\medskip
+A {\it $B$-map $\mapdef{h}{D_1}{D_2}$ of DFA's\/} is a morphism
+satisfying the condition
+\begin{enumerate}
+\item[(3b)]
+$h^{-1}(F_2) \subseteq F_1$.
+\end{enumerate}
+
+\medskip
+A {\it proper homomorphism of DFA's\/} is an $F$-map
+of DFA's which is also a $B$-map of DFA's, i.e.
+it satisfies the condition
+\begin{enumerate}
+\item[(3c)]
+$h^{-1}(F_2) = F_1$.
+\end{enumerate}
+
+\medskip
+We say that a morphism (resp. $F$-map, resp. $B$-map)
+$\mapdef{h}{D_1}{D_2}$  is 
+{\it surjective\/} if $h(Q_1) = Q_2$.
+
+\medskip
+(a)
+Prove that
+if $\mapdef{f}{D_1}{D_2}$ and $\mapdef{g}{D_2}{D_3}$ are
+morphisms (resp. $F$-maps, resp $B$-maps) of DFAs,
+then $\mapdef{g\circ f}{D_1}{D_3}$ is also a morphism
+(resp. $F$-map, resp $B$-map) of DFAs.
+
+\medskip
+Prove that if  $\mapdef{f}{D_1}{D_2}$ is an $F$-map that is
+an isomorphism then it is also a $B$-map, and that 
+if  $\mapdef{f}{D_1}{D_2}$ is a $B$-map that is
+an isomorphism then it is also an $F$-map.
+
+
+\medskip
+(b)
+If $\mapdef{h}{D_1}{D_2}$  is a morphism
+of DFA's, prove that
+$$h(\delta_1^*(p, w)) = \delta_2^*(h(p), w),$$
+for all $p\in Q_1$ and all $w\in \Sigma^*$.
+
+\medskip
+As a consequence, prove the following facts:
+
+\medskip
+If $\mapdef{h}{D_1}{D_2}$  is an $F$-map of DFA's, then
+$L(D_1) \subseteq L(D_2)$.
+If $\mapdef{h}{D_1}{D_2}$  is a $B$-map of DFA's, then
+$L(D_2) \subseteq L(D_1)$.
+Finally, if $\mapdef{h}{D_1}{D_2}$  is a proper  homomorphism of DFA's, then
+$L(D_1) = L(D_2)$.
+
+\medskip
+(c)
+Let $D_1$ and $D_2$ be DFA's and assume that there is a
+morphism   $\mapdef{h}{D_1}{D_2}$.
+Prove that $h$ induces a unique surjective morphism
+$\mapdef{h_r}{(D_1)_r}{(D_2)_r}$
+(where $(D_1)_r$ and $(D_2)_r$ are the trim DFA's
+defined in problem B1). This means that
+if   $\mapdef{h}{D_1}{D_2}$ and   $\mapdef{h'}{D_1}{D_2}$
+are DFA morphisms, then $h(p) = h'(p)$ for all
+$p\in (Q_1)_r$,
+and the restriction of $h$ to $(D_1)_r$ is surjective onto $(D_2)_r$.
+Moreover, if $L(D_1) = L(D_2)$,
+prove that $h$ induces a unique surjective
+proper  homomorphism   $\mapdef{h_r}{(D_1)_r}{(D_2)_r}$.
+
+\medskip
+(d)
+Relax the condition that a DFA morphism
+$\mapdef{h}{D_1}{D_2}$ maps $q_{0, 1}$ to $q_{0, 2}$
+(so, it is possible that $h(q_{0, 1})\not= q_{0, 2}$), and call
+such a function a {\it weak morphism\/}.
+We have an obvious notion of {\it weak $F$-map\/},
+{\it weak $B$-map\/} and {\it weak proper
+homomorphism\/}
+(by imposing condition (3a) or
+condition (3b), or (3c)).
+For any language, $L \subseteq \Sigma^*$ and any fixed
+string, $u\in \Sigma^*$, let $D_u(L)$, also denoted
+$L/u$ (called the  {\it (left) derivative of $L$ by $u$\/}), be
+the language
+\[
+D_u(L) = \{v\in \Sigma^*\mid uv \in L\}.
+\]
+Prove the following facts, 
+{\bf assuming that $D_2$ is trim}:
+If $\mapdef{h}{D_1}{D_2}$  is a weak $F$-map of DFA's, then
+$L(D_1) \subseteq D_u(L(D_2))$, 
+for some suitable $u\in\Sigma^*$.
+If $\mapdef{h}{D_1}{D_2}$  is a weak $B$-map of DFA's, then
+$D_u(L(D_2)) \subseteq L(D_1)$,
+for the same $u$ as above.
+Finally, if $\mapdef{h}{D_1}{D_2}$  is a weak proper  
+homomorphism of DFA's, then
+$L(D_1) = D_u(L(D_2))$,
+for the same $u$ as above.
+
+\medskip
+Suppose there is a weak morphism
+$\mapdef{h}{D_1}{D_2}$. What can you say about
+the restriction of $h$ to $(D_1)_r$?
+What can you say about surjectivity ?
+(you may need
+to consider $(D_2)_r$ with respect to a {\bf different}
+start state). What happens (and what can you say)
+if $D_2$ is {\bf not} trim?
+
+
+
+
+\vspace {0.25cm}\noindent
+{\bf Problem B5 (50 pts).} ({\it Ultimate periodicity\/})
+A subset $U$ of the set $\natnums = \{0, 1, 2, 3,\ldots\}$
+of natural numbers is {\it ultimately periodic\/}
+if there exist $m, p\in \natnums$, with $p \geq 1$, so that
+$n\in U$ iff $n + p\in U$, for all $n\geq m$.
+
+\medskip
+(i)
+Prove that $U\subseteq \natnums$ is ultimately periodic 
+iff either $U$ is finite or there is a finite subset 
+$F\subseteq \natnums$
+and there are $k \leq p$ 
+numbers $m_1, \ldots, m_k$, with
+$m_1 < m_2 < \cdots < m_k < m_1 + p$,
+and with $m_1$ the smallest
+element of $U$ so that for some $p \geq 1$,
+$n\in U$ iff $n + p\in U$, for all $n\geq m_1$,
+so that 
+\[U = F \cup \bigcup_{i = 1}^k \, \{m_i + jp\mid j\in \natnums\}.\]
+
+\medskip
+Give an example of an ultimately periodic set $U$
+such that $m$ and $p$ are not necessarily unique, i.e.,
+$U$ is ultimately periodic with respect to
+$m_1, p_1$ and $m_2, p_2$, with $m_1\not= m_2$ and $p_1\not= p_2$.
+
+\remark
+A subset of $\natnums$ of the form
+$\{m + i p \mid i\in \natnums\}$ (allowing $p = 0$)
+is called a {\it linear set\/}, and
+a finite union of linear sets is called a {\it semilinear set\/}.
+Thus, (i) says that a set is ultimately periodic iff it is semilinear.
+
+\medskip
+(ii)
+Let $L\subseteq \{a\}^*$ be a language over the one-letter
+alphabet $\{a\}$. Prove that $L$ is a regular language
+iff the set
+$\{m \in \natnums \mid a^m\in L\}$ is ultimately
+periodic.
+Prove that the family of semilinear sets is closed
+under union, intersection and complementation
+(i.e., it is a boolean algebra).
+
+\medskip
+(iii)
+Let $L \subseteq \Sigma^*$ be a regular language over
+any alphabet $\Sigma$ (not necessarily
+consisting of a single letter).
+Prove that the set
+\[|L| = \{|w| \mid w \in L\}\]
+is ultimately periodic. 
+
+
+\vspace {0.25cm}\noindent
+{\bf Problem B6 (70 pts).} 
+(a)
+Given any two DFA's $D_1$ and $D_2$, prove that there is a DFA
+$D$ and two  DFA $F$-maps $\mapdef{\pi_1}{D}{D_1}$
+and $\mapdef{\pi_2}{D}{D_2}$ such that
+the following {\it universal mapping property of products\/} holds:
+For any DFA $M$ and any two DFA $F$-maps \\
+$\mapdef{f}{M}{D_1}$ and $\mapdef{g}{M}{D_2}$, there is
+a {\it unique\/} DFA $F$-map $\mapdef{h}{M}{D}$ such that
+\[f = \pi_1\circ h
+\quad\hbox{and}\quad 
+g = \pi_2\circ h,\]
+as shown in the diagram below:
+%\[\matrice{
+%                       &                     &               D_1        \cr
+%             & \mapdiagul{f}        & \mapupr{\pi_1}          \cr
+%M            & \maprightu{h}                  &  D                    \cr
+%             & \mapdiagdr{g}        & \mapdownr{\pi_2}                    \cr
+%                       &                     &               D_2        \cr
+%}\]
+\[
+\xymatrix{
+  &   \> D_1 \\
+M     \ar[ru]^{f} \ar[r]^{h} \ar[rd]_{g} & 
+  D   \ar[u]_-{\pi_1}    \ar[d]^-{\pi_2}      \\
+  &  \> D_2 
+}
+\]
+Moreover, prove that $\pi_1$ and $\pi_2$ are surjective.
+Prove that $D$ is unique up to a DFA $F$-map isomorphism.
+This means that if $D'$ is another DFA and if there are two
+DFA $F$-maps $\mapdef{\pi_1'}{D'}{D_1}$
+and $\mapdef{\pi_2'}{D'}{D_2}$ such that
+the universal mapping property of products holds, then
+there are two unique DFA $F$-maps $\mapdef{\varphi}{D}{D'}$ and
+$\mapdef{\varphi'}{D'}{D}$ so that
+$\varphi'\circ \varphi = \id_{D}$,
+$\pi_1 = \pi_1'\circ  \varphi$, $\pi_2 =  \pi_2'\circ \varphi$,
+$\varphi\circ \varphi' = \id_{D'}$,
+$\pi_1' = \pi_1\circ  \varphi'$ and $\pi_2' =  \pi_2\circ \varphi'$.
+What is the language accepted by $D$?
+
+\remark
+We call $D$ the {\it product of $D_1$ and $D_2$\/}
+and we denote it by $D_1\prod D_2$.
+
+\medskip
+(b)
+Given any three DFA's $D_1$, $D_2$, and $D_3$ 
+and any two DFA $F$-maps
+$\mapdef{f}{D_1}{D_3}$ and $\mapdef{g}{D_2}{D_3}$, 
+prove that there is a DFA
+$D$ and two  DFA $F$-maps $\mapdef{\pi_1}{D}{D_1}$
+and $\mapdef{\pi_2}{D}{D_2}$ such that
+\[f\circ \pi_1 = g\circ \pi_2,\]
+as in the diagram below
+%\[
+%\matrice{
+%D            &  \maprightu{\pi_1}  &  D_1          \cr
+%\mapdownl{\pi_2}   &                 & \mapdownr{f}\cr
+%D_2            & \maprightd{g}&  D_3,            \cr 
+%}
+%\]
+%
+\[
+\xymatrix{
+D \ar[r]^{\pi_1} \ar[d]_{\pi_2} & \> D_1 \ar[d]^{f} \\
+D_2 \ar[r]_{g} & \> D_3
+}
+\]
+and the following {\it universal mapping property of 
+fibred products\/} holds:
+for any DFA $M$ and any two DFA $F$-maps
+$\mapdef{f'}{M}{D_1}$ and $\mapdef{g'}{M}{D_2}$
+such that
+\[f\circ f' = g\circ g',\]
+as in the diagram below
+%\[
+%\matrice{
+%M            &  \maprightu{f'}  &  D_1          \cr
+%\mapdownl{g'}   &                 & \mapdownr{f}\cr
+%D_2            & \maprightd{g}&  D_3,            \cr 
+%}
+%\]
+%
+\[
+\xymatrix{
+M \ar[r]^{f'} \ar[d]_{g'} & \> D_1 \ar[d]^{f} \\
+D_2 \ar[r]_{g} & \> D_3
+}
+\]
+there is a
+{\it unique\/} DFA $F$-map $\mapdef{h}{M}{D}$ such that
+\[f' = \pi_1\circ h
+\quad\hbox{and}\quad 
+g' = \pi_2\circ h,\]
+as in the diagram below
+\[
+\xymatrix{
+M   \> \ar[rrd]^-{f'} \ar[ddr]_-{g'} \ar@{.>}[rd] |-{h} &  & \> \\
+&  D \> \ar[r]_-{\pi_1} \ar[d]^-{\pi_2} & \> D_1 \ar[d]^{f} \\
+&  D_2\> \ar[r]_{g} & \> D_3
+}
+\]
+Prove that $D$ is unique up to a DFA $F$-map isomorphism.
+This means that if $D'$ is another DFA and if there are
+two DFA $F$-maps  $\mapdef{\pi_1'}{D'}{D_1}$
+and $\mapdef{\pi_2'}{D'}{D_2}$ such that
+\[f\circ \pi_1' = g\circ \pi_2'\]
+and the universal mapping property of 
+fibred products holds, then
+there are two unique DFA $F$-maps $\mapdef{\varphi}{D}{D'}$ and
+$\mapdef{\varphi'}{D'}{D}$ so that
+$\varphi'\circ \varphi = \id_{D}$
+$\pi_1 = \pi_1'\circ  \varphi$, $\pi_2 =  \pi_2'\circ \varphi$,
+$\varphi\circ \varphi' = \id_{D'}$,
+$\pi_1' = \pi_1\circ  \varphi'$ and $\pi_2' =  \pi_2\circ \varphi'$.
+
+
+\remark
+We denote $D$ by $D_1\prod_{D_3} D_2$ and call it
+a {\it fibred product of $D_1$ and $D_2$ over $D_3$\/},
+or a {\it pullback of $D_1$ and $D_2$ over $D_3$\/}.
+
+\medskip
+If  $T$ is any one-state DFA accepting $\Sigma^*$
+(this single state is accepting), observe that there is a unique
+DFA $F$-map from every DFA $D$ to $T$.
+Use this to show that if $D_1\prod D_2$ is the
+product DFA arising in (a), then 
+\[D_1\prod D_2 = D_1\prod_{T} D_2.\]
+
+
+\vspace{0.25cm}\noindent
+{\bf Extra Credit (40 points).}
+Redo questions (a) and (b) for $B$-maps instead of
+$F$-maps. 
+
+\remark
+If we dualize (b), i.e.,
+turn the arrows around, we get the notion of
+{\it fibred coproduct\/} or {\it pushout\/}.
+It can be shown that fibred coproducts exist,
+both for $F$-maps and $B$-maps,
+but this is  tricky.
+
+\vspace{0.5cm}\noindent
+{\bf TOTAL: 290 + 60 points.}
+
+\end{document}
+
+
+
