@@ -162,25 +162,25 @@ $LL=L$.
 STUCK. Use $(n \ge 1)$, $ \cup L^n$ to prove.
 ENDNOTES
 
-\subsection*{{b}}
+\subsection*{(b)}
 ($L=\emptyset$ or $L=L^*$) iff LL=L.
 Recall $L^\ast = \bigcup\limits_{n \ge 0} L^n \implies L^n \subseteq L^\ast,
 \forall n\ge 0$.
 \newline
-Case $\implies$ : Prove ($L=\emptyset$ or $L=L^*$)
+\subsubsection*{Case $\implies$:}
+Prove ($L=\emptyset$ or $L=L^*$)
 $\implies LL=L$. $L = L^\ast \implies {\epsilon } \in L$
 Since ${\epsilon } \in L \implies L \subseteq LL = L^2 \implies L \subseteq LL$.
 From part (a) we know $L=L^+ \implies LL \subseteq L$. 
 $L \subseteq LL$ and $LL \subseteq L \implies L = LL$.
 
-Case $\Longleftarrow$ : $L=LL \implies L = L^\ast$.
+\subsubsection*{Case $\Longleftarrow$:} 
+$L=LL \implies L = L^\ast$.
 (The case where $L= \emptyset$ is trivial).
 Claim: $L=L^2 \implies {\epsilon } \in L$ SHOW PROOF.
 By part (a), $LL=L \implies LL \subseteq L \implies
 L = L^+$ and since ${\epsilon } \in L$, $L^+=L^\ast$.
 
-\medskip
-Since ${\epsilon } \in L \implies L^\ast = L^+$.
 \section*{Problem B6}
 
 \subsection*{(c)}
@@ -251,7 +251,9 @@ and $v_{1} \sqsubseteq w_{k_{1}},\ \ldots,\ v_{n} \sqsubseteq w_{k_{n}}
 \implies u_{1} \sqsubseteq w_{k_{1}},\ \ldots,\ u_{n} \sqsubseteq w_{k_{n}}$.
 And by the definition of $\ll$, $u_{1} \sqsubseteq w_{k_{1}},\ \ldots,\ u_{n}
 \sqsubseteq w_{k_{n}} \implies u \ll w$.
-\newline
+
+\medskip
+
 Solution (part 2): Prove that if $\sqsubseteq $ is a partial order,
 $\ll$ is a partial order, by showing that $\ll$ is anti-symmetric.
 If $\sqsubseteq $ is a partial order, then it must be anti-symmetric.
@@ -271,7 +273,9 @@ $v_{1} \sqsubseteq u_{j_{1}},\ \ldots,\ v_{n} \sqsubseteq u_{j_{n}}.$
 Because $\sqsubseteq $ is anti-symmetric, $u_{1} \sqsubseteq v_{j_{1}},\ \ldots,
 \ u_{m} \sqsubseteq v_{j_{m}}$ and $v_{1} \sqsubseteq u_{j_{1}},\ \ldots,
 \ v_{n} \sqsubseteq u_{j_{n}} \implies u = v.$
-\newline
+
+\medskip
+
 Solution (part 3): Prove $\ll$ is the least preorder on $A^\ast$ satisfying:
 \begin{enumerate}
 \item[(1)] (deletion property)
@@ -280,30 +284,40 @@ $uv \ll uav$, for all $u, v\in A^{*}$ and $a\in A$;
 \item[(2)] (monotonicity) $uav \ll ubv$ whenever $a \sqsubseteq b$,
 for all $u, v\in A^{*}$ and $a, b\in A$.
 \end{enumerate}
-Prove (1): Let $|uv| = m = m_1 + m_2 = |u| + |v|$, so $|uav| = m+1$.
-STUCK
-\newline
-Prove (2): STUCK
-Next, must show $u \ll v \implies u \preceq v$ for any preorder $ \preceq $ that satisfies (1) and (2).
-Show that $\forall n \ge 1, \forall u_i \in \Sigma^\ast , (1 \le i \le n+1)$ and $ \forall v_i \in \Sigma^\ast (1 \le i \le n)$,
-$v_1...v_n \le u_1v_1u_2...u_nv_nu_{n-1}$. Prove by induction on length of $k= |u_1|+|u_2|+ ... +|u_{n+1}|.$ 
-begin office hours. Base Case: k=0 is automatic. Inductive Case: There is some $u_i$ not equal to $ \epsilon$, say $u_i = u_i ' a, a \in A$.
-$u_1 ,u_2 , ... , u_i ' , ... , u_{n+1}$  so  $|u_1| + ... + |u_i '| + ... + |u_{n+1}| = k-1$. By the inductive hypothesis,
-$v_1 ... v_n \le u_1 v_1 u_2 ... v_{i-1} u_i ' v_{i+1}$ by (1) end office hours.
-Secondly, prove
-$ \forall n \ge 1, \forall u_i \in \Sigma^\ast$ $(1 \le i \le n+1)$ and $\forall a_i,b_i \in \Sigma$ $(1 \le i \le n)$ 
-if $a_i \sqsubseteq b_i, i \ge 1.$
 
 \medskip
 
+Must show $u \ll v \implies u \preceq v$ for any preorder $ \preceq $ that satisfies (1) and (2).
+\newline
+Show that $\forall n \ge 1, \forall u_i \in \Sigma^\ast , (1 \le i \le n+1)$ and $ \forall v_i \in \Sigma^\ast (1 \le i \le n)$,
+$v_1...v_n \le u_1v_1u_2...u_nv_nu_{n+1}$. Prove by induction on length of $k= |u_1|+|u_2|+ ... +|u_{n+1}|.$ 
+\newline
+Base Case: k=0 is automatic. 
+\newline
+Inductive Case: There is some $u_i$ not equal to $ \epsilon$. Let $u_i = u_i ' a$, with $a \in A$.
+\newline
+Consider $u_1 ,u_2 , ... , u_i ' , ... , u_{n+1}$  so  $|u_1| + ... + |u_i '| + ... + |u_{n+1}| = k-1$. 
+\newline
+By the inductive hypothesis,
+$v_1 ... v_n \le u_1 v_1 u_2 ... v_{i-1} u_i ' v_{i}...u_nv_nu_{n+1}$ by (1).
+
+\medskip
+
+Secondly, prove
+$ \forall n \ge 1, \forall u_i \in \Sigma^\ast$ $(1 \le i \le n+1)$ and $\forall a_i,b_i \in \Sigma$ $(1 \le i \le n)$ 
+if $a_i \sqsubseteq b_i, i \ge 1$.
+\newline
 $u_1a_1u_2...u_na_nu_{n+1} \le u_1b_1u_2...u_nb_nu_{n+1}$ by induction on n.
-Start office hours: Base Case: $n=1$. This is exactly condition two. Inductive Case: Apply the inductive hypothesis to the 
-first n elements. Then set the first n elements to the value of u and apply (2) to get n + 1. end office hours
+\newline
+Base Case: $n=1$. This is exactly condition two. 
+\newline 
+Inductive Case: Apply the inductive hypothesis to the 
+first n elements. Then set the first n elements to the value of u and apply (2) to get n + 1.
 \medskip
 
 Using these two facts for any strings u $\ll v \implies u \preceq v$ where $\preceq$ is a preorder satisfying (1) and 
-(2) and $|u| \le |v|$. begin office hours: String embedding $u \ll v$ means if $u=a_1 ...a_n$, then $v=w_1 b_1 ... b_n w_{n+1}$
+(2) and $|u| \le |v|$. String embedding $u \ll v$ means if $u=a_1 ...a_n$, then $v=w_1 b_1 ... b_n w_{n+1}$
 with $a_i \sqsubseteq b_i$ and $w_i \epsilon A^{\ast}$. So, $a_1 ... a_n  \preceq w_1 a_1 w_2 ... w_n a_n w_{n+1}$, then convert
-a's to b's with proven part 2. $a_1 ... a_n  \preceq w_1 a_1 w_2 ... w_n a_n w_{n+1} \preceq w_1 b_1 w_2 ... w_n b_n w_{n+1}$
-And we are done! end office hours.
+a's to b's with proven part 2. $a_1 ... a_n  \preceq w_1 a_1 w_2 ... w_n a_n w_{n+1} \preceq w_1 b_1 w_2 ... w_n b_n w_{n+1}$.
+
 \end{document}
