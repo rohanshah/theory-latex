@@ -79,10 +79,20 @@ NFA with $2n+1$ states accepting $L_n$:
   \end{center}
 
 \subsection*{(c)}
+Proof by contradiction:\newline
+\indent Assume that that there is a DFA $D_{bad} = (Q, \Sigma, \delta, q_0, F)$ such that $D_{bad}$ has less than $2^n$ states and it accepts the language $L_n$.  This means there is some state $p \in F$ that will accept strings $x, y$ such that $x$ has an even number of $a_i$ and $y$ has an odd number of $a_i$.  Since we know that $L_n$ is a regular language from part b we know that there is some Myhill-Nerod relation such that $x \simeq_D y$. Then we can construct a string $z$ with an odd number of Ais and nothing else.  This would mean that XZ is in some equivalence class of odd Ais and even Ajs and YZ is in a different equivalence class of odd Ais and odd Ajs.  Since DFAs should have right invariant equivalence classes, from Myhil-Nerode we have a contradiction.
 \section*{Problem B2}
 \subsection*{(a)}
+Let DFA $D_C = (Q, T, \delta_C, q_0, F_C)$ be a DFA that accepts the language: \[
+C = \{u\in T^3 \mid u \notin \{110, 111, 112, 101, 121, 011, 211\}\}
+\]Let there be a DFA  $D_{Lm} = (Q, T \cup \{c\}, \delta_{Lm}, q_0, F_C)$, $\delta_{Lm}$ is the transition function that has all the same transitions as $\delta_C$ with the added transition that from all states $p$ in $F_C$ if a letter $c$ is encountered it goes back to $q_0$ and if a non c is encountered it goes to a failed state.\newline\newline
+Proof that $D_{Lm}$ accepts the language $L_m$:\newline
+\indent$L_m$ is basically $C^+$ with a c transition between each string in the language $C$: i.e. $u_1cu_2cu_3c....u_n$. $D_Lm$ accepts all $u_i$ because it contains the transition function of $\delta_C$ and the final states $F_C$.  So we need to show that it accepts subsequent $cu$ strings.  $D_{Lm}$ on reaching a $p$ in $F_C$ transitions on a $c$ back to $q_0$, which can then accept a string $u_i$ as described above and repeat.  Any bad string in a $u_b$ will be rejected by the transition function taken from $D_C$ and any non $c$ transition from a final state is thrown into a bad state.  Therefore $D_{Lm}$ accepts the language $L_m$. 
 \subsection*{(b)}
-
+Start with a unit cube\newline
+Cut it into 27 equal sized cubes\newline
+Take out the cubes in the center (7 total cubes removed)\newline
+There are now 20 available cubes - repeat the previous steps $\forall$ cubes
 \section*{Problem B3}
 \subsection*{(1)}
   Given that R is a regular language there exists a DFA
