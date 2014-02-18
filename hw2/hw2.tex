@@ -138,22 +138,33 @@ NFA with $2n+1$ states accepting $L_n$:
   Let $D = (Q, \Sigma, q_0, \delta, F)$ be the DFA that accepts the regular
   language L, i.e. $L(D) = L$. We can construct a DFA for the language
   $Pre(L)$ as $D_{pre} = (Q, \Sigma, \delta, q_0, F')$ where we define
-  $F' = \{q \:|\: \exists w \in L ,\: \exists u \: v \in \Sigma^* ,\: w=uv
-  ,\: \delta^* (q_0, u) = q ,\: \delta^* (q,v) \in F \}$. Informally,
-  the accepting states in $D_{pre}$ are those states from which $F$ is
-  reachable in $D$ via some reachable state $q \in Q$ and some
+  $F' = \{q \:|\: \exists u,v \in \Sigma^* ,\: uv \in L
+  ,\: \delta^* (q_0, u) = q ,\: \delta^* (q, v) \in F\}$.
+  Informally, the accepting states in $D_{pre}$ are those states from which
+  $F$ is reachable in $D$ via some reachable state $q \in Q$ and some
   word $v \in \Sigma^*$ i.e. it accepts all words $u \in \Sigma^*$
   such that such a $q$ and $v$ exist, or, the prefixes of L.
   Proof that $L(D_{pre}) = Pre(L)$ and thus that $Pre(L)$ is a regular language:
+  $$u \in L(D_{pre}) \implies$$ $$\delta^*(q_0, u) \in F' =
+  \delta^*(q_0, u) \in \{q \:|\: \exists v \in \Sigma* ,\: uv \in L
+  ,\: \delta^*(q_0, u) = q\} \implies$$
+  $$L(D_{pre}) = \{u \:|\: \exists v \in \Sigma^* ,\: uv \in L ,\:
+  \exists q \in Q ,\: \delta^*(q_0, u) = q \}
+  = Pre(L)$$
  
 \subsection*{(b)}
   Let $D = (Q, \Sigma, q_0, \delta, F)$ be the DFA that accepts the regular
   language L, i.e. $L(D) = L$. We can construct an NFA for the language
-  $Suff(L)$ as $N_{suff} = (Q, \Sigma, q_1, \delta{'}, F)$ where $\delta$
-  has all the same transition functions as $\delta$ and additional
-  $\epsilon$ transitions from $q_1$ to the set of states
-  $\{q \:|\: \exists w \in L ,\: \exists u \: v \in \Sigma^* ,\: w=uv
-  ,\: \delta^* (q_0, u) = q ,\: \delta^* (q,v) \in F \}$
+  $Suf(L)$ as $N_{suf} = (Q, \Sigma, q_1, \delta{'}, F)$ where $\delta{'}$
+  maintains all the transitions in $\delta$ and adds $\epsilon$ transitions
+  from the start state $q_1$ to the set of states
+  $\{q \:|\: \exists u,v \in \Sigma^* ,\: uv \in L ,\: \delta^* (q,v) \in F ,\:
+  \delta^* (q_0,u) = q\}$. Informally $N_{suf}$ starts at $q_1$ and makes
+  an epsilon transition to any state $q$ from which there is a path to $F$ and
+  there exists a path from $q_0$ to $q$ i.e. $N_{suf}$ excepts all words that
+  are suffixes of words in $L$. Formally, here is a proof that
+  $L(N_{suf}) = Suf(L)$:
+  $$L(N_{suf}) = $$
 \subsection*{(c)}
 
 \section*{Problem B5}
