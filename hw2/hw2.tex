@@ -81,6 +81,7 @@ NFA with $2n+1$ states accepting $L_n$:
 \subsection*{(c)}
 Proof by contradiction:\newline
 \indent Assume that that there is a DFA $D_{bad} = (Q, \Sigma, \delta, q_0, F)$ such that $D_{bad}$ has less than $2^n$ states and it accepts the language $L_n$.  This means there is some state $p \in F$ that will accept strings $x, y$ such that $x$ has an even number of $a_i$ and $y$ has an odd number of $a_i$.  Since we know that $L_n$ is a regular language from part b we know that there is some Myhill-Nerod relation such that $x \simeq_D y$. Then we can construct a string $z$ with an odd number of Ais and nothing else.  This would mean that XZ is in some equivalence class of odd Ais and even Ajs and YZ is in a different equivalence class of odd Ais and odd Ajs.  Since DFAs should have right invariant equivalence classes, from Myhil-Nerode we have a contradiction.
+
 \section*{Problem B2}
 \subsection*{(a)}
 Let DFA $D_C = (Q, T, \delta_C, q_0, F_C)$ be a DFA that accepts the language: \[
@@ -93,6 +94,7 @@ Start with a unit cube\newline
 Cut it into 27 equal sized cubes\newline
 Take out the cubes in the center (7 total cubes removed)\newline
 There are now 20 available cubes - repeat the previous steps $\forall$ cubes
+
 \section*{Problem B3}
 \subsection*{(1)}
   Given that R is a regular language there exists a DFA
@@ -165,16 +167,33 @@ There are now 20 available cubes - repeat the previous steps $\forall$ cubes
 \subsection*{(b)}
   Let $D = (Q, \Sigma, q_0, \delta, F)$ be the DFA that accepts the regular
   language L, i.e. $L(D) = L$. We can construct an NFA for the language
-  $Suf(L)$ as $N_{suf} = (Q, \Sigma, q_1, \delta{'}, F)$ where $\delta{'}$
-  maintains all the transitions in $\delta$ and adds $\epsilon$ transitions
-  from the start state $q_1$ to the set of states
-  $\{q \:|\: \exists u,v \in \Sigma^* ,\: uv \in L ,\: \delta^* (q,v) \in F ,\:
-  \delta^* (q_0,u) = q\}$. Informally $N_{suf}$ starts at $q_1$ and makes
+  $Suf(L)$ as $N_{suf} = (Q\cup{q_1}, \Sigma, q_1, \delta{'}, F)$
+  where $\delta{'}$ is defined as:
+  $$\delta{'}(q, a) = \{\delta(q,a)\} \:|\: \forall q \in Q ,\: a \in \Sigma$$
+  $$\delta{'}(q_1, \epsilon) = \{q \:|\: \exists u,v \in \Sigma^* ,\:
+  uv \in L ,\: \delta^* (q,v) \in F ,\: \delta^* (q_0,u) = q\}$$
+  which can be extended to $\delta{'}^*$ as follows:
+  $$\delta{'}^*(q, v) = \{\delta^*(q,v)\} \:|\:
+  \forall q \in Q ,\: v \in \Sigma^*$$
+  $$\delta{'}^*(q_1, v) = \delta{'}^*(\delta{'}(q_1, \epsilon), v) =
+  \{\delta^*(\delta{'}(q_1, \epsilon), v)\} \:|\: \forall v \in \Sigma^*$$
+  Informally $N_{suf}$ starts at $q_1$ and makes
   an epsilon transition to any state $q$ from which there is a path to $F$ and
   there exists a path from $q_0$ to $q$ i.e. $N_{suf}$ excepts all words that
   are suffixes of words in $L$. Formally, here is a proof that
-  $L(N_{suf}) = Suf(L)$:
-  $$L(N_{suf}) = $$
+  $L(N_{suf}) = Suf(L)$ and thus that $Suf(L)$ is a regular language:
+  $$ v \in L(N_{suf}) \implies \delta{'}^*(q_1, v) \in F =
+  \delta^*(\delta{'}(q_1, \epsilon), v)$$
+  \begin{center}where, by the following definiton:\end{center}
+  $$\delta{'}(q_1, \epsilon) = \{q \:|\: \exists u,v \in \Sigma^* ,\:
+  uv \in L ,\: \delta^* (q,v) \in F ,\: \delta^* (q_0,u) = q\}$$
+  \begin{center}that\end{center}
+  $$\delta^*(\delta{'}(q_1, \epsilon), v) = \delta^*(q, v)$$
+  \begin{center}where\end{center}
+  $$\delta^* (q,v) \in F ,\: \exists u \in \Sigma^* ,\: uv \in L ,\:
+  \delta^* (q_0,u) = q$$
+  $$ = Suf(L)$$
+
 \subsection*{(c)}
 
 \section*{Problem B5}
