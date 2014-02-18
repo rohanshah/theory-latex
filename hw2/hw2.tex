@@ -53,17 +53,17 @@ NFA with $2n+1$ states accepting $L_n$:
 \end{center}
 \subsection*{(b)}
   We can construct a DFA $D_i$ for each language $L^i_n$, where $L^i_n$ is the
-  set of all strings over $\sum$ with an odd number of $a_i$, using two states
+  set of all strings over $\Sigma$ with an odd number of $a_i$, using two states
   as shown below. Since $L_n$ is the union of all such $L^i_n$, i.e.
   $L_n = L^1_n \cup \dots \cup L^n_n$ where $n$ is the number of symbols in the
-  alphabet $\sum$, we can use the cross-product construction to combine each
+  alphabet $\Sigma$, we can use the cross-product construction to combine each
   DFA $D_i$ and create a DFA $D$ that accepts the language $L_n$.
   The cross-product construction creates a DFA with $2^n$ states (since there
   are 2 states per DFA $D_i$ and thus the number of states in $D$ is doubled
   with each construction or n times). Thus there exists a DFA $D$ with $2^n$
   states that accepts the language $L_n$.
   \vspace{0.5cm}
-  DFA $D_i$ that accepts the language $L^i_n$:
+  Below is a DFA $D_i$ that accepts the language $L^i_n$ using two states:
   \newline
   \begin{center}
   \begin{tikzpicture}[shorten >=1pt, node distance=2.5cm, on grid, auto]
@@ -85,72 +85,86 @@ NFA with $2n+1$ states accepting $L_n$:
 
 \section*{Problem B3}
 \subsection*{(1)}
-  Given that R is a regular language there DFA $D = (Q, \sum, \delta, q_0, F)$
-  that accepts R i.e. $L(D) = R$. We will prove $L_1$ is regular by constructing
+  Given that R is a regular language there exists a DFA
+  $D = (Q, \Sigma, \delta, q_0, F)$ that accepts R i.e. $L(D) = R$.
+  We will prove $L_1$ is regular by constructing
   an NFA $N$ using D that accepts $L_1$. Let $N = (Q \times 2^Q,
-  \sum \cup \{\epsilon\}, \delta{'}, (q_0 , F), F')$ where the states in $N$
+  \Sigma \cup \{\epsilon\}, \delta{'}, (q_0 , F), F')$ where the states in $N$
   are pairs consisting of a single state and a set of states. We define the
   transition function $\delta{'}$ as follows:
   \newline
-  \indent $\forall a \in \sum$,\:$\delta{'}((p,S), a) = (\delta(p,a), S')$ where
-  $S'= \{s'\,|\,\exists w \in \sum^*,\,|w| = 2,\, \delta^*(s',w) \in S\}$
+  \indent $\forall a \in \Sigma$,\:$\delta{'}((p,S), a) = (\delta(p,a), S')$ where
+  $S'= \{s'\,|\,\exists w \in \Sigma^*,\,|w| = 2,\, \delta^*(s',w) \in S\}$
   \newline
-  \indent\indent i.e. the set of all states from which S is reachable via exactly
-  two transitions in D.
+  \indent i.e. $S'$ is equal to the set of all states from which S is reachable
+  via two transitions in D.
   \newline
   We can extend $\delta{'}$ to $\delta{'}^*$ as follows:
   \newline
-  \indent $\forall u \in \sum^*\: \delta{'}^* ((p,S),u) = (\delta^* (p, u),S')$
-  where $S' = \{s'\:|\:\exists v \in \sum^* ,\: |v|=2|u| ,\:
+  \indent $\forall u \in \Sigma^*\: \delta{'}^* ((p,S),u) = (\delta^* (p, u),S')$
+  where $S' = \{s'\:|\:\exists v \in \Sigma^* ,\: |v|=2|u| ,\:
   \delta^* (s', v) \in S\}$
   \newline
-  \indent\indent i.e. the set of all states from which S is reachable
+  \indent i.e. $S'$ is equal to the set of all states from which S is reachable
   via $2|u|$ transitions in D.
   \newline
-  Finlly we define $F'$ as $(p, S)$ where $p \in S$ i.e. where the first element
+  Finally we define $F' = \{(p, S) \:|\: p \in S\}$ i.e. whenever the first element
   of the state is a member of the second element. Informally $N$ is an NFA which
   simulates traversing the DFA $D$ forwards and backwards simultaneously on any
-  word $u \in \sum^*$ such that the transition function in $N$ makes one
+  word $u \in \Sigma^*$ such that the transition function in $N$ makes one
   transition forward for each letter in $u$ starting from $q_0$ and two
-  transitions backwards, starting from $F$, for every letter $a \in \sum$, thus
-  accumulating a set of states that comprises the second half of a state in $N$.
+  transitions backwards, starting from $F$, for every letter $a \in \Sigma$, thus
+  accumulating a set of states that comprises the second part of a state in $N$.
   $N$ accepts a string $u$ when there exists a $v$ such that $uv \in R$ where
   $2|u| = |v|$ i.e. the state of the first element in an accepting state
   is a member of the set of states in the second element of an accepting state
-  which means that $N$ ran forwards for some $u \in \sum^*$ and backwards for
-  some $v \in \sum^* where 2|u| = |v|$ and ended in the same state.
-  This by definition is the language $L_1$. Proof that $L(N) = L_1$:
-  \newline
-
-
+  which means that $N$ ran forwards for some $u \in \Sigma^*$ and backwards for
+  some $v \in \Sigma^*$ where $2|u| = |v|$ and ended in the same state.
+  This by definition is the language $L_1$. Formal proof that $L(N) = L_1$ and
+  thus that $L_1$ is a regular language:
+  $$ L(N) = L_1 $$
+  $$ \delta{'}^*((q_0, F), u) \in F' = \{u \:|\: \exists v \in \Sigma^* ,\:
+  uv \in R ,\: |v| = 2|u|\}$$ 
+  $$ \delta^*(q_0, u) \in \{q \:|\: \exists v \in \Sigma^* ,\:
+  |v| = 2|u| ,\: \delta^*(q,v) \in F\}$$
+  $$ \delta^*(q_0, u) = q ,\: \delta^*(q,v) \in F \implies$$
+  $$\delta^*(q_0, uv) \in F \implies uv \in R ,\: |v| = 2|u|$$
+  $$ u \in L(N) \implies u \in L_1$$
 
 \subsection*{(2)}
 
 \section*{Problem B4}
 \subsection*{(a)}
-  Let $D = (Q, \sum, F, q_0, \delta)$ be the DFA that accepts the regular
+  Let $D = (Q, \Sigma, q_0, \delta, F)$ be the DFA that accepts the regular
   language L, i.e. $L(D) = L$. We can construct a DFA for the language
-  $Pre(L)$ as $D_pre = (Q, \sum, F', q_0, \delta)$ where we define $F'$
-  as follows. \subsection*{(b)}
+  $Pre(L)$ as $D_{pre} = (Q, \Sigma, \delta, q_0, F')$ where we define
+  $F' = \{q \:|\: \exists w \in L ,\: \exists u \: v \in \Sigma^* ,\: w=uv
+  ,\: \delta^* (q_0, u) = q ,\: \delta^* (q,v) \in F \}$. Informally,
+  the accepting states in $D_{pre}$ are those states from which $F$ is
+  reachable in $D$ via some reachable state $q \in Q$ and some
+  word $v \in \Sigma^*$ i.e. it accepts all words $u \in \Sigma^*$
+  such that such a $q$ and $v$ exist, or, the prefixes of L.
+  Proof that $L(D_{pre}) = Pre(L)$ and thus that $Pre(L)$ is a regular language:
+ 
+\subsection*{(b)}
+  Let $D = (Q, \Sigma, q_0, \delta, F)$ be the DFA that accepts the regular
+  language L, i.e. $L(D) = L$. We can construct an NFA for the language
+  $Suff(L)$ as $N_{suff} = (Q, \Sigma, q_1, \delta{'}, F)$ where $\delta$
+  has all the same transition functions as $\delta$ and additional
+  $\epsilon$ transitions from $q_1$ to the set of states
+  $\{q \:|\: \exists w \in L ,\: \exists u \: v \in \Sigma^* ,\: w=uv
+  ,\: \delta^* (q_0, u) = q ,\: \delta^* (q,v) \in F \}$
 \subsection*{(c)}
 
 \section*{Problem B5}
 \subsection*{(a)} Prove that $L=L^+$ iff LL $\subseteq$ L.
-\subsubsection*{Case $\implies$:}
-Given $L=L^+$, prove LL $\subseteq$ L:
-\newline
-\begin{center}
-$L = L^+ = \bigcup\limits_{n\ge1} L^n$
-\newline
-$LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n$
-\newline
-$LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n = L$
-\newline
-\end{center}
+\subsubsection*{Case $L=L^+ \implies LL \subseteq L$:}
+$$L = L^+ = \bigcup\limits_{n\ge1} L^n$$
+$$LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n$$
+$$LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n = L$$
 
-\subsubsection*{Case $\Longleftarrow$:}
+\subsubsection*{Case $LL \subseteq L \implies L^+ = L$:}
 NOTES
-Given $LL \subseteq L$, prove $L^+ = L$.
 \newline
 Proof by induction on n where $L^+ = \bigcup\limits_{n\ge1} L^n$
 Base Case: n = 1. So $L^n = L^1  = L$.
