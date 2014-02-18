@@ -133,7 +133,10 @@ C = \{u\in T^3 \mid u \notin \{110, 111, 112, 101, 121, 011, 211\}\}
   ;
 \end{tikzpicture}
 \end{center}
-Let there be a DFA  $D_{Lm} = (Q, T \cup \{c\}, \delta_{Lm}, q_0, F_C)$, $\delta_{Lm}$ is the transition function that has all the same transitions as $\delta_C$ with the added transition that from all states $p$ in $F_C$ if a letter $c$ is encountered it goes back to $q_0$ and if a non c is encountered it goes to a failed state.\newline\newline
+Let there be a DFA  $D_{Lm} = (Q, T \cup \{c\}, \delta_{Lm}, q_0, F_C)$. $\delta_{Lm}$ is the transition function that has all the same transitions as $\delta_C$ with the following additional transitions:
+\begin{center}$\delta_{LM}(q, c) = q_0$ if $q \in F$\end{center}
+\begin{center}$\delta_{LM}(q, c) = 11 $ if $q \notin F$\end{center}
+Informally this adds a transition that from all states $p \in F_C$ if a letter $c$ is encountered it goes back to $q_0$ and on any $p \notin F_C$ if a letter $c$ is encountered it goes to a bad state.\newline\newline
 Proof that $D_{Lm}$ accepts the language $L_m$:\newline
 \indent$L_m$ is basically $C^+$ with a c transition between each string in the language $C$: i.e. $u_1cu_2cu_3c....u_n$. $D_Lm$ accepts all $u_i$ because it contains the transition function of $\delta_C$ and the final states $F_C$.  So we need to show that it accepts subsequent $cu$ strings.  $D_{Lm}$ on reaching a $p$ in $F_C$ transitions on a $c$ back to $q_0$, which can then accept a string $u_i$ as described above and repeat.  Any bad string in a $u_b$ will be rejected by the transition function taken from $D_C$ and any non $c$ transition from a final state is thrown into a bad state.  Therefore $D_{Lm}$ accepts the language $L_m$. 
 \subsection*{(b)}
