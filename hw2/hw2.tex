@@ -85,7 +85,54 @@ Proof by contradiction:\newline
 \subsection*{(a)}
 Let DFA $D_C = (Q, T, \delta_C, q_0, F_C)$ be a DFA that accepts the language: \[
 C = \{u\in T^3 \mid u \notin \{110, 111, 112, 101, 121, 011, 211\}\}
-\]Let there be a DFA  $D_{Lm} = (Q, T \cup \{c\}, \delta_{Lm}, q_0, F_C)$, $\delta_{Lm}$ is the transition function that has all the same transitions as $\delta_C$ with the added transition that from all states $p$ in $F_C$ if a letter $c$ is encountered it goes back to $q_0$ and if a non c is encountered it goes to a failed state.\newline\newline
+\]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2.5cm, on grid, auto]
+  \node[state] (q0) {$q_0$};
+  \node[state] (q2) [right=of q0] {1};
+  \node[state] (q1) [above=of q2] {0};
+  \node[state] (q3) [below=of q2] {2};
+  \node[state] (q4) [right=of q1] {3};
+  \node[state, accepting] (q5) [right=of q4] {4};
+  \node[state] (q6) [right=of q3] {5};
+  \node[state,accepting] (q7) [right=of q6] {6};
+  \node[state] (q8) [below=of q6] {7};
+  \node[state,accepting] (q9) [right=of q8] {8};
+  \node[state] (q10) [right=of q9] {9};
+  \node[state] (q11) [right=of q2] {10};
+  \node[state] (q12) [right=of q11] {11};
+  \node[state] (q13) [above=of q4] {12};
+  \node[state] (q14) [right=of q13] {13};
+  \node[state, accepting] (q15) [right=of q14] {14};
+  \path[->]
+(q0) edge [bend left] node {$0$} (q1)
+(q0) edge node {$1$} (q2)
+(q0) edge [bend right] node {$2$} (q3)
+(q1) edge node {$0,2$} (q4)
+(q1) edge node {$1$} (q13)
+(q13) edge node {$1$} (q14)
+(q13) edge [bend left]node {$0,2$} (q15)
+(q2) edge node {$0,2$} (q11)
+(q3) edge node {$0,2$} (q6)
+(q3) edge node {$1$} (q8)
+(q4) edge node {$0,1,2$} (q5)
+(q6) edge node {$0,1,2$} (q7)
+(q8) edge node {$0,2$} (q9)
+(q8) edge [bend right] node {$1$} (q10)
+(q10) edge [loop right] node {$0,1,2$} (q10)
+(q11) edge node {$0,2$} (q5)
+(q11) edge node {$1$} (q12)
+(q12) edge [loop right] node {$0,1,2$} (q12)
+(q2) edge [bend right] node {$1$} (q12)
+(q5) edge node {$0,1,2$} (q12)
+(q7) edge node {$0,1,2$} (q12)
+(q9) edge node {$0,1,2$} (q10)
+(q14) edge [loop below] node {$0,1,2$} (q14)
+(q15) edge node {$0,1,2$} (q14)
+  ;
+\end{tikzpicture}
+\end{center}
+Let there be a DFA  $D_{Lm} = (Q, T \cup \{c\}, \delta_{Lm}, q_0, F_C)$, $\delta_{Lm}$ is the transition function that has all the same transitions as $\delta_C$ with the added transition that from all states $p$ in $F_C$ if a letter $c$ is encountered it goes back to $q_0$ and if a non c is encountered it goes to a failed state.\newline\newline
 Proof that $D_{Lm}$ accepts the language $L_m$:\newline
 \indent$L_m$ is basically $C^+$ with a c transition between each string in the language $C$: i.e. $u_1cu_2cu_3c....u_n$. $D_Lm$ accepts all $u_i$ because it contains the transition function of $\delta_C$ and the final states $F_C$.  So we need to show that it accepts subsequent $cu$ strings.  $D_{Lm}$ on reaching a $p$ in $F_C$ transitions on a $c$ back to $q_0$, which can then accept a string $u_i$ as described above and repeat.  Any bad string in a $u_b$ will be rejected by the transition function taken from $D_C$ and any non $c$ transition from a final state is thrown into a bad state.  Therefore $D_{Lm}$ accepts the language $L_m$. 
 \subsection*{(b)}
