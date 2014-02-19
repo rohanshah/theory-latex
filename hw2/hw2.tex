@@ -298,7 +298,7 @@ The following is an example showing one face of the cube:
   such that such a $q$ and $v$ exist, or, the prefixes of L.
   Proof that $L(D_{pre}) = Pre(L)$ and thus that $Pre(L)$ is a regular language:
   $$u \in L(D_{pre}) \implies$$ $$\delta^*(q_0, u) \in F' =
-  \delta^*(q_0, u) \in \{q \:|\: \exists v \in \Sigma* ,\: uv \in L
+  \delta^*(q_0, u) \in \{q \:|\: \exists v \in \Sigma^* ,\: uv \in L
   ,\: \delta^*(q_0, u) = q\} \implies$$
   $$L(D_{pre}) = \{u \:|\: \exists v \in \Sigma^* ,\: uv \in L ,\:
   \exists q \in Q ,\: \delta^*(q_0, u) = q \}
@@ -309,14 +309,14 @@ The following is an example showing one face of the cube:
   language L, i.e. $L(D) = L$. We can construct an NFA for the language
   $Suf(L)$ as $N_{suf} = (Q\cup{q_1}, \Sigma, q_1, \delta{'}, F)$
   where $\delta{'}$ is defined as:
-  $$\delta{'}(q, a) = \{\delta(q,a)\} \:|\: \forall q \in Q ,\: a \in \Sigma$$
+  $$\delta{'}(q, a) = \{\delta(q,a)\} \: \forall q \in Q ,\: a \in \Sigma$$
   $$\delta{'}(q_1, \epsilon) = \{q \:|\: \exists u,v \in \Sigma^* ,\:
   uv \in L ,\: \delta^* (q,v) \in F ,\: \delta^* (q_0,u) = q\}$$
   which can be extended to $\delta{'}^*$ as follows:
-  $$\delta{'}^*(q, v) = \{\delta^*(q,v)\} \:|\:
+  $$\delta{'}^*(q, v) = \{\delta^*(q,v)\} \:
   \forall q \in Q ,\: v \in \Sigma^*$$
   $$\delta{'}^*(q_1, v) = \delta{'}^*(\delta{'}(q_1, \epsilon), v) =
-  \{\delta^*(\delta{'}(q_1, \epsilon), v)\} \:|\: \forall v \in \Sigma^*$$
+  \{\delta^*(\delta{'}(q_1, \epsilon), v)\} \: \forall v \in \Sigma^*$$
   Informally $N_{suf}$ starts at $q_1$ and makes
   an epsilon transition to any state $q$ from which there is a path to $F$ and
   there exists a path from $q_0$ to $q$ i.e. $N_{suf}$ excepts all words that
@@ -325,7 +325,7 @@ The following is an example showing one face of the cube:
   $$ v \in L(N_{suf}) \implies \delta{'}^*(q_1, v) \in F =
   \delta^*(\delta{'}(q_1, \epsilon), v) $$
   $$\text{where }\delta^*(\delta{'}(q_1, \epsilon), v) = \delta^*(q, v)
-  \text{ via the definition}$$
+  \text{ for some } q \in Q \text{ by the definition}$$
   $$\delta{'}(q_1, \epsilon) = \{q \:|\: \exists u,v \in \Sigma^* ,\:
   uv \in L ,\: \delta^* (q,v) \in F ,\: \delta^* (q_0,u) = q\}$$
   $$\text{Thus }\delta{'}^* (q_1,v) \implies
@@ -334,7 +334,43 @@ The following is an example showing one face of the cube:
   $$ = Suf(L)$$
 
 \subsection*{(c)}
-
+  Let $D = (Q, \Sigma, q_0, \delta, F)$ be the DFA that accepts the regular
+  language L, i.e. $L(D) = L$. We can construct an NFA for the language
+  $Sub(L)$ as $N_{sub} = (Q\cup{q_1}, \Sigma, q_1, \delta{'}, F')$
+  where $\delta{'}$ is defined as:
+  $$\delta{'}(q, a) = \{\delta(q,a)\} \: \forall q \in Q ,\: a \in \Sigma$$
+  $$\delta{'}(q_1, \epsilon) = \{q \:|\: \exists u,v \in \Sigma^* ,\:
+  uv \in L ,\: \delta^* (q,v) \in F ,\: \delta^* (q_0,u) = q\}$$
+  which can be extended to $\delta{'}^*$ as follows:
+  $$\delta{'}^*(q, v) = \{\delta^*(q,v)\} \:
+  \forall q \in Q ,\: v \in \Sigma^*$$
+  $$\delta{'}^*(q_1, v) = \delta{'}^*(\delta{'}(q_1, \epsilon), v) =
+  \{\delta^*(\delta{'}(q_1, \epsilon), v)\}\: \forall v \in \Sigma^*$$
+  and where $F'$ is defined as:
+  $$F' = \{q' \:|\: \exists x,y \in \Sigma^* ,\: xy \in L
+  ,\: \delta^* (q_0, x) = q' ,\: \delta^* (q', y) \in F\}$$
+  Informally $N_{sub}$ starts at $q_1$ and makes an epsilon transition to any
+  state $q$ from which there is a path to $F$ and there exists a path from
+  $q_0$ to $q$. $N_{sub}$ accepts any string that ends in a state $q$ from
+  which there is a path to a state in $F$. Thus $N_{sub}$ accepts strings $w$
+  that can transition from a state $q \in Q$ reachable from $q_0$ to a state
+  $q' \in Q$ from which $F$ is reachable i.e the set of all substrings in the
+  language $L$. Formally here is a proof that $L(N_{sub}) = Sub(L)$ and thus
+  that $Sub(lL$ is a regular language:
+  $$w \in L(N_{sub}) \implies \delta{'}^*(q_1, w) \in F' =
+  \delta^*(\delta{'}(q_1, \epsilon), w) \in F' =$$
+  $$\delta^*(\delta{'}(q_1, \epsilon), w) \in \{q' \:|\: \exists x,y \in
+  \Sigma^* ,\: xy \in L ,\: \delta^* (q_0, x) = q' ,\: \delta^* (q', y)
+  \in F\}$$
+  $$\text{where }\delta^*(\delta{'}(q_1, \epsilon), w) = \delta^*(q, w)
+  \text{ for some } q \in Q \text{ by the definition}$$
+  $$\delta{'}(q_1, \epsilon) = \{q \:|\: \exists u,v \in \Sigma^* ,\:
+  uv \in L ,\: \delta^* (q,v) \in F ,\: \delta^* (q_0,u) = q\}$$
+  $$\text{therefore } w \in L(N_{sub}) ,\: \forall w \in \Sigma^*
+  \text{ such that}$$
+  $$\{w \:|\: \exists u,y \in \Sigma^* ,\: \exists q,q' \in Q ,\:
+  \delta^*(q_0, u) = q ,\: \delta^*(q,w) = q' ,\: \delta^*(q', y) \in F\}$$
+  $$\implies \delta^*(q_0, uwy) \in F = Sub(L)$$
 \section*{Problem B5}
 \subsection*{(a)} Prove that $L=L^+$ iff LL $\subseteq$ L.
 \subsubsection*{Case $L=L^+ \implies LL \subseteq L$:}
