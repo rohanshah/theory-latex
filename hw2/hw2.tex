@@ -155,8 +155,8 @@ $$\delta_{Lm}(q, a) = \delta_C (q, a) ,\: \forall a \in T$$
 $$\delta_{Lm}(q, c) = q_0 ,\: \forall q \in F$$
 $$\delta_{Lm}(q, c) = (11) ,\: \forall q \notin F$$
 Informally, this adds a transitions for the character $c$ to the original DFA
-$D_C$ to create $D_{Lm}$. $D_{Lm}$ transitions from all states $q \in F_C$ to the
-start state $q_0$ and transitions from all $q \notin F_C$ to the dead state
+$D_C$ to create $D_{Lm}$. $D_{Lm}$ transitions from all states $q \in F_C$ to
+the start state $q_0$ and transitions from all $q \notin F_C$ to the dead state
 $(11)$ on the letter $c$.
 \newline
 \newline
@@ -169,7 +169,7 @@ $D_{Lm}$ accepts an infinite sequence of words in $C$ concatenated by the
 character $c$ i.e. $u_1cu_2cu_3c....u_n \: \forall u_i \in C$.
 Therefore $L(D_{Lm}) = L_m$ and $L_m$ is a regular language.
 \subsection*{(b)} The recursive rules for creating a Menger sponge, starting
-from a unit cube in $\reals^3$:
+from a unit cube in $\reals^3$ are:
 \begin{itemize}
 \item Start with a unit cube
 \item Divide it into 27 equal sized cubes
@@ -231,12 +231,12 @@ The following is an example showing one face of the cube:
   \indent i.e. $S'$ is equal to the set of all states from which S is reachable
   via $2|u|$ transitions in D.
   \newline
-  Finally we define $F' = \{(p, S) \:|\: p \in S\}$ i.e. whenever the first element
+  Finally we define $F'=\{(p,S)\:|\: p \in S\}$ i.e. whenever the first element
   of the state is a member of the second element. Informally $N$ is an NFA which
   simulates traversing the DFA $D$ forwards and backwards simultaneously on any
   word $u \in \Sigma^*$ such that the transition function in $N$ makes one
   transition forward for each letter in $u$ starting from $q_0$ and two
-  transitions backwards, starting from $F$, for every letter $a \in \Sigma$, thus
+  transitions backwards, starting from $F$, for every letter $a\in\Sigma$, thus
   accumulating a set of states that comprises the second part of a state in $N$.
   $N$ accepts a string $u$ when there exists a $v$ such that $uv \in R$ where
   $2|u| = |v|$ i.e. the state of the first element in an accepting state
@@ -347,29 +347,47 @@ L = L^+$ and since ${\epsilon } \in L$, $L^+=L^\ast$.
 
 \section*{Problem B6}
 \subsection*{(a)}
-Prove that the standard total ordering $\leq$ on $\mathbb{N}$ is a wqo.\newline
-\indent Proof by contradiction: $\exists S \mid S is an infinite descending sequence$
-Given an infinite descending sequence $S$ that goes as follows $\{\infty , \infty - 1, \infty -2, \infty-3, ....\}$ it can only go $1$ since it is a sequence on $\mathbb{N}$.
-Therefore the $\infty+1$ number in the sequence must be $a_i \ge 1$ which means $a_{i-1} < a_i$ which is a contradiction.\newline
+Prove that the standard total ordering $\leq$ on $\mathbb{N}$ is a wqo.
+\newline
+\indent
+Proof by contradiction: $\exists S \mid S is an infinite descending sequence$
+Given an infinite descending sequence $S$ that goes as follows
+$\{\infty , \infty - 1, \infty -2, \infty-3, ....\}$ it can only go $1$
+since it is a sequence on $\mathbb{N}$. Therefore the $\infty+1$ number in the
+sequence must be $a_i \ge 1$ which means $a_{i-1} < a_i$
+which is a contradiction.
+\newline
 Prove that If  $\preceq$ is a wqo on a set $A$, a {\it finite\/}
 sequence is not  necessarily good.\newline
-\indent Proof by contradiction: If $A$ is good then all finite sequences are good.
-Suppose $A = \{a_1 , a_2 , a_3 , ...... , 5 , 4 , 6 , .... , a_\infty\}$.  The sequence $\{5,4,6\}$ means that $A$ is good w.r.t $\preceq$.
+\indent Proof by contradiction:
+If $A$ is good then all finite sequences are good.
+Suppose $A = \{a_1 , a_2 , a_3 , ...... , 5 , 4 , 6 , .... , a_\infty\}$. 
+The sequence $\{5,4,6\}$ means that $A$ is good w.r.t $\preceq$.
 The sequence $\{5,4\}$ is not good.
 This is a contradiction, therefore a finite sequence is not necessarily good.
 \begin{enumerate}
 \item[(1)]
-If an infinite sequence is good then that means $\exists a_i,a_j \in$ the sequnce such that $a_i < a_j$.  Therefore if every infinite sequence is good then: $\forall S = \{a_1 , a_2 , a_3 , .... , a_i , a_j , ..... , a_\infty\} ,  \exists a_i , a_j$ such that $a_i < a_j$
+If an infinite sequence is good then that means $\exists a_i,a_j \in$
+the sequnce such that $a_i < a_j$. Therefore if every infinite sequence is
+good then:
+$\forall S = \{a_1 , a_2 , a_3 , .... , a_i , a_j , ..... , a_\infty\},
+\exists a_i , a_j$ such that $a_i < a_j$
 Therefore there is no infinite decreasing chain and no infinite antichains.
 \item[(2)]
-If $S$ is an infinite sequence of numbers such that there are no infinite decreasing chains than it must follow that $S$ is of the type $a_1 > a_2 > a_3 > ... > a_i < a_j$.  If for an infinite sequence $S \exists i , j \mid a_i < a_j$ then $S$ is good by definition.
+If $S$ is an infinite sequence of numbers such that there are no infinite
+decreasing chains than it must follow that $S$ is of the type
+$a_1 > a_2 > a_3 > ... > a_i < a_j$. If for an infinite sequence
+$S \exists i , j \mid a_i < a_j$ then $S$ is good by definition.
 \end{enumerate}
 \subsection*{(b)}
 \begin{enumerate}
 \item[(1)]
 If $\preceq$ is a $wqo$ on $A \exists $
 \item[(2)]
-If $S$ is an infinite sequence of numbers such that there are no infinite decreasing chains than it must follow that $S$ is of the type $a_1 > a_2 > a_3 > ... > a_i < a_j$.  If for an infinite sequence $S \exists i , j \mid a_i < a_j$ then $S$ is good by definition.
+If $S$ is an infinite sequence of numbers such that there are no
+infinite decreasing chains than it must follow that $S$ is of the type
+$a_1 > a_2 > a_3 > ... > a_i < a_j$.  If for an infinite sequence
+$S \exists i , j \mid a_i < a_j$ then $S$ is good by definition.
 \end{enumerate}
 \subsection*{(c)}
 $ A1 = \le_1$ and $A2 = \le_2$ are wqo's.
@@ -475,16 +493,21 @@ for all $u, v\in A^{*}$ and $a, b\in A$.
 
 \medskip
 
-Must show $u \ll v \implies u \preceq v$ for any preorder $ \preceq $ that satisfies (1) and (2).
+Must show $u \ll v \implies u \preceq v$
+for any preorder $ \preceq $ that satisfies (1) and (2).
 \newline
-Show that $\forall n \ge 1, \forall u_i \in \Sigma^\ast , (1 \le i \le n+1)$ and $ \forall v_i \in \Sigma^\ast (1 \le i \le n)$,
-$v_1...v_n \le u_1v_1u_2...u_nv_nu_{n+1}$. Prove by induction on length of $k= |u_1|+|u_2|+ ... +|u_{n+1}|.$ 
+Show that $\forall n \ge 1, \forall u_i \in \Sigma^\ast ,
+(1 \le i \le n+1)$ and $ \forall v_i \in \Sigma^\ast (1 \le i \le n)$,
+$v_1...v_n \le u_1v_1u_2...u_nv_nu_{n+1}$.
+Prove by induction on length of $k= |u_1|+|u_2|+ ... +|u_{n+1}|.$ 
 \newline
 Base Case: k=0 is automatic. 
 \newline
-Inductive Case: There is some $u_i$ not equal to $ \epsilon$. Let $u_i = u_i ' a$, with $a \in A$.
+Inductive Case: There is some $u_i$ not equal to $ \epsilon$.
+Let $u_i = u_i ' a$, with $a \in A$.
 \newline
-Consider $u_1 ,u_2 , ... , u_i ' , ... , u_{n+1}$  so  $|u_1| + ... + |u_i '| + ... + |u_{n+1}| = k-1$. 
+Consider $u_1 ,u_2 , ... , u_i ' , ... , u_{n+1}$
+so  $|u_1| + ... + |u_i '| + ... + |u_{n+1}| = k-1$. 
 \newline
 By the inductive hypothesis,
 $v_1 ... v_n \le u_1 v_1 u_2 ... v_{i-1} u_i ' v_{i}...u_nv_nu_{n+1}$ by (1).
@@ -492,7 +515,8 @@ $v_1 ... v_n \le u_1 v_1 u_2 ... v_{i-1} u_i ' v_{i}...u_nv_nu_{n+1}$ by (1).
 \medskip
 
 Secondly, prove
-$ \forall n \ge 1, \forall u_i \in \Sigma^\ast$ $(1 \le i \le n+1)$ and $\forall a_i,b_i \in \Sigma$ $(1 \le i \le n)$ 
+$ \forall n \ge 1, \forall u_i \in \Sigma^\ast$ $(1 \le i \le n+1)$
+and $\forall a_i,b_i \in \Sigma$ $(1 \le i \le n)$ 
 if $a_i \sqsubseteq b_i, i \ge 1$.
 \newline
 $u_1a_1u_2...u_na_nu_{n+1} \le u_1b_1u_2...u_nb_nu_{n+1}$ by induction on n.
@@ -500,12 +524,18 @@ $u_1a_1u_2...u_na_nu_{n+1} \le u_1b_1u_2...u_nb_nu_{n+1}$ by induction on n.
 Base Case: $n=1$. This is exactly condition two. 
 \newline 
 Inductive Case: Apply the inductive hypothesis to the 
-first n elements. Then set the first n elements to the value of u and apply (2) to get n + 1.
+first n elements. Then set the first n elements to the value of u and
+apply (2) to get n + 1.
 \medskip
 
-Using these two facts for any strings u $\ll v \implies u \preceq v$ where $\preceq$ is a preorder satisfying (1) and 
-(2) and $|u| \le |v|$. String embedding $u \ll v$ means if $u=a_1 ...a_n$, then $v=w_1 b_1 ... b_n w_{n+1}$
-with $a_i \sqsubseteq b_i$ and $w_i \epsilon A^{\ast}$. So, $a_1 ... a_n  \preceq w_1 a_1 w_2 ... w_n a_n w_{n+1}$, then convert
-a's to b's with proven part 2. $a_1 ... a_n  \preceq w_1 a_1 w_2 ... w_n a_n w_{n+1} \preceq w_1 b_1 w_2 ... w_n b_n w_{n+1}$.
+Using these two facts for any strings u $\ll v \implies u \preceq v$
+where $\preceq$ is a preorder satisfying (1) and 
+(2) and $|u| \le |v|$. String embedding $u \ll v$ means
+if $u=a_1 ...a_n$, then $v=w_1 b_1 ... b_n w_{n+1}$
+with $a_i \sqsubseteq b_i$ and $w_i \epsilon A^{\ast}$.
+So, $a_1 ... a_n  \preceq w_1 a_1 w_2 ... w_n a_n w_{n+1}$, then convert
+a's to b's with proven part 2.
+$a_1 ... a_n  \preceq w_1 a_1 w_2 ... w_n a_n w_{n+1}
+\preceq w_1 b_1 w_2 ... w_n b_n w_{n+1}$.
 
 \end{document}
