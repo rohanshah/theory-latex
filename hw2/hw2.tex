@@ -284,7 +284,58 @@ The following is an example showing one face of the cube:
   $$\delta^*(q_0, u) \in \{q \:|\: \delta^*(q,v) \in F ,\: |v| = 2|u|\}= L(N)$$
 
 \subsection*{(2)}
-
+Given that R is a regular language there exists a DFA
+  $D = (Q, \Sigma, \delta, q_0, F)$ that accepts R i.e. $L(D) = R$.
+  We will prove $L_1^k$ is regular by constructing
+  an NFA $N$ using D that accepts $L_1^k$. Let $N = (Q \times 2^Q,
+  \Sigma \cup \{\epsilon\}, \delta{'}, (q_0 , F), F')$ where the states in $N$
+  are pairs consisting of a single state and a set of states. We define the
+  transition function $\delta{'}$ as follows:
+  \newline
+  \indent $\forall a \in \Sigma$,\:$\delta{'}((p,S), a) = (\delta(p,a), S')$ where
+  $S'= \{s'\,|\,\exists w \in \Sigma^*,\,|w| = k,\, \delta^*(s',w) \in S\}$
+  \newline
+  \indent i.e. $S'$ is equal to the set of all states from which S is reachable
+  via two transitions in D.
+  \newline
+  We can extend $\delta{'}$ to $\delta{'}^*$ as follows:
+  \newline
+  \indent $\forall u \in \Sigma^*\: \delta{'}^* ((p,S),u) = (\delta^* (p, u),S')$
+  where $S' = \{s'\:|\:\exists v \in \Sigma^* ,\: |v|=k|u| ,\:
+  \delta^* (s', v) \in S\}$
+  \newline
+  \indent i.e. $S'$ is equal to the set of all states from which S is reachable
+  via $k|u|$ transitions in D.
+  \newline
+  Finally we define $F'=\{(p,S)\:|\: p \in S\}$ i.e. whenever the first element
+  of the state is a member of the second element. Informally $N$ is an NFA which
+  simulates traversing the DFA $D$ forwards and backwards simultaneously on any
+  word $u \in \Sigma^*$ such that the transition function in $N$ makes one
+  transition forward for each letter in $u$ starting from $q_0$ and two
+  transitions backwards, starting from $F$, for every letter $a\in\Sigma$, thus
+  accumulating a set of states that comprises the second part of a state in $N$.
+  $N$ accepts a string $u$ when there exists a $v$ such that $uv \in R$ where
+  $k|u| = |v|$ i.e. the state of the first element in an accepting state
+  is a member of the set of states in the second element of an accepting state
+  which means that $N$ ran forwards for some $u \in \Sigma^*$ and backwards for
+  some $v \in \Sigma^*$ where $k|u| = |v|$ and ended in the same state.
+  This by definition is the language $L_1^k$. Formal proof that $L(N) = L_1^k$ and
+  thus that $L_1^k$ is a regular language:\newline
+  Proof by induction on the length of $k$:
+ \subsubsection*{ Base case: $k=1$}
+  $$ u \in L(N) \implies \delta{'}^*((q_0, F), u) \in F' = $$
+  $$ \delta^*(q_0, u) \in \{q \:|\: \exists v \in \Sigma^* ,\:
+  |v| = |u| ,\: \delta^*(q,v) \in F\}$$
+  $$\implies \delta^*(q_0, u) = q \text{ and } \delta^*(q,v) \in F \implies$$
+  $$\delta^*(q_0, uv) \in F \implies uv \in R \text{ where }|v|= |u| \implies$$
+  $$L(N)=\{u \:|\: \exists v \in \Sigma^* ,\: uv \in R ,\: |v| = |u|\}=L_1^1$$
+  \subsubsection*{Inductive Case: $k=n+1 \mid $ Inductive Hypothesis: $L(N) = L_1^n$}
+$$ u \in L(N) \implies \delta{'}^*((q_0, F), u) \in F' = $$
+  $$ \delta^*(q_0, u) \in \{q \:|\: \exists v \in \Sigma^* ,\:
+  |v| = n|u| + |u|,\: \delta^*(q,v) \in F\}$$
+  $$\implies \delta^*(q_0, u) = q \text{ and } \delta^*(q,v) \in F \implies$$
+  $$\delta^*(q_0, uv) \in F \implies uv \in R \text{ where }|v|= n|u| + |u| \implies$$
+  $$L(N)=\{u \:|\: \exists v \in \Sigma^* ,\: uv \in R ,\: |v| = n|u| + |u|\}=L_1^{n+1}$$
 \section*{Problem B4}
 \subsection*{(a)}
   Let $D = (Q, \Sigma, q_0, \delta, F)$ be the DFA that accepts the regular
@@ -415,7 +466,7 @@ L = L^+$ and since ${\epsilon } \in L$, $L^+=L^\ast$.
 Prove that the standard total ordering $\leq$ on $\mathbb{N}$ is a wqo.
 \newline
 \indent
-Proof by contradiction: $\exists S \mid S is an infinite descending sequence$
+Proof by contradiction: $\exists S \mid S = \{a_1, a_2, ... , a_\infty ...\}$
 Given an infinite descending sequence $S$ that goes as follows
 $\{\infty , \infty - 1, \infty -2, \infty-3, ....\}$ it can only go $1$
 since it is a sequence on $\mathbb{N}$. Therefore the $\infty+1$ number in the
