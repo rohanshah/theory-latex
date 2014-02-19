@@ -83,19 +83,39 @@ NFA with $2n+1$ states accepting $L_n$:
 
 \subsection*{(c)}
 Proof by contradiction:\newline
-\indent Assume that that there is a DFA $D_{bad} = (Q, \Sigma, \delta, q_0, F)$
-such that $D_{bad}$ has less than $2^n$ states and it accepts the language
-$L_n$. Since we know that $L_n$ is a regular language from part b we know that
-there is some Myhill-Nerod relation such that $x \simeq_D y$. This means there
-is some state $p \in F$ that will accept strings $x, y$ such that $x$ has an
-even number of $a_i$ and $y$ has an odd number of $a_i$. Then we can construct
-a string $z$ that will set every other $a_j$ to even:
-i.e. $x = a_1a_2a_3 , y=a_1a_2a_3a_3 , z=a_1a_2$.  This would mean that
-$xz \simeq_D yz$ and $xz \in L_n but yz \notin L_n$ which is a contradiction.
-So a DFA with less than $2^n$ states can not accept $L_n$ and from part (b) we
-showed that a DFA with $2^n$ states is accepting of $L_n$ so a DFA accepting
-$L_n$ must have at least $2^n$ states.
+\indent Assume that there exists a DFA $D_{bad} = (Q, \Sigma, \delta, q_0, F)$
+such that $D_{bad}$ has less than $2^n$ states and $D_{bad}$ accepts the
+language $L_n$. Since a DFA accepts it, $L_n$ is a regular language. Thus
+there exists a Myhill-Nerod relation $\simeq_D$ such that
+$\exists x,y \in \Sigma^* ,\: x \simeq_D y$ which implies that there
+exists some state $q \in Q$ such that $\delta^* (q_0, x)=\delta^* (q_0, y)=q$.
+By the definition of $L_n$ we know there are $2^n$ distinct combinations of
+even and odd $a_1$ through $a_n$ that comprise words in $\Sigma^*$
+(ex. $\exists w \in \Sigma^*$ such that there are an odd number of $a_1$
+in $w$, an even number of $a_2$ in $w$, etc.). Since the number of equivalance
+classes, and thus the number of states that except strings of the same
+equivalance class, is equal to $|Q| \le 2^n$ there exist strings in $\Sigma^*$
+such that two strings $x$ and $y$ may contain an odd and even number of
+some letter $a_i$, respectively, and $x \simeq y$. We can then choose a word
+$z \in \Sigma^*$ that contains no instances of the letter $a_i$ such that
+$yz$ only contains an even number of each of its $a_j$ letters (including
+an even number of $a_i$ since $y$ contained an even number of $a_i$ initially)
+and $xz$ still contains an odd number of $a_i$ since $z$ contains no $a_i$.
+By the fact that Myhill-Nerod equivalance relations are right invariant we have
+$xz \simeq yz \implies \delta^* (q_0, xz) = \delta^* (q_0, yz) \implies
+\delta^*(\delta^*(q_0, x), z) = \delta^*(\delta^*(q_0, y), z) \implies
+\delta^*(q, z) = q' \in Q$. Now either $q'$ is an accepting state in which case
+it accepts the string $yz$ which contains only an even number of all of its
+$a_j$ and therefore $yz \notin L_n$ but $\delta^* (q_0, yz) \in F$ which is a
+contradiction or $q$ is not an accepting state in which case it does not accept
+the string $xz$ which contains an odd number of $a_i$ and therefore
+$xz \in L$ but $\delta^* (q_0, xz) \notin F$ which is also a contradiction.
+Therefore a DFA with less than $2^n$ states cannot accept that language $L_n$.
+In part (b) we showed that there exists a DFA with $2^n$ states that does
+accept $L_n$ therefore any DFA that accepts $L_n$ must contain at least
+$2^n$ states.
 
+\newpage
 \section*{Problem B2}
 \subsection*{(a)}
 Let $D_C = (Q, T, \delta_C, q_0, F_C)$ be a DFA (pictured below)
@@ -148,6 +168,7 @@ that accepts the language:
   ;
 \end{tikzpicture}
 \end{center}
+
 Let $D_{Lm} = (Q, T \cup \{c\}, \delta_{Lm}, q_0, F_C)$ be a DFA that accepts
 the language $L_m$, extended from the DFA $D_C$ above that accepts the
 language $C$. $\delta_{Lm}$ is defined as:
@@ -184,7 +205,8 @@ The following is an example showing one face of the cube:
 \end{tikzpicture}
 \begin{tikzpicture}
 \draw[step=3cm,red,very thin] (0,0) grid (9,9);
-\end{tikzpicture}\newline
+\end{tikzpicture}
+\medskip
 \begin{tikzpicture}
 \draw[step=3cm,red,very thin] (0,0) grid (9,9);
 \fill[blue!] (6,6) rectangle (3,3);
@@ -193,6 +215,7 @@ The following is an example showing one face of the cube:
 \draw[step=1cm,red,very thin] (0,0) grid (9,9);
 \fill[blue!] (6,6) rectangle (3,3);
 \end{tikzpicture}
+\medskip
 \begin{tikzpicture}
 \draw[step=1cm,red,very thin] (0,0) grid (9,9);
 \fill[blue!] (6,6) rectangle (3,3);
@@ -205,7 +228,7 @@ The following is an example showing one face of the cube:
 \fill[blue!] (2,5) rectangle (1,4);
 \fill[blue!] (8,5) rectangle (7,4);
 \end{tikzpicture}
-
+\newpage
 \section*{Problem B3}
 \subsection*{(1)}
   Given that R is a regular language there exists a DFA
