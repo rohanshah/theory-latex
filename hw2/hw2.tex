@@ -268,14 +268,20 @@ The following is an example showing one face of the cube:
   some $v \in \Sigma^*$ where $2|u| = |v|$ and ended in the same state.
   This by definition is the language $L_1$. Formal proof that $L(N) = L_1$ and
   thus that $L_1$ is a regular language:
-  $$ L(N) = L_1 $$
-  $$ \delta{'}^*((q_0, F), u) \in F' = \{u \:|\: \exists v \in \Sigma^* ,\:
-  uv \in R ,\: |v| = 2|u|\}$$ 
+  $$\forall u \in \Sigma^* ,\: u \in L(N) \iff u \in L_1$$
+  \subsubsection*{Case: $u \in L(N) \implies u \in L_1$}
+  $$ u \in L(N) \implies \delta{'}^*((q_0, F), u) \in F' = $$
   $$ \delta^*(q_0, u) \in \{q \:|\: \exists v \in \Sigma^* ,\:
   |v| = 2|u| ,\: \delta^*(q,v) \in F\}$$
-  $$ \delta^*(q_0, u) = q ,\: \delta^*(q,v) \in F \implies$$
-  $$\delta^*(q_0, uv) \in F \implies uv \in R ,\: |v| = 2|u|$$
-  $$ u \in L(N) \implies u \in L_1$$
+  $$\implies \delta^*(q_0, u) = q \text{ and } \delta^*(q,v) \in F \implies$$
+  $$\delta^*(q_0, uv) \in F \implies uv \in R \text{ where }|v|= 2|u| \implies$$
+  $$L(N)=\{u \:|\: \exists v \in \Sigma^* ,\: uv \in R ,\: |v| = 2|u|\}=L_1$$
+  \subsubsection*{Case: $u \in L_1 \implies u \in L(N)$}
+  $$u \in L_1 = \{u \:|\: \exists v \in \Sigma^* ,\: uv \in R ,\: |v| = 2|u|\}
+  \implies$$ $$\delta^*(q_0, uv) \in F  \text{ where } |v| = 2|u| \implies$$
+  $$\exists q \in Q \text{ where } \delta^*(q_0, u) = q \text { and }
+  \delta^*(q, v) \in F \implies$$
+  $$\delta^*(q_0, u) \in \{q \:|\: \delta^*(q,v) \in F ,\: |v| = 2|u|\}= L(N)$$
 
 \subsection*{(2)}
 
