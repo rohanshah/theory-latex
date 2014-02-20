@@ -484,40 +484,60 @@ The sequence $\{5,4\}$ is not good.
 This is a contradiction, therefore a finite sequence is not necessarily good.
 \begin{enumerate}
 \item[(1)]
-If an infinite sequence is good then that means $\exists a_i,a_j \in$
-the sequnce such that $a_i < a_j$. Therefore if every infinite sequence is
-good then:
-$\forall S = \{a_1 , a_2 , a_3 , .... , a_i , a_j , ..... , a_\infty\},
-\exists a_i , a_j$ such that $a_i < a_j$
-Therefore there is no infinite decreasing chain and no infinite antichains.
+Prove (1) $\implies$ (2): Proof by contradiction.
+\newline
+Assume there is an infinite decreasing chain, $x_1...x_i > x_{i+1}, \forall 
+i\ge 1$. We have that either $x_{i+1} \le x_1$ or $x_{i+1}|x_1$. But, since 
+every infinite sequence is good, there is some $i,j$ with $i < j$ and $x_i \le x_j$,
+so there cannot exist an infinite decreasing chain.
+Next, assume that an infinite anti-chain exists. By (1), there exists 
+$i,j$ such that $i <j$ and $x_i \le x_j$, so an infinte anti-chain
+cannot exist.
 \item[(2)]
-If $S$ is an infinite sequence of numbers such that there are no infinite
-decreasing chains than it must follow that $S$ is of the type
-$a_1 > a_2 > a_3 > ... > a_i < a_j$. If for an infinite sequence
-$S \exists i , j \mid a_i < a_j$ then $S$ is good by definition.
+Prove (2) $\implies$ (1): Proof by contradiction.
+\newline
+Assume there is some infinite bad sequence, such that $\forall i,j > 0$ with $i <j$, then either
+$x_j \le x_i$ or $x_i|x_j$. Assume that there are finitely many incomparable pairs of elements. 
+Then for some natural number N, every $x_i$ such that $i \ge N$, is comparable.
+This implies that there is an infinitely decreasing chain which is a contradiction.
 \end{enumerate}
+
 \subsection*{(b)}
+Given a preorder $\preceq$ on a set $A$, 
+say that a member $s_{i}$ of an infinite sequence $s$ is {\it terminal\/} iff
+there is no $j>i$ such that $s_{i}\preceq s_{j}$. 
+\newline
+First, prove the hint that if $\preceq$ is a wqo, then
+the number of terminal elements in any infinite  sequence $s$ is finite
+in a proof by contradiction. 
+Assume that there does exist an infinite sequence with an infinite number of 
+terminals. From the definitions of infinite sequences from (a), 
+we show that this is impossible, so the number of terminal elements in any 
+infinite sequence is finite.
 \begin{enumerate}
-\item[(1)]
-If $\preceq$ is a $wqo$ on $A \exists $
-\item[(2)]
-If $S$ is an infinite sequence of numbers such that there are no
-infinite decreasing chains than it must follow that $S$ is of the type
-$a_1 > a_2 > a_3 > ... > a_i < a_j$.  If for an infinite sequence
-$S \exists i , j \mid a_i < a_j$ then $S$ is good by definition.
+\item Prove (1) $\implies$ (2) is trivial by definition of wqo.
+\item Prove (2) $\implies$ (1): 
+\newline
+For some natural number $N$, such that $N> 0$, some $s_i$ that is not
+a terminal and $i>N$, define a strictly monotonic function f such that
+$f(i)=N$ and $f(i+1)=$ the least integer such that $s_{f(i)} \le s_{f(i+1)}$
+and $f(i+1) > f(i)$. We can guarantee the existence of this least integer, so $\preceq$ is a {\it wqo\/} on $A$.
 \end{enumerate}
+
 \subsection*{(c)}
-$ A1 = \le_1$ and $A2 = \le_2$ are wqo's.
-The crossproduct ordering $(a_1,a_2) \le (b_1, b_2)
-iff a_1 \le_1 b_1 and a_2 \le_2 b_2$.
-Show $\le$ is also a wqo on $A_1 x A_2$.
-Consider an infinite sequence $(s_i ' , s_i '') \in A_1 x A_2, i = 1,2,...$.
-Have the prime sequence in A1 and have the double prime sequence in A2.
-Use part (b), which says that if you have a wqo, that means the
-(infinite sequence is "good") you can extend. Take first subsequence,
-know it is in wqo (can extract a subsequence specified by the function f).
-we knoe this subsequence is in incrasing order. use these indicies to extract
-from infinite sequence.
+Prove that
+if  $\preceq_{1}$ and $\preceq_{2}$ are {\it wqo\/}, 
+then  $\preceq$ is a {\it wqo\/} on $A_{1}\times A_{2}$.
+By the crossproduct ordering of $A_{1}\times A_{2}$, we know $(a_1,a_2) \le (a_1', a_2')$
+iff $a_1 \le_1 a_1'$ and $a_2 \le_2 a_2'$.
+Consider an infinite sequence $(s_i ' , s_i '') \in A_1 x A_2$ with $i = 1,2,...$.
+We have the prime sequence $s'=(s_i'),(i \ge 1) \in A_1$ and we have the double prime sequence 
+$s''=(s_i''),(i \ge 1) \in A_2$.
+By part (b), since $\preceq_{1}$ is a wqo, we can extend to $t'=s'_{f(i)},(i \ge 1)$ of $s'$
+such that $s'_{f(i)} \preceq_{1} s'_{f(i+1)}$ for all $i>0$. Since $\preceq_{2}$ is a wqo,
+$t''=(s''_{f(i)},(i \ge 1)$ is an infinite sequence over $A_2$. $f(i)<f(j)$ and 
+$s''_{f(i)} \preceq_{2} s''_{f(j)}$ by definition of wqo. $(s'_{f(i)}, s''_{f(i)}) \preceq 
+(s'_{f(j)}, s''_{f(j)})$ since $s'_{f(i)} \preceq_{1} s'_{f(j)}$ and $s''_{f(i)} \preceq_{2} s''_{f(j)}$.
 
 \subsection*{(d)}
 Prove the following result.
@@ -533,7 +553,7 @@ So we can extend c by induction on $\preceq_{n}$ on $\mathbb{N}$.
 Given that $\preceq_{n}$ is a preorder on A ($\preceq_{n} \subseteq AxA$),
 then $\preceq_{n}$ is reflexive ($ x \preceq_{n} x,\forall x \in A$)
 and transitive ($x \preceq_{n} y, y \preceq_{n} z \implies x \preceq_{n} z,
-\forall x,y,z \in A$). NEED COMPLETE PROOF HERE.
+\forall x,y,z \in A$).
 
 \subsection*{(e)}
 Let $\sqsubseteq$ be a preorder on a set $A$. We define the
