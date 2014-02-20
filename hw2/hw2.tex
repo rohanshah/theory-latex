@@ -432,17 +432,13 @@ $$LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n$$
 $$LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n = L$$
 
 \subsubsection*{Case $LL \subseteq L \implies L^+ = L$:}
-NOTES
-\newline
-Proof by induction on n where $L^+ = \bigcup\limits_{n\ge1} L^n$
-Base Case: n = 1. So $L^n = L^1  = L$.
-Inductive Case: Assume $L^n = L$.
-Show $L^{n+1} =L$. 
-\newline 
-$L^{n+1} = LL^{n} = LL$. If we can show that $L \subseteq LL$, then 
+$$\text{Proof by induction on } n \text{ where } L^+ = \bigcup\limits_{n\ge1} L^n$$
+$$\text{ Base Case: } n = 1.$$
+$$L^n = L^1  = L$$
+$$\text{ Inductive Case: } L^n = L \text{ . Prove  } L^{n+1} =L$$. 
+$$L^{n+1} = L^{n} \cup L^{n+1}= L \cup L^{n+1} = L \cup LL^n = L \cup LL $$
+$$L \subseteq L \cup LL \implies L \subseteq L^{n+1} \text{  and we know  } LL \subseteq L \text{  which from above implies  } L^{n+1} \subseteq L \text{  therefore  } L^{n+1}=L$$ 
 $LL=L$.
-STUCK. Use $(n \ge 1)$, $ \cup L^n$ to prove.
-ENDNOTES
 
 \subsection*{(b)}
 ($L=\emptyset$ or $L=L^*$) iff LL=L.
@@ -459,9 +455,12 @@ $L \subseteq LL$ and $LL \subseteq L \implies L = LL$.
 \subsubsection*{Case $\Longleftarrow$:} 
 $L=LL \implies L = L^\ast$.
 (The case where $L= \emptyset$ is trivial).
-Claim: $L=L^2 \implies {\epsilon } \in L$ SHOW PROOF.
-By part (a), $LL=L \implies LL \subseteq L \implies
-L = L^+$ and since ${\epsilon } \in L$, $L^+=L^\ast$.
+Claim: $L=L^2 \implies {\epsilon } \in L$ Proof of Claim:
+$L = L^2 \implies L = LL$ , $LL = \{ u_1u_2 \mid u_1 \in L u_2 \in L\}$\newline
+Let $u_1$ be such that $|u_1|$ is the minimal length string in $L$. Either $u = \epsilon$ , thus proven or $|u| > 0$.
+Since $LL = L \implies \exists u \in L \mid u = u_1u_2 \mid u_1 , u_2 \in L \implies |u| = |u_1|+|u_2|$ . Since we chose $u$ to be the minimal sized string then either $u_1$ or $u_2$ must be $\epsilon$. \newline
+By part (a), $LL=L \implies LL \subseteq L \implies$
+$L = L^+$ and since ${\epsilon } \in L$, $L^+=L^\ast$.
 
 \section*{Problem B6}
 \subsection*{(a)}
