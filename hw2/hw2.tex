@@ -424,43 +424,51 @@ $$ \delta^*(q_0, u) \in \{q \:|\: \exists v \in \Sigma^* ,\:
   $$\{w \:|\: \exists u,y \in \Sigma^* ,\: \exists q,q' \in Q ,\:
   \delta^*(q_0, u) = q ,\: \delta^*(q,w) = q' ,\: \delta^*(q', y) \in F\}$$
   $$\implies \delta^*(q_0, uwy) \in F = Sub(L)$$
+\newpage
 \section*{Problem B5}
-\subsection*{(a)} Prove that $L=L^+$ iff LL $\subseteq$ L.
+\subsection*{(a)} Prove that $L=L^+$ $\iff LL \subseteq L$.
 \subsubsection*{Case $L=L^+ \implies LL \subseteq L$:}
-$$L = L^+ = \bigcup\limits_{n\ge1} L^n$$
-$$LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n$$
-$$LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n = L$$
+$$L = L^+ = \bigcup\limits_{n\ge1} L^n \text{ and }
+LL = L^2 \subseteq \bigcup\limits_{n\ge1} L^n = L \text{ thus }
+LL \subseteq L$$
 
 \subsubsection*{Case $LL \subseteq L \implies L^+ = L$:}
-$$\text{Proof by induction on } n \text{ where } L^+ = \bigcup\limits_{n\ge1} L^n$$
-$$\text{ Base Case: } n = 1.$$
-$$L^n = L^1  = L$$
-$$\text{ Inductive Case: } L^n = L \text{ . Prove  } L^{n+1} =L$$. 
-$$L^{n+1} = L^{n} \cup L^{n+1}= L \cup L^{n+1} = L \cup LL^n = L \cup LL $$
-$$L \subseteq L \cup LL \implies L \subseteq L^{n+1} \text{  and we know  } LL \subseteq L \text{  which from above implies  } L^{n+1} \subseteq L \text{  therefore  } L^{n+1}=L$$ 
-$LL=L$.
+Proof by induction on $n$ when $L^+ = \bigcup\limits_{n\ge1} L^n$:
+\newline
+Base Case ($n = 1$): $L^n = L^1  = L$
+\newline
+Inductive Case: (Prove $L^{n+1} =L$ where $L^n = L$):
+$$L^{n+1} = LL^{n} = LL \subseteq L \implies L^{n+1} \subseteq L$$
+$$L^{n+1} = L^{n} \cup L^{n+1}= L \cup L^{n+1} = L \cup LL^n = L \cup LL
+\supseteq L \implies L \subseteq L^{n+1}$$
+$$L^{n+1} \subseteq L \text{ and } L \subseteq L^{n+1} \implies L^{n+1}=L$$
 
 \subsection*{(b)}
-($L=\emptyset$ or $L=L^*$) iff LL=L.
-Recall $L^\ast = \bigcup\limits_{n \ge 0} L^n \implies L^n \subseteq L^\ast,
-\forall n\ge 0$.
-\newline
-\subsubsection*{Case $\implies$:}
-Prove ($L=\emptyset$ or $L=L^*$)
-$\implies LL=L$. $L = L^\ast \implies {\epsilon } \in L$
-Since ${\epsilon } \in L \implies L \subseteq LL = L^2 \implies L \subseteq LL$.
-From part (a) we know $L=L^+ \implies LL \subseteq L$. 
-$L \subseteq LL$ and $LL \subseteq L \implies L = LL$.
+Prove ($L=\emptyset$ or $L=L^*$) $\iff LL=L$.
+\subsubsection*{Case ($L=\emptyset$ or $L=L^*$) $\implies LL=L$:}
+$$L = L^\ast \implies {\epsilon } \in L$$
+$${\epsilon } \in L \implies L \subseteq LL$$
+$$L=L^+ \implies LL \subseteq L \text{ (from part (a)) } $$
+$$L \subseteq LL \text{ and } LL \subseteq L
+\implies L = LL$$
 
-\subsubsection*{Case $\Longleftarrow$:} 
-$L=LL \implies L = L^\ast$.
-(The case where $L= \emptyset$ is trivial).
-Claim: $L=L^2 \implies {\epsilon } \in L$ Proof of Claim:
-$L = L^2 \implies L = LL$ , $LL = \{ u_1u_2 \mid u_1 \in L u_2 \in L\}$\newline
-Let $u_1$ be such that $|u_1|$ is the minimal length string in $L$. Either $u = \epsilon$ , thus proven or $|u| > 0$.
-Since $LL = L \implies \exists u \in L \mid u = u_1u_2 \mid u_1 , u_2 \in L \implies |u| = |u_1|+|u_2|$ . Since we chose $u$ to be the minimal sized string then either $u_1$ or $u_2$ must be $\epsilon$. \newline
-By part (a), $LL=L \implies LL \subseteq L \implies$
-$L = L^+$ and since ${\epsilon } \in L$, $L^+=L^\ast$.
+\subsubsection*{Case $L=LL \implies L = L^\ast$
+(The case where $L= \emptyset$ is trivial):}
+Claim: $L=LL \implies {\epsilon } \in L$
+\newline
+Proof: $L = LL \implies \exists u, u_1, u_2 \in L \text{ such that }
+u \in L \text{ and } u_1u_2 \in LL$. Let $u$ be a string in $L$ such that
+$u \leq v ,\: \forall v\in L$, or $u$ is a string of minimal length. Either
+$u = \epsilon$ which is our proof or $|u| \ge 1$. Thus $|u_1| \text{ and }
+|u_2| \ge 1$ which is a contradiction since $u = u_1u_2 \implies
+|u| = |u_1| + |u_2|$ therefore either $u_1 \text{ or } u_2 = \epsilon$ where
+$u_1, u_2 \in L$ and thus $\epsilon \in L$.
+\vspace{0.5cm}
+\newline
+By part (a) and our claim we get:
+$$LL=L \implies LL \subseteq L \implies
+L = L^+ \text{ and } \epsilon \in L \implies
+L = L^+ \cup \{\epsilon\} = L^\ast$$
 
 \section*{Problem B6}
 \subsection*{(a)}
