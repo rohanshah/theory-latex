@@ -239,7 +239,8 @@ The following is an example showing one face of the cube:
   are pairs consisting of a single state and a set of states. We define the
   transition function $\delta{'}$ as follows:
   \newline
-  \indent $\forall a \in \Sigma$,\:$\delta{'}((p,S), a) = (\delta(p,a), S')$ where
+  \indent $\forall a \in \Sigma$,\:$\delta{'}((p,S), a) = (\delta(p,a), S')$
+  where
   $S'= \{s'\,|\,\exists w \in \Sigma^*,\,|w| = 2,\, \delta^*(s',w) \in S\}$
   \newline
   \indent i.e. $S'$ is equal to the set of all states from which S is reachable
@@ -456,7 +457,7 @@ $$L \subseteq LL \text{ and } LL \subseteq L
 (The case where $L= \emptyset$ is trivial):}
 Claim: $L=LL \implies {\epsilon } \in L$
 \newline
-Proof: $L = LL \implies \exists u, u_1, u_2 \in L \text{ such that }
+Proof of Claim: $L = LL \implies \exists u, u_1, u_2 \in L \text{ such that }
 u \in L \text{ and } u_1u_2 \in LL$. Let $u$ be a string in $L$ such that
 $u \leq v ,\: \forall v\in L$, or $u$ is a string of minimal length. Either
 $u = \epsilon$ which is our proof or $|u| \ge 1$. Thus $|u_1| \text{ and }
@@ -496,7 +497,8 @@ Prove (1) $\implies$ (2): Proof by contradiction.
 \newline
 Assume there is an infinite decreasing chain, $x_1...x_i > x_{i+1}, \forall 
 i\ge 1$. We have that either $x_{i+1} \le x_1$ or $x_{i+1}|x_1$. But, since 
-every infinite sequence is good, there is some $i,j$ with $i < j$ and $x_i \le x_j$,
+every infinite sequence is good,
+there is some $i,j$ with $i < j$ and $x_i \le x_j$,
 so there cannot exist an infinite decreasing chain.
 Next, assume that an infinite anti-chain exists. By (1), there exists 
 $i,j$ such that $i <j$ and $x_i \le x_j$, so an infinte anti-chain
@@ -504,10 +506,13 @@ cannot exist.
 \item[(2)]
 Prove (2) $\implies$ (1): Proof by contradiction.
 \newline
-Assume there is some infinite bad sequence, such that $\forall i,j > 0$ with $i <j$, then either
-$x_j \le x_i$ or $x_i|x_j$. Assume that there are finitely many incomparable pairs of elements. 
+Assume there is some infinite bad sequence,
+such that $\forall i,j > 0$ with $i <j$, then either
+$x_j \le x_i$ or $x_i|x_j$.
+Assume that there are finitely many incomparable pairs of elements.
 Then for some natural number N, every $x_i$ such that $i \ge N$, is comparable.
-This implies that there is an infinitely decreasing chain which is a contradiction.
+This implies that there is an infinitely
+decreasing chain which is a contradiction.
 \end{enumerate}
 
 \subsection*{(b)}
@@ -529,23 +534,32 @@ infinite sequence is finite.
 For some natural number $N$, such that $N> 0$, some $s_i$ that is not
 a terminal and $i>N$, define a strictly monotonic function f such that
 $f(i)=N$ and $f(i+1)=$ the least integer such that $s_{f(i)} \le s_{f(i+1)}$
-and $f(i+1) > f(i)$. We can guarantee the existence of this least integer, so $\preceq$ is a {\it wqo\/} on $A$.
+and $f(i+1) > f(i)$. We can guarantee the existence of this least integer,
+so $\preceq$ is a {\it wqo\/} on $A$.
 \end{enumerate}
 
 \subsection*{(c)}
 Prove that
 if  $\preceq_{1}$ and $\preceq_{2}$ are {\it wqo\/}, 
 then  $\preceq$ is a {\it wqo\/} on $A_{1}\times A_{2}$.
-By the crossproduct ordering of $A_{1}\times A_{2}$, we know $(a_1,a_2) \le (a_1', a_2')$
+By the crossproduct ordering of $A_{1}\times A_{2}$,
+we know $(a_1,a_2) \le (a_1', a_2')$
 iff $a_1 \le_1 a_1'$ and $a_2 \le_2 a_2'$.
-Consider an infinite sequence $(s_i ' , s_i '') \in A_1 x A_2$ with $i = 1,2,...$.
-We have the prime sequence $s'=(s_i'),(i \ge 1) \in A_1$ and we have the double prime sequence 
+Consider an infinite sequence $(s_i ' , s_i '') \in A_1 x A_2$
+with $i = 1,2,...$.
+We have the prime sequence $s'=(s_i'),(i \ge 1) \in A_1$
+and we have the double prime sequence
 $s''=(s_i''),(i \ge 1) \in A_2$.
-By part (b), since $\preceq_{1}$ is a wqo, we can extend to $t'=s'_{f(i)},(i \ge 1)$ of $s'$
-such that $s'_{f(i)} \preceq_{1} s'_{f(i+1)}$ for all $i>0$. Since $\preceq_{2}$ is a wqo,
+By part (b), since $\preceq_{1}$ is a wqo,
+we can extend to $t'=s'_{f(i)},(i \ge 1)$ of $s'$
+such that $s'_{f(i)} \preceq_{1} s'_{f(i+1)}$
+for all $i>0$. Since $\preceq_{2}$ is a wqo,
 $t''=(s''_{f(i)},(i \ge 1)$ is an infinite sequence over $A_2$. $f(i)<f(j)$ and 
-$s''_{f(i)} \preceq_{2} s''_{f(j)}$ by definition of wqo. $(s'_{f(i)}, s''_{f(i)}) \preceq 
-(s'_{f(j)}, s''_{f(j)})$ since $s'_{f(i)} \preceq_{1} s'_{f(j)}$ and $s''_{f(i)} \preceq_{2} s''_{f(j)}$.
+$s''_{f(i)} \preceq_{2} s''_{f(j)}$
+by definition of wqo. $(s'_{f(i)}, s''_{f(i)}) \preceq
+(s'_{f(j)}, s''_{f(j)})$
+since $s'_{f(i)} \preceq_{1} s'_{f(j)}$
+and $s''_{f(i)} \preceq_{2} s''_{f(j)}$.
 
 \subsection*{(d)}
 Prove the following result.
