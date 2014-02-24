@@ -1,0 +1,341 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+
+\setlength{\topmargin}{-.5in}
+\setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in}
+\setlength{\textwidth}{6.5truein}
+\setlength{\textheight}{8.5truein}
+
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+
+\def\fseq#1#2{(#1_{#2})_{#2\geq 1}}
+\def\fsseq#1#2#3{(#1_{#3(#2)})_{#2\geq 1}}
+\def\qleq{\sqsubseteq}
+
+%
+\begin{document}
+\begin{center}
+\fbox{{\Large\bf Spring, 2014 \hspace*{0.4cm} CIS 511}}\\
+\vspace{1cm}
+{\Large\bf Introduction to the Theory of Computation\\
+Jean Gallier \\
+\vspace{0.5cm}
+Homework 3}\\[10pt]
+February 20, 2014; Due March 6, 2014, {\it beginning of class}\\
+\end{center}
+
+``A problems'' are for practice only, and should not
+be turned in.
+
+
+\vspace {0.25cm}
+\noindent
+{\bf Problem A1.} 
+Prove that every finite language is regular.
+
+\vspace {0.25cm}\noindent
+{\bf Problem A2.} 
+Sketch an algorithm for deciding whether two regular
+expressions $R, S$ are equivalent
+(i,e, whether $\s{L}[R] = \s{L}[S]$).
+
+\vspace {0.25cm}\noindent
+{\bf Problem A3.} 
+Given any language $L\subseteq \Sigma^*$, let
+\[L^R = \{w^R \mid w \in L\},\]
+the {\it reversal language of $L$\/} (where $w^R$
+denotes the reversal of the string $w$).
+Prove that if $L$ is regular, then $L^R$
+is also regular.
+
+\vspace {0.5cm}
+``B problems'' must be turned in.
+
+% cis511s01sol2.tex
+\vspace {0.25cm}\noindent
+{\bf Problem B1 (60 pts).} 
+Let $D=(Q,\Sigma,\delta,q_{0},F)$ be a deterministic finite
+automaton. Define the relations $\approx$ and $\sim$ on $\Sigma^{*}$
+as follows:
+\begin{align*}
+x \approx y\quad&\hbox{if and only if},\quad\hbox{for all}\quad p\in Q,\\
+& \delta^{*}(p,x) \in F\quad\hbox{iff}\quad \delta^{*}(p,y) \in F,
+\end{align*}
+and
+$$x \sim y\quad\hbox{if and only if},\quad\hbox{for all}\quad p\in Q,\quad
+ \delta^{*}(p,x) = \delta^{*}(p,y).$$
+
+\medskip
+(a) Show that $\approx$ is a left-invariant equivalence relation
+and that $\sim$ is an equivalence relation
+that is both left and right invariant.
+(A relation $R$ on $\Sigma^{*}$ is {\it left invariant\/}
+iff $uRv$ implies that $wuRwv$ for all $w \in \Sigma^{*}$,
+and $R$ is {\it right invariant\/} iff $uRv$ implies that
+$uwRvw$ for all $w \in \Sigma^{*}$.)
+
+\medskip
+(b) Let $n$ be the number of states in $Q$ (the set of states of $D$).
+Show that $\approx$ has at most $2^{n}$ equivalence classes
+and that $\sim$ has at most $n^{n}$ equivalence classes.
+
+\medskip
+(c) 
+Given any language $L\subseteq \Sigma^*$,
+define the relations $\lambda_L$ and $\mu_L$ on $\Sigma^{*}$
+as follows:
+$$u\, \lambda_L\, v\quad\hbox{iff},\quad\hbox{for all}\quad z\in \Sigma^*
+,\quad zu \in L\quad\hbox{iff}\quad zv \in L,$$
+and
+$$u\, \mu_L\, v\quad\hbox{iff},\quad\hbox{for all}\quad x, y\in\Sigma^*,\quad
+ xuy \in L\quad\hbox{iff}\quad xvy \in L.$$
+
+\medskip
+Prove that $\lambda_L$ is left-invariant, and that
+$\mu_L$ is left and right-invariant. Prove that if $L$ is regular,
+then both $\lambda_L$ and $\mu_L$ have a finite number of
+equivalence classes.
+
+\medskip\noindent
+{\it Hint\/}: Show that the number of classes of $\lambda_L$ is at most
+the number of classes of $\approx$, and 
+that the number of classes of $\mu_L$ is at most
+the number of classes of $\sim$.
+
+
+
+\vspace{0.5cm}\noindent
+{\bf Problem B2 (80 pts).} 
+Recall from class that
+given any  DFA 
+$D = (Q, \Sigma, \delta, q_{0}, F)$,
+a {\it congruence $\equiv$ on $D$\/} is an equivalence
+relation $\equiv$ on $Q$ satisfying the following
+conditions:
+\begin{enumerate}
+\item[(1)] 
+If $p \equiv q$, then $\delta(p, a)\equiv \delta(q, a)$,
+for all $p, q\in Q$ and all $a\in \Sigma$.
+\item[(2)] 
+If $p \equiv q$ and $p\in F$, then $q\in F$,
+for all $p, q\in Q$.
+\end{enumerate}
+
+\medskip
+(a)
+Given a congruence $\equiv$ on a DFA $D$, we define
+the {\it quotient DFA $D/\equiv$\/} as follows:
+denoting the equivalence class of a state $p\in Q$ as $[p]$,
+$$D/\equiv\> = (Q/\equiv, \Sigma, \delta/\equiv, [q_0], F/\equiv),$$
+where
+$$\delta/\equiv([p], a) = [\delta(p, a)].$$
+
+\medskip
+Why is $D/\equiv$ well defined? 
+Prove that there is a 
+surjective proper
+homomorphism $\mapdef{\pi}{D}{D/\equiv}$, and thus,
+that $L(D) = L(D/\equiv)$ (you may use results from HW1).
+
+\medskip
+(b) Given a DFA $D$, prove that the state equivalence
+relation $\equiv_D$ is the coarsest congruence on $D$
+(this means that if $\equiv$ is any congruence on $D$,
+then $\equiv\>\subseteq\> \equiv_D$).
+
+\medskip
+(c)
+Given two  DFA's
+$D_1 = (Q_1, \Sigma, \delta_1, q_{0, 1}, F_1)$
+and 
+$D_2 = (Q_2, \Sigma, \delta_2, q_{0, 2}, F_2)$,
+with  $D_1$  trim,
+prove that the following properties hold.
+\begin{enumerate}
+\item[(1)]
+There is a DFA morphism $\mapdef{h}{D_1}{D_2}$
+iff 
+\[\simeq_{D_1}\>\subseteq\>\simeq_{D_2}.\]
+\item[(2)]
+There is an  $F$-map
+$\mapdef{h}{D_1}{D_2}$ iff
+\[\simeq_{D_1}\>\subseteq\> \simeq_{D_2}
+\quad\hbox{and}\quad
+L(D_1) \subseteq  L(D_2);\]
+\item[(3)]
+There is a $B$-map
+$\mapdef{h}{D_1}{D_2}$ iff
+\[\simeq_{D_1}\>\subseteq\> \simeq_{D_2}
+\quad\hbox{and}\quad
+L(D_2) \subseteq  L(D_1).\]
+\end{enumerate}
+
+Conclude that if  $D_1, D_2$ are trim and
+$L(D_1) = L(D_2)$, then
+there is a unique surjective proper homomorphism
+$\mapdef{h}{D_1}{D_2}$ iff
+$$\simeq_{D_1}\>\subseteq\> \simeq_{D_2}.$$
+(you may use results from  HW1).
+
+\medskip
+Prove that for any trim DFA $D$, there
+is a unique surjective proper homomorphism
+from $D$ to any minimal DFA
+$D_m$ accepting $L = L(D)$
+
+\medskip
+(d) 
+Given a regular language $L$,
+prove that a minimal DFA $D_m$ for $L$ is 
+characterized by the property that there is unique surjective
+proper homomorphism
+$\mapdef{h}{D}{D_m}$ from any trim DFA $D$ accepting $L$ to $D_m$.
+
+
+
+
+\vspace{0.25cm}\noindent
+{\bf Problem B3 (70 pts).} 
+Let $L$ be any regular language
+over some alphabet $\Sigma$.  Define the languages
+\begin{eqnarray*}
+L^{\infty} & = & \bigcup_{k\geq 1} \{w^k \mid w \in  L\}, \\
+L^{1/\infty} & = & \{w \mid  w^k \in  L,\quad \hbox{for all $k\geq 1$}\},
+\quad\hbox{and} \\
+\sqrt{L} & = &\{w \mid  w^k \in  L,\quad \hbox{for some $k\geq 1$}\}.
+\end{eqnarray*}
+Also, for any natural number $k \geq 1$, let
+\[L^{(k)} = \{w^k \mid  w \in  L\},\] 
+and
+\[L^{(1/k)} = \{w \mid  w^k \in  L\}.\] 
+
+\medskip
+(a)
+Prove that $L^{(1/3)}$ is regular. What about $L^{(3)}$?
+
+\medskip
+(b)
+Let $k\geq 1$ be any natural number.
+Prove that there are only finitely many languages
+of the form  $L^{(1/k)} = \{w \mid  w^k \in  L\}$
+and that they are all regular.
+(In fact, if $L$ is accepted by a DFA with $n$ states, there
+are at most $2^{n^n}$ languages of the form $L^{(1/k)}$).
+
+\medskip
+(c) Is $L^{1/\infty}$ regular or not?
+Is $\sqrt{L}$ regular or not?
+What about $L^{\infty}$?
+
+
+
+\vspace {0.25cm}\noindent
+{\bf Problem B4 (60 pts).} 
+Which of the following languages are regular? Justify
+each answer.
+
+\medskip
+(a) $L_{1}=\{wcw \mid w\in \{a,b\}^{*}\}$
+
+\medskip
+(b) $L_{2}=\{xy \mid  x,y\in \{a,b\}^{*}\ \hbox{and}\  |x| = |y|\}$
+
+\medskip
+(c) $L_{3}=\{a^{n} \mid n\  \hbox{is a prime number}\}$
+
+\medskip
+(d) $L_{4} = \{a^mb^n \mid gcd(m, n) = 17\}$.
+
+
+
+\vspace {0.25cm}\noindent
+{\bf Problem B5 (50 pts).} 
+(a) Prove again that the intersection,
+$L_1\cap L_2$, of two regular languages, $L_1$ and $L_2$,
+is regular, {\bf using the Myhill-Nerode characterization\/}
+of regular languages.
+
+\medskip
+(b)
+Let  $\mapdef{h}{\Sigma^*}{\Delta^*}$ be a homomorhism,
+as defined on pages 24-26 of the slides on
+DFA's and NFA's.
+For any regular language, $L' \subseteq \Delta^*$,
+prove that $h^{-1}(L')$ is regular,
+{\bf using the Myhill-Nerode characterization\/}
+of regular languages. Prove that the number of states
+of any minimal DFA for $h^{-1}(L')$ is at most 
+the number of states
+of any minimal DFA for $L'$. Can it be strictly smaller?
+
+
+
+
+\vspace{0.25cm}\noindent
+{\bf Problem B6 (60 pts).} 
+The purpose of this problem is to get a fast
+algorithm for testing state equivalence in a DFA.
+Let $D=(Q,\Sigma,\delta,q_{0},F)$ be a deterministic finite
+automaton. Recall that {\it state equivalence\/} is the equivalence
+relation $\equiv$ on $Q$, defined  such that,
+$$p \equiv q\quad \hbox{iff}\quad \forall z\in\Sigma^* 
+(\delta^{*}(p,z) \in F\quad \hbox{iff}\quad \delta^{*}(q,z) \in F),$$
+and that {\it $i$-equivalence\/} is the equivalence
+relation $\equiv_{i}$ on $Q$, defined such that,
+$$p \equiv_{i} q\quad \hbox{iff}\quad \forall z\in\Sigma^*,\ |z| \leq i\ 
+(\delta^{*}(p,z) \in F\quad \hbox{iff}\quad \delta^{*}(q,z) \in F).$$
+
+\medskip
+A relation $S\subseteq Q\times Q$ is a {\it forward closure\/} iff 
+it is an equivalence relation and
+whenever $(p, q)\in S$, then $(\delta(p, a), \delta(q, a))\in S$,
+for all $a\in\Sigma$.
+
+\medskip
+We say that a forward closure $S$ is {\it good\/} iff 
+whenever $(p, q)\in S$, then $good(p, q)$, where 
+$good(p, q)$ holds iff either both $p, q\in F$, or
+both $p, q\notin F$.
+
+\medskip
+Given any relation $R\subseteq Q\times Q$,
+recall that the smallest equivalence relation $R_\approx$ containing
+$R$ is the relation $(R \cup R^{-1})^*$
+(where $R^{-1} = \{(q, p)\ \mid (p, q)\in R\}$, and 
+$(R \cup R^{-1})^*$ is the reflexive and transitive closure of 
+$(R \cup R^{-1})$).
+We define the sequence of relations $R_i\subseteq Q\times Q$
+as follows:
+
+\begin{align*}
+R_0 &= R_{\approx}\\
+R_{i + 1} &= (R_{i} \cup 
+\{(\delta(p, a), \delta(q, a)) \mid (p, q)\in R_i,\ a\in \Sigma\})_{\approx}.
+\end{align*}
+
+\medskip
+(i) Prove that $R_{i_{0}+1} = R_{i_{0}}$ for some least $i_0$.
+Prove that $R_{i_{0}}$ is the smallest forward closure
+containing $R$.
+ 
+\medskip
+We denote the smallest forward closure $R_{i_{0}}$ containing $R$ as
+$R^{\dagger}$, and call it the
+{\it forward closure of $R$\/}.
+
+\medskip
+(ii) Prove that $p\equiv q$ iff the forward closure $R^{\dagger}$ of the
+relation $R = \{(p, q)\}$ is good.
+
+
+
+\vspace{0.5cm}\noindent
+{\bf TOTAL: 380 points.}
+
+\end{document}
+
+
+
