@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usetikzlibrary{automata, positioning}
+
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+
+\begin{document}
+\pagestyle{plain}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\title{Homework 3}
+\author{Brooke Fugate, Michael O'Connor, Rohan Shah}
+\date{}
+
+\maketitle
+
+\section*{Problem B1}
+
+\section*{Problem B2}
+
+\section*{Problem B3}
+\subsection*{a}
+Suppose we have a regular language $L$ and that $\exists    D = \{Q, \Sigma, \delta, q_0, F\}$ such that $L(D) = L$. We will show by a proof by construction that $L^{(1/3)} = \{ w \mid www \in L\}$ is regular; \newline First we will create 3 DFAs:
+$$D^1_{pq} = \{Q, \Sigma, \delta, q_0, \{p\}\} \text{ and } L(D^1_{pq}) = \{u \in \Sigma^* \mid \delta^* (q_0,u) = p\}$$
+$$D^2_{pq} = \{Q, \Sigma, \delta, p, \{q\}\} \text{ and } L(D^2_{pq}) = \{u \in \Sigma^* \mid \delta^* (p,u) = q\}$$
+$$D^3_{pq} = \{Q, \Sigma, \delta, q, F\} \text{ and } L(D^3_{pq}) = \{u \in \Sigma^* \mid \delta^* (q,u) \in F\}$$
+No we can say that $L^{(1/3)} \subseteq L(D^1_{pq}) \cap L(D^2_{pq}) \cap L(D^3_{pq})$ and that $L^{(1/3)} = \bigcup_{p,q \in Q}  L(D^1_{pq}) \cap L(D^2_{pq}) \cap L(D^3_{pq})$.  Since regular languages are closed under union and intersection $L^{(1/3)}$ is regular since it is made from 3 languages that are regular, they have a DFA. \newline
+Proof that the $L^{(1/3)} = \{ w \mid www \in L\}$:\newline
+By executing  $D^1_{pq} , D^2_{pq} , D^3_{pq}$ on $w \in L^{(1/3)}$ we would have followed a path such that:
+$$\delta^*(\delta^*(\delta^*, w), w), w) \in F \implies$$
+$$www \in L \text{ therfore }w \in L^{(1/3)}$$
+\newline $L^{(3)}$ is not regular. say $L = \{a^nb \mid n \ge 1\}$ now need to get an approrpriate suffix to break this thing from Myhil-Nerode.
+\subsection*{b}
+Suppose we have a regular language $L$ and that $\exists    D = \{Q, \Sigma, \delta, q_0, F\}$ such that $L(D) = L$. We will show by a proof by construction that all languages of the form $L^{(1/k)} = \{ w \mid w^k \in L\}$ are regular;
+\newline First we will create $k$ regular languages:
+$$L^i_{p_i...p_{k-1}} = \{ w \in \Sigma^* \mid \delta^*(p_{i-1},w) = p_i\}, \forall i \mid 2 \le i \le k-1 $$
+$$L^1_{p_i...p_{k-1}} = \{ w \in \Sigma^* \mid \delta^*(q_0,w) = p_1\}$$
+$$L^k_{p_i...p_{k-1}} = \{ w \in \Sigma^* \mid \delta^*(p_{k-1},w) \in F\}$$
+From this we can see that $L = \bigcup_{p_i...p_{k-1} \in Q} \bigcap^k_{i=1} L^i_{p_i...p_k}$. We must now prove that they are equal: \newline
+By executing a string $w$ on the DFAs we have created we would have followed a path such that: $\sigma^*(q_0,w) = p_1 , \sigma^*(p_1, w) = p_2 ... \sigma^*{p_{k-1}, w} \in F$.  Therefore we would have a path from $q_0$ to $q_F \in F$ that is for the word $w^k$. So all workable strings on the right are in the left.
+\newline For all of the strings in in the left to the right, we will choose a p to get started so it works.
+\subsection*{c}
+Is $L^{1/\infty}$ regular? $L^{1/\infty} = \bigcap_{k-1}L^{1/k}$.  From above we know all those languages are regular, and $k$ is finite so yes $L^{1/\infty}$ is regular.\newline
+Is $\sqrt{L}$ regular? $\sqrt{L} = \bigcup_{k-1}L^{1/k}$.  From above we know all those languages are regular, and k is finite so yes $\sqrt{L}$ is regular
+
+\section*{Problem B4}
+
+\section*{Problem B5}
+
+\section*{Problem B6}
+
+\end{document}
