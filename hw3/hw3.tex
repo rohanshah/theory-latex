@@ -22,6 +22,26 @@
 \maketitle
 
 \section*{Problem B1}
+\subsection*{a}
+\subsection*{part 1}
+$$x \approx y \implies wx \approx wy \mid \forall w \in \Sigma^*$$
+$$\forall p \in Q, \delta^*(p,x) \in F \hbox{ iff } \delta^*(p,y) \in F \implies \forall q \in Q \mid \delta^*(\delta^*(q,w),x) \in F \hbox{ iff }  \delta^*(\delta^*(q,w),y) \in F$$
+$$let p \in Q \mid \delta^*(q,w) = p$$
+$$\forall p \in Q, \delta^*(p,x) \in F \hbox{ iff } \delta^*(p,y) \in F \implies \forall p \in Q | \delta^*(q,w) = p \mid \delta^*(p,x) \in F \hbox{ iff } \delta^*(p,y) \in F$$
+\subsection*{part 2}
+$$x \sim y \implies wx \sim wy \mid \forall w \in \Sigma^*$$
+$$\forall p \in Q, \delta^*(p,x) = \delta^*(p,y) \implies \forall q \in Q \mid \delta^*(\delta^*(q,w),x) = \delta^*(\delta^*(q,w),y)$$
+$$let p \in Q \mid \delta^*(q,w) = p$$
+$$\forall p \in Q, \delta^*(p,x) \in F \hbox{ iff } \delta^*(p,y) \in F \implies \forall q \in Q \mid \delta^*(p,x) =\delta^*(p,y)$$
+
+$$x \sim y \implies xw \sim yw \mid \forall w \in \Sigma^*$$
+$$\forall p \in Q, \delta^*(p,x) = \delta^*(p,y) \implies \forall q \in Q \mid \delta^*(\delta^*(q,x),w) = \delta^*(\delta^*(q,y),w)$$
+$$let p \in Q \mid \delta^*(q,x) = p$$
+$$\forall p \in Q, \delta^*(p,w) \delta^*(p,w) \implies \forall p \in Q \mid \delta^*(p,w) =\delta^*(p,w)$$
+
+\subsection*{b}
+
+\subsection*{c}
 
 \section*{Problem B2}
 
