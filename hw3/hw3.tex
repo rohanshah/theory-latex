@@ -123,7 +123,77 @@ $$[x_{26}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_3,\ \delta
 $$[x_{27}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_3$$
 
 \newpage
-\subsection*{(c)}
+\subsection*{(c)} Prove that $\lambda_L$ is left-invariant, $\mu_L$ is
+left and right-invariant, and if $L$ is regular, then both $\lambda_L$ and
+$\mu_L$ have a finite number of equivalence classes.
+
+\subsubsection*{Prove that $\lambda_L$ is left-invariant:}
+$$u\ \lambda_L\ v \implies wu\ \lambda_L\ wv,\ \forall w \in \Sigma^*$$
+$$\forall z \in \Sigma^*,\ zu \in L \iff zv \in L \implies
+\forall z,w \in \Sigma^*,\ zwu \in L \iff zwv \in L$$
+$$\exists z' \in \Sigma^*\ |\ z'=zw,\ \forall z,w \in \Sigma^*$$
+$$\forall z \in \Sigma^*,\ zu \in L \iff zv \in L \implies
+z'u \in L \iff z'v \in L,\ z' \in \Sigma^*,\ \forall z,w \in \Sigma^*$$
+
+\subsubsection*{Prove that $\mu_L$ is left and right-invariant:}
+$$u\ \mu_L\ v \implies wu\ \mu_L\ wv,\ \forall w \in \Sigma^*$$
+$$\forall x,y \in \Sigma^*,\ xuy \in L \iff xvy \in L \implies
+\forall x,y,w \in \Sigma^*,\ xwuy \in L \iff xwvy \in L$$
+$$\exists x' \in \Sigma^*\ |\ x'=xw,\ \forall x,w \in \Sigma^*$$
+$$\forall x,y \in \Sigma^*,\ xuy \in L \iff xvy \in L \implies
+x'uy \in L \iff x'vy \in L,\ x',y \in \Sigma^*,\ \forall x,y,w \in \Sigma^*$$
+
+\subsubsection*{Prove that if $L$ is regular, then both $\lambda_L$ and $\mu_L$
+have a finite number of equivalence classes:}
+If $L$ is a regular language then there exists a DFA $D = (Q, \Sigma, \delta,
+q_0, F)$ where $Q$ contains a finite number of states $n$.
+\vspace{5 mm}
+\newline
+$\lambda_L$ is defined as
+$$u\ \lambda_L\ v \iff\ \forall z \in \Sigma^*,\ zu \in L \iff zv \in L$$
+which is equivalent to
+$$u\ \lambda_L\ v \iff\ \forall z \in \Sigma^*,\ \delta^*(q_0, zu) \in F
+\iff \delta^*(q_0, zv) \in F$$
+$$\implies \forall z \in \Sigma^*,\ \delta^*(\delta^*(q_0, z),u) \in F
+\iff \delta^*(\delta^*(q_0, z),v) \in F$$
+$$\implies \forall z \in \Sigma^*,\ \exists\ p \in Q,\ \delta^*(q_0, z) = p$$
+$$\implies \delta^*(p,u) \in F \iff \delta^*(p,v) \in F$$
+and since $\{p\ |\ \delta^*(q_0, z) = p,\ \forall z \in \Sigma^*\} \subseteq Q$
+then the above proposition is true if the following proposition is true
+$$\forall p \in Q,\ \delta^*(p,u) \in F \iff \delta^*(p,v) \in F$$
+which is equivalent to the above proposition $\approx$ which we proved has at
+most $2^n$ equivalence classes. $\lambda_L$ has at most the number of
+equivalence classes as $\approx$ since it is only defined for some
+$p \in Q$ where as $\approx$ is for all $p \in Q$ and thus has a finite
+number of equivalence classes.
+\vspace{5 mm}
+\newline
+Similarly, $\mu_L$ is defined as
+$$u \mu_L v \iff \forall x,y \in \Sigma^*,\ xuy \in L \iff xvy \in L$$
+which is equivalent to
+$$u \mu_L v \iff\ \forall x,y \in \Sigma^*,\ \delta^*(q_0, xuy) \in F \iff
+\delta^*(q_0,xvy) \in F$$
+$$\implies \delta^*(\delta^*(q_0,x),uy) \in F \iff
+\delta^*(\delta^*(q_0, x),vy) \in F$$
+$$\implies \exists\ p \in Q\ |\ \delta^*(q_0,x) = p,\ \forall x \in \Sigma^*$$
+$$\implies \delta^*(p,uy) \in F \iff \delta^*(p, vy) \in F$$
+$$\implies \exists\ q,q' \in Q\ |\ \delta^*(p,u) = q \text{ and }
+\delta^*(p,v) = q'$$
+$$\implies \delta^*(q,v) \in F \iff \delta^*(q',v) \in F$$
+where the above proposition is restricted to the subset
+$\{p\ |\ \delta^*(q_0, x) = p,\ \forall x \in \Sigma^*\} \subseteq Q$,
+and thus the following proposition encompasses the above proposition
+$$\forall p \in Q,\ \delta^*(p, u) = q,\ \delta^*(p,v) = q'
+\ |\ \delta^*(q, y) \in F \iff \delta^*(q', y) \in F$$
+which is further encompassed when $q = q'$, or $\delta^*(p,u) = \delta^*(p,v)$
+yielding the following more general proposition
+$$\forall p \in Q,\ \delta^*(p,u) = \delta^*(p,v)$$
+which is equivalent to the above equivalence relation $\sim$ which we proved has
+at most $n^n$ equivalence classes. $\mu_L$ has at most the number of equivalence
+classes as $\sim$ since it is restricted to a subset of $p \in Q$ and
+since the transition to $q$ and $q'$ only cover a binary relation whereas
+the explicit $q = q'$ covers an $n$ sized relation. Therefore, $\mu_L$ has at
+most $n^n$ equivalence classes and thus a finite number of equivalence classes.
 
 \section*{Problem B2}
 \subsection*{(a)}
