@@ -22,65 +22,159 @@
 \maketitle
 
 \section*{Problem B1}
-\subsection*{a}
-\subsection*{part 1}
-$$x \approx y \implies wx \approx wy \mid \forall w \in \Sigma^*$$
-$$\forall p \in Q, \delta^*(p,x) \in F \hbox{ iff } \delta^*(p,y) \in F \implies \forall q \in Q \mid \delta^*(\delta^*(q,w),x) \in F \hbox{ iff }  \delta^*(\delta^*(q,w),y) \in F$$
-$$let p \in Q \mid \delta^*(q,w) = p$$
-$$\forall p \in Q, \delta^*(p,x) \in F \hbox{ iff } \delta^*(p,y) \in F \implies \forall p \in Q | \delta^*(q,w) = p \mid \delta^*(p,x) \in F \hbox{ iff } \delta^*(p,y) \in F$$
-\subsection*{part 2}
-$$x \sim y \implies wx \sim wy \mid \forall w \in \Sigma^*$$
-$$\forall p \in Q, \delta^*(p,x) = \delta^*(p,y) \implies \forall q \in Q \mid \delta^*(\delta^*(q,w),x) = \delta^*(\delta^*(q,w),y)$$
-$$let p \in Q \mid \delta^*(q,w) = p$$
-$$\forall p \in Q, \delta^*(p,x) \in F \hbox{ iff } \delta^*(p,y) \in F \implies \forall q \in Q \mid \delta^*(p,x) =\delta^*(p,y)$$
+\subsection*{(a)} Show that $\approx$ is a left-invariant equivalence relation
+and that $\sim$ is an equivalence relation that is both left and right invariant:
+\subsubsection*{$\approx$ is a left-invariant equivalence relation:}
+$$x \approx y \implies wx \approx wy ,\ \forall w \in \Sigma^*$$
+$$\delta^*(p,x) \in F \iff \delta^*(p,y) \in F,\ \forall p \in Q \implies
+\delta^*(p,wx) \in F \iff \delta^*(p,wy) \in F,\ \forall w \in \Sigma^*$$
+$$\implies \delta^*(\delta^*(p,w),x) \in F \iff
+\delta^*(\delta^*(p,w),y) \in F$$
+$$\implies \exists \ p' \in Q \ | \ \delta^*(p,w) = p',
+\ \forall p \in Q$$
+$$\implies \delta^*(p',x) \in F \iff \delta^*(p',y) \in F$$
+\subsubsection*{$\sim$ is an equivalence relation that is both left
+and right invariant:}
+$$x \sim y \implies uxv \sim uyv,\ \forall u, v \in \Sigma^*$$
+$$\delta^*(p,x) = \delta^*(p,y),\ \forall p \in Q \implies
+\delta^*(p,uxv) = \delta^*(p,uyv),\ \forall u,v \in \Sigma^*$$
+$$\implies \delta^*(\delta^*(p,u), xv) = \delta^*(\delta^*(p,u), yv)$$
+$$\implies \exists\ p' \in Q\ |\ \delta^*(p,u) = p'$$
+$$\implies \delta^*(p',xv) = \delta^*(p', yv)$$
+$$\implies \delta^*(\delta^*(p',x),v) = \delta^*(\delta^*(p',x),v)$$
+$$\implies \exists\ p'' \in Q\ |\ \delta^*(p',x) = \delta^*(p',y) = p''
+\text{ since } x \sim y \text{ is given.}$$
+$$\implies \delta^*(p'',v) = \delta^*(p'',v)$$
 
-$$x \sim y \implies xw \sim yw \mid \forall w \in \Sigma^*$$
-$$\forall p \in Q, \delta^*(p,x) = \delta^*(p,y) \implies \forall q \in Q \mid \delta^*(\delta^*(q,x),w) = \delta^*(\delta^*(q,y),w)$$
-$$let p \in Q \mid \delta^*(q,x) = p$$
-$$\forall p \in Q, \delta^*(p,w) \delta^*(p,w) \implies \forall p \in Q \mid \delta^*(p,w) =\delta^*(p,w)$$
+\newpage
+\subsection*{(b)}Let $n$ be the number of states in $Q$. Show that $\approx$
+has at most $2^{n}$ equivalence classes and that $\sim$ has at most $n^{n}$
+equivalence classes.
+\subsubsection*{Show that $\approx$ has at most $2^n$ equivalence classes:}
+The equivalence relation $\approx$ is defined as
+$$x \approx y \iff \forall p \in Q,
+\ \delta^*(p,x) \in F \iff \delta^*(p,y) \in F$$
+which is equivalent to
+$$x \approx y \iff \forall p \in Q,
+\ \delta^*(p,x) \notin F \iff \delta^*(p,y) \notin F$$
+Therefore, each equivalence class $[x_i]_{\approx}$, where $x_i \in \Sigma^*$,
+is defined by a binary relation for each of the $n$ states in $Q$
+i.e. either $\delta^*(p, x_i) \in F \text{ or } \delta^*(p,x_i) \notin F$
+for each state $p \in Q$. Thus there are $2^n$ possible combinations of
+transitions from each of the $n$ states to a state either in or not in $F$
+for all strings in $\Sigma^*$ and thus $\approx$ has at most $2^n$ possible
+equivalence classes.
+\vspace{5 mm}
+\newline
+For example, let $n = 3$ and $Q = \{p_1, p_2, p_3\}.$ Then all the
+$2^n = 2^3 = 8$ possible equivalence classes are defined as follows:
+$$[x_1]_{\approx} : \delta^*(p_1, x_1) \in F,\ \delta^*(p_2, x_1) \in F,\ \delta^*(p_3, x_1) \in F$$
+$$[x_2]_{\approx} : \delta^*(p_1, x_2) \in F,\ \delta^*(p_2, x_2) \in F,\ \delta^*(p_3, x_2) \notin F$$
+$$[x_3]_{\approx} : \delta^*(p_1, x_3) \in F,\ \delta^*(p_2, x_3) \notin F,\ \delta^*(p_3, x_3) \in F$$
+$$[x_4]_{\approx} : \delta^*(p_1, x_4) \in F,\ \delta^*(p_2, x_4) \notin F,\ \delta^*(p_3, x_4) \notin F$$
+$$[x_5]_{\approx} : \delta^*(p_1, x_5) \notin F,\ \delta^*(p_2, x_5) \in F,\ \delta^*(p_3, x_5) \in F$$
+$$[x_6]_{\approx} : \delta^*(p_1, x_6) \notin F,\ \delta^*(p_2, x_6) \in F,\ \delta^*(p_3, x_6) \notin F$$
+$$[x_7]_{\approx} : \delta^*(p_1, x_7) \notin F,\ \delta^*(p_2, x_7) \notin F,\ \delta^*(p_3, x_7) \in F$$
+$$[x_8]_{\approx} : \delta^*(p_1, x_8) \notin F,\ \delta^*(p_2, x_8) \notin F,\ \delta^*(p_3, x_8) \notin F$$
 
-\subsection*{b}
+\subsubsection*{Show that $\sim$ has at most $n^n$ equivalence classes:}
+The equivalence relation $\sim$ is defined as
+$$x \sim y \iff \forall p \in Q,\ \delta^*(p,x) = \delta^*(p,y)$$
+Therefore, each equivalence class $[x_i]_{\sim}$, where $x_i \in \Sigma^*$,
+is defined as
+$$\exists q \in Q\ |\ \delta^*(p,x_i) = q,\ \forall p \in Q$$
+Informally, this states that an equivalence class $[x_i]_{\sim}$ is a
+unique combination of mappings from each state in $Q$ to another state in $Q$
+(including itself) defined by the transition function $\delta^*$
+and the strings $x_i \in [x_i]_{\sim}$. Since there are $n$ possible states to
+which a state can transition to, given an input $x_i$, and each relation is
+defined for each of the $n$ states in $Q$, there are $n^n$ possible
+combinations of state to state transitions. Therefore, there are $n^n$ possible
+equivalence classes.
+\newpage
+\noindent For example, let $n = 3$ and $Q = \{p_1, p_2, p_3\}.$ Then all the
+$n^n = 3^3 = 27$ possible equivalence classes are defined as follows:
+$$[x_1]_{\sim} : \delta^*(p_1, x_1) = p_1,\ \delta^*(p_2, x_1) = p_1,\ \delta^*(p_3, x_1) = p_1$$
+$$[x_2]_{\sim} : \delta^*(p_1, x_1) = p_1,\ \delta^*(p_2, x_1) = p_1,\ \delta^*(p_3, x_1) = p_2$$
+$$[x_3]_{\sim} : \delta^*(p_1, x_1) = p_1,\ \delta^*(p_2, x_1) = p_1,\ \delta^*(p_3, x_1) = p_3$$
+$$[x_4]_{\sim} : \delta^*(p_1, x_1) = p_1,\ \delta^*(p_2, x_1) = p_2,\ \delta^*(p_3, x_1) = p_1$$
+$$[x_5]_{\sim} : \delta^*(p_1, x_1) = p_1,\ \delta^*(p_2, x_1) = p_2,\ \delta^*(p_3, x_1) = p_2$$
+$$[x_6]_{\sim} : \delta^*(p_1, x_1) = p_1,\ \delta^*(p_2, x_1) = p_2,\ \delta^*(p_3, x_1) = p_3$$
+$$[x_7]_{\sim} : \delta^*(p_1, x_1) = p_1,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_1$$
+$$[x_8]_{\sim} : \delta^*(p_1, x_1) = p_1,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_2$$
+$$[x_9]_{\sim} : \delta^*(p_1, x_1) = p_1,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_3$$
+$$[x_{10}]_{\sim} : \delta^*(p_1, x_1) = p_2,\ \delta^*(p_2, x_1) = p_1,\ \delta^*(p_3, x_1) = p_1$$
+$$[x_{11}]_{\sim} : \delta^*(p_1, x_1) = p_2,\ \delta^*(p_2, x_1) = p_1,\ \delta^*(p_3, x_1) = p_2$$
+$$[x_{12}]_{\sim} : \delta^*(p_1, x_1) = p_2,\ \delta^*(p_2, x_1) = p_1,\ \delta^*(p_3, x_1) = p_3$$
+$$[x_{13}]_{\sim} : \delta^*(p_1, x_1) = p_2,\ \delta^*(p_2, x_1) = p_2,\ \delta^*(p_3, x_1) = p_1$$
+$$[x_{14}]_{\sim} : \delta^*(p_1, x_1) = p_2,\ \delta^*(p_2, x_1) = p_2,\ \delta^*(p_3, x_1) = p_2$$
+$$[x_{15}]_{\sim} : \delta^*(p_1, x_1) = p_2,\ \delta^*(p_2, x_1) = p_2,\ \delta^*(p_3, x_1) = p_3$$
+$$[x_{16}]_{\sim} : \delta^*(p_1, x_1) = p_2,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_1$$
+$$[x_{17}]_{\sim} : \delta^*(p_1, x_1) = p_2,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_2$$
+$$[x_{18}]_{\sim} : \delta^*(p_1, x_1) = p_2,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_3$$
+$$[x_{19}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_1,\ \delta^*(p_3, x_1) = p_1$$
+$$[x_{20}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_1,\ \delta^*(p_3, x_1) = p_2$$
+$$[x_{21}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_1,\ \delta^*(p_3, x_1) = p_3$$
+$$[x_{22}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_2,\ \delta^*(p_3, x_1) = p_1$$
+$$[x_{23}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_2,\ \delta^*(p_3, x_1) = p_2$$
+$$[x_{24}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_2,\ \delta^*(p_3, x_1) = p_3$$
+$$[x_{25}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_1$$
+$$[x_{26}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_2$$
+$$[x_{27}]_{\sim} : \delta^*(p_1, x_1) = p_3,\ \delta^*(p_2, x_1) = p_3,\ \delta^*(p_3, x_1) = p_3$$
 
-\subsection*{c}
+\newpage
+\subsection*{(c)}
 
 \section*{Problem B2}
-\subsection*{a}
+\subsection*{(a)}
 h is a morphism:
 $h(\sigma_1(p,a)) = \sigma_2(h(p),a), \forall p \in Q, a \in \Sigma$
 $h(q_01) = q_02$
 prove surjective proper homomorphism:
 $\mapdef{\pi}{D}{D/\equiv}$ \newline
 $\mapdef{\pi}(p) = [p]$ \newline
-\#1 $\mapdef{\pi}(\sigma(p, a) = [\sigma(p,a) = \sigma/\equiv([p], a) = \sigma / \equiv({\pi}(p,a)$ \newline
-$\mapdef{\pi}(\sigma(p, a) = [\sigma(p,a) = \sigma/\equiv([p], a) = \sigma / \equiv({\pi}(p,a)$ \newline
+\#1 $\mapdef{\pi}(\sigma(p, a) = [\sigma(p,a) = \sigma/\equiv([p], a)
+= \sigma / \equiv({\pi}(p,a)$ \newline
+$\mapdef{\pi}(\sigma(p, a) = [\sigma(p,a) = \sigma/\equiv([p], a)
+= \sigma / \equiv({\pi}(p,a)$ \newline
 \#2 $\mapdef{\pi}(q_0) = [q_0]$ so 2 ok \newline
 F-map : ${\pi}(F) \subseteq F$ \newline
 B-map: ${\pi}^{-1}(F/\equiv) \subseteq F$ \newline
 $\forall [p] \in F/\equiv, {\pi}^{-1}([p]) =\{ q \in Q p = q\}$ \newline
-and $p \in F : \{q \in Q \mid p = q\} \subseteq F \text{ iff } {\pi}^{-1}(F/\equiv) \subseteq F$ using \#2 \newline
+and $p \in F : \{q \in Q \mid p = q\} \subseteq F \text{ iff }
+{\pi}^{-1}(F/\equiv) \subseteq F$ using \#2 \newline
 if $p=q \text{ and } p\in F \implies q \in F$ from 2 \newline
-and its surjective because $\forall \text{ states } q^{'} \in D/\equiv , \exists q \in Q \text{ such that } {\pi}(p) = p^{'}$ \newline
+and its surjective because $\forall \text{ states } q^{'} \in D/\equiv,
+\exists q \in Q \text{ such that } {\pi}(p) = p^{'}$ \newline
 
-\subsection*{b}
-$p \equiv_D q \text{ iff } \forall w \in \Sigma^{*} (\delta^{*}(p,w) \in F \text{ iff } \delta^{*}(q,w) \in F)$
+\subsection*{(b)}
+$p \equiv_D q \text{ iff } \forall w \in \Sigma^{*}
+(\delta^{*}(p,w) \in F \text{ iff } \delta^{*}(q,w) \in F)$
 
 To Prove: $ \equiv \subseteq \equiv_D$
 $ \equiv \subseteq \equiv_D \cap_{i \ge 0} \equiv_{Di}$
 proof by induction
 i = 0 -> get the congruence
 inductive step:
-$p \equiv_{Di} q and \sigma(p,a) \equiv_{Di} \sigma(q,a) \implies p \equiv_{D-{i+1}} q$
+$p \equiv_{Di} q and \sigma(p,a) \equiv_{Di} \sigma(q,a) \implies
+p \equiv_{D-{i+1}} q$
 say w = wa, then good
 
-\subsection*{c}
+\subsection*{(c)}
 given 2 DFAs D1 and D2 with D1 trim prove that:
- $\exists \text{ DFA morphism } h:D_1 -> D_2 \text{ iff } \simeq_{D1} \subseteq \simeq_{D2}$
+ $\exists \text{ DFA morphism } h:D_1 -> D_2 \text{ iff }
+ \simeq_{D1} \subseteq \simeq_{D2}$
 Proof :  $h(\delta^{*}_1(q_0, w) = h(\delta^{*}_1(q_0, w)$
-if $u \simeq v , \delta^{*}_1(q_0, u) = \delta^{*}_1(q_0, v) , \sigma^{*}_2(q_{02}, u) = h\sigma^{*}_1(q_{01}, u) = h\sigma^{*}_1(q_{01}, v) = \sigma^{*}_1(q_{01}, v)  $ implying that $u \simeq_{D2} v therefore \simeq_{D1} \subseteq \simeq_{D2}$
+if $u \simeq v , \delta^{*}_1(q_0, u) = \delta^{*}_1(q_0, v),
+\sigma^{*}_2(q_{02}, u) = h\sigma^{*}_1(q_{01}, u) = h\sigma^{*}_1(q_{01}, v)
+= \sigma^{*}_1(q_{01}, v)$ implying that
+$u \simeq_{D2} v therefore \simeq_{D1} \subseteq \simeq_{D2}$
 proof of $\simeq_{D1} \subseteq \simeq_{D2}$
-$\forall p \in Q \text{ let } p = \sigma^*(q01, u) \text{ and there must } \exists h(p) h(\sigma_1^*(q01, u)) = \sigma_2^*(q02, u)$
+$\forall p \in Q \text{ let } p = \sigma^*(q01, u) \text{ and there must }
+\exists h(p) h(\sigma_1^*(q01, u)) = \sigma_2^*(q02, u)$
 $h: Q1 -> Q2 \forall u \in \Sigma^*\mid \sigma^*_!(q_{01}, u) = p$
-//Some other stuff I can not see because two people have gotten here that completely obscure my view
+//Some other stuff I can not see because two people
+have gotten here that completely obscure my view
 shows that h verifies two pieces of morphism stuff
 We are going to pick 2 strings in the equivalence class to do something
 $\sigma^*_1(q_{01},u) = $samething on $v = p \text{ iff } u \simeq_{d1} v$
@@ -90,39 +184,81 @@ C3 then $h: D_1 -> D_2$ is an F-map
 $\exists$ Fmap h 
 $\exists$ B-map h
 
-\subsection*{d}
-d is miminmal for L iff there is a unique proper homomorphism H:D->Dm where D is a trim DFA accepting L
+\subsection*{(d)}
+d is miminmal for L iff there is a unique proper homomorphism
+H:D->Dm where D is a trim DFA accepting L
 	One direction:
-		Assume that D' is a trim DFA such that L(D') = L and that for every trim DFA D that accepts L there is an h: D-> D' (UPH).  Given any min DFA Dm accepting L, then by our hypothesis then there exists f:Dm - D' UPH, then D' has at most as states as Dm so D' is also minimal
-	We proved that for any trim DFA D there is a unique SPH from D to any minimal DFA Dm accepting L
-Converse: if D' is a DFA accepting L if there is a UPH: h: D->D' from any trim DFA accepting L then D' must be minimal.
+		Assume that D' is a trim DFA such that L(D') = L and
+		that for every trim DFA D that accepts L there is an h: D-> D' (UPH).
+		Given any min DFA Dm accepting L, then by our hypothesis then there
+		exists f:Dm - D' UPH, then D' has at most as states as Dm so D' is also
+		minimal.
+	We proved that for any trim DFA D there is a unique SPH from D to any
+	minimal DFA Dm accepting L
+Converse: if D' is a DFA accepting L if there is a UPH: h: D->D' from any trim
+DFA accepting L then D' must be minimal.
 	From our hypotheses we have f: Dm -> D' and h: D' -> Dm
-	h: D' -> Dm from part c and from our hypothesis above f:Dm -> D'.  Since we have these two PH then the number of states must be equal because of the congruence of the two classes
+	h: D' -> Dm from part c and from our hypothesis above f:Dm -> D'.
+	Since we have these two PH then the number of states must be equal because
+	of the congruence of the two classes
 
 \section*{Problem B3}
-\subsection*{a}
-Suppose we have a regular language $L$ and that $\exists    D = \{Q, \Sigma, \delta, q_0, F\}$ such that $L(D) = L$. We will show by a proof by construction that $L^{(1/3)} = \{ w \mid www \in L\}$ is regular; \newline First we will create 3 DFAs:
-$$D^1_{pq} = \{Q, \Sigma, \delta, q_0, \{p\}\} \text{ and } L(D^1_{pq}) = \{u \in \Sigma^* \mid \delta^* (q_0,u) = p\}$$
-$$D^2_{pq} = \{Q, \Sigma, \delta, p, \{q\}\} \text{ and } L(D^2_{pq}) = \{u \in \Sigma^* \mid \delta^* (p,u) = q\}$$
-$$D^3_{pq} = \{Q, \Sigma, \delta, q, F\} \text{ and } L(D^3_{pq}) = \{u \in \Sigma^* \mid \delta^* (q,u) \in F\}$$
-No we can say that $L^{(1/3)} \subseteq L(D^1_{pq}) \cap L(D^2_{pq}) \cap L(D^3_{pq})$ and that $L^{(1/3)} = \bigcup_{p,q \in Q}  L(D^1_{pq}) \cap L(D^2_{pq}) \cap L(D^3_{pq})$.  Since regular languages are closed under union and intersection $L^{(1/3)}$ is regular since it is made from 3 languages that are regular, they have a DFA. \newline
+\subsection*{(a)}
+Suppose we have a regular language $L$ and that $\exists
+D = \{Q, \Sigma, \delta, q_0, F\}$ such that $L(D) = L$.
+We will show by a proof by construction that
+$L^{(1/3)} = \{ w \mid www \in L\}$ is regular;
+\newline First we will create 3 DFAs:
+$$D^1_{pq} = \{Q, \Sigma, \delta, q_0, \{p\}\} \text{ and }
+L(D^1_{pq}) = \{u \in \Sigma^* \mid \delta^* (q_0,u) = p\}$$
+$$D^2_{pq} = \{Q, \Sigma, \delta, p, \{q\}\} \text{ and }
+L(D^2_{pq}) = \{u \in \Sigma^* \mid \delta^* (p,u) = q\}$$
+$$D^3_{pq} = \{Q, \Sigma, \delta, q, F\} \text{ and }
+L(D^3_{pq}) = \{u \in \Sigma^* \mid \delta^* (q,u) \in F\}$$
+No we can say that
+$L^{(1/3)} \subseteq L(D^1_{pq}) \cap L(D^2_{pq}) \cap L(D^3_{pq})$ and that
+$L^{(1/3)} = \bigcup_{p,q \in Q}
+L(D^1_{pq}) \cap L(D^2_{pq}) \cap L(D^3_{pq})$.
+Since regular languages are closed under union and intersection
+$L^{(1/3)}$ is regular since it is made from 3 languages that are regular,
+they have a DFA. \newline
 Proof that the $L^{(1/3)} = \{ w \mid www \in L\}$:\newline
-By executing  $D^1_{pq} , D^2_{pq} , D^3_{pq}$ on $w \in L^{(1/3)}$ we would have followed a path such that:
+By executing  $D^1_{pq} , D^2_{pq} , D^3_{pq}$ on $w \in L^{(1/3)}$
+we would have followed a path such that:
 $$\delta^*(\delta^*(\delta^*, w), w), w) \in F \implies$$
 $$www \in L \text{ therfore }w \in L^{(1/3)}$$
-\newline $L^{(3)}$ is not regular. say $L = \{a^nb \mid n \ge 1\}$ now need to get an approrpriate suffix to break this thing from Myhil-Nerode.
-\subsection*{b}
-Suppose we have a regular language $L$ and that $\exists    D = \{Q, \Sigma, \delta, q_0, F\}$ such that $L(D) = L$. We will show by a proof by construction that all languages of the form $L^{(1/k)} = \{ w \mid w^k \in L\}$ are regular;
+\newline $L^{(3)}$ is not regular. say $L = \{a^nb \mid n \ge 1\}$
+now need to get an approrpriate suffix to break this thing from Myhil-Nerode.
+\subsection*{(b)}
+Suppose we have a regular language $L$ and that $\exists    D = \{Q, \Sigma,
+\delta, q_0, F\}$ such that $L(D) = L$.
+We will show by a proof by construction that all languages of the form
+$L^{(1/k)} = \{ w \mid w^k \in L\}$ are regular;
 \newline First we will create $k$ regular languages:
-$$L^i_{p_i...p_{k-1}} = \{ w \in \Sigma^* \mid \delta^*(p_{i-1},w) = p_i\}, \forall i \mid 2 \le i \le k-1 $$
+$$L^i_{p_i...p_{k-1}} = \{ w \in \Sigma^* \mid \delta^*(p_{i-1},w) = p_i\},
+\forall i \mid 2 \le i \le k-1 $$
 $$L^1_{p_i...p_{k-1}} = \{ w \in \Sigma^* \mid \delta^*(q_0,w) = p_1\}$$
 $$L^k_{p_i...p_{k-1}} = \{ w \in \Sigma^* \mid \delta^*(p_{k-1},w) \in F\}$$
-From this we can see that $L = \bigcup_{p_i...p_{k-1} \in Q} \bigcap^k_{i=1} L^i_{p_i...p_k}$. We must now prove that they are equal: \newline
-By executing a string $w$ on the DFAs we have created we would have followed a path such that: $\sigma^*(q_0,w) = p_1 , \sigma^*(p_1, w) = p_2 ... \sigma^*{p_{k-1}, w} \in F$.  Therefore we would have a path from $q_0$ to $q_F \in F$ that is for the word $w^k$. So all workable strings on the right are in the left.
-\newline For all of the strings in in the left to the right, we will choose a p to get started so it works.
-\subsection*{c}
-Is $L^{1/\infty}$ regular? $L^{1/\infty} = \bigcap_{k-1}L^{1/k}$.  From above we know all those languages are regular, and $k$ is finite so yes $L^{1/\infty}$ is regular.\newline
-Is $\sqrt{L}$ regular? $\sqrt{L} = \bigcup_{k-1}L^{1/k}$.  From above we know all those languages are regular, and k is finite so yes $\sqrt{L}$ is regular
+From this we can see that
+$L = \bigcup_{p_i...p_{k-1} \in Q} \bigcap^k_{i=1} L^i_{p_i...p_k}$.
+We must now prove that they are equal:
+\newline
+By executing a string $w$ on the DFAs we have created we would have followed
+a path such that:
+$\sigma^*(q_0,w) = p_1 , \sigma^*(p_1, w) = p_2 ... \sigma^*{p_{k-1}, w} \in F$.
+Therefore we would have a path from $q_0$ to $q_F \in F$ that is for the word
+$w^k$. So all workable strings on the right are in the left.
+\newline
+For all of the strings in in the left to the right,
+we will choose a p to get started so it works.
+\subsection*{(c)}
+Is $L^{1/\infty}$ regular? $L^{1/\infty} = \bigcap_{k-1}L^{1/k}$.
+From above we know all those languages are regular, and $k$ is finite so
+yes $L^{1/\infty}$ is regular.
+\newline
+Is $\sqrt{L}$ regular? $\sqrt{L} = \bigcup_{k-1}L^{1/k}$.
+From above we know all those languages are regular,
+and k is finite so yes $\sqrt{L}$ is regular
 
 \section*{Problem B4}
 
