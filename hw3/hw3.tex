@@ -195,6 +195,7 @@ since the transition to $q$ and $q'$ only cover a binary relation whereas
 the explicit $q = q'$ covers an $n$ sized relation. Therefore, $\mu_L$ has at
 most $n^n$ equivalence classes and thus a finite number of equivalence classes.
 
+
 \section*{Problem B2}
 \subsection*{(a)}
 h is a morphism:
@@ -222,13 +223,12 @@ $p \equiv_D q \text{ iff } \forall w \in \Sigma^{*}
 (\delta^{*}(p,w) \in F \text{ iff } \delta^{*}(q,w) \in F)$
 
 To Prove: $ \equiv \subseteq \equiv_D$
-$ \equiv \subseteq \equiv_D \cap_{i \ge 0} \equiv_{Di}$
-proof by induction
-i = 0 -> get the congruence
-inductive step:
-$p \equiv_{Di} q and \sigma(p,a) \equiv_{Di} \sigma(q,a) \implies
-p \equiv_{D-{i+1}} q$
-say w = wa, then good
+$\equiv \subseteq \equiv_D \cup_{i \ge 0} \equiv_{Di}$
+proof by induction\newline
+case: $i = 0$
+\newline $p \equiv_{0} q \text{ iff } p,q \in F \text{ or } p,q \notin F $ therefore $p \equiv q$ \newline
+inductive step:\newline inductive hypothesis: if $p \equiv q$ then $p \equiv_i q$\newline
+if $p \equiv q \text{ then } p \equiv_i q \text{ then } \delta(p,a) = \delta(q,a) \text { and by the inductive hypothesis } \delta(p,a) \equiv_i \delta(q,a) \text{ therefore } p \equiv_{i+1} q$
 
 \subsection*{(c)}
 given 2 DFAs D1 and D2 with D1 trim prove that:
@@ -329,10 +329,18 @@ yes $L^{1/\infty}$ is regular.
 Is $\sqrt{L}$ regular? $\sqrt{L} = \bigcup_{k-1}L^{1/k}$.
 From above we know all those languages are regular,
 and k is finite so yes $\sqrt{L}$ is regular
-
+\newline
+Is $L^{\infty}$ regular? Since $L^{\infty}$ is an infininite series it can not be turned into a regular language.
 \section*{Problem B4}
 
 \section*{Problem B5}
+\subsection*{a}
+$\exists \simeq_{D_1}$ on $L_1$ such that $\forall x \in \Sigma^{*}_1 \mid [x]_{D_1}$ something, becuase it is a regular languate. This relation, since it is the Myhill-Nerode, relation is refined by all other relations, $\simeq_{X_1} \subseteq \simeq_{D_1}$.  $\exists \simeq_{D_2}$ on $L_2$ such that $\forall x \in \Sigma^{*}_2 \mid [x]_{D_2}$ something, becuase it is a regular language. This relation, since it is the Myhill-Nerode, relation is refined by all other relations, $\simeq_{X_2} \subseteq \simeq_{D_2}$.
+There are 3 cases that can come from $L_1 \cap L_2$ : $L_1 \subseteq L_2$ , $L_2 \subseteq L_1$ , $L_1 \cap L_2 = {0}$\newline
+case: $L_1 \subseteq L_2 \implies L_1 \cap L_2 = L_X \subseteq L_1 \subseteq L_2 \implies L_X = \bigcup_{x \in L_1}[x]_{D_1}$ and since each $[x]_{D_1}$ is a regular langauge and the union is finite $L_X$ is a regular language\newline
+case: $L_2 \subseteq L_1\implies L_1 \cap L_2 = L_X \subseteq L_2 \subseteq L_1 \implies L_X = \bigcup_{x \in L_2}[x]_{D_2}$ and since each $[x]_{D_2}$ is a regular langauge and the union is finite $L_X$ is a regular language\newline
+case: $L_1 \cap L_2 = {0}$ and this is trivially a regular language
+\subsection*{b}
 
 \section*{Problem B6}
 
