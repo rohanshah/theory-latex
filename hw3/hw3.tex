@@ -224,11 +224,17 @@ $p \equiv_D q \text{ iff } \forall w \in \Sigma^{*}
 
 To Prove: $ \equiv \subseteq \equiv_D$
 $\equiv \subseteq \equiv_D \cup_{i \ge 0} \equiv_{Di}$
-proof by induction\newline
-case: $i = 0$
-\newline $p \equiv_{0} q \text{ iff } p,q \in F \text{ or } p,q \notin F $ therefore $p \equiv q$ \newline
-inductive step:\newline inductive hypothesis: if $p \equiv q$ then $p \equiv_i q$\newline
-if $p \equiv q \text{ then } p \equiv_i q \text{ then } \delta(p,a) = \delta(q,a) \text { and by the inductive hypothesis } \delta(p,a) \equiv_i \delta(q,a) \text{ therefore } p \equiv_{i+1} q$
+Claim: $\equiv \subseteq \equiv_i $ for all $i \ge 0$
+Proof by induction. \newline
+Base Case: $i = 0$.   Show $\equiv \subseteq \equiv_0 $ \newline
+0 equivalence ($\equiv_0 $) means either $p,q \in F$ or $p,q \in$ F compliment. 
+\newline $p \equiv_{0} q \text{ iff } p,q \in F \text{ or } p,q \notin F $.  
+\newline
+Assume $p \equiv q$. If $p \in F$, by (2), then $q \in F \implies p \equiv_0 q$. If $p \not \in F$, then by contrapositive $q \not\in F \implies p \equiv_0 q$. 
+\newline
+Inductive Step:\newline Inductive hypothesis: if $p \equiv q$ then $p \equiv_i q$\newline
+By (1), $\delta (p,a) \equiv \delta (q,a)$. By the inductive hypothesis, $\delta (p,a) \equiv_i \delta (q,a)$, for all a $ \in \Sigma$. But, $p \equiv_i q$ and 
+$\delta(p,a) \equiv_i \delta(q,a)$, which means $p \equiv_{i+1} q$.
 
 \subsection*{(c)}
 given 2 DFAs D1 and D2 with D1 trim prove that:
