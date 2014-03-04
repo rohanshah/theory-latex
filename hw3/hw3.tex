@@ -281,25 +281,24 @@ L(D_2) \text{ it must be that } \delta^{*}_2(q_{0,2}, u) = p \in F_2
 
 PART 3\newline
 If there is a B-map $h: D_1 -> D_2$ we know from part 1 that for any morphism between DFAs $h: D_1 -> D_2 \mid \simeq_{D_1} \subseteq \simeq_{D_2}$.  We also know from hwk1 that $L(D_2) \subseteq L(D_1)$ if there is a B-map.\newline
-If $\simeq_{D_1} \subseteq \simeq_{D_2}$ and $L(D_2) \subseteq L(D_1)$ . We know from part 1 that $\simeq_{D_1} \subseteq \simeq_{D_2}$ means there is a morphism, and if we pick any $p \in F_2$ then $delta^{*}_2(q_{0,2}, u) = p \in F_2 \text{ and with } L(D_2) \subseteq L(D_21) \text{ it must be that } delta^{*}_1(q_{0,1}, u) = p \in F_1 \text{ so the morphism is a B-map. }$\newline
+If $\simeq_{D_1} \subseteq \simeq_{D_2}$ and $L(D_2) \subseteq L(D_1)$ . We know from part 1 that $\simeq_{D_1} \subseteq \simeq_{D_2}$ means there is a morphism, and if we pick any $p \in F_2$ then $\delta^{*}_2(q_{0,2}, u) = p \in F_2 \text{ and with } L(D_2) \subseteq L(D_21) \text{ it must be that } \delta^{*}_1(q_{0,1}, u) = p \in F_1 \text{ so the morphism is a B-map. }$\newline
 
 \subsection*{(d)}
-d is miminmal for L iff there is a unique proper homomorphism
-H:D->Dm where D is a trim DFA accepting L
-	One direction:
-		Assume that D' is a trim DFA such that L(D') = L and
-		that for every trim DFA D that accepts L there is an h: D-> D' (UPH).
-		Given any min DFA Dm accepting L, then by our hypothesis then there
-		exists f:Dm - D' UPH, then D' has at most as states as Dm so D' is also
-		minimal.
+Prove that $D_m$ is miminmal for L iff there is a unique proper homomorphism
+$h:D \rightarrow D_m$ where D is a trim DFA accepting L.\newline
+		First, assume that D' is a trim DFA such that $L(D') = L$ and
+		that for every trim DFA D that accepts L there is an $h: D \rightarrow D'$ (UPH).
+		Given any minimum DFA $D_m$ accepting L, then by our hypothesis there
+		exists $f:D_m \rightarrow D'$ (UPH), then D' has at most as many states 
+                as $D_m$ so D' is also minimal.
 	We proved that for any trim DFA D there is a unique SPH from D to any
-	minimal DFA Dm accepting L
-Converse: if D' is a DFA accepting L if there is a UPH: h: D->D' from any trim
-DFA accepting L then D' must be minimal.
-	From our hypotheses we have f: Dm -> D' and h: D' -> Dm
-	h: D' -> Dm from part c and from our hypothesis above f:Dm -> D'.
+	minimal DFA $D_m$ accepting L. \newline
+Converse: If D' is a DFA accepting L, and  if there is a UPH $h: D \rightarrow D'$ from any trim
+DFA accepting L, then D' must be minimal.
+	From our hypotheses we have $f: D_m \rightarrow D'$ and $h: D' \rightarrow D_m$
+	From part (c) and from our hypothesis above, $f:D_m \rightarrow D'$.
 	Since we have these two PH then the number of states must be equal because
-	of the congruence of the two classes
+	of the congruence of the two classes.
 
 \section*{Problem B3}
 \subsection*{(a)}
