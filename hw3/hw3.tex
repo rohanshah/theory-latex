@@ -238,15 +238,47 @@ $\delta(p,a) \equiv_i \delta(q,a)$, which means $p \equiv_{i+1} q$.
 
 \subsection*{(c)}
 PART 1\newline
-Assume $\simeq_{D1} \subseteq \simeq_{D2}$\newline
-if there is a morphism $\exists p \in Q \text{ and } u \in \Sigma^{*} \text{ s.t. } p = \delta_1^{*}(q_{0,1}, u) \text{ then } h(p) = \delta^{*}_2(q_{0,2}, u)$\newline
-define $h(p) = \delta^{*}_2 \text{ for any chosen } u \text{ s.t. } p = \delta^{*}_1(q_{0,1}, u)$\newline
-Need to prove for any other $v$ s.t. $\delta^{*}_1(q_{0,1}, v)  p \text{ then } \delta^{*}_2 (q_{0,2} = \delta^{*}_2(q_{0,2}, u) = h(p)$\newline
-We already have $\delta^{*}_1(q_{0,1} , v) = \delta^{*}_1(q_{0,1} \implies u \simeq_{D_1} v \text{ and we also have } \simeq_{D_1} \subseteq \simeq{D_2}$\newline
-therefore $\simeq_{D_1} \subseteq \simeq_{D_2}$\newline
+We have DFAs $D_1$ (trim) and $D_2$. There exists a morphism from $D_1$ to $D_2$
+iff $\simeq_{D1} \subseteq \simeq_{D2}$. Suppose there exists a morphism $h:D_1 \rightarrow D_2$. Assume $\simeq_{D1} \subseteq \simeq_{D2}$. Because $D_1$ is
+trim, if the morphism exists, then for every $p \in Q \text{ and } u
+ \in \Sigma^{*} \text{ such that } p = \delta_1^{*}(q_{0,1}, u),$ $ 
+h(p) = \delta^{*}_2(q_{0,2}, u)$.\newline
+So, define (for any chosen u) $h(p) = \delta^{*}_2(q_{0,2}, u)$ such
+ that $p = \delta^{*}_1(q_{0,1}, u)$.
+But, we need to prove for any other $v$ such that $\delta^{*}_1(q_{0,1}, v) = p 
+\text{ then } \delta^{*}_2 (q_{0,2} = \delta^{*}_2(q_{0,2}, u) = h(p)$.
+We already have $\delta^{*}_1(q_{0,1} , v) = \delta^{*}_1(q_{0,1}, u) = p
+\implies u \simeq_{D_1} v \text{ (by definition) and we also have } 
+\simeq_{D_1} \subseteq \simeq_{D_2} \implies  u \simeq_{D_2} v$.
+Therefore $\delta^{*}_2(q_{0,2} , u) = \delta^{*}_2(q_{0,2}, v)$ because $D_1$ is trim. \newline
+Check that h is a morphism by showing $h(q_{0,1})=q_{0,2}$. By definition,
+$q_{0,1}=\delta^{*}_1(q_{0,1} , \epsilon )$ and 
+$q_{0,2}=\delta^{*}_2(q_{0,2} , \epsilon )$.
+Pick a string that takes you to $p=\delta^{*}_1(q_{0,1}, u)$. \newline
+$\delta_1(p,a) = \delta_1(\delta^{*}_1(q_{0,1} , u), a) =
+\delta^{*}_1(q_{0,1}, ua)$. \newline
+$h(q)=h(\delta_1(p,a))=\delta^{*}_2(q_{0,2}, ua) )=
+\delta_2(\delta^{*}_2(q_{0,2}, u), u)
+= \delta_2(h(p),a)$. 
+
+\medskip
+
 PART 2\newline
-If there is a F-map $h: D_1 -> D_2$ we know from part 1 that for any morphism between DFAs $h: D_1 -> D_2 \mid \simeq_{D_1} \subseteq \simeq_{D_2}$.  We also know from hwk1 that $L(D_1) \subseteq L(D_2)$ if there is a F-map.\newline
-If $\simeq_{D_1} \subseteq \simeq_{D_2}$ and $L(D_1) \subseteq L(D_2)$ . We know from part 1 that $\simeq_{D_1} \subseteq \simeq_{D_2}$ means there is a morphism, and if we pick any $p \in F_1$ then $delta^{*}_1(q_{0,1}, u) = p \in F_1 \text{ and with } L(D_1) \subseteq L(D_2) \text{ it must be that } delta^{*}_2(q_{0,2}, u) = p \in F_2 \text{ so the morphism is an F-map. }$\newline
+Case: $\implies$ \newline
+If there is a F-map $h: D_1 \rightarrow D_2$, we know from part (1) that 
+for any morphism between DFAs, $\simeq_{D_1} \subseteq \simeq_{D_2}$.  
+We also know from Homework 1 that if there is an F-map, then $L(D_1) \subseteq L(D_2)$. \newline
+Case: $\Longleftarrow$ \newline
+We have $\simeq_{D_1} \subseteq \simeq_{D_2}$ and $L(D_1) \subseteq 
+L(D_2)$ . We know from part 1 that $\simeq_{D_1} \subseteq \simeq_{D_2}$
+ means there is a unique morphism, and if we pick any $p \in F_1$ then
+we want to show $h(p) \in F_2$. 
+So, $\delta^{*}_1(q_{0,1}, u) = p \in F_1 \text{ and with } L(D_1) \subseteq 
+L(D_2) \text{ it must be that } \delta^{*}_2(q_{0,2}, u) = p \in F_2 
+\text{ so the morphism is an F-map. }$
+
+\medskip
+
 PART 3\newline
 If there is a B-map $h: D_1 -> D_2$ we know from part 1 that for any morphism between DFAs $h: D_1 -> D_2 \mid \simeq_{D_1} \subseteq \simeq_{D_2}$.  We also know from hwk1 that $L(D_2) \subseteq L(D_1)$ if there is a B-map.\newline
 If $\simeq_{D_1} \subseteq \simeq_{D_2}$ and $L(D_2) \subseteq L(D_1)$ . We know from part 1 that $\simeq_{D_1} \subseteq \simeq_{D_2}$ means there is a morphism, and if we pick any $p \in F_2$ then $delta^{*}_2(q_{0,2}, u) = p \in F_2 \text{ and with } L(D_2) \subseteq L(D_21) \text{ it must be that } delta^{*}_1(q_{0,1}, u) = p \in F_1 \text{ so the morphism is a B-map. }$\newline
