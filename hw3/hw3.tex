@@ -237,28 +237,19 @@ By (1), $\delta (p,a) \equiv \delta (q,a)$. By the inductive hypothesis, $\delta
 $\delta(p,a) \equiv_i \delta(q,a)$, which means $p \equiv_{i+1} q$.
 
 \subsection*{(c)}
-given 2 DFAs D1 and D2 with D1 trim prove that:
- $\exists \text{ DFA morphism } h:D_1 -> D_2 \text{ iff }
- \simeq_{D1} \subseteq \simeq_{D2}$
-Proof :  $h(\delta^{*}_1(q_0, w) = h(\delta^{*}_1(q_0, w)$
-if $u \simeq v , \delta^{*}_1(q_0, u) = \delta^{*}_1(q_0, v),
-\sigma^{*}_2(q_{02}, u) = h\sigma^{*}_1(q_{01}, u) = h\sigma^{*}_1(q_{01}, v)
-= \sigma^{*}_1(q_{01}, v)$ implying that
-$u \simeq_{D2} v therefore \simeq_{D1} \subseteq \simeq_{D2}$
-proof of $\simeq_{D1} \subseteq \simeq_{D2}$
-$\forall p \in Q \text{ let } p = \sigma^*(q01, u) \text{ and there must }
-\exists h(p) h(\sigma_1^*(q01, u)) = \sigma_2^*(q02, u)$
-$h: Q1 -> Q2 \forall u \in \Sigma^*\mid \sigma^*_!(q_{01}, u) = p$
-//Some other stuff I can not see because two people
-have gotten here that completely obscure my view
-shows that h verifies two pieces of morphism stuff
-We are going to pick 2 strings in the equivalence class to do something
-$\sigma^*_1(q_{01},u) = $samething on $v = p \text{ iff } u \simeq_{d1} v$
-isntead of $u,v$ pick any $v \in [u] \text{ for } \simeq_{d1}$
-C2 if $\simeq_{d1} \subseteq \simeq_{d2} and L(D_1) \subseteq L(D_2)$
-C3 then $h: D_1 -> D_2$ is an F-map
-$\exists$ Fmap h 
-$\exists$ B-map h
+PART 1\newline
+Assume $\simeq_{D1} \subseteq \simeq_{D2}$\newline
+if there is a morphism $\exists p \in Q \text{ and } u \in \Sigma^{*} \text{ s.t. } p = \delta_1^{*}(q_{0,1}, u) \text{ then } h(p) = \delta^{*}_2(q_{0,2}, u)$\newline
+define $h(p) = \delta^{*}_2 \text{ for any chosen } u \text{ s.t. } p = \delta^{*}_1(q_{0,1}, u)$\newline
+Need to prove for any other $v$ s.t. $\delta^{*}_1(q_{0,1}, v)  p \text{ then } \delta^{*}_2 (q_{0,2} = \delta^{*}_2(q_{0,2}, u) = h(p)$\newline
+We already have $\delta^{*}_1(q_{0,1} , v) = \delta^{*}_1(q_{0,1} \implies u \simeq_{D_1} v \text{ and we also have } \simeq_{D_1} \subseteq \simeq{D_2}$\newline
+therefore $\simeq_{D_1} \subseteq \simeq_{D_2}$\newline
+PART 2\newline
+If there is a F-map $h: D_1 -> D_2$ we know from part 1 that for any morphism between DFAs $h: D_1 -> D_2 \mid \simeq_{D_1} \subseteq \simeq_{D_2}$.  We also know from hwk1 that $L(D_1) \subseteq L(D_2)$ if there is a F-map.\newline
+If $\simeq_{D_1} \subseteq \simeq_{D_2}$ and $L(D_1) \subseteq L(D_2)$ . We know from part 1 that $\simeq_{D_1} \subseteq \simeq_{D_2}$ means there is a morphism, and if we pick any $p \in F_1$ then $delta^{*}_1(q_{0,1}, u) = p \in F_1 \text{ and with } L(D_1) \subseteq L(D_2) \text{ it must be that } delta^{*}_2(q_{0,2}, u) = p \in F_2 \text{ so the morphism is an F-map. }$\newline
+PART 3\newline
+If there is a B-map $h: D_1 -> D_2$ we know from part 1 that for any morphism between DFAs $h: D_1 -> D_2 \mid \simeq_{D_1} \subseteq \simeq_{D_2}$.  We also know from hwk1 that $L(D_2) \subseteq L(D_1)$ if there is a B-map.\newline
+If $\simeq_{D_1} \subseteq \simeq_{D_2}$ and $L(D_2) \subseteq L(D_1)$ . We know from part 1 that $\simeq_{D_1} \subseteq \simeq_{D_2}$ means there is a morphism, and if we pick any $p \in F_2$ then $delta^{*}_2(q_{0,2}, u) = p \in F_2 \text{ and with } L(D_2) \subseteq L(D_21) \text{ it must be that } delta^{*}_1(q_{0,1}, u) = p \in F_1 \text{ so the morphism is a B-map. }$\newline
 
 \subsection*{(d)}
 d is miminmal for L iff there is a unique proper homomorphism
@@ -328,7 +319,7 @@ $w^k$. So all workable strings on the right are in the left.
 For all of the strings in in the left to the right,
 we will choose a p to get started so it works.
 \subsection*{(c)}
-Is $L^{1/\infty}$ regular? $L^{1/\infty} = \bigcap_{k-1}L^{1/k}$.
+Is $L^{1/\infty}$ regular? $L^{1/\infty} = \bigcap_{k\ge1}L^{1/k}$.
 From above we know all those languages are regular, and $k$ is finite so
 yes $L^{1/\infty}$ is regular.
 \newline
