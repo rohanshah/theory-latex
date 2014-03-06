@@ -59,7 +59,42 @@ is right-invariant and has a finite index.
 \textnormal{is} not \textnormal{regular}}
 Proof by contradiction using Myhill-Nerode. $L_3$ is infinte since there are
 an infinte number of prime numbers $n$. Proof by contradiction so assume $L_3$
-is regular. Therfore, by Myhill-Nerode there exists an equivalence relation
-$\simeq$ that is right-invariant and contains a finite number of equivalence
-classes.
+is regular. Therefore, by Myhill-Nerode, there exists an equivalence relation
+$\simeq$ that is right-invariant and with a finite number of equivalence
+classes. Consider the infinite set $\{a^2, a^3, a^5, a^7, ...\} \subseteq
+\Sigma^*$ i.e. the infinite subset of strings in $\Sigma^*$ with prime length.
+Since it is an infinte subset of $\Sigma^*$ and there are a finite number of
+equivalence classes over $\simeq$, there exists $a^i$ and $a^j$ such that $i$
+and $j$ are prime, $i < j$, and $a^i \simeq a^j$. Since $i < j$ there exists
+some $r > 0$ such that $i + r  = j$. Therefore $a^i \simeq a^{i+r}$.
+By the right-invariance of
+$\simeq$, $a^i \simeq a^{i+r} \implies a^{i}z \simeq a^{i+r}z,
+\ \forall z \in \Sigma^*$. Let $z = a^r \in \Sigma^*$ then
+$a^{i}a^{r} \simeq a^{i+r}a^{r}$ which is equivalent to
+$a^{i+r} \simeq a^{i+2r}$. Therefore, $a^i \simeq a^{i+r} \simeq a^{i+2r}$.
+By induction it follows that, $a^i \simeq a^{i + kr},\ \forall k \ge 0$.
+Let $k = i$, then $a^i \simeq a^{i+ir} = a^{i(1+r)}$. Therefore,
+$a^i \simeq a^{ix}$ and since $i < ix$, $x \ge 2$, thus $ix$ is not prime. So
+$a^i \simeq a^{ix}$ but $a^i \in L_3$ and $a^{ix} \notin L_3$ which is a
+contradiction to their $\simeq$ equivalence therefore $L_3$ is not regular.
+
+\subsection*{(d) $L_4 = \{a^{m}n^{n}\ |\ gcd(m,n) = 17\}$
+\textnormal{is} not \textnormal{regular}}
+Proof by contradiction using Myhill-Nerode. $L_4$ is infinte since there are
+an infinte number of multiplies of 17 by prime numbers so maintaints the
+greatest common denomiator as 17. Proof by contradiction so assume $L_4$ is
+regular. Therefore, by Myhill-Nerode, there exists an equivalence relation
+$\simeq$ that is right-invariant and with a finite number of equivalence
+classes. Consider the infinte set $\{a^{17i}\}$ where $i$ is a
+prime number. Since it is an infinite subset of $\Sigma^*$ and there are a
+finite number of equivalence classes, there exists $p$ and $q$ such that
+$p < q$, $p$ and $q$ are both prime, and $a^{17p} \simeq a^{17q}$. By the
+right-invariance of $\simeq$, $a^{17p} \simeq a^{17q} \implies
+a^{17p}z \simeq a^{17q}z,\ \forall z \in \Sigma^*$.
+Let $z = b^{17q} \in \Sigma^*$ then $a^{17p}b^{17q} \simeq a^{17q}b^{17q}$.
+By the fact that $p$ and $q$ are both prime, $gcd(17p, 17q) = 17$ so
+$a^{17p}b^{17q} \in L_4$ but $gcd(17q, 17q) = 17q$ so
+$a^{17q}b^{17q} \notin L_4$ which is a contradiction to the fact that the two
+are $\simeq$ equivalent. Therefore, $L_4$ is not a regular language.
+
 \end{document}
