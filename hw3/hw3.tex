@@ -357,15 +357,133 @@ From above we know all those languages are regular,
 and k is finite so yes $\sqrt{L}$ is regular
 \newline
 Is $L^{\infty}$ regular? Since $L^{\infty}$ is an infininite series it can not be turned into a regular language.
+\newpage
 \section*{Problem B4}
+\subsection*{(a) $L_1 = \{wcw\ |\ w \in \{a,b\}^*\}$
+\textnormal {is} not \textnormal{regular.}}
+Proof by contradiction using Myhill-Nerode. $L_1$ is infinite since
+each $x \in L_1$ is comprised of $w \in \{a,b\}^*$ which is an infinite
+language. Proof by contradiction so assume $L_1$ is regular. Therefore, by
+Myhill-Nerode there exists an equivalence relation $\simeq$ that is
+right-invariant and contains a finite number of equivalence classes. Since
+$\{a,b\}^*$ is infinte and $\{a,b\}^* \subseteq \Sigma^*$ there exist
+$w,w' \in \{a,b\}^*$ and thus $w,w'\in \Sigma^*$ such that
+$w \neq w'$ and $w \simeq w'$. Let $z \in \Sigma^*$ be the string $cw$.
+Since $\simeq$ is right-invariant, $wz \simeq w'z$ which is
+equal to $wcw \simeq w'cw$. But since $w \neq w'$, $wcw \in L_1$
+and $w'cw \notin L_1$ which is a contradiction to the fact that they are
+$\simeq$ equivalent strings thus $L_1$ is not regular.
+
+\subsection*{(b) $L_2 = \{xy\ |\ x,y \in \{a,b\}^*
+\textnormal{ and } |x| = |y|\}$ is \textnormal{regular.}}
+Proof using Myhill-Nerode. Let $\simeq$ be an equivalence relation on
+$\Sigma^*$ consisting of two equivalence classes $[x_{even}]$ and $[x_{odd}]$.
+The index of $\simeq$ is finite since it consists of exactly 2
+equivalence classes. We define $\simeq$ as $\forall x,y \in \Sigma^*,
+x \simeq y \iff |x|\ \mod\ 2 = |y|\ \mod\ 2$, i.e. $\forall x \in \Sigma^*$,
+$x \in [x_{even}]$ iff $|x|\ \mod\ 2 = 0$ and $x \in [x_{odd}]$ iff
+$|x|\ \mod\ 2 = 1$. Now we can prove that $\simeq$ is right-invariant:
+$$ x \simeq y \implies xz \simeq yz,\ \forall x,y,x \in \Sigma^*$$
+$$ |x|\ \mod\ 2 = |y|\ \mod\ 2 \implies |xz|\ \mod\ 2 = |yz|\ \mod\ 2$$
+$$ |x|\ \mod\ 2 = |y|\ \mod\ 2 \implies |x|+|z|\ \mod\ 2 = |y|+|z|\ \mod\ 2$$
+$$ |x|\ \mod\ 2 = |y|\ \mod\ 2 \implies |x|\ \mod\ 2 = |y|\ \mod\ 2 \wedge
+|z|\ \mod\ 2 = |z|\ \mod\ 2$$
+Finally we show that $L_2$ is the union of some equivalence classes of $\simeq$.
+$L_2$ is equal to the equivalence class $[x_{even}]$ with the corrollary that
+$\{a,b\}^* = \Sigma^*$ when $\Sigma = \{a,b\}$ as is the case in this problem:
+$$ z \in L_2 \iff \exists x,y \in \Sigma^* \text{ such that } |x| = |y|
+\text{ and } z = xy$$
+$$\implies |z| = |xy| = |x| + |y| = |x| + |x| = 2|x|$$
+$$\implies |z|\ \mod\ 2 = 2|x|\ \mod\ 2 = 0$$
+$$\therefore z \in L_2 \iff z \in [x_{even}]$$
+Thus by Myhill-Nerode $L_2$ is regular, since it is the union of some of the
+equivalence classes of an equivalence relation $\simeq$ on $\Sigma^*$, which
+is right-invariant and has a finite index.
+
+\subsection*{(c) $L_3 = \{a^n\ |\ n \textnormal{ is a prime number}\}$
+\textnormal{is} not \textnormal{regular}}
+Proof by contradiction using Myhill-Nerode. $L_3$ is infinte since there are
+an infinte number of prime numbers $n$. Proof by contradiction so assume $L_3$
+is regular. Therefore, by Myhill-Nerode, there exists an equivalence relation
+$\simeq$ that is right-invariant and with a finite number of equivalence
+classes. Consider the infinite set $\{a^2, a^3, a^5, a^7, ...\} \subseteq
+\Sigma^*$ i.e. the infinite subset of strings in $\Sigma^*$ with prime length.
+Since it is an infinte subset of $\Sigma^*$ and there are a finite number of
+equivalence classes over $\simeq$, there exists $a^i$ and $a^j$ such that $i$
+and $j$ are prime, $i < j$, and $a^i \simeq a^j$. Since $i < j$ there exists
+some $r > 0$ such that $i + r  = j$. Therefore $a^i \simeq a^{i+r}$.
+By the right-invariance of
+$\simeq$, $a^i \simeq a^{i+r} \implies a^{i}z \simeq a^{i+r}z,
+\ \forall z \in \Sigma^*$. Let $z = a^r \in \Sigma^*$ then
+$a^{i}a^{r} \simeq a^{i+r}a^{r}$ which is equivalent to
+$a^{i+r} \simeq a^{i+2r}$. Therefore, $a^i \simeq a^{i+r} \simeq a^{i+2r}$.
+By induction it follows that, $a^i \simeq a^{i + kr},\ \forall k \ge 0$.
+Let $k = i$, then $a^i \simeq a^{i+ir} = a^{i(1+r)}$. Therefore,
+$a^i \simeq a^{ix}$ and since $i < ix$, $x \ge 2$, thus $ix$ is not prime. So
+$a^i \simeq a^{ix}$ but $a^i \in L_3$ and $a^{ix} \notin L_3$ which is a
+contradiction to their $\simeq$ equivalence therefore $L_3$ is not regular.
+
+\subsection*{(d) $L_4 = \{a^{m}n^{n}\ |\ gcd(m,n) = 17\}$
+\textnormal{is} not \textnormal{regular}}
+Proof by contradiction using Myhill-Nerode. $L_4$ is infinte since there are
+an infinte number of multiplies of 17 by prime numbers so maintaints the
+greatest common denomiator as 17. Proof by contradiction so assume $L_4$ is
+regular. Therefore, by Myhill-Nerode, there exists an equivalence relation
+$\simeq$ that is right-invariant and with a finite number of equivalence
+classes. Consider the infinte set $\{a^{17i}\}$ where $i$ is a
+prime number. Since it is an infinite subset of $\Sigma^*$ and there are a
+finite number of equivalence classes, there exists $p$ and $q$ such that
+$p < q$, $p$ and $q$ are both prime, and $a^{17p} \simeq a^{17q}$. By the
+right-invariance of $\simeq$, $a^{17p} \simeq a^{17q} \implies
+a^{17p}z \simeq a^{17q}z,\ \forall z \in \Sigma^*$.
+Let $z = b^{17q} \in \Sigma^*$ then $a^{17p}b^{17q} \simeq a^{17q}b^{17q}$.
+By the fact that $p$ and $q$ are both prime, $gcd(17p, 17q) = 17$ so
+$a^{17p}b^{17q} \in L_4$ but $gcd(17q, 17q) = 17q$ so
+$a^{17q}b^{17q} \notin L_4$ which is a contradiction to the fact that the two
+are $\simeq$ equivalent. Therefore, $L_4$ is not a regular language.
 
 \section*{Problem B5}
-\subsection*{a}
-$\exists \simeq_{D_1}$ on $L_1$ such that $\forall x \in \Sigma^{*}_1 \mid [x]_{D_1}$ something, becuase it is a regular languate. This relation, since it is the Myhill-Nerode, relation is refined by all other relations, $\simeq_{X_1} \subseteq \simeq_{D_1}$.  $\exists \simeq_{D_2}$ on $L_2$ such that $\forall x \in \Sigma^{*}_2 \mid [x]_{D_2}$ something, becuase it is a regular language. This relation, since it is the Myhill-Nerode, relation is refined by all other relations, $\simeq_{X_2} \subseteq \simeq_{D_2}$.
-There are 3 cases that can come from $L_1 \cap L_2$ : $L_1 \subseteq L_2$ , $L_2 \subseteq L_1$ , $L_1 \cap L_2 = {0}$\newline
-case: $L_1 \subseteq L_2 \implies L_1 \cap L_2 = L_X \subseteq L_1 \subseteq L_2 \implies L_X = \bigcup_{x \in L_1}[x]_{D_1}$ and since each $[x]_{D_1}$ is a regular langauge and the union is finite $L_X$ is a regular language\newline
-case: $L_2 \subseteq L_1\implies L_1 \cap L_2 = L_X \subseteq L_2 \subseteq L_1 \implies L_X = \bigcup_{x \in L_2}[x]_{D_2}$ and since each $[x]_{D_2}$ is a regular langauge and the union is finite $L_X$ is a regular language\newline
-case: $L_1 \cap L_2 = {0}$ and this is trivially a regular language
+\subsection*{(a)}
+Let $L = L_1 \cap L_2$, where $L_1$ and $L_2$ are regular languages. Since
+$L_1$ and $L_2$ are regular, there exist equivalence relations $\simeq_{L_1}$
+and $\simeq_{L_2}$ that are right-invariant, have a finite index, and have
+contain a subset of equivalence classes who's union define the languages
+$L_1$ and $L_2$ respectively. Let $\simeq_L$ be an equivalence relation, over
+$\Sigma^*$, for the language L. Let the equivalence classes of $\simeq_L$
+be defined as the union of the equivalence classes of $\simeq_{L_1}$ and
+$\simeq_{L_2}$. It is immediate then, that $\simeq_L$ has a finite index since
+the union of two finite sets is finite. We now create the language L from the
+union of some of the equivalence classes of $\simeq_L$ while simultaneously
+reducing the number of equivalence classes in $\simeq_L$ to make sure it is
+well-defined. We start by combining equivalence classes in $\simeq_L$ in the
+following way. If there $\exists x \in \Sigma^*$ such that
+$x \in [x]_{\simeq_{L_1}}$ (some equivalence class of $\simeq_{L_1}$) and
+$x \in [x]_{\simeq_{L_2}}$ (some equivalence class of $\simeq_{L_2}$)
+then combine the two equivalence classes by taking their union. This is safe to
+do since $x \simeq_{L_1} y,\ \forall y \in [x]_{\simeq_{L_1}}$ and
+$x \simeq_{L_2} y',\ \forall y' \in [x]_{\simeq_{L_2}}$ therefore it must be true
+that $y \simeq_{L_2} y',\ \forall y \in [x]_{\simeq_{L_1}},
+y' \in [x]_{\simeq_{L_2}}$. Now we can define the language L as the union of all
+such combined equivalence classes where the two equivalence classes
+$[x]_{\simeq_{L_1}}$ and $[x]_{\simeq_{L_2}}$ that were combined where each in
+their respective subset of equivalence classes that define their languages
+$L_1$ and $L_2$ respectively. In other words, $\forall x \in \Sigma^*
+\text{ if } x \in L_1 \text{ and } x \in L_2$ then $x$ is in some equivalence
+class of $\simeq_{L_1}$ and $\simeq_{L_2}$ which we combine into one equivalence
+class in $\simeq_L$. The union of all of these such classes then defines
+$L_1 \cap L_2 = L$ where $\simeq_L$ is still finite since we have only reduced
+the number of equivalence classes from a starting finite amount. Now we can
+finally show that $\simeq_L$ is right-invariant since it directly follows from
+the fact $\simeq_{L_1} \text{ and } \simeq_(L_2)$ are right-invariant:
+$$(1)\ x \simeq_L y \implies x \simeq_{L_1} y \text{ and/or } x \simeq_{L_2} y$$
+$$(2)\ x \simeq_{L_1} y \implies xz \simeq_{L_1} yz,\ \forall z \in \Sigma^*$$
+$$(3)\ x \simeq_{L_2} y \implies xz \simeq_{L_2} yz,\ \forall z \in \Sigma^*$$
+$$\text{therefore } x \simeq_L y \implies xz \simeq_L yz \text{ by a combination
+of the above three implications}$$
+Thus $L_1 \cap L_2$ is the union of some of the equivalence classes of an
+equivalence relation $\simeq_L$ on $\Sigma^*$, which is right-invariant and has
+a finite index and therefore by Myhill-Nerode $L = L_1 \cap L_2$
+is a regular language.
 \subsection*{b}
 
 \section*{Problem B6}
