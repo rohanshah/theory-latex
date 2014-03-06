@@ -375,14 +375,35 @@ Prove that $R_{i_{0}+1} = R_{i_{0}}$ for some least $i_0$.\newline
 Must show: $R_{i_{0} + 1} = (R_{i_{0}} \cup 
 \{(\delta(p, a), \delta(q, a)) \mid (p, q)\in R_{i_{0}},\ a\in \Sigma\})_{\approx} 
 = R_{i_{0}}$ for some least $i_0$.\newline
-Because $R \subseteq QxQ$ is finite, there must be some $i_0$ such that $R_{i_0+1} = R_{i_0}$.
+Because $R \subseteq QxQ$ is finite, there must be some $i_0$ such that 
+$R_{i_0+1} = R_{i_0}$.
 
 \medskip
 
 Prove that $R_{i_{0}}$ is the smallest forward closure
 containing $R$.
-If $\delta (p,q) \in R_{i_0}$ then $(\delta(p, a), \delta(q, a)) \in R_{i_0+1}$.
-But since $R_{i_0+1} = R_{i_0}$ then $(\delta(p, a), \delta(q, a))$
+
+\medskip
+
+If $\delta(p, q) \in R_{i_{0}}$, then $(\delta(p, a), \delta(q, a)) \in 
+R_{i_{0}+1}$ for all $a \in \Sigma$. But since $R_{i_{0}+1}=R_{i_{0}}$, then 
+$(\delta(p, a), \delta(q, a))$ will also be in $R_{i_{0}}$, which shows that
+$R_{i_{0}}$ is a forward closure by definition.
+
+\medskip
+
+Let $\sim$ be any forward closure. Because $R_{i_{0}}$ must be the smallest, 
+show $R_{i_{0}} \subseteq \sim$. \newline
+Prove by induction for all $i \ge 0$ in $R_i \subseteq \sim$. \newline
+Base Case ($i=0$): $R_i = R_{approx}$ /newline
+Inductive Case: Assume $R_i \subseteq \sim$ as the inductive hypothesis.
+$\delta(p, q) \in R_i \implies (p,q) \in \sim$ and since $\sim$ is a forward
+closure, $(\delta(p, a),\delta(q, a)) \in \sim$ for every a. 
+$(R_{i} \cup 
+\{(\delta(p, a), \delta(q, a)) \mid (p, q)\in R_{i},\ a\in \Sigma\}) \subseteq
+\sim$, and since $(R_{i} \cup                    
+\{(\delta(p, a), \delta(q, a)) \mid (p, q)\in R_{i},\ a\in \Sigma\})_{\approx}$
+is the least forward closure by definition, it follows that $R_{i_{0}} \subseteq \sim$.
 
 \subsection*{(ii)}
 Prove that $p\equiv q$ iff the forward closure $R^{\dagger}$ of the
@@ -391,13 +412,27 @@ relation $R = \{(p, q)\}$ is good.
 \medskip
 
 First Case: Assume $R^{\dagger}$ is good. Prove that $R^{\dagger} \subseteq \equiv$.
-If we can show this, it is immediate that $p \equiv q$. Prove by induction
+If we can show this, it is immediate that $p \equiv q$. Prove by induction for 
+all $i \ge 0$ in $R^{\dagger} \subseteq \equiv_i$. 
+\newline
+The base case with $i=0$ is trivial.
+\newline
+Inductive Case: Assume $R^{\dagger} \subseteq \equiv_i$ as the inductive hypothesis. \newline
+If $(r,s) \in R^{\dagger}$ then $(\delta(r, a), \delta(s, a)) \in R^{\dagger}$.
+By the inductive hypothesis $R^{\dagger} \subseteq \equiv_i \implies r \equiv_i
+s$. \newline
+$r \equiv_{i+1} s$ iff $r \equiv_{i} s$ and $\delta(r, a) \equiv_{i} \delta(s, a)$. We have shown that both $r \equiv_{i} s$ and 
+$\delta(r, a) \equiv_{i} \delta(s, a)$ hold. So, for any two states $(r,s) \in
+R^{\dagger}$, $r \equiv_{i+1} s$ and $R^{\dagger} \subseteq \equiv_{i+1}$, 
+so $R^{\dagger} \subseteq \equiv$.
+
+\medskip
 
 Second Case: Assume $p \equiv q$. Prove $R^{\dagger}$ is good. \newline
 Claim: If $p \equiv q$, then $R^{\dagger} \subseteq \equiv$.  \newline
 Proof: $\equiv$ is an equivalence relation containing $R=\{(p,q)\}$, since 
 $p \equiv q$ and $\equiv$ is forward closed. Since $R^{\dagger}$ is the smallest
-forward closure containing R and since $\equiv$ is forward closed and contains R, $R^{\dagger} \subseteq \equiv$.
-
+forward closure containing R and since $\equiv$ is forward closed and contains R, $R^{\dagger} \subseteq \equiv$. \newline
+So every pair $(p,q) \in \equiv$ is good which means every $(p,q) \in R^{\dagger}$ is good. Therefore, $R^{\dagger}$ is good.
 
 \end{document}
