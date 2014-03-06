@@ -1,0 +1,58 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usetikzlibrary{automata, positioning}
+
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+
+\begin{document}
+\pagestyle{plain}
+
+\section*{Problem B5}
+\subsection*{(a)}
+Let $L = L_1 \cap L_2$, where $L_1$ and $L_2$ are regular languages. Since
+$L_1$ and $L_2$ are regular, there exist equivalence relations $\simeq_{L_1}$
+and $\simeq_{L_2}$ that are right-invariant, have a finite index, and have
+contain a subset of equivalence classes who's union define the languages
+$L_1$ and $L_2$ respectively. Let $\simeq_L$ be an equivalence relation, over
+$\Sigma^*$, for the language L. Let the equivalence classes of $\simeq_L$
+be defined as the union of the equivalence classes of $\simeq_{L_1}$ and
+$\simeq_{L_2}$. It is immediate then, that $\simeq_L$ has a finite index since
+the union of two finite sets is finite. We now create the language L from the
+union of some of the equivalence classes of $\simeq_L$ while simultaneously
+reducing the number of equivalence classes in $\simeq_L$ to make sure it is
+well-defined. We start by combining equivalence classes in $\simeq_L$ in the
+following way. If there $\exists x \in \Sigma^*$ such that
+$x \in [x]_{\simeq_{L_1}}$ (some equivalence class of $\simeq_{L_1}$) and
+$x \in [x]_{\simeq_{L_2}}$ (some equivalence class of $\simeq_{L_2}$)
+then combine the two equivalence classes by taking their union. This is safe to
+do since $x \simeq_{L_1} y,\ \forall y \in [x]_{\simeq_{L_1}}$ and
+$x \simeq_{L_2} y',\ \forall y' \in [x]_{\simeq_{L_2}}$ therefore it must be true
+that $y \simeq_{L_2} y',\ \forall y \in [x]_{\simeq_{L_1}},
+y' \in [x]_{\simeq_{L_2}}$. Now we can define the language L as the union of all
+such combined equivalence classes where the two equivalence classes
+$[x]_{\simeq_{L_1}}$ and $[x]_{\simeq_{L_2}}$ that were combined where each in
+their respective subset of equivalence classes that define their languages
+$L_1$ and $L_2$ respectively. In other words, $\forall x \in \Sigma^*
+\text{ if } x \in L_1 \text{ and } x \in L_2$ then $x$ is in some equivalence
+class of $\simeq_{L_1}$ and $\simeq_{L_2}$ which we combine into one equivalence
+class in $\simeq_L$. The union of all of these such classes then defines
+$L_1 \cap L_2 = L$ where $\simeq_L$ is still finite since we have only reduced
+the number of equivalence classes from a starting finite amount. Now we can
+finally show that $\simeq_L$ is right-invariant since it directly follows from
+the fact $\simeq_{L_1} \text{ and } \simeq_(L_2)$ are right-invariant:
+$$(1)\ x \simeq_L y \implies x \simeq_{L_1} y \text{ and/or } x \simeq_{L_2} y$$
+$$(2)\ x \simeq_{L_1} y \implies xz \simeq_{L_1} yz,\ \forall z \in \Sigma^*$$
+$$(3)\ x \simeq_{L_2} y \implies xz \simeq_{L_2} yz,\ \forall z \in \Sigma^*$$
+$$\text{therefore } x \simeq_L y \implies xz \simeq_L yz \text{ by a combination
+of the above three implications}$$
+Thus $L_1 \cap L_2$ is the union of some of the equivalence classes of an
+equivalence relation $\simeq_L$ on $\Sigma^*$, which is right-invariant and has
+a finite index and therefore by Myhill-Nerode is a regular language.
+\subsection*{(b)}
+\end{document}
