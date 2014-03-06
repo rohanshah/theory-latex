@@ -55,4 +55,42 @@ Thus $L_1 \cap L_2$ is the union of some of the equivalence classes of an
 equivalence relation $\simeq_L$ on $\Sigma^*$, which is right-invariant and has
 a finite index and therefore by Myhill-Nerode is a regular language.
 \subsection*{(b)}
+Let $L = h^{-1}(L') = \{u \in \Sigma^*\ |\ h(u) \in L'\}$. Let $\simeq_L$ be an
+equivalence relation on $\Sigma^*$ for the language L where
+$\forall u,v \in \Sigma^*,\ u \simeq_L v \iff h(u) = h(v)$. Since $L'$ is a
+regular language there exists an equivalence relation $\simeq_{L'} $
+on $\Delta^*$ that has a finite index, is right-invariant, and where
+$L'$ is equal to the union of some of the equivalence classes of $\simeq_{L'}$.
+Therefore, $\simeq_L$ is finite since $\forall u \in \Sigma^*$ there are only
+finitely many equivalence classes $h(u)$ can belong to thus there only
+finitely many equivalence classes $u$ can belong to. Let $u \in L \iff h(u) \in
+L'$ by the definition of $L$. Since $h(u) \in L'$ is equivalent to a subset of
+the equivalence classes of $\simeq_{L'}$, $u \in L$ is also a subset of
+equivalence classes of $\simeq_L$, specifically those where $h(u) \in L'$.
+Finally, we can prove that $\simeq_L$ is right=invariant:
+$$u \simeq_L v \implies uz \simeq_L vz,\ \forall u,v,z \in \Sigma^*$$
+$$h(u) = h(v) \implies h(uz) = h(vz)$$
+$$\implies h(u)h(z) = h(v)h(z)$$
+$$\implies h(u)h(z) = h(u)h(z)$$
+
+Thus, since $\simeq_L$ is an equivalence relation on $\Sigma^*$ that has a finite
+index, is right-invariant, and where the union of some of the equivalence classes
+of $\simeq_L$ is equal to $L$, by Myhill-Nerode, $L = h^{-1}(L')$ is a regular
+language. Now we can prove by contradiction that the number of states of any
+minimal DFA for $L = h^{-1}(L')$ is at most the number of states of any minimal
+DFA for $L'$. Proof by contradiction so suppose not. Then there exists
+$n$ states in $D_L$ and $m$ states in $D_{L'}$ such that $n > m$. Therefore,
+there must exist $u,v \in \Sigma^*$ such that $h(u) = h(v)$ and $u \nsim_L v$
+otherwise it would have to be the case that $n \le m$. Thus, $\forall w \in
+\Sigma^*,\ h(uw) = h(vw)$ therefore $uw \in F \iff vw \in F$ so the equivalence
+classes are indistinguisable and since $D_L$ is a minimal DFA unique states
+associated with the equivalent classes are state equivalent therefore $D_L$ is
+not a minimal DFA. The number of states for $D_L$ also cannot be strictly
+smaller because then there would exist the case that $u \simeq_L v$ but
+$h(u) \neq h(v)$ which means there exists some $w \in \Sigma^*$ such that
+$h(uw) \in L'$ and $h(vw) \notin L'$ which implies $uw \in L$ and $vw \notin L$
+which is a contradiction which is a contradiction to the right-invariance that
+$u \simeq_L v \implies uw \simeq_L vw $.
+
+
 \end{document}
