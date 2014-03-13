@@ -527,9 +527,6 @@ $u \simeq_L v \implies uw \simeq_L vw $.
 
 \subsection*{(i)}
 Prove that $R_{i_{0}+1} = R_{i_{0}}$ for some least $i_0$.\newline
-Must show: $R_{i_{0} + 1} = (R_{i_{0}} \cup 
-\{(\delta(p, a), \delta(q, a)) \mid (p, q)\in R_{i_{0}},\ a\in \Sigma\})_{\approx} 
-= R_{i_{0}}$ for some least $i_0$.\newline
 Because $R \subseteq QxQ$ is finite, there must be some $i_0$ such that 
 $R_{i_0+1} = R_{i_0}$.
 
@@ -550,7 +547,7 @@ $R_{i_{0}}$ is a forward closure by definition.
 Let $\sim$ be any forward closure. Because $R_{i_{0}}$ must be the smallest, 
 show $R_{i_{0}} \subseteq \sim$. \newline
 Prove by induction for all $i \ge 0$ in $R_i \subseteq \sim$. \newline
-Base Case ($i=0$): $R_i = R_{approx}$ /newline
+Base Case ($i=0$): $R_i = R_{\approx}$ \newline
 Inductive Case: Assume $R_i \subseteq \sim$ as the inductive hypothesis.
 $\delta(p, q) \in R_i \implies (p,q) \in \sim$ and since $\sim$ is a forward
 closure, $(\delta(p, a),\delta(q, a)) \in \sim$ for every a. 
