@@ -22,5 +22,30 @@
 \maketitle
 
 \section*{Problem B1}
+First, prove that L is not regular in a proof by contradiction. Assume L is regular. 
+If L is regular, then \={L} must be regular. Further, \={L} $\cap (ab)^+ = \{(ab)^n |$ n is prime number \}
+is regular. In the previous homework assignment we proved that the language \{$a^n |$ n is a prime number \}
+is not regular. It follows that \={L} $\cap (ab)^+ = \{(ab)^n |$ n is prime number \} must not be regular, 
+and therefore L is not regular.
+
+\medskip
+
+Then, choose m to be 9. We will show that $m=9$ satisfies the requirements of the pumping lemma.
+We can represent w (with $|w| \ge m$) as $w=a^{i_1}b^{j_1}a^{i_2}b^{j_2}a^{i_3}b^{j_3}a^{i_4}b^{j_4}z \in L$
+and $z \neq \epsilon$. 
+There are two cases to consider. The first case is if either of the first four blocks 
+($a^{i_1}b^{j_1}a^{i_2}b^{j_2}a^{i_3}b^{j_3}a^{i_4}b^{j_4}$) has $i_k,j_k \ge 2$. In this case,
+we can choose as our x one of a's where there are multiple or one of the b's where there are multiple.
+If we take out this letter, the new word is still in the language, and if we add any number of this letter
+the new word is also 
+still in the language. The second case is such that $w=ababababz$. There are two subcases to 
+consider. Either n is even or n is odd. If n is even, then $n \ge 6$. We can choose $x=abab$. 
+So if we pump down, n is even and $n \ge 4$ and the the word is still in the language, 
+and similarly if we pump up, n will be even, and the new word will still be in the language.
+If n is odd, then $n \ge 9$. We can choose the first b that appears in w such that if we pump down,
+n becomes even and the new word is still in the language. If we pump up, n remains constant 
+and the new word is still in the language. So for all cases, $m=9$ satisfies the pumping lemma
+for the language L.
+
 
 \end{document}
