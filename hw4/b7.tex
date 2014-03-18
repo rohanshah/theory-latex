@@ -22,5 +22,55 @@
 \maketitle
 
 \section*{Problem B7}
+\subsection*{a} S is the starting symbol. \newline
+$S \rightarrow c$ \newline
+$S \rightarrow aSa$ \newline
+$S \rightarrow bSb$ \newline
+The smallest possible string is c which is given by the first production. We can build from the beginning and end of the string simultaneously with the other two productions to ensure that the string following the c is the reverse of the string before the c.
+\subsection*{b} S is the starting symbol. \newline
+$S \rightarrow T$ \newline
+$T \rightarrow aTBb$ \newline
+$B \rightarrow b$ \newline
+$B \rightarrow \epsilon$ \newline
+$T \rightarrow ab$ \newline
+$T \rightarrow abb$ \newline
+
+\medskip
+
+For $K \ge 2$, same as above, except with $T \rightarrow aTBb$ changed to $T \rightarrow aTB_1B_2...B_Kb$, where the productions for $B_i$ are $B_i \rightarrow b$ and $B_i \rightarrow \epsilon$.
+\subsection*{c} S is the starting symbol. \newline
+$S \rightarrow S_1$ \newline
+$S \rightarrow S_2$ \newline
+$S_1 \rightarrow aCb$ \newline
+$C \rightarrow aCb$ \newline
+$C \rightarrow \epsilon $ \newline
+$S_2 \rightarrow aBbb$ \newline
+$B \rightarrow aBbb$ \newline
+$B \rightarrow \epsilon $ \newline
+
+\subsection*{d} S is the starting symbol. \newline
+$S \rightarrow S_1$ \newline
+$S \rightarrow S_2$ \newline
+$S_1 \rightarrow aAaBb$ \newline
+$A \rightarrow aAa$ \newline
+$A \rightarrow Bb$ \newline
+$B \rightarrow Bb$ \newline
+$B \rightarrow \epsilon $ \newline
+$S_2 \rightarrow aAbbbbBbbbb$ \newline
+$A \rightarrow aA$ \newline
+$A \rightarrow \epsilon$ \newline
+$B \rightarrow bbbbBbbbb$ \newline
+$B \rightarrow a $ \newline
+
+\subsection*{e} S is the starting symbol. \newline
+$S \rightarrow C$ \newline
+$C \rightarrow ACB$ \newline
+$A \rightarrow aa$ \newline
+$A \rightarrow ab$ \newline
+$A \rightarrow ba$ \newline
+$A \rightarrow bb$ \newline
+$B \rightarrow a$ \newline
+$B \rightarrow b$ \newline
+$C \rightarrow \epsilon$ \newline
 
 \end{document}

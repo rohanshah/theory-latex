@@ -22,6 +22,7 @@
 \maketitle
 
 \section*{Problem B1}
+\subsection*{i}
 First, prove that L is not regular in a proof by contradiction. Assume L is regular. 
 If L is regular, then \={L} must be regular. Further, \={L} $\cap (ab)^+ = \{(ab)^n |$ n is prime number \}
 is regular. In the previous homework assignment we proved that the language \{$a^n |$ n is a prime number \}
@@ -47,5 +48,31 @@ n becomes even and the new word is still in the language. If we pump up, n remai
 and the new word is still in the language. So for all cases, $m=9$ satisfies the pumping lemma
 for the language L.
 
+\subsection*{ii}
+If L is regular then by Myhill-Nerode, there are $\ge 1$ equivalence classes. Let m be this number of equivalence classes. Let $y=y_1y_2...y_m$ with $y_i \in \Sigma$. The possible prefixes of y include $\epsilon ,y_1,y_1y_2,...,y_1...y_m$. There are $m+1$ possible prefixes, but there are only m distinct classes, so two of the prefixes are equivalent. This will be of the form $y_1...y_i \simeq y_1...y_iy_{i+1}...y_j$ with $i < j$. Let $u=y_1...y_i$ and $x=y_{i+1}...y_j \neq \epsilon$. Let $v=y_{j+1}...y_m$. So, $y=uxv$ and $u \simeq ux$. Proceed by induction on $u \simeq ux^i$ for all $i \ge 0$. So, $y=uxv \simeq ux^{i+1}v$ and $uxvz \simeq ux^{i+1}vz$ for all $i \ge 0$. But, we need to cover the case for $x^0$. So we need to show that $uxvz \simeq uvz$. If $u \simeq ux$ then $x \simeq u$ and $ux \simeq u$. 
+
+\subsection*{iii}
+Show $\rho_L$ has a finite number of y equivalence classes. If this is true, then L is regular. First, show that for any $w \in \Sigma^*$, if $|w| \ge m$, then $\exists w' \in \Sigma^*$ such that $|w'| < m$ and $w \rho_L w'$. We know that $y \rho_L ux^iv$ for all $i \ge 0$. Pick any w such that $|w| \ge m$. Write $w=yy_2$ such that $|y|=m$. We have $y=uxv$ with $x \neq \epsilon$. Then, $w'=uvy_1$ by (3) with $z_1=y_1$ we have $yz=yy_1$  
+
+\subsection*{iv}
+\subsection*{v}
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
