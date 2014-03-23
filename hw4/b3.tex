@@ -22,5 +22,46 @@
 \maketitle
 
 \section*{Problem B3}
-
+\textbf{Claim:} There are infinitely many primes of the form $4n+3$.
+\newline
+\textbf{Proof:} Say we already have $n+1$ of these primes, denoted by
+$$3, p_1, p_2, \cdots, p_n,$$
+where $p_i > 3$. Consider the number
+$$m = 4p_1p_2 \cdots p_n + 3$$
+and its prime factorization
+$$m=q_1 \cdots q_k.$$
+First we can prove that $q_j > 3$ for $j = 1,...,k$. Since any number of the
+form $4n+3$ is odd $2$ can not be a prime factor of it therefore $q_j \neq 2$.
+We can finish the proof by
+contradiction, so assume there exists some $q_j = 3$. Since $q_j$ is a prime
+factor of $m$ we know that
+$$m\ \mod\ q_j = 0 \implies (4p_1p_2 \cdots p_n + 3)\ \mod\ 3 = 0
+\implies (4p_1p_2 \cdots p_n)\ \mod\ 3 = 0$$
+which is a contradiction because
+$$4\ \mod\ 3 \neq 0,p_1\ \mod\ 3 \neq 0,...,p_n\ \mod\ 3 \neq 0.$$
+Therefore $q_j > 3$. Now we can prove that for all $p_i$ and $ q_j$,
+$p_i \neq q_j$ by contradiction so assume there exists some $p_i$ and $q_j$ such
+that $p_i = q_j$. Since $q_j$ is a prime factor of m and $q_j = p_i$ it must be
+true that
+$$(4p_1p_2 \cdots p_n + 3)\ \mod\ p_i = 0.$$
+And it is true that
+$$(4p_1p_2 \cdots p_n)\ \mod\ p_i = 0.$$
+Therefore
+$$(4p_1p_2 \cdots p_n + 3)\ \mod\ p_i = 0 \iff 3\ \mod\ p_i = 0$$
+which is equivalent to
+$$3\ \mod\ q_j = 0$$
+which is a contradiction since $q_j > 3$, therefore $p_i \neq q_j$ for all $p_i$
+and $q_j$. Finally we can prove that there exists a $q_j$ of the form $4n+3$.
+Observe that all odd numbers are either of the form $4n+1$ or $4n+3$. Also
+observe that given two numbers of the form $4n+1$, say $x = 4m+1$ and
+$y = 4n+1$ then $xy = 4(4mn + m + n) + 1$ which is again of the form $4n+1$.
+We can proceed by contradiction so assume there are no $q_j$ of the form
+$4n+3$ therefore all $q_j$ must be of the form $4n+1$ which implies that
+$q_1q_2\cdots q_n$ is of the form $4n+1$ which is a contradiction since $m$ is
+of the form $4n+3$ therefore there must exists a $q_j$ of the form $4n+3$.
+Since, there exists a $q_j$ of the form $4n+3$ that is greater than $3$ and not
+equal to any of the first $(n+1)$ $p_i$ of the form $4n+3$ and since $q_j$ is a
+prime factor of $m$, there exists a prime number of the form $4n+3$ greater than
+all previous primes of the form $4n+3$ so by induction there are an infinite
+number of primes of the form $4n+3$.
 \end{document}
