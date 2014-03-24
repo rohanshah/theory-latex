@@ -22,5 +22,25 @@
 \maketitle
 
 \section*{Problem B4}
+Prove that $D^{RR}$ is a minimal DFA for $L=L(D)$. \newline
+First prove that if $\delta_R$ is the transition function
+of $D^R$, then for every $w\in \Sigma^*$ and for every
+state, $T\subseteq Q$, of $D^R$,
+\[
+\delta_R^*(T, w) =  \{q\in Q \mid \delta^*(q, w^R) \in T\}.
+\]
+We know $T \subseteq Q$, $D^R$ is trim. So $T=\{q \in Q | \exists u \in \Sigma^*$, $\delta^* (q,w) \in F\}$. Prove by induction on $|w|$. \newline
+Base Case: $w= \epsilon$, so \[
+\delta_R^*(T, \epsilon) =  \{q\in Q \mid \delta^*(q, \epsilon) \in T\}
+\] 
+which is trivially proven. \newline
+Inductive Case: \[
+\delta_R^*(T, ua) =  \delta_R^*( \delta_R^*(T,u),a) = \{q\in Q \mid \delta(q, a) \in \delta_R^*(T, u)\} = \{q\in Q \mid \delta^*(a, ua)^R)\} 
+\] 
+To prove that $D^R$ is minimal, let $S_1$ and $S_2$ be distinct states of $D^R$ such that $S_1 \neq S_2$, $p_1 \in S_1$ and $p_1 \not \in S_2$. We also know that D is trim. So there is $u \in \Sigma^*$ such that $\delta^*(q_0,u) = p_1$. \newline
+$q_0 \in \delta^*_R(S_1,u^R) \implies \delta^*_R(S_1,u^R)$ is a final state of $D^R$ by construction. We claim $q_0 \not \in \delta^*_R(S_2,u^R)$ and prove by contradiction. First, assume $q_0 \in \delta^*_R(S_2,u^R) \implies p_1 \in S_2$, which is a contradiction. We can thus conclude that any two distinct states of $D^R$ are inequivalent. So $D^R$ is minimal for $L^R$. Then we show $D^{RR}$ is minimal for $L(D)$.
+\begin{comment}
+I think this is not finished. Need to prove last part.
+\end{comment}
 
 \end{document}
