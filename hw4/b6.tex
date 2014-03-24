@@ -43,6 +43,23 @@
 \end{center}
 
 \subsection*{2}
-$((ab+ba)(aa+bb)^*(ba+ab) + bb + aa)^* (a+b+(ab+ba)(aa+bb)^*(\epsilon + a + b))$
+$(\epsilon +(a+b)(bb+(a+b)(a+b))^*(\epsilon +a+b))+
+((\epsilon +a+b)+(a+b)(bb+(a+b)(a+b))^*(ba+(a+b)(a+b)))
+((aa+(a+b)(a+b)+(ab+(a+b)(a+b))(bb+(a+b)(a+b))^*(ba+(a+b)(a+b)))^*
+((a+b)+(ab+(a+b)(a+b))(bb+(a+b)(a+b))^*(\epsilon+a+b))$
 
+\subsubsection*{Node elimination steps:}
+\textbf{Preprocessing}
+\begin{multicols}{5}
+$$(s,0) = \epsilon$$
+\columnbreak
+$$(0,0) = \emptyset$$
+\columnbreak
+$$(1,0) = \epsilon$$
+\columnbreak
+$$(2,0) = \epsilon$$
+\columnbreak
+$$(3,0) = \epsilon$$
+\columnbreak
+\end{multicols}
 \end{document}
