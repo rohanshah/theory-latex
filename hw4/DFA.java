@@ -14,9 +14,12 @@ public class DFA {
 	private final static String QUERY_INPUT = "Query.txt";
 	private final static String PARTITION = "Partition.txt";
 	private final static String TEST = "Test.txt";
+
 	private final static String PARTITION_SEPERATOR = ";";
 	private final static String EMPTY_STRING = " ";
 	private final static String FIN_STATES_SENTINEL = "F";
+	private final static String NEWLINE = "\n";
+	private final static String G_STRING = "G";
 
 	private ArrayList<String[]> transitions;
 	private ArrayList<String> finStates;
@@ -84,7 +87,8 @@ public class DFA {
 					if (level == 0) {
 						f.get(i).add(String.valueOf(i + 1));
 					} else {
-						f.get(t[0] - 1).add(String.valueOf(i + 1));
+						f.get(Integer.valueOf(find(String.valueOf(t[0]))) - 1)
+								.add(String.valueOf(i + 1));
 					}
 				}
 			}
@@ -94,21 +98,61 @@ public class DFA {
 		try {
 			for (int i = 0; i < f.size(); i++) {
 				for (int j = 0; j < f.get(i).size(); j++) {
+					if (i > 0 && j == 0) {
+						partionOutput.write(PARTITION_SEPERATOR + EMPTY_STRING);
+					}
 					if (j > 0 && j < f.get(i).size()) {
 						partionOutput.write(EMPTY_STRING);
 					}
 					partionOutput.write(f.get(i).get(j));
 				}
-
-				if (i < fwdClose.size() - 1 && f.get(i).size() > 0) {
-					partionOutput.write(PARTITION_SEPERATOR + EMPTY_STRING);
-				}
 			}
-			partionOutput.write("\n");
+			partionOutput.write(NEWLINE);
 			partionOutput.flush();
 		} catch (IOException ioexp) {
 			System.exit(1);
 		}
+	}
+
+	private void printForwardClosureSystemOut() {
+		ArrayList<ArrayList<String>> f = new ArrayList<ArrayList<String>>();
+		for (int i = 0; i < transitions.size(); i++) {
+			f.add(new ArrayList<String>());
+		}
+		int level = 0;
+		while (level < f.size()) {
+			int[] t;
+			for (int i = 0; i < fwdClose.size(); i++) {
+				t = fwdClose.get(i);
+				if (t[0] == level) {
+					if (level == 0) {
+						f.get(i).add(String.valueOf(i + 1));
+					} else {
+						f.get(Integer.valueOf(find(String.valueOf(t[0]))) - 1)
+								.add(String.valueOf(i + 1));
+					}
+				}
+			}
+			level++;
+		}
+
+		for (int i = 0; i < f.size(); i++) {
+			if (f.get(i).size() == 0)
+				f.remove(i);
+		}
+
+		for (int i = 0; i < f.size(); i++) {
+			for (int j = 0; j < f.get(i).size(); j++) {
+				if (i > 0 && j == 0) {
+					System.out.print(PARTITION_SEPERATOR + EMPTY_STRING);
+				}
+				if (j > 0 && j < f.get(i).size()) {
+					System.out.print(EMPTY_STRING);
+				}
+				System.out.print(f.get(i).get(j));
+			}
+		}
+		System.out.print(NEWLINE);
 	}
 
 	private void initFwdClose() {
@@ -128,6 +172,7 @@ public class DFA {
 		Stack<String[]> tests = new Stack<String[]>();
 		tests.push(testValues);
 
+		printForwardClosureSystemOut();
 		while (!tests.isEmpty() && flag) {
 			String[] test = tests.pop();
 			if (bad(test[0], test[1])) {
@@ -147,6 +192,7 @@ public class DFA {
 						uv[1] = transitions.get(vInt)[i];
 						tests.push(uv);
 					}
+					printForwardClosureSystemOut();
 				}
 			}
 		}
@@ -156,7 +202,7 @@ public class DFA {
 
 	private void printGood() {
 		try {
-			testOutput.write("G \n");
+			testOutput.write(G_STRING + NEWLINE);
 			testOutput.flush();
 		} catch (IOException ioexp) {
 			System.exit(1);
@@ -165,7 +211,7 @@ public class DFA {
 
 	private void printBad(String[] t) {
 		try {
-			testOutput.write(t[0] + " " + t[1] + "\n");
+			testOutput.write(t[0] + EMPTY_STRING + t[1] + NEWLINE);
 			testOutput.flush();
 		} catch (IOException ioexp) {
 			System.exit(1);
