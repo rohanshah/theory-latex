@@ -3,6 +3,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
 
 public class DFA {
 	private final static String DFA_INPUT = "DFA.txt";
@@ -15,10 +18,16 @@ public class DFA {
 
 	private ArrayList<String[]> transitions;
 	private ArrayList<String> finStates;
-	private ArrayList<ArrayList<String>> fwdClose;
+	private ArrayList<int[]> fwdClose;
+	
+	public DFA(){
+		transitions = new ArrayList<String[]>();
+		finStates = new ArrayList<String>();
+	}
 
 	public void parseTransitions(BufferedReader dfa) {
 		String line = null;
+		
 		try {
 			while ((line = dfa.readLine()) != null) {
 				String[] parsed = line.split(EMPTY_STRING);
@@ -38,6 +47,7 @@ public class DFA {
 
 	public void parseQuery(BufferedReader query) {
 		String line = null;
+		initFwdClose();
 		try {
 			while ((line = query.readLine()) != null) {
 				runTests(line.split(EMPTY_STRING));
@@ -47,54 +57,104 @@ public class DFA {
 		}
 	}
 
-	public void createForwardClosure() {
-		fwdClose.add(finStates); // one forward closue could be all final states
-
-		ArrayList<String> nonFinalStates = new ArrayList<String>();
-		for (int i = 0; i < transitions.size(); i++) {
-			if (!finStates.contains(String.valueOf(i)))
-				nonFinalStates.add(String.valueOf(i));
-		}
-
-		fwdClose.add(nonFinalStates); // one forward closue could be all
-										// non-final states
-
-		printForwardClosure();
+	private void printForwardClosure() {
+		// try {
+		// FileWriter output = null;
+		// output = new FileWriter(PARTITION);
+		// for (int i = 0; i < fwdClose.size(); i++) {
+		// HashMap<Integer, String> states = fwdClose.get(i);
+		//
+		// for (int j = 0; j < states.size(); j++) {
+		// if (j > 0 && j < states.size() - 1) {
+		// output.write(EMPTY_STRING);
+		// }
+		// output.write(states.get(j));
+		// }
+		//
+		// if (i < fwdClose.size() - 1) {
+		// output.write(PARTITION_SEPERATOR + EMPTY_STRING);
+		// }
+		// }
+		// } catch (IOException ioexp) {
+		// System.exit(1);
+		// }
 	}
 
-	private void printForwardClosure() {
-		try {
-			FileWriter output = null;
-			output = new FileWriter(PARTITION);
-			for (int i = 0; i < fwdClose.size(); i++) {
-				ArrayList<String> states = fwdClose.get(i);
+	private void initFwdClose() {
+		fwdClose = new ArrayList<int[]>();
+		for (int i = 0; i < transitions.size(); i++) {
+			int[] temp = new int[2];
+			temp[0] = 0;
+			temp[1] = 1;
+			fwdClose.add(temp);
+		}
+	}
 
-				for (int j = 0; j < states.size(); j++) {
-					if (j > 0 && j < states.size() - 1) {
-						output.write(EMPTY_STRING);
+	private void runTests(String[] testValues) {
+		int numTrans = transitions.get(0).length;
+		boolean flag = true;
+
+		Stack<String[]> tests = new Stack<String[]>();
+		tests.push(testValues);
+
+		while (!tests.isEmpty() && flag) {
+			String[] test = tests.pop();
+			if (bad(test[0], test[1])) {
+				flag = false;
+				System.out.println(test[0] + " " + test[1]);
+				return;
+			} else {
+				String u = find(test[0]);
+				String v = find(test[1]);
+				if (!u.equals(v)) {
+					union(u, v);
+					int uInt = Integer.valueOf(test[0]).intValue() - 1;
+					int vInt = Integer.valueOf(test[1]).intValue() - 1;
+					for (int i = 0; i < numTrans; i++) {
+						String[] uv = new String[2];
+						uv[0] = transitions.get(uInt)[i];
+						uv[1] = transitions.get(vInt)[i];
+						tests.push(uv);
 					}
-					output.write(states.get(i));
-				}
-
-				if (i < fwdClose.size() - 1) {
-					output.write(PARTITION_SEPERATOR + EMPTY_STRING);
 				}
 			}
-		} catch (IOException ioexp) {
-			System.exit(1);
+		}
+		
+		System.out.println("G");
+	}
+
+	private void union(String p, String q) {
+		int[] pNode = fwdClose.get(Integer.valueOf(p) - 1);
+		int[] qNode = fwdClose.get(Integer.valueOf(q) - 1);
+
+		if (pNode[1] >= qNode[1]) {
+			pNode[1] += qNode[1];
+			qNode[0] = Integer.valueOf(p);
+		} else {
+			qNode[1] += pNode[1];
+			pNode[0] = Integer.valueOf(q);
 		}
 	}
 
-	private void runTests(String[] values) {
+	private String find(String p) {
+		String retVal = p;
+		int[] lookup = fwdClose.get(Integer.valueOf(p) - 1);
 
+		while (lookup[0] != 0) {
+			retVal = String.valueOf(lookup[0]);
+			lookup = fwdClose.get(lookup[0] - 1);
+		}
+
+		return retVal;
 	}
 
-	private void union() {
+	private boolean bad(String p, String q) {
+		if (finStates.contains(p) && finStates.contains(q))
+			return false;
+		if (!finStates.contains(p) && !finStates.contains(q))
+			return false;
 
-	}
-
-	private void find() {
-
+		return true;
 	}
 
 	public static void main(String[] args) {
@@ -128,7 +188,6 @@ public class DFA {
 		}
 
 		app.parseTransitions(dfaInput);
-		app.createForwardClosure();
 
 		app.parseQuery(queryInput);
 
