@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import javax.print.attribute.standard.OutputDeviceAssigned;
+
 public class DFA {
 	private final static String DFA_INPUT = "DFA.txt";
 	private final static String QUERY_INPUT = "Query.txt";
@@ -19,15 +21,25 @@ public class DFA {
 	private ArrayList<String[]> transitions;
 	private ArrayList<String> finStates;
 	private ArrayList<int[]> fwdClose;
-	
-	public DFA(){
+	private FileWriter partionOutput;
+	private FileWriter testOutput;
+
+	public DFA() {
 		transitions = new ArrayList<String[]>();
 		finStates = new ArrayList<String>();
+		partionOutput = null;
+		testOutput = null;
+		try {
+			partionOutput = new FileWriter(PARTITION);
+			testOutput = new FileWriter(TEST);
+		} catch (IOException ioxp) {
+
+		}
 	}
 
 	public void parseTransitions(BufferedReader dfa) {
 		String line = null;
-		
+
 		try {
 			while ((line = dfa.readLine()) != null) {
 				String[] parsed = line.split(EMPTY_STRING);
@@ -47,10 +59,11 @@ public class DFA {
 
 	public void parseQuery(BufferedReader query) {
 		String line = null;
-		initFwdClose();
 		try {
 			while ((line = query.readLine()) != null) {
+				initFwdClose();
 				runTests(line.split(EMPTY_STRING));
+				printForwardClosure();
 			}
 		} catch (IOException ioexp) {
 			System.exit(1);
@@ -58,26 +71,44 @@ public class DFA {
 	}
 
 	private void printForwardClosure() {
-		// try {
-		// FileWriter output = null;
-		// output = new FileWriter(PARTITION);
-		// for (int i = 0; i < fwdClose.size(); i++) {
-		// HashMap<Integer, String> states = fwdClose.get(i);
-		//
-		// for (int j = 0; j < states.size(); j++) {
-		// if (j > 0 && j < states.size() - 1) {
-		// output.write(EMPTY_STRING);
-		// }
-		// output.write(states.get(j));
-		// }
-		//
-		// if (i < fwdClose.size() - 1) {
-		// output.write(PARTITION_SEPERATOR + EMPTY_STRING);
-		// }
-		// }
-		// } catch (IOException ioexp) {
-		// System.exit(1);
-		// }
+		ArrayList<ArrayList<String>> f = new ArrayList<ArrayList<String>>();
+		for (int i = 0; i < transitions.size(); i++) {
+			f.add(new ArrayList<String>());
+		}
+		int level = 0;
+		while (level < f.size()) {
+			int[] t;
+			for (int i = 0; i < fwdClose.size(); i++) {
+				t = fwdClose.get(i);
+				if (t[0] == level) {
+					if (level == 0) {
+						f.get(i).add(String.valueOf(i + 1));
+					} else {
+						f.get(t[0] - 1).add(String.valueOf(i + 1));
+					}
+				}
+			}
+			level++;
+		}
+
+		try {
+			for (int i = 0; i < f.size(); i++) {
+				for (int j = 0; j < f.get(i).size(); j++) {
+					if (j > 0 && j < f.get(i).size()) {
+						partionOutput.write(EMPTY_STRING);
+					}
+					partionOutput.write(f.get(i).get(j));
+				}
+
+				if (i < fwdClose.size() - 1 && f.get(i).size() > 0) {
+					partionOutput.write(PARTITION_SEPERATOR + EMPTY_STRING);
+				}
+			}
+			partionOutput.write("\n");
+			partionOutput.flush();
+		} catch (IOException ioexp) {
+			System.exit(1);
+		}
 	}
 
 	private void initFwdClose() {
@@ -101,7 +132,7 @@ public class DFA {
 			String[] test = tests.pop();
 			if (bad(test[0], test[1])) {
 				flag = false;
-				System.out.println(test[0] + " " + test[1]);
+				printBad(test);
 				return;
 			} else {
 				String u = find(test[0]);
@@ -119,8 +150,26 @@ public class DFA {
 				}
 			}
 		}
-		
-		System.out.println("G");
+
+		printGood();
+	}
+
+	private void printGood() {
+		try {
+			testOutput.write("G \n");
+			testOutput.flush();
+		} catch (IOException ioexp) {
+			System.exit(1);
+		}
+	}
+
+	private void printBad(String[] t) {
+		try {
+			testOutput.write(t[0] + " " + t[1] + "\n");
+			testOutput.flush();
+		} catch (IOException ioexp) {
+			System.exit(1);
+		}
 	}
 
 	private void union(String p, String q) {
