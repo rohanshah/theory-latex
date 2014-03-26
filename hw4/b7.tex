@@ -48,6 +48,9 @@ $S_2 \rightarrow aBbb$ \newline
 $B \rightarrow aBbb$ \newline
 $B \rightarrow \epsilon $ \newline
 
+We create the union of the two languages using the productions $S \rightarrow S_1$ and
+$S \rightarrow S_2$. The non-terminal $S_1$ is then the starting symbol for the language $\{a^{n}b^{n}\mid n \geq 1\}$, which has a smallest string of $ab$ by the production $S_1 \rightarrow aCb$ and can grow only with the production $C \rightarrow aCb$ when an $a$ and $b$ are added at the same time. The non-terminal $S_1$ is then the starting symbol for the language $\{a^{n}b^{2n}\mid n \geq 1\}$, which has a smallest string of $abb$ by the production $S_2 \rightarrow aBbb$ and can grow only by the production $B \rightarrow aBbb$ when an $a$ and two $b$'s are added at the same time.
+
 \subsection*{d} S is the starting symbol. \newline
 $S \rightarrow S_1$ \newline
 $S \rightarrow S_2$ \newline
@@ -61,6 +64,8 @@ $A \rightarrow aA$ \newline
 $A \rightarrow \epsilon$ \newline
 $B \rightarrow bbbbBbbbb$ \newline
 $B \rightarrow a $ \newline
+
+
 
 \subsection*{e} S is the starting symbol. \newline
 $S \rightarrow C$ \newline
