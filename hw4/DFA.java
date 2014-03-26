@@ -21,9 +21,21 @@ public class DFA {
 	private final static String NEWLINE = "\n";
 	private final static String G_STRING = "G";
 
+	// holds the transition table, an ArrayList of String arrays. Each position
+	// in the ArrayList corresopnds to node, each position in the String array
+	// corresponds to that transition on a character.
 	private ArrayList<String[]> transitions;
+
+	// holds the set of final states, an ArrayList where each value is a final
+	// state
 	private ArrayList<String> finStates;
+
+	// holds the partition, an ArrayList of int arrays. Each position in the
+	// array list corresponds to a possible node in the DFA. Each int array has
+	// length 2, with the 0th position holding the parent and 1st position
+	// holding the amount of children
 	private ArrayList<int[]> fwdClose;
+
 	private FileWriter partionOutput;
 	private FileWriter testOutput;
 
@@ -66,7 +78,6 @@ public class DFA {
 			while ((line = query.readLine()) != null) {
 				initFwdClose();
 				runTests(line.split(EMPTY_STRING));
-				printForwardClosure();
 			}
 		} catch (IOException ioexp) {
 			System.exit(1);
@@ -207,6 +218,8 @@ public class DFA {
 		} catch (IOException ioexp) {
 			System.exit(1);
 		}
+
+		printForwardClosure();
 	}
 
 	private void printBad(String[] t) {
