@@ -64,4 +64,25 @@ equal to any of the first $(n+1)$ $p_i$ of the form $4n+3$ and since $q_j$ is a
 prime factor of $m$, there exists a prime number of the form $4n+3$ greater than
 all previous primes of the form $4n+3$ so by induction there are an infinite
 number of primes of the form $4n+3$.
+\medskip
+\newline
+Now that we have proven that there are infinitely many primes of the form $4n+3$
+we know that the language $L$ is infinte. We can prove that $L$ is not regular
+by contradiction using Myhill-Nerode equivalence. Assume $L$ is regular. Then
+there exists a finite number of Myhill-Nerode equivalence classes. Since $L$ is
+infinite there exists two words $w,w' \in L$ where $w = a^i$ and $w' = a^j$ such
+that $i$ and $j$ are prime numbers of the form $4n+3$, $i <j$, and
+$a^i \simeq_D a^j$.
+Since $i < j$ there exists
+some $r > 0$ such that $i + r  = j$. Therefore $a^i \simeq a^{i+r}$.
+By right-invariance, $a^i \simeq a^{i+r} \implies a^{i}z \simeq a^{i+r}z,
+\ \forall z \in \Sigma^*$. Let $z = a^r \in \Sigma^*$ then
+$a^{i}a^{r} \simeq a^{i+r}a^{r} \equiv
+a^{i+r} \simeq a^{i+2r}$. By transitivity, $a^i \simeq a^{i+2r}$ and by
+induction, $a^i \simeq a^{i + kr},\ \forall k \ge 0$. Let $k = i$, then
+$a^i \simeq a^{i+ir} = a^{i(1+r)}$. Therefore, $a^i \simeq a^{ix}$.
+Since $i < ix$, $x \ge 2$, therefore $ix$ is not prime. So
+$a^i \simeq a^{ix}$ but $a^i \in L$ and $a^{ix} \notin L$ which is a
+contradiction thus $L$ is not regular.
+
 \end{document}
