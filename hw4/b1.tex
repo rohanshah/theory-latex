@@ -23,33 +23,94 @@
 
 \section*{Problem B1}
 \subsection*{i}
-First, prove that L is not regular in a proof by contradiction. Assume L is regular. 
-If L is regular, then \={L} must be regular. Further, \={L} $\cap (ab)^+ = \{(ab)^n |$ n is prime number \}
-is regular. In the previous homework assignment we proved that the language \{$a^n |$ n is a prime number \}
-is not regular. It follows that \={L} $\cap (ab)^+ = \{(ab)^n |$ n is prime number \} must not be regular, 
-and therefore L is not regular.
-
+We can prove the language $L$ is not regular by contradiction, so assume that
+$L$ is regular. Thus, its complement $\overline{L}$ must also be regular.
+Further, given the trivially regular language $X = \{a^+b^+\}^+$, the language
+$L' = \overline{L} \cap X$ must also be regular, where
+$L' = \{(a^+b^+)^n\ |\ n \text{ is prime}\}$. But we have previously
+shown that a language consisting of exactly a prime number of concatenation
+of words in $\Sigma^*$ is not regular which is a contradiction thus, $L$ is not
+regular.
 \medskip
-
-Then, choose m to be 9. We will show that $m=9$ satisfies the requirements of the pumping lemma.
-We can represent w (with $|w| \ge m$) as $w=a^{i_1}b^{j_1}a^{i_2}b^{j_2}a^{i_3}b^{j_3}a^{i_4}b^{j_4}z \in L$
-and $z \neq \epsilon$. 
-There are two cases to consider. The first case is if either of the first four blocks 
-($a^{i_1}b^{j_1}a^{i_2}b^{j_2}a^{i_3}b^{j_3}a^{i_4}b^{j_4}$) has $i_k,j_k \ge 2$. In this case,
-we can choose as our x one of a's where there are multiple or one of the b's where there are multiple.
-If we take out this letter, the new word is still in the language, and if we add any number of this letter
-the new word is also 
-still in the language. The second case is such that $w=ababababz$. There are two subcases to 
-consider. Either n is even or n is odd. If n is even, then $n \ge 6$. We can choose $x=abab$. 
-So if we pump down, n is even and $n \ge 4$ and the the word is still in the language, 
-and similarly if we pump up, n will be even, and the new word will still be in the language.
-If n is odd, then $n \ge 9$. We can choose the first b that appears in w such that if we pump down,
-n becomes even and the new word is still in the language. If we pump up, n remains constant 
-and the new word is still in the language. So for all cases, $m=9$ satisfies the pumping lemma
-for the language L.
+\newline
+To prove that the pumping lemma holds for the language $L$ we must show that
+there exists some $m \ge 1$ such that for all $w \in \Sigma^*$, if $w \in L$
+and $|w| \ge m$, there exists $u,x,v \in \Sigma^*$ such that $w = uxv$,
+$x \neq \epsilon$, $|ux| \le m$, and $ux^iv \in L$ for all $i \ge 0$. Let
+$m = 9$ and consider a $w \in L$ where $|w| \ge m$. Then there exists a
+prefix of $w$ of length $m$, i.e. there exists some $w_p,w_s \in \Sigma^*$
+such that $w = w_pw_s$ and $|w_p| = m$. If we do case analysis on
+$w_p$ we can see that it can take one of two different forms. The first is the
+case where there exists a substring $s \in \Sigma^*$ of $w_p$ such that
+$s = a^i$ or $s = b^i$ where $i \ge 2$. The second case is the alternate where
+there does not exist such a substring $s$ in $w_p$, i.e. $w_p$ consists solely
+of substrings of the form $ab$. Both these cases are due to the fact that
+$w \in L$. We will show that the pumping lemma holds in both these cases.
+\medskip
+\newline
+Consider the first case. Let $w_p = uxv'$ such that $u$ is the prefix of
+$w_p$ up till the occurence of the first substring of the form $a^i$ or $b^i$
+where $i \ge 2$. Then let $x = a$ or $x = b$ respectively. Finally let $v$ be
+the remaining suffix of our original word $w$ (by our previous definitions this
+means $v = (a | b)^jv'w_s)$ but this is not important to the proof).
+By definition $w = uxv$ and $x \neq \epsilon$. Further $|ux| \le m$ since both
+$ux$ is a prefix of $w_p$ which we defined such that $|w_p| = m$. Finally since
+$x$ is the single character $a$ or $b$ of a substring of $w$ where there are
+more than one $a$'s or $b$'s respecitvely, pumping down once or pumping up
+infinitely does not change the value of $n$ in the definition of $L$ meaning
+that it remains non prime, nor does it change the form of $w$ meaning $w$
+maintains the form $w = x_1y_1 \cdots x_ny_n$, therefore $ux^iv \in L$ for all
+$i \ge 0$ and thus the pumping lemma holds for words $w$ in this case.
+\medskip
+\newline
+Now consider the second case. We know that $w = ababababaz$ for some
+$z \in \Sigma^*$ and thus that $w_p = ababababa$. Since all we know about $n$ is
+that it's not prime, it could be either odd or even. So consider first when $n$
+is odd. Let $u = a$, $x = b$, and $v$ be the rest of $w$ i.e. $v = abababaz$. By
+construction $w = uxv$, $x \neq \epsilon$, and $|ux| = 2 \le m = 9$. Pumping
+down, meaning removing $x$, maintains the form of $w$ but decreases $n$ by 1.
+But since $n$ is odd this makes $n$ even which is not prime. Pumping up does
+not change $n$ and thus $n$ remains non prime and of the required form
+thus the pumping lemma holds when $n$ is odd. Now consider the case when $n$ is
+even. Let $u = \epsilon$, $x = abab$, and $v$ be the rest of $w$ i.e.
+$v = ababaz$. By construction $w = uxv$, $x \neq \epsilon$, and
+$|ux| = 4 \le m = 9$. Pumping down, meaning removing $x$, does not change the
+form of $w$ but does decrease $n$ by 2. But since $n$ is even, $n$ remains even
+and thus $n$ is not prime. Pumping up also lets $n$ remain even and of the
+required form. Thus, the pumping lemma also holds when $n$ is even.
+\medskip
+\newline
+Therefore the pumping lemma holds in all cases of $w \in L$ where $|w| \ge m = 9$,
+thus the pumping lemma holds for the language $L$ even though $L$ is not regular.
 
 \subsection*{ii}
-If L is regular then by Myhill-Nerode, there are $\ge 1$ equivalence classes. Let m be this number of equivalence classes. Let $y=y_1y_2...y_m$ with $y_i \in \Sigma$. The possible prefixes of y include $\epsilon ,y_1,y_1y_2,...,y_1...y_m$. There are $m+1$ possible prefixes, but there are only m distinct classes, so two of the prefixes are equivalent. This will be of the form $y_1...y_i \simeq y_1...y_iy_{i+1}...y_j$ with $i < j$. Let $u=y_1...y_i$ and $x=y_{i+1}...y_j \neq \epsilon$. Let $v=y_{j+1}...y_m$. So, $y=uxv$ and $u \simeq ux$. Proceed by induction on $u \simeq ux^i$ for all $i \ge 0$. So, $y=uxv \simeq ux^{i+1}v$ and $uxvz \simeq ux^{i+1}vz$ for all $i \ge 0$. But, we need to cover the case for $x^0$. So we need to show that $uxvz \simeq uvz$. If $u \simeq ux$ then $x \simeq u$ and $ux \simeq u$. 
+To prove that this pumping lemma holds for any regular language $L$ we must show
+that there exists some $m \ge 1$ such that for all $y \in \Sigma^*$,
+if $y \in L$ and $|y| = m$, there exists $u,x,v \in \Sigma^*$ such that
+$y = uxv$, $x \neq \epsilon$, and for all $z \in \Sigma^*$,
+$yz \in L \iff ux^ivz \in L$ for all $i \ge 0$. Since $L$ is a regular language
+it has a finite, positive, non-zero number of Myhill-Nerode equivalence classes.
+Let $m$ be equal to this number. Now consider any word $y \in L$ where $|y| = m$.
+There are $m+1$ prefixes of the word $y$ (including $\epsilon$ and $y$). Since
+there are only $m$ equivalence classes for the language $L$ there must exists
+two prefixes of $y$, namely $p_1,p_2 \in \Sigma^*$ such that $p_1 \simeq_D p_2$
+and $|p_1| > |p_2|$. Therefore it follows that $p_2$ is also a prefix of $p_1$
+so $p_1 = p_2x'$ for some $x' \in \Sigma^*$ where $|x'| \neq 0$ which implies
+$x' \neq \epsilon$. Let $x=x'$, $u=p_2$, and $v$ be the suffix of $y$
+such that $y=p_1v$. Thus we have $y = uxv$ and $x \neq \epsilon$ by construction.
+We also have $u \simeq_D ux$ by substitution. Now we just need to prove that
+$yz \in L \iff ux^ivz \in L$ for all $i \ge 0$.
+Since $y = uxv$ this is equivalent to proving $uxvz \in L \iff ux_ivz \in L$.
+But we can show something stronger than this, namely that $uxvz \simeq_D ux^ivz$
+which directly implies that $uxvz \in L \iff ux^ivz \in L$ by the way in which
+Myhill-Nerode string equivalence is defined. Further, we can prove
+$uxvz \simeq_D ux^ivz$ for all $z \in \Sigma^*$ by proving $uxv \simeq_D ux^iv$
+for all $i \ge 0$ and applying the right-invariance property of Myhill-Nerode
+equivalence. Given $u \simeq ux$ from above and using right-invariance we have
+$ux \simeq_D ux^2$. By transitivity and induction we have $ux \simeq_D ux^i$
+for all $x \ge 0$. By right-invariance again we have $uxv \simeq_D ux^iv$ which
+is what we wanted to prove therefore the pumping lemma holds for all regular
+languages $L$.
 
 \subsection*{iii}
 Show $\rho_L$ has a finite number of y equivalence classes. If this is true, then L is regular. First, show that for any $w \in \Sigma^*$, if $|w| \ge m$, then $\exists w' \in \Sigma^*$ such that $|w'| < m$ and $w \rho_L w'$. We know that $y \rho_L ux^iv$ for all $i \ge 0$. Pick any w such that $|w| \ge m$. Write $w=yy_2$ such that $|y|=m$. We have $y=uxv$ with $x \neq \epsilon$. Then, $w'=uvy_1$ by (3) with $z_1=y_1$ we have $yz=yy_1$  
