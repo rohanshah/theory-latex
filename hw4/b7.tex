@@ -36,7 +36,7 @@ $T \rightarrow ab$ \newline
 $T \rightarrow abb$ \newline
 The smallest possible strings are ab/abb which is given by replacing S with T and T with ab or abb. We build up the string with by replacting T with aTBb. That guarantees that $n \ge m$vand since B can either be b or $\epsilon$ $n \le 2m$\newline
 
-For $K \ge 2$, same as above, except with $T \rightarrow aTBb$ changed to $T \rightarrow aTB_1B_2...B_Kb$, where the productions for $B_i$ are $B_i \rightarrow b$ and $B_i \rightarrow \epsilon$.\newline
+For $K \ge 2$, same as above, except with $T \rightarrow aTBb$ changed to $T \rightarrow aTB_1B_2...B_Kb$, where the productions for $B_i$ are $B_i \rightarrow b$ and $B_i \rightarrow \epsilon$ and we have the productions $T \rightarrow abb, T \rightarrow abbb ... T \rightarrow abbb...b$ with the number of $b$'s in the last production equal to the value of K. \newline
 The smallest possible string is ab which is given by replacing S with T and T with ab. We build up the string with by replacting T with aTBb.  That guarantees that $n > m$ and since any $B_j \mid 1 \le j \le k$ can either be b or $\epsilon$ $n \le km$
 
 \subsection*{c} S is the starting symbol. \newline
