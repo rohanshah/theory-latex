@@ -48,7 +48,8 @@ $C \rightarrow \epsilon $ \newline
 $S_2 \rightarrow aBbb$ \newline
 $B \rightarrow aBbb$ \newline
 $B \rightarrow \epsilon $ \newline
-$S_1$ produces the language $a^mb^m$, the smallest string $S_1$ creates is ab by producing aCb from $S_1$ and $\epsilon$ from C.  From there C produce more aCb constructions and the amount of a will equal the amont of b. $S_2$ produces the language $a^mb^{2m}$, the smallest string $S_2$ can create is abb by producing aBbb from $S_2$ and $\epsilon$ from B, from there B can produce more aBbb constructions which will always have twice the amount of b than a. S can go to either $S_1$ or $S_2$ so the language is $a^mb^m \cup a^mb^{2m}$.
+We create the union of the two languages using the productions $S \rightarrow S_1$ and
+$S \rightarrow S_2$. The non-terminal $S_1$ is then the starting symbol for the language $\{a^{n}b^{n}\mid n \geq 1\}$, which has a smallest string of $ab$ by the production $S_1 \rightarrow aCb$ and can grow only with the production $C \rightarrow aCb$ when an $a$ and $b$ are added at the same time. The non-terminal $S_1$ is then the starting symbol for the language $\{a^{n}b^{2n}\mid n \geq 1\}$, which has a smallest string of $abb$ by the production $S_2 \rightarrow aBbb$ and can grow only by the production $B \rightarrow aBbb$ when an $a$ and two $b$'s are added at the same time.
 
 \subsection*{d} S is the starting symbol. \newline
 $S \rightarrow S_1$ \newline
@@ -64,6 +65,7 @@ $A \rightarrow \epsilon$ \newline
 $B \rightarrow bbbbaBbbbb$ \newline
 $B \rightarrow a $ \newline
 $S_1$ produces the language $a^mb^na^mb^p$, the smallest string S1 can produce is abab, by producing aAaBb from $S_1$ then producing Bb from A and then $\epsilon$ from B and then again producing $\epsilon$ from the remaining B.  Instead of directly producing a single b from A we could instead produce more aAa constructions making m arbritrarily large, then finally producing an arbritary amount of b by producing Bb from A and then more Bb from B.  We can do the same for the last B to get another arbrirtrary amount of b, having $m, n, \text{ and } p \ge 1$.\newline $S_2$ produces the language $a^mb^{4n}a^pb^{4n}$, the smallest string that $S_2$ produces is abbbbabbbb which is produced by replacing A with $\epsilon$ and B with a.  We can then create an arbitrary $a^m$ by producing aA from A, we also can produce an arbritrary $a^p$ by producing bbbbaBbbbb from B, which will also produce an arbritrary $b^{4n}$.\newline S can go to either $S_1$ or $S_2$ so the language is $a^mb^na^mb^p \cup a^mb^{4n}a^pb^{4n}$.
+
 \subsection*{e} S is the starting symbol. \newline
 $S \rightarrow C$ \newline
 $C \rightarrow ACB$ \newline
