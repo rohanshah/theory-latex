@@ -22,25 +22,74 @@
 \maketitle
 
 \section*{Problem B4}
-Prove that $D^{RR}$ is a minimal DFA for $L=L(D)$. \newline
-First prove that if $\delta_R$ is the transition function
-of $D^R$, then for every $w\in \Sigma^*$ and for every
-state, $T\subseteq Q$, of $D^R$,
-\[
-\delta_R^*(T, w) =  \{q\in Q \mid \delta^*(q, w^R) \in T\}.
-\]
-We know $T \subseteq Q$, $D^R$ is trim. So $T=\{q \in Q | \exists u \in \Sigma^*$, $\delta^* (q,w) \in F\}$. Prove by induction on $|w|$. \newline
-Base Case: $w= \epsilon$, so \[
-\delta_R^*(T, \epsilon) =  \{q\in Q \mid \delta^*(q, \epsilon) \in T\}
-\] 
-which is trivially proven. \newline
-Inductive Case: \[
-\delta_R^*(T, ua) =  \delta_R^*( \delta_R^*(T,u),a) = \{q\in Q \mid \delta(q, a) \in \delta_R^*(T, u)\} = \{q\in Q \mid \delta^*(a, ua)^R)\} 
-\] 
-To prove that $D^R$ is minimal, let $S_1$ and $S_2$ be distinct states of $D^R$ such that $S_1 \neq S_2$, $p_1 \in S_1$ and $p_1 \not \in S_2$. We also know that D is trim. So there is $u \in \Sigma^*$ such that $\delta^*(q_0,u) = p_1$. \newline
-$q_0 \in \delta^*_R(S_1,u^R) \implies \delta^*_R(S_1,u^R)$ is a final state of $D^R$ by construction. We claim $q_0 \not \in \delta^*_R(S_2,u^R)$ and prove by contradiction. First, assume $q_0 \in \delta^*_R(S_2,u^R) \implies p_1 \in S_2$, which is a contradiction. We can thus conclude that any two distinct states of $D^R$ are inequivalent. So $D^R$ is minimal for $L^R$. Then we show $D^{RR}$ is minimal for $L(D)$.
-\begin{comment}
-I think this is not finished. Need to prove last part.
-\end{comment}
-
+\textbf{Claim: } For every $w \in \Sigma^*$ and for every state, $T\subseteq Q$,
+of $D^R$,
+$$\delta_R^*(T, w) = \{q\in Q \mid \delta^*(q, w^R) \in T\}$$
+where $\delta_R$ is the transition function of $D^R$.
+\newline
+\textbf{Proof: } By induction on $|w|$, the length of $w$.
+\newline
+Base Case: $|w|= 0$ therefore $w = \epsilon$.
+$$\delta_R^*(T, \epsilon) = \{q\in Q \mid \delta^*(q, \epsilon) \in T\}$$
+$$T = \{q \in Q\ |\ q \in T\}$$
+$$T = T$$
+\newline
+Inductive Case: $|w| = n+1$ therefore $w = ua$ such that $a \in \Sigma$,
+$u \in \Sigma^*$, and $|u| = n$.
+Induction Hypothesis: $\delta_R^*(T, u) = \{q\in Q \mid \delta^*(q, u^R) \in T\}$
+$$\delta_R^*(T, w) = \delta_R^*(T, ua) = \delta_R(\delta_R^*(T,u),a)$$
+$$= \{q \in Q \mid \delta(q,a) \in \delta_R^*(T,u)\} =
+\{q\in Q \mid \delta^*(q, au^R) \in T\}$$
+$$= \{q\in Q \mid \delta^*(q, (ua)^R) \in T\} =
+\{q\in Q \mid \delta^*(q, w^R) \in T\}$$
+\medskip
+\newline
+\textbf{Claim: } $D^R$ is a minimal DFA for the language $L(D^R)$.
+\newline
+\textbf{Proof: } Let $D^R = \{Q_R, \Sigma, \delta_R, S_0, F_R\}$. We can prove
+that $D^R$ is minimal by proving that no two states $S, T \in Q_R$ are
+equivalent i.e. $S \not\equiv T$. In $D^R$, $S \equiv T$ iff
+$$ \forall w \in \Sigma^*,\ \delta_R^*(S,w^R) \in F_R \iff
+\delta_R^*(T,w^R) \in F_R$$
+By construction of $D^R$ we have
+$$ \forall w \in \Sigma^*,\ \forall S \in Q_R,\ \delta_R^*(S, w^R) \in F_R \iff
+q_0 \in \delta_R^*(S, w^R)$$
+Therefore, we can use substitution to come up with an alternate definition for
+state equivalence, i.e. $S \equiv T$ iff
+$$ \forall w \in \Sigma^*,\ q_0 \in \delta_R^*(S, w^R) \iff
+q_0 \in \delta_R^*(T, w^R)$$
+By construction of $D^R$ we also have the property that
+$$ \forall w \in \Sigma^*,\ S \in Q_R,\ q_0 \in \delta_R^*(S, w^R) \iff
+\delta^*(q_0, w) \in S$$
+Therefore, we can use substitution again to come up with another statement
+of state equivalence for $D^R$, i.e. $ S \equiv T$ iff
+$$ \forall w \in \Sigma^*,\ \delta^*(q_0, w) \in S \iff \delta^*(q_0, w) \in T$$
+But since $D$ is deterministic there exists a single state $p \in Q$ such
+that $\delta^*(q_0, w) = p$. Which gives us another definition for state
+equivalence i.e. $S \equiv T$ iff
+$$ \forall w \in \Sigma^*,\ \exists p \in Q,\ \delta^*(q_o,w) = p \implies
+p \in S \iff p \in T$$
+We can now show that $S \not\equiv T$ for all $S,T \in Q_R$ by contradiction.
+So assume there exist two states $S,T \in Q_R$ such that $S \equiv T$ therefore
+for all $w \in \Sigma^*$, there exists a state $p \in Q$ such that
+$\delta^*(q_0,w) = p$ and $p \in S \iff p \in T$. But by construction of $D^R$
+we have that
+$$\forall w \in \Sigma^*,\ \exists p \in Q,\ \delta^*(q_0, w) = p \implies
+\exists S \in Q_R,\ p \in S,\ \delta_R^*(S_0, w^R) = S$$
+Therefore our above statement can be rewritten using substitution to state that
+a final definition of state equivalence for $D^R$:
+$$ S \equiv T \iff \forall w \in \Sigma^*,
+\delta_R^*(S_0, w^R) = S \iff \delta_R^*(S_0, w^R) = T$$
+which is a contradiction since $D^R$, and thus its extended transition function
+$\delta_R^*$, are deterministic. Therefore $D^R$ is a minimal DFA.
+\medskip
+\newline
+We can now prove that $D^{RR}$ is a minimal DFA for L. First we prove
+that $D^{RR}$ is a DFA that defines the language $D$ i.e. $L(D^{RR}) = L$.
+$$L(D^{RR}) = L(D^R)^R = L(D)^{RR} = L^{RR} = (L^R)^R = L$$
+Finally we can prove that $D^{RR}$ is a minimal DFA for the language $L(D^{RR})$
+given a DFA $D$ for the language $L$ from which we construct it. We can take
+$D$ and construct the DFA $D^R$ for the language $L^R$, which we have proven is
+minimal. We can now take the DFA $D^R$ and construct the DFA $D^{RR}$ for
+the language $L(D^{RR})$, which by the same proof is minimal.
 \end{document}
