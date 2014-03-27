@@ -79,8 +79,8 @@ Therefore, since the NFA $N$ defines the language, $R$ is regular.
 
 
 \subsection*{iii.}
-Given a homomorphism $f : T^* \rightarrow \Sigma^*$ we can define the inverse
-image of a language $L \subseteq \Sigma^*$ as
+Given the homomorphism $f : T^* \rightarrow \Sigma^*$ we can define the inverse
+image of the language $L \subseteq \Sigma^*$ as
 $$f^{-1}(L) = \{a \in T^* \mid f(a) \in L)$$
 And we know that $a\in T^*$ implies that $a = a_1a_2 \cdots a_n$ such that
 $a_i \in T$, $n \ge 0$, and $a_i = [p_i, u_i, v_i, q_i]$.
@@ -98,15 +98,43 @@ $$\mid  [q_{i-1}, u_i, v_i, q_i]\in T,\, q_n\in F,\, n\geq 1\}
 \cup \{\epsilon\ |\ q_0\in F\}$$
 thus we have
 $$f^{-1}(L)\cap R  = \{[q_0, u_1, v_1, q_1][q_1, u_2, v_2, q_2]\cdots
-[q_{n-2}, u_{n-1}, v_{n-1}, q_{n-1}][q_{n-1}, u_n, v_n, q_n]\\$$
+[q_{n-2}, u_{n-1}, v_{n-1}, q_{n-1}][q_{n-1}, u_n, v_n, q_n]$$
 $$ \mid  [q_{i-1}, u_i, v_i, q_i]\in T,\, u_1u_2\cdots u_n\in L,\,
 q_n\in F,\, n\geq 1\}\cup \{\epsilon\ |\ q_0\in F,\, \epsilon\in L\}$$
 which is what we are trying to prove.
 \subsection*{iv.}
-$f([p,u,v,q]) = u$
+Given the homomorpism $g : T^* \rightarrow \Delta$ we can define the image of
+the language $f^{-1}(L)\cap R\subseteq T^*$ as
+$$g(f^{-1}(L)\cap R) = \{g(a) \mid a \in f^{-1}(L)\cap R\}$$
+and we know that $a \in f^{-1}(L)\cap R$ implies that $$a =
+[q_0, u_1, v_1, q_1][q_1, u_2, v_2, q_2]\cdots
+[q_{n-2}, u_{n-1}, v_{n-1}, q_{n-1}][q_{n-1}, u_n, v_n, q_n]$$ such that
+$[q_{i-1}, u_i, v_i, q_i]\in T$, $u_1u_2\cdots u_n\in L$, $q_n\in F$ and
+$n\geq 1$. And by the construction of $T$ we have that if $[p,u,v,q] \in T$
+then $(p,u,v,q) \in \lambda$. By the definition of an $a$-transducer we have
+that if $(p,u,v,q) \in \lambda$ then $(p, u\alpha, \beta) \vdash_M (q,a,\beta v)$
+and by transitive and reflexive closure
+$(p,w, \epsilon) \vdash_M^* (q,\epsilon,y)$ for some $w \in \Sigma^*$ and
+$y \in \Delta^*$. Therefore $a \in f^{-1}(L)\cap R$ implies
+$(q_0,w,\epsilon) \vdash_M^* (q_n, \epsilon, y)$ such that $q_n \in F$.
+And, since $g([p,u,v,q]) = v$ we have $g(a) = v_1v_2\cdots v_n \in \Delta^*$ by
+a similar proof to the one briefly described for $f(a)$ in the previous part.
+So we can rewrite the image of $f^{-1}(L)\cap R$ as
+$$g(f^{-1}(L)\cap R) = \bigcup _{w\in L} \{y \in \Delta^*
+\mid (q_0, w, \epsilon) \vdash_M^* (q_n, \epsilon, y),\ q_n \in F\} =
+\bigcup _{w\in L} M(w) = M(L)$$
+which is what we wanted to prove. We can also show that $\s{L}$ is closed under
+$a$-transduction. We have $f^{-1}(L) \in \s{L}$ by the fact that $\s{L}$ is
+closed under inverse homomorphic images. Since we proved that $R$ is regular we
+also have that $f^{-1}(L) \cap R \in \s{L}$ by the fact that $\s{L}$ is closed
+under intersection with regular languages. Finally we have that
+$g(f^{-1}(L) \cap R) \in \s{L}$ by the fact that $\s{L}$ is closed under
+homomorphic images. And we just proved that $g(f^{-1}(L) \cap R) = M(L)$ so we
+have $M(L) \in \s{L}$ which means $\s{L}$ is closed under $a$-transduction.
+Finally we can prove that if $L$ is regular then $M(L)$ regular. Since $L$ is
+regular, and the regular languages are closed under intersection, homomorphism,
+and inverse homomorphism, we know that $g(f^{-1}(L) \cap R) = M(L)$ is regular.
 
-$g : T^* \rightarrow \Delta$
- and $g([p,u,v,q]) = v$
 \subsection*{v.}
 
 \end{document}
