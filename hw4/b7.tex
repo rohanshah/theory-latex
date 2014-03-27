@@ -22,24 +22,39 @@
 \maketitle
 
 \section*{Problem B7}
-\subsection*{a} S is the starting symbol. \newline
+\subsection*{(a)} S is the starting symbol.
+\newline
 $S \rightarrow c$ \newline
 $S \rightarrow aSa$ \newline
 $S \rightarrow bSb$ \newline
-The smallest possible string is c which is given by the first production. We can build from the beginning and end of the string simultaneously with the other two productions to ensure that the string following the c is the reverse of the string before the c.
-\subsection*{b} S is the starting symbol. \newline
+The smallest possible string is c which is given by the first production.
+We can build from the beginning and end of the string simultaneously with the
+other two productions to ensure that the string following the c is the reverse
+of the string before the c.
+
+\subsection*{(b)} S is the starting symbol.
+\newline
 $S \rightarrow T$ \newline
 $T \rightarrow aTBb$ \newline
 $B \rightarrow b$ \newline
 $B \rightarrow \epsilon$ \newline
 $T \rightarrow ab$ \newline
 $T \rightarrow abb$ \newline
-The smallest possible strings are ab/abb which is given by replacing S with T and T with ab or abb. We build up the string with by replacting T with aTBb. That guarantees that $n \ge m$vand since B can either be b or $\epsilon$ $n \le 2m$\newline
+The smallest possible strings are ab/abb which is given by replacing S with T
+and T with ab or abb. We build up the string with by replacting T with aTBb.
+That guarantees that $n \ge m$ and since B can either be b or $\epsilon$
+$n \le 2m$. For $K \ge 2$, same as above, except with $T \rightarrow aTBb$
+changed to $T \rightarrow aTB_1B_2...B_Kb$, where the productions for $B_i$ are
+$B_i \rightarrow b$ and $B_i \rightarrow \epsilon$ and we have the productions
+$T \rightarrow abb, T \rightarrow abbb ... T \rightarrow abbb...b$ with the
+number of $b$'s in the last production equal to the value of K. The smallest
+possible string is ab which is given by replacing S with T and T with ab.
+We build up the string with by replacting T with aTBb. That guarantees that
+$n > m$ and since any $B_j \mid 1 \le j \le k$ can either be b or
+$\epsilon$ $n \le km$.
 
-For $K \ge 2$, same as above, except with $T \rightarrow aTBb$ changed to $T \rightarrow aTB_1B_2...B_Kb$, where the productions for $B_i$ are $B_i \rightarrow b$ and $B_i \rightarrow \epsilon$ and we have the productions $T \rightarrow abb, T \rightarrow abbb ... T \rightarrow abbb...b$ with the number of $b$'s in the last production equal to the value of K. \newline
-The smallest possible string is ab which is given by replacing S with T and T with ab. We build up the string with by replacting T with aTBb.  That guarantees that $n > m$ and since any $B_j \mid 1 \le j \le k$ can either be b or $\epsilon$ $n \le km$
-
-\subsection*{c} S is the starting symbol. \newline
+\subsection*{(c)} S is the starting symbol.
+\newline
 $S \rightarrow S_1$ \newline
 $S \rightarrow S_2$ \newline
 $S_1 \rightarrow aCb$ \newline
@@ -48,10 +63,18 @@ $C \rightarrow \epsilon $ \newline
 $S_2 \rightarrow aBbb$ \newline
 $B \rightarrow aBbb$ \newline
 $B \rightarrow \epsilon $ \newline
-We create the union of the two languages using the productions $S \rightarrow S_1$ and
-$S \rightarrow S_2$. The non-terminal $S_1$ is then the starting symbol for the language $\{a^{n}b^{n}\mid n \geq 1\}$, which has a smallest string of $ab$ by the production $S_1 \rightarrow aCb$ and can grow only with the production $C \rightarrow aCb$ when an $a$ and $b$ are added at the same time. The non-terminal $S_1$ is then the starting symbol for the language $\{a^{n}b^{2n}\mid n \geq 1\}$, which has a smallest string of $abb$ by the production $S_2 \rightarrow aBbb$ and can grow only by the production $B \rightarrow aBbb$ when an $a$ and two $b$'s are added at the same time.
+We create the union of the two languages using the productions
+$S \rightarrow S_1$ and $S \rightarrow S_2$. The non-terminal $S_1$ is then the
+starting symbol for the language $\{a^{n}b^{n}\mid n \geq 1\}$, which has a
+smallest string of $ab$ by the production $S_1 \rightarrow aCb$ and can grow
+only with the production $C \rightarrow aCb$ when an $a$ and $b$ are added at
+the same time. The non-terminal $S_1$ is then the starting symbol for the
+language $\{a^{n}b^{2n}\mid n \geq 1\}$, which has a smallest string of $abb$
+by the production $S_2 \rightarrow aBbb$ and can grow only by the production
+$B \rightarrow aBbb$ when an $a$ and two $b$'s are added at the same time.
 
-\subsection*{d} S is the starting symbol. \newline
+\subsection*{(d)} S is the starting symbol.
+\newline
 $S \rightarrow S_1$ \newline
 $S \rightarrow S_2$ \newline
 $S_1 \rightarrow aAaBb$ \newline
@@ -64,9 +87,23 @@ $A \rightarrow aA$ \newline
 $A \rightarrow \epsilon$ \newline
 $B \rightarrow bbbbaBbbbb$ \newline
 $B \rightarrow a $ \newline
-$S_1$ produces the language $a^mb^na^mb^p$, the smallest string S1 can produce is abab, by producing aAaBb from $S_1$ then producing Bb from A and then $\epsilon$ from B and then again producing $\epsilon$ from the remaining B.  Instead of directly producing a single b from A we could instead produce more aAa constructions making m arbritrarily large, then finally producing an arbritary amount of b by producing Bb from A and then more Bb from B.  We can do the same for the last B to get another arbrirtrary amount of b, having $m, n, \text{ and } p \ge 1$.\newline $S_2$ produces the language $a^mb^{4n}a^pb^{4n}$, the smallest string that $S_2$ produces is abbbbabbbb which is produced by replacing A with $\epsilon$ and B with a.  We can then create an arbitrary $a^m$ by producing aA from A, we also can produce an arbritrary $a^p$ by producing bbbbaBbbbb from B, which will also produce an arbritrary $b^{4n}$.\newline S can go to either $S_1$ or $S_2$ so the language is $a^mb^na^mb^p \cup a^mb^{4n}a^pb^{4n}$.
+$S_1$ produces the language $a^mb^na^mb^p$, the smallest string S1 can produce
+is abab, by producing aAaBb from $S_1$ then producing Bb from A and then
+$\epsilon$ from B and then again producing $\epsilon$ from the remaining B.
+Instead of directly producing a single b from A we could instead produce
+more aAa constructions making m arbritrarily large, then finally producing an
+arbritary amount of b by producing Bb from A and then more Bb from B.
+We can do the same for the last B to get another arbrirtrary amount of b,
+having $m, n, \text{ and } p \ge 1$.\newline $S_2$ produces the language
+$a^mb^{4n}a^pb^{4n}$, the smallest string that $S_2$ produces is abbbbabbbb
+which is produced by replacing A with $\epsilon$ and B with a.
+We can then create an arbitrary $a^m$ by producing aA from A, we also can
+produce an arbritrary $a^p$ by producing bbbbaBbbbb from B, which will also
+produce an arbritrary $b^{4n}$.\newline S can go to either $S_1$ or $S_2$ so
+the language is $a^mb^na^mb^p \cup a^mb^{4n}a^pb^{4n}$.
 
-\subsection*{e} S is the starting symbol. \newline
+\subsection*{(e)} S is the starting symbol.
+\newline
 $S \rightarrow C$ \newline
 $C \rightarrow ACB$ \newline
 $A \rightarrow aa$ \newline
@@ -76,4 +113,10 @@ $A \rightarrow bb$ \newline
 $B \rightarrow a$ \newline
 $B \rightarrow b$ \newline
 $C \rightarrow \epsilon$ \newline
-The smallest string that S creates is $xy \mid x = \text{ combination of 2 }a/b \text{ characters}, y =  a \text{ or } b$, so $|x| = 2|y|$, we get this by producing ACB from C and then a final production from A and B.  We could keep producing ACB from C to get an arbritarily large $|y|$ and therefore $|x| = 2|y|$.\end{document}
+The smallest string that S creates is $xy \mid x = \text{ combination of 2 }
+a/b \text{ characters}, y =  a \text{ or } b$, so $|x| = 2|y|$, we get this by
+producing ACB from C and then a final production from A and B.  We could keep
+producing ACB from C to get an arbritarily large $|y|$ and therefore
+$|x| = 2|y|$.
+
+\end{document}

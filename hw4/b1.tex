@@ -22,7 +22,7 @@
 \maketitle
 
 \section*{Problem B1}
-\subsection*{i}
+\subsection*{(i)}
 We can prove the language $L$ is not regular by contradiction, so assume that
 $L$ is regular. Thus, its complement $\overline{L}$ must also be regular.
 Further, given the trivially regular language $X = \{a^+b^+\}^+$, the language
@@ -83,7 +83,7 @@ required form. Thus, the pumping lemma also holds when $n$ is even.
 Therefore the pumping lemma holds in all cases of $w \in L$ where $|w| \ge m = 9$,
 thus the pumping lemma holds for the language $L$ even though $L$ is not regular.
 
-\subsection*{ii}
+\subsection*{(ii)}
 To prove that this pumping lemma holds for any regular language $L$ we must show
 that there exists some $m \ge 1$ such that for all $y \in \Sigma^*$,
 if $y \in L$ and $|y| = m$, there exists $u,x,v \in \Sigma^*$ such that
@@ -112,7 +112,7 @@ for all $x \ge 0$. By right-invariance again we have $uxv \simeq_D ux^iv$ which
 is what we wanted to prove therefore the pumping lemma holds for all regular
 languages $L$.
 
-\subsection*{iii} The equivalence relation $\rho_L$ is defined such that
+\subsection*{(iii)} The equivalence relation $\rho_L$ is defined such that
 for any two strings $u, v \in \Sigma^*$
 $$ u\ \rho_L\ v \iff \forall z \in \Sigma^*,\ uz \in L \iff vz \in L$$
 Further, $L$ is the union of the equivalence classes of strings in $L$ i.e.
@@ -146,8 +146,8 @@ and since $m$ is a finite index there exist only a finite number of words $w'$
 such that $|w'| < m$, there are a finite number of $\rho_L$ equivalence classes.
 Thus if a language $L$ holds for the modified pumping lemma then it is regular.
 
-\subsection*{iv}
-\subsection*{v}
+\subsection*{(iv)}
+\subsection*{(v)}
 
 \end{document}
 
