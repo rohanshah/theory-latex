@@ -22,7 +22,7 @@
 \maketitle
 
 \section*{Problem B5}
-\subsection*{i.}
+\subsection*{(a)}
 Let $M = (K, \Sigma, \Delta, \lambda, q_0, F)$ be an $a$-transducer where
 $K = F = \{q_0\}$, $\Sigma = \Delta = \{a,b\}$ and we can define $\lambda$
 by induction over the words $u\in \Sigma^*$ and $v \in \Delta^*$ such that
@@ -38,7 +38,8 @@ if $(q_0, u, v, q_0) \in \lambda$ then $(q_0,au,bv,q_0), (q_0,bu,av,q_0) \in
   ;
 \end{tikzpicture}
 \end{center}
-\subsection*{ii.}
+
+\subsection*{(b)}
 To prove that the language $R$ is regular we will construct an NFA $N$ using
 the given $a$-transducer $M = (K, \Sigma, \Delta, \lambda, q_0, F)$ and alphabet
 $T = \{[p,u,v,q] \mid (p,u,v,q) \in \lambda\}$ and prove that $L(N) = R$ thereby
@@ -77,8 +78,7 @@ $$\delta^*(q_0, a) \in F \iff \sigma(a) \in F \text{ and } a \in R'
 $$L(N) = \{a \in R' \mid \sigma(a) \in F\} = R$$
 Therefore, since the NFA $N$ defines the language, $R$ is regular.
 
-
-\subsection*{iii.}
+\subsection*{(c)}
 Given the homomorphism $f : T^* \rightarrow \Sigma^*$ we can define the inverse
 image of the language $L \subseteq \Sigma^*$ as
 $$f^{-1}(L) = \{a \in T^* \mid f(a) \in L)$$
@@ -102,7 +102,8 @@ $$f^{-1}(L)\cap R  = \{[q_0, u_1, v_1, q_1][q_1, u_2, v_2, q_2]\cdots
 $$ \mid  [q_{i-1}, u_i, v_i, q_i]\in T,\, u_1u_2\cdots u_n\in L,\,
 q_n\in F,\, n\geq 1\}\cup \{\epsilon\ |\ q_0\in F,\, \epsilon\in L\}$$
 which is what we are trying to prove.
-\subsection*{iv.}
+
+\subsection*{(d)}
 Given the homomorpism $g : T^* \rightarrow \Delta$ we can define the image of
 the language $f^{-1}(L)\cap R\subseteq T^*$ as
 $$g(f^{-1}(L)\cap R) = \{g(a) \mid a \in f^{-1}(L)\cap R\}$$
@@ -135,6 +136,19 @@ Finally we can prove that if $L$ is regular then $M(L)$ regular. Since $L$ is
 regular, and the regular languages are closed under intersection, homomorphism,
 and inverse homomorphism, we know that $g(f^{-1}(L) \cap R) = M(L)$ is regular.
 
-\subsection*{v.}
-
+\subsection*{(e)}
+We can define an $a$-transducer, $M_2 = (K, \Delta,\Sigma,\lambda_2,q_0, F)$
+such that $(q,v,u,p) \in \lambda_2 \iff (p,u,v,q) \in \lambda$. It is clear then
+that $L(M_2) = M^{-1}(L')$ where
+$$M^{-1}(L') = \bigcup _{y\in L'} M^{-1}(y)
+= \bigcup _{y\in L} \{w \in \Sigma^* \mid y \in M(w)\}$$
+$$ = \bigcup _{y\in L'} \{w \in \Sigma^*
+\mid y \in \{y \in \Delta^*
+\mid (q_0, w, \epsilon) \vdash_M^* (f, \epsilon, y),\ f \in F\}\}$$
+$$= \{w \in \Sigma^* \mid (q_0, w, \epsilon) \vdash_M^* (f, \epsilon, y)
+,\ f\in F, y\in \Delta^*\}$$
+Therefore, since the language $M^{-1}(L')$
+is defined by an $a$-transducer and we have already proven that regular languages
+are closed under $a$-transduction, if $L'$ is regular then $M^{-1}(L')$ is also
+regular.
 \end{document}
