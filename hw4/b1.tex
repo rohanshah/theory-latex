@@ -112,7 +112,8 @@ for all $x \ge 0$. By right-invariance again we have $uxv \simeq_D ux^iv$ which
 is what we wanted to prove therefore the pumping lemma holds for all regular
 languages $L$.
 
-\subsection*{(iii)} The equivalence relation $\rho_L$ is defined such that
+\subsection*{(iii)}
+The equivalence relation $\rho_L$ is defined such that
 for any two strings $u, v \in \Sigma^*$
 $$ u\ \rho_L\ v \iff \forall z \in \Sigma^*,\ uz \in L \iff vz \in L$$
 Further, $L$ is the union of the equivalence classes of strings in $L$ i.e.
@@ -147,7 +148,46 @@ such that $|w'| < m$, there are a finite number of $\rho_L$ equivalence classes.
 Thus if a language $L$ holds for the modified pumping lemma then it is regular.
 
 \subsection*{(iv)}
+To prove that this pumping lemma holds for any regular language $L$ we must show
+that there exists some $m \ge 1$ such that for all $y \in \Sigma^*$,
+if $y \in L$ and $|y| = m$, there exists $u,x,v \in \Sigma^*$ such that
+$y = uxv$, $x \neq \epsilon$, and for all $\alpha, \beta \in \Sigma^*$,
+$\alpha u\beta \in L \iff \alpha ux^i\beta \in L$ for all $i \ge 0$.
+Since $L$ is a regular language it has a finite, positive, non-zero number of
+Myhill-Nerode congruence equivalence classes $[u]_{\sim_D}$.
+Let $m$ be equal to this number. Now consider any word $y \in L$ where $|y| = m$.
+There are $m+1$ prefixes of the word $y$ (including $\epsilon$ and $y$). Since
+there are only $m$ equivalence classes for the language $L$ there must exists
+two prefixes of $y$, namely $p_1,p_2 \in \Sigma^*$ such that $p_1 \sim_D p_2$
+and $|p_1| > |p_2|$. Therefore it follows that $p_2$ is also a prefix of $p_1$
+so $p_1 = p_2x'$ for some $x' \in \Sigma^*$ where $|x'| \neq 0$ which implies
+$x' \neq \epsilon$. Let $x=x'$, $u=p_2$, and $v$ be the suffix of $y$
+such that $y=p_1v$. Thus we have $y = uxv$ and $x \neq \epsilon$ by construction.
+We also have $u \sim_D ux$ by substitution. Now we just need to prove that
+$\alpha u\beta \in L \iff \alpha ux^i\beta \in L$ for all $i \ge 0$,
+$\alpha,\beta \in \Sigma^*$. We can prove something stronger than this,
+namely that $\alpha u\beta \sim_D \alpha ux^i\beta$, which directly implies that
+$\alpha u\beta \in L \iff \alpha ux^i\beta \in L$ by the
+Myhill-Nerode theorem for congruence relations. But since $\sim_D$ is left- and
+right- invariant, this is equivalent to proving $u \sim_D ux^i$. Which, again
+due to the right-invariance of $\sim_D$ is equivalent to proving $u \sim_D ux$
+and $u \sim_D u$ both of which we already have by definition.
+Therefore the pumping lemma holds for all regular languages $L$.
+
 \subsection*{(v)}
+Since we are given that $L$ satisfies the modified pumping lemma we have the
+following implication
+$$\alpha u\beta \in L \iff \alpha ux^i\beta \in L
+\implies \alpha u\ \rho_L\ \alpha ux^i,
+\ \forall \alpha,\beta \in \Sigma^*,\ i \ge 0,\ x \neq \epsilon$$
+Thus, to prove that the language $L$ is regular we just need to prove that the
+equivalence relation $\rho_L$ has a finite index.
+We proved in part (iii) that for any string $w \in \Sigma^*$ such that
+$|w| \ge m$ there exists a string $w' \in \Sigma^*$ such that $|w'| < m$ and
+$w\ \rho_L\ w'$ and since $m$ is a finite index there exist only a finite
+number of words $w'$ such that $|w'| < m$, there are a finite number of $\rho_L$
+equivalence classes. Thus if a language $L$ holds for the modified pumping
+lemma then it is regular.
 
 \end{document}
 
