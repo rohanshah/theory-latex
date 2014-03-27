@@ -112,8 +112,39 @@ for all $x \ge 0$. By right-invariance again we have $uxv \simeq_D ux^iv$ which
 is what we wanted to prove therefore the pumping lemma holds for all regular
 languages $L$.
 
-\subsection*{iii}
-Show $\rho_L$ has a finite number of y equivalence classes. If this is true, then L is regular. First, show that for any $w \in \Sigma^*$, if $|w| \ge m$, then $\exists w' \in \Sigma^*$ such that $|w'| < m$ and $w \rho_L w'$. We know that $y \rho_L ux^iv$ for all $i \ge 0$. Pick any w such that $|w| \ge m$. Write $w=yy_2$ such that $|y|=m$. We have $y=uxv$ with $x \neq \epsilon$. Then, $w'=uvy_1$ by (3) with $z_1=y_1$ we have $yz=yy_1$  
+\subsection*{iii} The equivalence relation $\rho_L$ is defined such that
+for any two strings $u, v \in \Sigma^*$
+$$ u\ \rho_L\ v \iff \forall z \in \Sigma^*,\ uz \in L \iff vz \in L$$
+Further, $L$ is the union of the equivalence classes of strings in $L$ i.e.
+$$L = \bigcup _{u\in L} [u]_{\rho_L}$$
+Since we are given that $L$ satisfies the modified pumping lemma we have the
+following condition
+$$y\ \rho_L\ ux^iv$$
+Thus, to prove that the language $L$ is regular we just need to prove that the
+equivalence relation $\rho_L$ has a finite index.
+\newline
+\textbf{Claim: } For any string $w \in \Sigma^*$ such that $|w| \ge m$ there
+exists a string $w' \in \Sigma^*$ such that $|w'| < m$ and $w\ \rho_L\ w'$.
+\newline
+\textbf{Proof: } Let $w \in \Sigma^*$ such that $|w| \ge m$. Then there is a
+decomposition of $w$ into a prefix and suffix such that $w = w_pw_s$ such that
+$|w_p| = m$. Since we assume the pumping lemma holds we have $w_p = uxv$ such
+that $x \neq \epsilon$ and
+$\forall z \in \Sigma^*,\ w_pz \in L \iff ux^ivz \in L,\ \forall i \ge 0$.
+Let $z = w_sz'$. Therefore we have
+$$ w_pz \in L \iff ux^ivz \in L$$
+$$\implies w_pw_sz' \in L \iff ux^ivw_sz' \in L$$
+$$\implies wz' \in L \iff uvw_sz' \in L\ (i = 0 \therefore x = \epsilon)$$
+$$\equiv w\ \rho_L\ uvw_s$$
+Let $w' = uvw_s$ then we have $w\ \rho_L w'$ such that $|w| > |w'|$ since
+$|w| = |uxvw_s| = |uvw_s|+|x| = |w'| +|x|$ where $|x| > 0$ since
+$x \neq \epsilon$. If $|w'| \ge m$ we can repeat this process until we reach a
+$w'$ such that $w'$ such that $|w'| < m$ and $w'\ \rho_L w$.
+Since we have proven that for any string $w \in \Sigma^*$ such that $|w| \ge m$
+there exists a string $w' \in \Sigma^*$ such that $|w'| < m$ and $w\ \rho_L\ w'$
+and since $m$ is a finite index there exist only a finite number of words $w'$
+such that $|w'| < m$, there are a finite number of $\rho_L$ equivalence classes.
+Thus if a language $L$ holds for the modified pumping lemma then it is regular.
 
 \subsection*{iv}
 \subsection*{v}
