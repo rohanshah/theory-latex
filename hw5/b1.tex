@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usetikzlibrary{automata, positioning}
+
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+
+\begin{document}
+\pagestyle{plain}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\title{Homework 5}
+\author{Brooke Fugate, Michael O'Connor, Rohan Shah}
+\date{}
+
+\maketitle
+
+\section*{Problem B1}
+\subsection*{(i)}
+
+First, consider the cases such that the length of the strings x and y is different. \newline
+Case 1: $|x| > |y|$ Write your string such that $u_1v_1cu_2$ is the string and $|u_1|=|u_2|$ and $v_1 \neq \epsilon$. \newline
+Case 2: $|y| > |x|$ By symmetry. \newline
+Case 3: $u_1av_1cu_2bv_2$ and $|u_1|=|u_2|$. and also $u_1bv_1cu_2av_2$.
+
+$S \rightarrow A$ \newline
+$S \rightarrow B$ \newline
+$S \rightarrow C$ \newline
+
+$C \rightarrow aSabX$ \newline
+$X \rightarrow a|b|\epsilon$ \newline
+
+\subsection*{(ii)}
+
+First, consider the cases such that the length of the strings x and y is different. \newline
+Case 1: $|x| > |y|$ Write your string such that $u_1v_1cu_2$ is the string and $|u_1|=|u_2|$ and $v_1 \neq \epsilon$. \newline
+Case 2: $|y| > |x|$ By symmetry. \newline
+Case 3(a): $u_1av_1cv_2bu_1^R$ (it is optional that $|v_1|=|v_2|$) \newline
+Case 3(b): $u_1bv_1cv_2au_1^R$
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
