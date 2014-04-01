@@ -24,31 +24,64 @@
 \section*{Problem B1}
 \subsection*{(i)}
 
-First, consider the cases such that the lengths of the strings x and y are different. \newline
-Case 1: $|x| > |y|$ Write your string such that $u_1v_1cu_2$ is the string and $|u_1|=|u_2|$ and $v_1 \neq \epsilon$. \newline
-Case 2: $|y| > |x|$ By symmetry. \newline
-Case 3: $u_1av_1cu_2bv_2$ and $|u_1|=|u_2|$. and also $u_1bv_1cu_2av_2$.
+First, consider the cases such that the lengths of the strings x and y are different, then consider the cases in whivh the strings are of the same length. \newline
+Case 1: $|x| > |y|$ Write your string such that $u_1v_1cu_2$ is the form of the string with $|u_1|=|u_2|$ and $v_1 \neq \epsilon$. \newline
+Case 2: $|y| > |x|$ Proceed similarly to Case 1. \newline
+Case 3(a): $u_1av_1cu_2bv_2$ with $|u_1|=|u_2|$. \newline 
+Case 3(b): $u_1bv_1cu_2av_2$ with $|u_1|=|u_2|$.
 
 \medskip 
 
-$S \rightarrow S_1|S_2|S_3$ \newline
+$S \rightarrow S_1|S_2|S_3|S_4$ \newline
+
 $S_1 \rightarrow aS_1a|bS_1b|aS_1b|bS_1a$ \newline
 $S_1 \rightarrow aDc|bDc$ \newline
 $D \rightarrow aD|bD| \epsilon$ \newline
+
 $S_2 \rightarrow aS_2a|bS_2b|aS_2b|bS_2a$ \newline
 $S_2 \rightarrow cEa|cEb$ \newline
 $E \rightarrow Ea|Eb| \epsilon$ \newline
 
-$C \rightarrow aSabX$ \newline
-$X \rightarrow a|b|\epsilon$ \newline
+$S_3 \rightarrow aFabX|bFbbX|aFbbX|bFabX|FbX$ \newline
+$X \rightarrow Xa|Xb|\epsilon$ \newline
+$F \rightarrow aFa|bFb|aFb|bFa$ \newline
+$F \rightarrow aXc$ \newline
+
+$S_4 \rightarrow aGaaH|bGbaH|aGbaH|bGaaH|GaH$ \newline
+$H \rightarrow Ha|Hb|\epsilon$ \newline
+$G \rightarrow aGa|bGb|aGb|bGa$ \newline
+$G \rightarrow bHc$ \newline
+
 
 \subsection*{(ii)}
 
-First, consider the cases such that the length of the strings x and y is different. \newline
-Case 1: $|x| > |y|$ Write your string such that $u_1v_1cu_2$ is the string and $|u_1|=|u_2|$ and $v_1 \neq \epsilon$. \newline
-Case 2: $|y| > |x|$ By symmetry. \newline
-Case 3(a): $u_1av_1cv_2bu_1^R$ (it is optional that $|v_1|=|v_2|$) \newline
-Case 3(b): $u_1bv_1cv_2au_1^R$
+First, consider the cases such that the lengths of the strings x and y are different, then consider the cases in whivh the strings are of the same length. \newline
+Case 1: $|x| > |y|$ Write your string such that $u_1v_1cu_2$ is the form of the string with $|u_1|=|u_2|$ and $v_1 \neq \epsilon$. \newline
+Case 2: $|y| > |x|$ Proceed similarly to Case 1. \newline
+Case 3(a): $u_1av_1cv_2bu_2^R$ (it is optional that $|v_1|=|v_2|$) \newline
+Case 3(b): $u_1bv_1cv_2au_2^R$
+
+\medskip
+
+$S \rightarrow S_1|S_2|S_3|S_4$ \newline
+
+$S_1 \rightarrow aS_1a|bS_1b|aS_1b|bS_1a$ \newline
+$S_1 \rightarrow aDc|bDc$ \newline
+$D \rightarrow aD|bD| \epsilon$ \newline
+
+$S_2 \rightarrow aS_2a|bS_2b|aS_2b|bS_2a$ \newline
+$S_2 \rightarrow cEa|cEb$ \newline
+$E \rightarrow Ea|Eb| \epsilon$ \newline
+
+$S_3 \rightarrow aFa|bFb|aFb|bFa|aXcXb$ \newline
+$X \rightarrow Xa|Xb|\epsilon$ \newline
+$F \rightarrow aFa|bFb|aFb|bFa$ \newline
+$F \rightarrow aXcXb$ \newline
+
+$S_4 \rightarrow aFa|bFb|aFb|bFa|bXcXa$ \newline
+$X \rightarrow Xa|Xb|\epsilon$ \newline
+$F \rightarrow aFa|bFb|aFb|bFa$ \newline
+$F \rightarrow bXcXa$ \newline
 
 \end{document}
 
