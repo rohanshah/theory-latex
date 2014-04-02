@@ -23,4 +23,14 @@
 
 \section*{Problem B2}
 
+\medskip
+$L_{1} = \{a^mb^nc^p \mid 1 \leq m < n < p\}$\newline
+Proof by contradiction:\newline
+Let $m$ be large and $n > m$ , $p > n$ with all b's and c's marked therefor $K = n + p$.\newline
+Let $u v$ split with a's, $x$ be all b's, $v y$ split the z's.  Then when we pump $u \text{, } y$ to some $o > n$ the string will be $a^{1/2m*(n + 1)}b^nc^{1/2p*(n + 1)}$ with $m > n$ which is a contradiction of $L_1$, so not a CFG.\newline\newline
+\medskip
+$L_{2} = \{a^nb^nc^p \mid n,p \geq 1, p \not= n\}$\newline
+Proof by contradiction:\newline
+Let $n = 2p$ and $p = k! \mid k = \text{integer of Ogden's lema}$, with all a's and b's marked therefore $K = 4p$.\newline
+Let $u=a^p , v=a^p , x=b^n , y = c^{p/2} , z = c^{p/2} $.  Then when we pump $u \text{, } y$ to some $o$ the string will be $a^{p+p*o}b^{2p}c^{p/2*(o + 1)}$ with the number of a's and b's different which is a contradiction of $L_2$, so not a CFG.\newline
 \end{document}
