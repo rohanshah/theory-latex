@@ -22,15 +22,51 @@
 \maketitle
 
 \section*{Problem B2}
+The language $L_1 = \{a^mb^nc^p \mid 1\le m<n<p\}$ is not context-free. Proof by
+contradiction, so assume $L_1$ is context-free, then it must also satisfy
+Ogden's lemma. Let $m$ be the constant $K > 1$ for Ogden's lemma. Let
+$w = a^mb^{m+1}c^{m+2}$ such that $w \in L(G)$. Mark every $a$ in $w$,
+no $b$'s or $c$'s are marked. The condition that $w$ contains at least $m$
+marked occurences holds since it contains exactly $m$ marked occurences.
+By Ogden's lemma there exists some decomposition of $w = uvxyz$ of the
+following form:
+\begin{itemize}
+\item $u=a^i$ such that $i\ge 0$
+\item $v=a^i$ such that $i\ge 0$
+\item $x=a^ib^jc^k$ such that $i\ge 1$ and $j,k\ge 0$
+\item $y=a^ib^jc^k$ such that $i,j,k\ge 0$
+\item $z=a^ib^jc^k$ such that $i,j,k\ge 0$
+\item $u=a^i,\ v=a^j$ such that $i,j\ge 1$ \textbf{or}
+$y=a^i,\ z=a^jb^{m+1}c^{m+2}$ such that $i,j\ge 1$
+\item $vxy = a^ib^jc^k$ such that $i<m$ and $j,k\ge 0$
+\end{itemize}
+There are a finite number of decompositions of $w=uvxyz$ of the above form so we
+can continue our proof by case anaylsis on each such decomposition.
+\vspace{3mm}
+\newline
+\textbf{Case}:
+\newpage
+The language $L_2 = \{a^nb^nc^p \mid n,p\ge 1, p\neq n\}$ is not context-free.
+Proof by contradiction, so assume $L_2$ is context-free, then it must also
+satisfy Ogden's lemma. Let $m$ be the constant $K > 1$ for Ogden's lemma.
+Let $p=m!$. Let $w = a^{2p}b^{2p}c^p$ such that $w \in L(G)$. Mark every $c$ in
+$w$, no $a$'s or $b$'s are marked. The condition that $w$ contains at least $m$
+marked occurences holds since it contains $m!$ marked occurences. By Ogden's
+lemma there exists some decomposition of $w = uvxyz$ of the following form:
+\begin{itemize}
+\item $u=a^ib^jc^k$ such that $i,j,k\ge 0$
+\item $v=a^ib^jc^k$ such that $i,j,k\ge 0$
+\item $x=a^ib^jc^k$ such that $i,j\ge 0$ and $k\ge 1$
+\item $y=c^i$ such that $i\ge 0$
+\item $z=c^i$ such that $i\ge 0$
+\item $u=a^{2p}b^{2p}c^i,\ v=c^j$ such that $i,j\ge 1$ \textbf{or}
+$y=c^i,\ z=c^j$ such that $i,j\ge 1$
+\item $vxy = a^ib^jc^k$ such that $k<m$ and $j,k\ge 0$
+\end{itemize}
+There are a finite number of decompositions of $w=uvxyz$ of the above form so we
+can continue our proof by case anaylsis on each such decomposition.
+\vspace{3mm}
+\newline
+\textbf{Case}:
 
-\medskip
-$L_{1} = \{a^mb^nc^p \mid 1 \leq m < n < p\}$\newline
-Proof by contradiction:\newline
-Let $m$ be large and $n > m$ , $p > n$ with all b's and c's marked therefor $K = n + p$.\newline
-Let $u v$ split with a's, $x$ be all b's, $v y$ split the z's.  Then when we pump $u \text{, } y$ to some $o > n$ the string will be $a^{1/2m*(n + 1)}b^nc^{1/2p*(n + 1)}$ with $m > n$ which is a contradiction of $L_1$, so not a CFG.\newline\newline
-\medskip
-$L_{2} = \{a^nb^nc^p \mid n,p \geq 1, p \not= n\}$\newline
-Proof by contradiction:\newline
-Let $n = 2p$ and $p = k! \mid k = \text{integer of Ogden's lema}$, with all a's and b's marked therefore $K = 4p$.\newline
-Let $u=a^p , v=a^p , x=b^n , y = c^{p/2} , z = c^{p/2} $.  Then when we pump $u \text{, } y$ to some $o$ the string will be $a^{p+p*o}b^{2p}c^{p/2*(o + 1)}$ with the number of a's and b's different which is a contradiction of $L_2$, so not a CFG.\newline
 \end{document}
