@@ -44,7 +44,14 @@ There are a finite number of decompositions of $w=uvxyz$ of the above form so we
 can continue our proof by case anaylsis on each such decomposition.
 \vspace{3mm}
 \newline
-\textbf{Case}:
+\textbf{Note}: finish proof by restricting $y$ to just the form $c^i$ by using
+the pumping property so say that if it contains any $a$'s or $b$'s it will
+pump them over the number of $c$'s which takes it out of the language and if
+it contains more than a single character it breaks the form $a^ib^jc^k$ by
+interspersing $bcbc$ repetitions. Then since its not that case that $y$ and $z$
+contains marked occurences $a$ then it must be that $u$ and $v$ do but they are
+of the form $a^i$ and $a^j$ respectvely since $x$ must contain $a$'s so pumping
+will make $a$'s overtake the number of $b$'s which takes it out of the language.
 \newpage
 The language $L_2 = \{a^nb^nc^p \mid n,p\ge 1, p\neq n\}$ is not context-free.
 Proof by contradiction, so assume $L_2$ is context-free, then it must also
@@ -67,6 +74,6 @@ There are a finite number of decompositions of $w=uvxyz$ of the above form so we
 can continue our proof by case anaylsis on each such decomposition.
 \vspace{3mm}
 \newline
-\textbf{Case}:
+\textbf{Note}:
 
 \end{document}
