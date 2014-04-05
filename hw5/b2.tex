@@ -25,11 +25,12 @@
 The language $L_1 = \{a^mb^nc^p \mid 1\le m<n<p\}$ is not context-free. Proof by
 contradiction, so assume $L_1$ is context-free, then it must also satisfy
 Ogden's lemma. Let $m$ be the constant $K > 1$ for Ogden's lemma. Let
-$w = a^mb^{m+1}c^{m+2}$ such that $w \in L(G)$. Mark every $a$ in $w$,
+$w = a^mb^{m+1}c^{m+2}$ such that $w \in L_1$. Mark every $a$ in $w$,
 no $b$'s or $c$'s are marked. The condition that $w$ contains at least $m$
 marked occurences holds since it contains exactly $m$ marked occurences.
-By Ogden's lemma there exists some decomposition of $w = uvxyz$ of the
-following form:
+By Ogden's lemma there exists some decomposition of $w = uvxyz$. By applying
+each of the properties of Ogden's lemma (except the pumping property) we can
+narrow down the decomposition of $w$ with the following restrictions:
 \begin{itemize}
 \item $u=a^i$ such that $i\ge 0$
 \item $v=a^i$ such that $i\ge 0$
@@ -40,23 +41,43 @@ following form:
 $y=a^i,\ z=a^jb^{m+1}c^{m+2}$ such that $i,j\ge 1$
 \item $vxy = a^ib^jc^k$ such that $i<m$ and $j,k\ge 0$
 \end{itemize}
-There are a finite number of decompositions of $w=uvxyz$ of the above form so we
-can continue our proof by case anaylsis on each such decomposition.
-\vspace{3mm}
-\newline
-\textbf{Note}: finish proof by restricting $y$ to just the form $c^i$ by using
-the pumping property so say that if it contains any $a$'s or $b$'s it will
-pump them over the number of $c$'s which takes it out of the language and if
-it contains more than a single character it breaks the form $a^ib^jc^k$ by
-interspersing $bcbc$ repetitions. Then since its not that case that $y$ and $z$
-contains marked occurences $a$ then it must be that $u$ and $v$ do but they are
-of the form $a^i$ and $a^j$ respectvely since $x$ must contain $a$'s so pumping
-will make $a$'s overtake the number of $b$'s which takes it out of the language.
+Now we can further narrow down the decomposition of $w$ by applying the pumping
+property, that is, since $w = uvxyz \in L(G)$ then $uv^nxy^nz \in L(G)$ for all
+$n \ge 0$. By this property we can further restrict $y$ to the form
+\begin{itemize}
+\item $y=c^i$ such that $i\ge 0$
+\end{itemize}
+since pumping any other $y \in \Sigma^*$ would break the pumping property. We
+can easily prove this by case analysis. If $y$ contained more than one symbol
+from $\Sigma$, i.e. $y=a^ib^jc^k$, $y=a^ib^j$ or $y=b^jc^k$ such that $i,j,k\ge
+1$, then pumping it would cause the new string to contain a substring of the
+form $c^ka^j$, $b^ia^j$, or $c^kb^j$ such that $i,j,k\ge 1$ respectively,
+which means that the pumped string is not in $L_1$. Thus $y$ must only contain
+a single symbol from $\Sigma$. But if $y=a^i$ or $y=b^j$ such that $i,j\ge 1$
+then it would again break the pumping property since it implies that $z$ must
+contain all the $p$ $c$'s in $w$ and thus pumping $y$ would eventually cause
+the pumped string to contain more $a$'s or $b$'s then $c$'s respectively,
+which again means the pumped string is not in $L_1$. Thus we have the above
+restriction to $y$ i.e. that $y=c^i$ such that $i\ge 0$. With this restriction
+and we can again use the properties of Ogden's lemma to restrict $u$, $v$, and
+$x$ to the forms:
+\begin{itemize}
+\item $x=a^ib^nc^k$ such that $i\ge 1$ and $k\ge 0$
+\item $u=a^i,\ v=a^j$ such that $i,j\ge 1$
+\end{itemize}
+since $x$ must contain a marked occurence and therefore must also contain all
+$b$'s in $w$ since $y$ contains only $c$'s. Further, $u$ and $v$ must contain
+marked occurences since it is impossible for both $y$ and $z$ to. This final
+form of the decomposition of $w=uvxyz$ also breaks the pumping property since
+pumping $v$ will cause the number of $a$'s to be greater than the number of
+$b$'s (which don't get pumped since they are all in $x$) and thus the pumped
+string is not in $L_1$. Therefore, Ogden's lemma does not hold for the language
+$L_1$, which is a contradiction, so $L_1$ is not context-free.
 \newpage
 The language $L_2 = \{a^nb^nc^p \mid n,p\ge 1, p\neq n\}$ is not context-free.
 Proof by contradiction, so assume $L_2$ is context-free, then it must also
 satisfy Ogden's lemma. Let $m$ be the constant $K > 1$ for Ogden's lemma.
-Let $p=m!$. Let $w = a^{2p}b^{2p}c^p$ such that $w \in L(G)$. Mark every $c$ in
+Let $p=m!$. Let $w = a^{2p}b^{2p}c^p$ such that $w \in L_2$. Mark every $c$ in
 $w$, no $a$'s or $b$'s are marked. The condition that $w$ contains at least $m$
 marked occurences holds since it contains $m!$ marked occurences. By Ogden's
 lemma there exists some decomposition of $w = uvxyz$ of the following form:
