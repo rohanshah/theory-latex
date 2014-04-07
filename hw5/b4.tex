@@ -22,4 +22,18 @@
 \maketitle
 
 \section*{Problem B4}
+\subsection*{i}
+We may assume that L in infinite. We take $k$, the constant of the pumping lemma and consider $k!$. For all $w \in L$, if $|w| \ge k$, then $\{wa^{rn} | n \ge 0 \} \subseteq L$. \newline 
+We can consider $w=uvxyz$ with $u=a^{i_1}$, $v=a^{i_2}$, $x=a^{i_3}$ , $y=a^{i_4}$ , and $z=a^{i_5}$. We know from the pumping lemma that $i_3 \ge 1$, $i_2 + i_4 \ge 1$ and $i_2 + i_3 + i_4 \le k$. Then we consider $uv^mxy^mz \in L$ for all $m \ge 0$.  So, $uv^mxy^mz = a^{i_1+i_3+i_5 + m(i_2 + i_4)}$. Let $k_1 = i_1 + i_3 + i_5$ and $k_2 = i_2 + i_4$. Then, $a^{k_1 + mk_2} \in L$ for all $m \ge 0$. It is clear that $1 \le k_2 \le k$, and $p=k_1+k_2$. Pick any $n \ge 0$. We can find an $m$ such that $mk_2=k_2 +nk$ by setting $m=1+(nr\setminus k_2)$. So, $k_1+mk_2=k_1+k_2+nr=p+nr$. This shows that $a^{k_1+mk_2}=a^{p+nr}=wa^{nr} \in L$, which is what we set out to show. 
+\subsection*{ii}
+We have $0 \le i < r$ and $L_i = \{a^n |a^n \in L, n \ge k , n \equiv i \bmod r \}$. \newline
+We have $L = \{ a^n | a^n \in L , n < k\} \cup \bigcup_{0 \le i < r} L_i$ where $\{ a^n | a^n \in L , n < k\}$ is finite. If $L_i \neq \phi$, then let $2i$ be the shortest string in $L_i(|z_i \ge k)$. We claim that $L_i = \{z_i a^{rm} | m \ge 0\}$. By (i) we know that $\{z_i a^{rm} | m \ge 0\} \subseteq L_i$. To prove the reverse induction, pick any $a^n \in L_i$. Write $z_i = a^{n_i}$. We have $n \ge n_i$, $n_i = m_ir + i$ and $n=mr +i$. We also know that $m \ge m_i$ which shows that $n=(m-m_i)k + m_ik + i$, so $n=(m-m_i)k + n_i$. But $m-m_i \ge 0$, so $an=a^{n_i}a^{(m-m_i)r}=z_ia^{(m-m_i)r}$.  
+
+\subsection*{iii}
+
+We can show that $L_i=L(z_i(a^r)^*)$, so $L_i$ is regular. Let $L_i'=\{a^n|n \ge k, n \equiv i \bmod r\}$. We observe that $L_i=L_i' \cap L$.  $L_i'$ is regular, and a DFA can be constructed. By B3, since $L_i'$ is regular and L is context free, we can construct a grammar $G_i$ in $L_i=L_i' \cap L$. Use $T(G_i)$ to test and check if the start symbol is in it. 
+
+\subsection*{iv}
+Assume $L \subseteq \{a,b\}^*$ and $L$ is a context free language.  There may be an algorithm to decide $\{a\}^* \subseteq L$ iff $\{a\}^* \cap L=\{a\}^*$. Then, let $L_1=\{a\}^* \cap L$ and notice that $L$ is a context free language by B3 and $L_1 \subseteq \{a\}^*$. By (ii), $L$ is regular. Now we need to consider the DFA equivalence of $L_1$. 
+
 \end{document}

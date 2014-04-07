@@ -24,10 +24,9 @@
 
 \section*{Problem B6}
 
-Let $G_a = (V_a, \Sigma , P_a , S_a )$ be the grammar for the language $'tau(a)$ and $G=(V, \Sigma , P, S)$ with $V \cap V_a = \emptyset$ and $V_a \cap V_b = \emptyset$. Extend $\tau$ to $\tau_1: V \rightarrow 2^{{V \cup \cup of a \in \Sigma V_a}^*}$. So $\tau_1(A) = A$ if $A \in N = V- \Sigma$ \newline
-$\tau_1(a) = Sa$ \newline
-$G_{\tau} = (V \cup (\cup (of a \in \Sigma) Va), \Delta, \tau_1(P) \cup (\cup (with a \in \Sigma) Pa), S)$  
-It is clear that the production works.
+For any production $A \rightarrow \beta$ of $G$, we want to replace every terminal $a$ by $S_a$ and leave every nonterminal alone. We can achieve this by defineing a substitution $\tau_1$ such that $\tau_1(a)=S_a$ with $a \in \Sigma$ and $\tau_1(\beta)=\beta$ with $\beta \in N$. And make sure that $V \cap V_a = \emptyset$ and $V_a \cap V_b = \emptyset$ for all $a \neq b$. \newline
+Define a grammar, $$G_{\tau} = (V \cup \bigcup_{a \in \Sigma} V_a, \Delta, P \cup \bigcup_{a \in \Sigma} P_a, S)$$ It is clear that this works.
+
 
 
 \end{document}
