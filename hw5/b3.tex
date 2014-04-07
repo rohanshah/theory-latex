@@ -22,5 +22,45 @@
 \maketitle
 
 \section*{Problem B3}
+Given a context-free language $L$ and a regular language $R$, prove that
+$L\cap R$ is context-free. Proof by construction of a CFG $G_2$ such that
+$L(G_2) = L\cap R$. Let $G = (V,\Sigma,P,S)$ be a CFG in Chomsky normal form
+such that $L(G) = L$ and $N = V - \Sigma$ be the set of nonterminals in $G$.
+Let $D = (Q,\Sigma, \delta, q_0, F)$ be a DFA such that $L(D) = R$.
+Let $G_2 = (V',\Sigma,P',S_0)$ be a CFG where $N' = V' - \Sigma$ be the set of
+nonterminals in $G_2$ where $N' = Q\times N\times Q \cup \{S_0\}$ and
+productions in $P'$ are defined by the following properties:
+\begin{itemize}
+\item $(S_0 \rightarrow (q_0,S,f)) \in P'$ for every $f \in F$
+\item $(S_0 \rightarrow \epsilon) \in P' \iff (S\rightarrow \epsilon) \in P$ and
+$q_0 \in F$
+\item $((p,A,\delta(p,a)) \rightarrow a) \in P' \iff (A \rightarrow a) \in P$
+for all $a \in \Sigma$, all $A \in N$, and all $p \in Q$.
+\item $((p,A,s) \rightarrow (p,B,q)(q,C,s)) \in P' \iff (A \rightarrow BC)\in P$
+for all $p,q,s \in Q$ and all $A,B,C \in N$
+\end{itemize}
+\textbf{Claim: } For all $p,q\in Q$, all $A\in N$, all $w\in \Sigma^+$,
+and all $n\ge 1$
+$$(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w
+\iff A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$$
+\textbf{Proof: } here is da proof!
+\medskip
+\newline
+We can now show that $L(G_2) = L\cap R$. By definition
+$L(G_2) = \{w \in \Sigma^* \mid S_0 \overset{+}{\Longrightarrow} w\}$,
+$L = L(G) = \{w \in \Sigma^* \mid S \overset{+}{\Longrightarrow} w\}$, and
+$R = L(D) = \{w \in \Sigma^* \mid \delta^*(q_0,w) \in F\}$. By our
+construction of $G_2$ we have that
+$$(S_0 \rightarrow (q_0,S,f)) \in P' \text{ for every } f \in F$$
+and by our above claim we know that
+$$(q_0,S,f) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w \iff
+S \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(q_0,w) = f \text{ where } f\in F$$
+Therefore it is immediate that
+$$ S_0 \overset{+}{\Longrightarrow}_{G_2} w \iff
+S \overset{+}{\Longrightarrow}_{G} w \text{ and } \delta^*(q_0,w) \in F$$
+thus $L(G_2) = L\cap R$ which implies that the language $L\cap R$ is
+context-free.
 
 \end{document}
