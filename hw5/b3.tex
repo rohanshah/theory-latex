@@ -44,9 +44,32 @@ and all $n\ge 1$
 $$(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w
 \iff A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
 \text{ and } \delta^*(p,w) = q$$
-\textbf{Proof: } here is da proof!
-\medskip
-\newline
+\textbf{Case: } $(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w
+\implies A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$
+\newline \textbf{Proof: } By induction on $n$
+\newline \textbf{Base Case: } $n = 1$.
+\medskip \newline
+So given that
+$$((p,A,q) \rightarrow a) \in P' \text{ for } a\in \Sigma$$
+We need to prove that
+$$ (A \rightarrow a) \in P \text{ and } \delta(p,a) = q$$
+Which we have immediately from our above construction of $P'$ where
+$$((p,A,\delta(p,a)) \rightarrow a) \in P' \implies
+((p,A,q) \rightarrow a) \in P' \text{ where } q=\delta(p,a) \text{ and }
+(A\rightarrow a) \in P$$
+\newline \textbf{Inductive Case: } $n = n+1$.
+\newline \textbf{Induction Hypothesis: }
+$(p,A,s) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} u
+\implies A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} u
+\text{ and } \delta^*(p,u) = s$.
+\medskip \newline
+So given that
+$$(p,A,q) \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G_2} w
+\implies A \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$$
+\medskip \newline
+\newpage
 We can now show that $L(G_2) = L\cap R$. By definition
 $L(G_2) = \{w \in \Sigma^* \mid S_0 \overset{+}{\Longrightarrow} w\}$,
 $L = L(G) = \{w \in \Sigma^* \mid S \overset{+}{\Longrightarrow} w\}$, and
