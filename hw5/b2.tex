@@ -22,10 +22,12 @@
 \maketitle
 
 \section*{Problem B2}
-The language $L_1 = \{a^mb^nc^p \mid 1\le m<n<p\}$ is not context-free. Proof by
-contradiction, so assume $L_1$ is context-free, then it must also satisfy
-Ogden's lemma. Let $m$ be the constant $K > 1$ for Ogden's lemma. Let
-$w = a^mb^{m+1}c^{m+2}$ such that $w \in L_1$. Mark every $a$ in $w$,
+\subsection*{(i)} Prove that the language $L_1 = \{a^mb^nc^p \mid 1\le m<n<p\}$
+is not context-free
+\medskip \newline
+Proof by contradiction, so assume $L_1$ is context-free, then it must also
+satisfy Ogden's lemma. Let $m$ be the constant $K > 1$ for Ogden's lemma.
+Let $w = a^mb^{m+1}c^{m+2}$ such that $w \in L_1$. Mark every $a$ in $w$,
 no $b$'s or $c$'s are marked. The condition that $w$ contains at least $m$
 marked occurences holds since it contains exactly $m$ marked occurences.
 By Ogden's lemma there exists some decomposition of $w = uvxyz$. By applying
@@ -73,14 +75,17 @@ pumping $v$ will cause the number of $a$'s to be greater than the number of
 $b$'s (which don't get pumped since they are all in $x$) and thus the pumped
 string is not in $L_1$. Therefore, Ogden's lemma does not hold for the language
 $L_1$, which is a contradiction, so $L_1$ is not context-free.
-\newpage
-The language $L_2 = \{a^nb^nc^p \mid n,p\ge 1, p\neq n\}$ is not context-free.
+
+\subsection*{(ii)}Prove that the language
+$L_2 = \{a^nb^nc^p \mid n,p\ge 1, p\neq n\}$ is not context-free.
+\medskip \newline
 Proof by contradiction, so assume $L_2$ is context-free, then it must also
 satisfy Ogden's lemma. Let $m$ be the constant $K > 1$ for Ogden's lemma.
 Let $p=m!$. Let $w = a^{2p}b^{2p}c^p$ such that $w \in L_2$. Mark every $c$ in
-$w$, no $a$'s or $b$'s are marked. The condition that $w$ contains at least $m$
-marked occurences holds since it contains $m!$ marked occurences. By Ogden's
-lemma there exists some decomposition of $w = uvxyz$ of the following form:
+$w$, no $a$'s or $b$'s are marked. The condition that $w$ contains at least
+$m$ marked occurences holds since it contains $m!$ marked occurences.
+By Ogden's lemma there exists some decomposition of $w = uvxyz$ of the following
+form:
 \begin{itemize}
 \item $u=a^ib^jc^k$ such that $i,j,k\ge 0$
 \item $v=a^ib^jc^k$ such that $i,j,k\ge 0$
