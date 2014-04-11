@@ -45,20 +45,20 @@ Now we can further narrow down the decomposition of $w$ by applying the pumping
 property, that is, since $w = uvxyz \in L(G)$ then $uv^nxy^nz \in L(G)$ for all
 $n \ge 0$. By this property we can further restrict $y$ to the form
 \begin{itemize}
-\item $y=c^i$ such that $i\ge 0$
+\item $y=c^k$ such that $k\ge 0$
 \end{itemize}
 since pumping any other $y \in \Sigma^*$ would break the pumping property. We
 can easily prove this by case analysis. If $y$ contained more than one symbol
 from $\Sigma$, i.e. $y=a^ib^jc^k$, $y=a^ib^j$ or $y=b^jc^k$ such that $i,j,k\ge
 1$, then pumping it would cause the new string to contain a substring of the
-form $c^ka^j$, $b^ia^j$, or $c^kb^j$ such that $i,j,k\ge 1$ respectively,
+form $c^ka^i$, $b^ja^i$, or $c^kb^j$ such that $i,j,k\ge 1$ respectively,
 which means that the pumped string is not in $L_1$. Thus $y$ must only contain
 a single symbol from $\Sigma$. But if $y=a^i$ or $y=b^j$ such that $i,j\ge 1$
 then it would again break the pumping property since it implies that $z$ must
 contain all the $p$ $c$'s in $w$ and thus pumping $y$ would eventually cause
 the pumped string to contain more $a$'s or $b$'s then $c$'s respectively,
 which again means the pumped string is not in $L_1$. Thus we have the above
-restriction to $y$ i.e. that $y=c^i$ such that $i\ge 0$. With this restriction
+restriction to $y$ i.e. that $y=c^k$ such that $k\ge 0$. With this restriction
 and we can again use the properties of Ogden's lemma to restrict $u$, $v$, and
 $x$ to the forms:
 \begin{itemize}
@@ -89,12 +89,50 @@ lemma there exists some decomposition of $w = uvxyz$ of the following form:
 \item $z=c^i$ such that $i\ge 0$
 \item $u=a^{2p}b^{2p}c^i,\ v=c^j$ such that $i,j\ge 1$ \textbf{or}
 $y=c^i,\ z=c^j$ such that $i,j\ge 1$
-\item $vxy = a^ib^jc^k$ such that $k<m$ and $j,k\ge 0$
+\item $vxy = a^ib^{2p}c^k$ such that $0\le k<m$
 \end{itemize}
-There are a finite number of decompositions of $w=uvxyz$ of the above form so we
-can continue our proof by case anaylsis on each such decomposition.
-\vspace{3mm}
-\newline
-\textbf{Note}:
+Now we can further narrow down the decomposition of $w$ by applying the pumping
+property, that is, since $w = uvxyz \in L(G)$ then $uv^nxy^nz \in L(G)$ for all
+$n \ge 0$. By this property we can further restrict $v$ to the form
+\begin{itemize}
+\item $v=c^k$ such that $k\ge 0$
+\end{itemize}
+since pumping any other $v \in \Sigma^*$ would break the pumping property. We
+can easily prove this by case analysis. If $v$ contained more than one symbol
+from $\Sigma$, i.e. $v=a^ib^jc^k$, $v=a^ib^j$ or $v=b^jc^k$ such that $i,j,k\ge
+1$, then pumping it would cause the new string to contain a substring of the
+form $c^ka^i$, $b^ja^i$, or $c^kb^j$ such that $i,j,k\ge 1$ respectively,
+which means that the pumped string is not in $L_2$. Thus $y$ must only contain
+a single symbol from $\Sigma$. But if $y=a^i$ such that $i\ge 1$ then it would
+break the pumping property since it implies that $x$ would contain all the $2p$
+$b$'s in $w$ in which case pumping $v$ would cause the pumped string to contain
+more $a$'s than $b$'s which means the pumped string would not be in the language.
+And if $y=b^j$ such that $j\ge 1$ then it would again break the pumping property
+since it implies that $u$ would contain all the $2p$ $a$'s in $w$ in which case
+pumping $v$ would cause the pumped string to contain more $b$'s than $a$'s which
+means the pumped string would not be in the language. Thus we have the above
+restriction to $v$ i.e. that $v=c^k$ such that $k\ge 0$. With this we can
+further restrict the decomposition of $w$ to the following form:
+$$u=a^{2p}b^{2p}c^f, v=c^h, x=c^j, y=c^k,\text{ and } z=c^l
+\text{ such that } f,h,k,l\ge 0 \text{ and } j\ge1$$
+And so we have that:
+$$w = a^{2p}b^{2p}c^{f+h+j+k+l} \text{ where } f,h,k,l\ge 0, j\ge 1,
+\text{ and } f+h+j+k+l=p$$
+which by the pumping property of Ogden's lemma implies that
+$$w = a^{2p}b^{2p}c^{i(h+k) + (f+j+l)} \text { where } i(h+k)+(f+j+l)\neq 2p
+\text{ for all } i\ge 0$$
+where either $f,h\ge 1$ or $k,l\ge 1$ by the property of Ogden's lemma that
+either both $u$ and $v$ or both $y$ and $z$ must contain some marked occurences.
+So, for Ogden's lemma to hold it must be the case that:
+$$i \neq \frac{2p-(f+j+l)}{(h+k)} \text{ for all } i\ge 0$$
+where $f,h,k,l \ge 0, j\ge 1,$ either $f,h\ge 1$ or $k,l\ge 1$ and
+$f+j+l+h+l = p$ i.e. $(f+j+l) \le p \le 2p$ and $(h+k) \le p \le 2p$. And we
+know that
+$$p = m!$$
+where $h+j+k < m$ by the property of Ogden's lemma that $v,x,y$ must contain
+less than $m$ marked occurences. Which means that
+$$\frac{2p}{(h+k)}-\frac{(f+j+l)}{(h+k)}$$
+is a positive integer which is a contradiction that $i\ge 0$ is not equal to
+it and therefore Ogden's lemma does not hold. Thus $L_2$ is not context-free.
 
 \end{document}
