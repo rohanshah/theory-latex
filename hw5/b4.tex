@@ -34,6 +34,6 @@ $$L = \{ a^n | a^n \in L , n < k\} \cup \bigcup_{0 \le i < r} L_i$$ where $\{ a^
 We can show that $L_i=L(z_i(a^r)^*)$, so $L_i$ is regular. Let $L_i'=\{a^n|n \ge k, n \equiv i \bmod r\}$. We observe that $L_i=L_i' \cap L$.  $L_i'$ is regular, and a DFA can be constructed. By B3, since $L_i'$ is regular and L is context free, we can construct a grammar $G_i$ in $L_i=L_i' \cap L$. Use $T(G_i)$ to test and check if the start symbol is in it. 
 
 \subsection*{iv}
-Assume $L \subseteq \{a,b\}^*$ and $L$ is a context free language.  There may be an algorithm to decide $\{a\}^* \subseteq L$ iff $\{a\}^* \cap L=\{a\}^*$. Then, let $L_1=\{a\}^* \cap L$ and notice that $L$ is a context free language by B3 and $L_1 \subseteq \{a\}^*$. By (ii), $L$ is regular. Now we need to consider the DFA equivalence of $L_1$. 
+Assume $L \subseteq \{a,b\}^*$ and $L$ is a context free language.  There may be an algorithm to decide $\{a\}^* \subseteq L$ iff $\{a\}^* \cap L=\{a\}^*$. Then, let $L_1=\{a\}^* \cap L$ and notice that $L$ is a context free language by B3 and $L_1 \subseteq \{a\}^*$. By (ii), $L_1$ is regular. Since $L_1$ and $\{a\}^*$ are both regular we can create a DFA for both of them, $D_{L_1}$ and $D_{\{a\}^*}$. Now we need to test and see if $D_{L_1}$ and $D_{\{a\}^*}$ are equivalent which we can do and we will have $\{a\}^* \subseteq L$.  
 
 \end{document}
