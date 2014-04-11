@@ -60,16 +60,91 @@ $$((p,A,\delta(p,a)) \rightarrow a) \in P' \implies
 (A\rightarrow a) \in P$$
 \newline \textbf{Inductive Case: } $n = n+1$.
 \newline \textbf{Induction Hypothesis: }
-$(p,A,s) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} u
-\implies A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} u
-\text{ and } \delta^*(p,u) = s$.
+$(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w
+\implies A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$.
 \medskip \newline
 So given that
-$$(p,A,q) \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G_2} w
-\implies A \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G} w
+$$(p,A,q) \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G_2} w$$
+We need to prove that
+$$A \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G} w
 \text{ and } \delta^*(p,w) = q$$
+From our construction of $G_2$ above we have that
+$$(p,A,q) \rightarrow (p,B,s)(s,C,q)
+\underset{lm}{\overset{n}{\Longrightarrow}}_{G} w$$
+Let $w=uv$ where $u,v\in \Sigma^*$ then we have
+$$ (p,A,q) \rightarrow (p,B,s)(s,C,q)
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} u(s,C,q)
+\underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} uv = w
+\text{ where } n_1,n_2 \le n $$
+Then by the induction hypothesis we have that
+$$B \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} u
+\text{ and } \delta^*(p,u) = s$$
+$$C \underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} v
+\text{ and } \delta^*(s,v) = q$$
+And by construction we have
+$$A\rightarrow BC \in P$$
+So we have that
+$$A \rightarrow BC \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uC
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uv
+\text{ and } \delta^*(\delta^*(p,u),v) = q$$
+which is equivalent to
+$$A \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$$
+which is what we are trying to prove.
 \medskip \newline
-\newpage
+\textbf{Case: } $A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q \implies
+(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w$
+\newline \textbf{Proof: } By induction on $n$
+\newline \textbf{Base Case: } $n = 1$.
+\medskip \newline
+So given that
+$$ (A \rightarrow a) \in P \text{ and } \delta(p,a) = q$$
+We need to prove that
+$$((p,A,q) \rightarrow a) \in P' \text{ for } a\in \Sigma$$
+By construction we have that
+$$(A \rightarrow a) \in P \implies ((p,A,\delta(p,a)) \rightarrow a) \in P'$$
+and by substituion we have
+$$((p,A,q) \rightarrow a) \in P'$$
+so the base case is proven trivially.
+\medskip \newline
+\textbf{Inductive Case: } $n = n+1$.
+\newline \textbf{Induction Hypothesis: }
+$A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q \implies
+(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w$
+\medskip \newline
+So given that
+$$A \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$$
+We need to prove that
+$$(p,A,q) \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G_2} w$$
+Since $G$ is in Chomskey normal form we have that
+$$A \rightarrow BC \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w$$
+Let $w =uv$ for $u,v\in \Sigma^*$, then we have
+$$A \rightarrow BC \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uC
+\underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} uv
+\text{ where } n_1,n_2\le n$$
+So we have
+$$B \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} u
+\text{ and } \exists s\in Q,\ \delta^*(p,u) = s$$
+$$C \underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} v
+\text{ and } \exists q\in Q,\ \delta^*(s,u) = q$$
+So by the induction hypothesis we have
+$$(p,B,s) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} u$$
+$$(s,C,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} v$$
+and by construction given that we have (from above) that
+$$A \rightarrow BC \in P$$
+we have
+$$(p,A,q) \rightarrow (p,B,s)(s,C,q) \in P'$$
+so by substitution we have
+$$(p,A,q) \rightarrow (p,B,s)(s,C,q)
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G_2} u(s,C,q)
+\underset{lm}{\overset{n_2}{\Longrightarrow}}_{G_2} uv$$
+which is equivalent to
+$$(p,A,q) \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G_2} w$$
+which is what we are trying to prove. So our claim is fully proven.
 We can now show that $L(G_2) = L\cap R$. By definition
 $L(G_2) = \{w \in \Sigma^* \mid S_0 \overset{+}{\Longrightarrow} w\}$,
 $L = L(G) = \{w \in \Sigma^* \mid S \overset{+}{\Longrightarrow} w\}$, and
