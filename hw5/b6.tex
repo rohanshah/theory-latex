@@ -26,7 +26,7 @@
 
 $\tau(L) = \{w \in L \mid \text{with any number of characters from } w \text{ erased}\}$\newline 
 
-For any production $A \rightarrow \beta$ in $G$, we want to replace every terminal $a$ by $S_a$ and leave every nonterminal alone. We can achieve this by defining a substitution $\tau_1$ such that $\tau_1(a)=S_a$ with $a \in \Sigma$ and $\tau_1(\beta)=\beta$ with $\beta \in N$. And make sure that $V \cap V_a = \emptyset$ and $V_a \cap V_b = \emptyset$ for all $a \neq b$. \newline
-Define a grammar, $$G_{\tau} = (V \cup \bigcup_{a \in \Sigma} V_a, \Delta, P \cup \bigcup_{a \in \Sigma} P_a, S)$$ $P_a$ is the set of productions that are necessary for $V_a \mid a \in \Sigma$. It is clear that this works.
+For any production $A \rightarrow \beta$ in $G$, we want to replace every terminal $a$ by $S_a$, $S_a = \tau(a)$, and leave every nonterminal alone. We can achieve this by defining a substitution $\tau_1$ such that $\tau_1(a)=S_a$ with $a \in \Sigma$ and $\tau_1(\beta)=\beta$ with $\beta \in N$. And make sure that $V \cap V_a = \emptyset$ and $V_a \cap V_b = \emptyset$ for all $a \neq b$. \newline
+Define a grammar, $$G_{\tau} = (V \cup \bigcup_{a \in \Sigma} V_a, \Delta, P \cup \bigcup_{a \in \Sigma} P_a, S)$$ $P_a$ is the set of productions that are necessary for $V_a \mid a \in \Sigma$. Since we have made a grammar for $L$ it is clear that $L$ is a context-free language.
 
 \end{document}
