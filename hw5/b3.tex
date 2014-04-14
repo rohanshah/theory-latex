@@ -73,7 +73,7 @@ From our construction of $G_2$ above we have that
 $$(p,A,q) \rightarrow (p,B,s)(s,C,q)
 \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w$$
 Let $w=uv$ where $u,v\in \Sigma^*$ then we have
-$$ (p,A,q) \rightarrow (p,B,s)(s,C,q)
+$$ (p,A,q) \underset{lm}{\Longrightarrow}_{G} (p,B,s)(s,C,q)
 \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} u(s,C,q)
 \underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} uv = w
 \text{ where } n_1,n_2 \le n $$
@@ -85,7 +85,8 @@ $$C \underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} v
 And by construction we have
 $$A\rightarrow BC \in P$$
 So we have that
-$$A \rightarrow BC \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uC
+$$A \underset{lm}{\Longrightarrow}_{G} BC
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uC
 \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uv
 \text{ and } \delta^*(\delta^*(p,u),v) = q$$
 which is equivalent to
@@ -123,7 +124,8 @@ $$(p,A,q) \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G_2} w$$
 Since $G$ is in Chomskey normal form we have that
 $$A \rightarrow BC \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w$$
 Let $w =uv$ for $u,v\in \Sigma^*$, then we have
-$$A \rightarrow BC \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uC
+$$A \underset{lm}{\Longrightarrow}_{G} BC
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uC
 \underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} uv
 \text{ where } n_1,n_2\le n$$
 So we have
@@ -139,7 +141,7 @@ $$A \rightarrow BC \in P$$
 we have
 $$(p,A,q) \rightarrow (p,B,s)(s,C,q) \in P'$$
 so by substitution we have
-$$(p,A,q) \rightarrow (p,B,s)(s,C,q)
+$$(p,A,q) \underset{lm}{\Longrightarrow}_{G} (p,B,s)(s,C,q)
 \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G_2} u(s,C,q)
 \underset{lm}{\overset{n_2}{\Longrightarrow}}_{G_2} uv$$
 which is equivalent to
