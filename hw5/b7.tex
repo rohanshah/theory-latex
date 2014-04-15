@@ -22,28 +22,29 @@
 \maketitle
 
 \section*{Problem B7}
-\subsection*{i}
-$R = \{u_1 \bar a_1 h(a_1)u_2 \bar a_2h(a_2)u_3...u_n \bar a_nh(a_r)u_{n+1} | u_i \in E^* \} \cup \{\epsilon\}$
 
-$\tau_1(L) \cap R$
-
-Change
-$$\tau_1(a) = (\ptb{\Omega}\cup\{E\})^*\{a\}(\ptb{\Omega}\cup\{E\})^*,$$ to
-$$\tau_1(b) = (\ptb{\Omega}\cup\{E\})^*\{b\}(\ptb{\Omega}\cup\{E\})^*,$$
-for all $b\in \Delta$.
-
-$\tau_1(b) = v_1bv_2$ with $v_1,v_2 \in (\bar \Omega \cup \{E\})^*$
-
-So that a typical string in $\tau_1(L)$ looks like $v_1b_1v_2b_2v_3...v_mb_mv_{m+1}$ with $b_1...b_m \in L$
-
-$L_2 = \tau_1(L) \cap R = \{u_1\bar a_1h(a_1)u_2\bar a_2 h(a_2)...u_n \bar a_n h(a_n) u_{n+1}$ . So, $h(a_1)...h(a_n) \in L$ and $h(a_1...a_n) \in L$ with $u_i \in E^*$ and $a_i \in \Omega$.
-
+\subsection*{(i)} From the defintion of $\tau_1$ we have that:
+$$\tau_1(b)= v_1bv_2 \text{ such that } v_1,v_2 \in (\bar\Omega \cup \{E\}^*)
+\text{ for all } b\in \Delta$$
+So we can extend $\tau_1$ for languages $L \subseteq \Delta^*$ such that
+$\epsilon \not\in L$ to:
+$$\tau_1(L) = \{v_1b_1v_2\cdots v_nb_nv_{n+1} \mid
+v_j \in (\bar\Omega \cup \{E\}^*),\ b_1\cdots b_n \in L\}$$
+And from the definition of $R$ we have that
+$$ R = \{u_1\bar a_1h(a_1)\cdots u_n\bar a_nh(a_n)
+\mid a\in \Omega,\ u_i\in \{E\}^*\}$$
+So we can define $L_2 = \tau_1(L) \cap R$ as
+$$L_2 = \{u_1\bar a_1h(a_1)\cdots u_n\bar a_nh(a_n)
+\mid u_i \in \{E\}^*.\ h(a_1)\cdots h(a_n) \in L,\ a_i\in \Omega\}$$
+Finally we can see that $L_2 \cap (\bar\Omega\cup\{h(a) \mid a\in \Omega\})^*$
+contains any word from $L_2$ without any instances of $E$ i.e. that all
+$u_i = \epsilon$ so we have
 $$L_2\cap \left(\ptb{\Omega}\cup \{h(a) \mid a\in\Omega\}\right)^*
-=\{\ptb{a_1}h(a_1) \ptb{a_2}h(a_2)\cdots \ptb{a_n}h(a_n)\ |\
-h(a_1a_2\cdots a_n)\in L\}  = L_2 \cap \{\bar \Omega \cup \{h(a) | a \in \Omega 
-\}\}^*$$
+=\{\ptb{a_1}h(a_1) \ptb{a_2}h(a_2)\cdots \ptb{a_n}h(a_n)\ |\ 
+h(a_1a_2\cdots a_n)\in L,\ a_i\in \Omega\}$$
 
-\subsection*{ii}
+
+\subsection*{(ii)}
 
 Let $\mapdef{g}{\left(\Delta\cup\ptb{\Omega}\cup\{E\}\right)^*}
 {\left(\Sigma\cup \{E\}\right)^*}$
@@ -72,7 +73,7 @@ With the substitution, we have $\tau_2(L_3)= \{v_1a_1v_2a_2...v_na_nv_{n+1} | v_
 
 Conclude that $\s{L}$ is closed under inverse homomorphisms by seeing that $\tau_1(b)$ is a regular expression, as is all of our other expressions. We have closure under homomorphisms, because we have closure under regular substitutions, and a homomorphism is a special kind of a regular substitution. It is also closed under the compliment of regular languages and the union of regular languages. So we obtain closure under inverse homomorphisms. 
 
-\subsection*{iii}
+\subsection*{(iii)}
 
 Prove that if $L$ is context-free,
 then so is 
