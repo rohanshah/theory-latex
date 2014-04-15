@@ -31,35 +31,28 @@ This grammar is correct because the smallest string possible is $\epsilon$ which
 grammer for the language $D_m$ where the productions in P are defined as:
 $$S \rightarrow SS\mid \epsilon \mid a_iS\bar a_i \text{ where } 1\le i\le m$$
 
-To prove this is the correct CFG, assume $w=a_iu \bar a_i \in D_m(w \simeq^{*} \epsilon)$. We then consider three cases: 
-\begin{enumerate}
-\item $a_iu \bar a_i = a_i \bar a_i u' \bar a_i \simeq u' \bar a_i \simeq^{*} \epsilon$
-\item $a_iu \bar a_i = a_i u'a_i \bar a_i \simeq a_iu' \simeq^{*} \epsilon$ 
-\item $a_iu \bar a_i \simeq a_i u' \bar a_i \simeq^{*} \epsilon$ 
-\end{enumerate}
-The first two cases are obviously correct, so we consider the third case.
-Let $u \simeq u' and a_iu' \bar a_i \simeq^* \epsilon$ with $|u| < |u|$. We now have two new cases to consider. In the first case, $u' \simeq^{*} \epsilon$ and in the second case, $a_iu' \bar a_i = a_iu''v'' \bar a_i \simeq^{*} \epsilon$ and $a_iu'' \simeq^{*} \epsilon , v'' \bar a_i \simeq^{*} \epsilon$. So $u'=u''v''$ and we can insert some $a_j\bar a_j$ into $u''$ to get $u_1$. So $a_iu_1 \simeq a_iu'' \simeq^* \epsilon$. 
-Next we consider $w=a_iu_iv'' \bar a_i \simeq \epsilon \epsilon$.
-Insert $a_j \bar a_j$ into $v''$to get $v_1$, then $a_1 \bar a_j \simeq v'' \bar a_j \simeq^* \epsilon$.Then, 
-$w=a_iu''v_1 \bar a_i \simeq^* \epsilon \epsilon$. 
 
-Next, we have $w=a_iu \bar a_j \simeq^* \epsilon$ with $i \neq j$. There are three subcases. First, $a_i \bar a_i u' \bar a_j \simeq u' \bar a_j \simeq^* \epsilon$. This is the same case as before. Then, $a_iu'a_j \bar a_j \simeq a_iu' \simeq* \epsilon$ which is also the same as case 2. Note, the case where $u \simeq^* \epsilon$ is impossible. Finally we have the third case which is similar to a previous case. $a_iu''v'' \bar a_j$. 
+Observation (OBS1): if $u \simeq^* \epsilon$ then $wuz \simeq^* wz$\newline
+Proof: if $u \simeq^* \epsilon$ then $u$ is of the type $a_i\ptb{a_i} \rightarrow wuz = wa_i\ptb{a_i}z \rightarrow wa_i\ptb{a_i}z \simeq^* wz$\newline
 
+We first will prove that $L(G_m) \subseteq D_m$:\newline
+$\forall w \in L(G_m) \rightarrow w \in D_m$ : Proof by Induction: on k $\mid S \rightarrow^k w$\newline
+$k = 0 : S \rightarrow^0 \epsilon$ and $\epsilon \simeq^* \epsilon$\newline
+Inductive step \newline
+$S \rightarrow^{k+1} w$ we have two cases $1) S \rightarrow a_iS\ptb{a_i} \rightarrow^{k} w \text{ or } 2)S \rightarrow SS \rightarrow^{k} w$\newline
+case 1: $w = a_iu\ptb{a_i} \text{ and } S \rightarrow^k u$ from our IH we have $u \simeq^* \epsilon$ and from OBS1 we can remove $u$ so we have $a_i\ptb{a_i} \simeq^* \epsilon$ so good.\newline
+case 2: $w = uv , S\rightarrow^{k_1} u , S\rightarrow^{k_2} v$ with $k_1 + k_2 = k + 1$ and $k1, k2 \le k$.\newline
+from IH we have $u \simeq^* \epsilon$ and $v \simeq^* \epsilon \rightarrow uv  \simeq^* \epsilon$ so $uv \in D_m$
+So we have $w in D_m$ if $w \in L(G_m)$.\newline
 
+We next prove $D_m \subseteq L(G_m)$
+$\forall w \in D_m \rightarrow w \in L(G_m)$ : Proof by Induction on $|w|$\newline
+$|w| = 0 \rightarrow \epsilon \in D_m$ and $\epsilon \in L(G_m)$ so good.\newline
+Inductive Step:\newline
+$|w| \ge 1 -> w \simeq^* \epsilon$ and we have 2 cases: \newline
+1) $w = a_iu\ptb{a_i} \rightarrow |u| \ge |w| \text{ and from IH } u \simeq^* w \text{ from OBS1 we can remove u and } a_i\ptb{a_i} \simeq^* \epsilon$ so good \newline
+2) $w=uv \rightarrow |u| \le |w| \rightarrow u \simeq^* \epsilon , |v| \le |w| \rightarrow v \simeq^* \epsilon \rightarrow uv \simeq^* \epsilon$ so good\newline
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+So now we have $L(G_m) \subseteq D_m \text{ and } D_m \subseteq L(G_m) \text{ therefore } D_m = L(G_m)$
 
 \end{document}
