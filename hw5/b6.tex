@@ -24,9 +24,26 @@
 
 \section*{Problem B6}
 
-$\tau(L) = \{w \in L \mid \text{with any number of characters from } w \text{ erased}\}$\newline 
+\subsection*{(i)} For the example where
+$\tau$: $\Sigma \rightarrow 2^{\Sigma^*}$ is the subsitution defined such
+that $\tau(a) = \{\epsilon, a\}$, $\tau(L)$ is the language consisting of all
+words $w \in L$ and every modified version of $w$ where any character(s) in $w$
+can be replaced by $\epsilon$ characters. For example if
+$w=a_1a_2\cdots a_n \in L$ then
+$\tau(w) = \{\epsilon, a_1\}\{\epsilon, a_2\}\cdots \{\epsilon, a_n\}
+\subseteq \tau(L)$.
 
-For any production $A \rightarrow \beta$ in $G$, we want to replace every terminal $a$ by $S_a$, $S_a = \tau(a)$, and leave every nonterminal alone. We can achieve this by defining a substitution $\tau_1$ such that $\tau_1(a)=S_a$ with $a \in \Sigma$ and $\tau_1(\beta)=\beta$ with $\beta \in N$. And make sure that $V \cap V_a = \emptyset$ and $V_a \cap V_b = \emptyset$ for all $a \neq b$. \newline
-Define a grammar, $$G_{\tau} = (V \cup \bigcup_{a \in \Sigma} V_a, \Delta, P \cup \bigcup_{a \in \Sigma} P_a, S)$$ $P_a$ is the set of productions that are necessary for $V_a \mid a \in \Sigma$. Since we have made a grammar for $L$ it is clear that $L$ is a context-free language.
+\subsection*{(ii)}
+For every production $A \rightarrow \beta$ in $G$, we want to replace every
+terminal $a$ by $S_a$, $S_a = \tau(a)$, and leave every nonterminal alone.
+We can achieve this by defining a substitution $\tau_1$ such that
+$\tau_1(a)=V_a$ with $a \in \Sigma$ and $\tau_1(\beta)=\beta$ with
+$\beta \in N$ where $V \cap V_a = \emptyset$ and $V_a \cap V_b = \emptyset$
+for all $a \neq b$. We define a grammar,
+$$G_{\tau} = (V \cup \bigcup_{a \in \Sigma} V_a, \Delta,
+P \cup \bigcup_{a \in \Sigma} P_a, S)$$
+where $P_a$ is the set of productions that contain all the
+$V_a$ productions for all $a \in \Sigma$. Since we have constructed a grammar
+that defines the language $L$, it is context-free.
 
 \end{document}
