@@ -57,7 +57,6 @@ form of the string with $|u_1|=|u_2|$ and $v_1 \neq \epsilon$.
 \newline
 \textbf{Case 3(b): }$u_1bv_1cu_2av_2$ with $|u_1|=|u_2|$.
 
-\newpage
 \subsection*{(ii)} A context-free grammar for the language
 $L_2 = \{xcy \mid x\neq y^R,\ x,y\in\{a,b\}^*\}$
 \begin{center}
@@ -91,5 +90,449 @@ form of the string with $|u_1|=|u_2|$ and $v_1 \neq \epsilon$.
 \textbf{Case 3(a): }$u_1av_1cv_2bu_2^R$ (it is optional that $|v_1|=|v_2|$)
 \newline
 \textbf{Case 3(b): }$u_1bv_1cv_2au_2^R$
+
+\section*{Problem B2}
+\subsection*{(i)} Prove that the language $L_1 = \{a^mb^nc^p \mid 1\le m<n<p\}$
+is not context-free
+\medskip \newline
+Proof by contradiction, so assume $L_1$ is context-free, then it must also
+satisfy Ogden's lemma. Let $m$ be the constant $K > 1$ for Ogden's lemma.
+Let $w = a^mb^{m+1}c^{m+2}$ such that $w \in L_1$. Mark every $a$ in $w$,
+no $b$'s or $c$'s are marked. The condition that $w$ contains at least $m$
+marked occurences holds since it contains exactly $m$ marked occurences.
+By Ogden's lemma there exists some decomposition of $w = uvxyz$. By applying
+each of the properties of Ogden's lemma (except the pumping property) we can
+narrow down the decomposition of $w$ with the following restrictions:
+\begin{itemize}
+\item $u=a^i$ such that $i\ge 0$
+\item $v=a^i$ such that $i\ge 0$
+\item $x=a^ib^jc^k$ such that $i\ge 1$ and $j,k\ge 0$
+\item $y=a^ib^jc^k$ such that $i,j,k\ge 0$
+\item $z=a^ib^jc^k$ such that $i,j,k\ge 0$
+\item $u=a^i,\ v=a^j$ such that $i,j\ge 1$ \textbf{or}
+$y=a^i,\ z=a^jb^{m+1}c^{m+2}$ such that $i,j\ge 1$
+\item $vxy = a^ib^jc^k$ such that $i<m$ and $j,k\ge 0$
+\end{itemize}
+Now we can further narrow down the decomposition of $w$ by applying the pumping
+property, that is, since $w = uvxyz \in L(G)$ then $uv^nxy^nz \in L(G)$ for all
+$n \ge 0$. By this property we can further restrict $y$ to the form
+\begin{itemize}
+\item $y=c^k$ such that $k\ge 0$
+\end{itemize}
+since pumping any other $y \in \Sigma^*$ would break the pumping property. We
+can easily prove this by case analysis. If $y$ contained more than one symbol
+from $\Sigma$, i.e. $y=a^ib^jc^k$, $y=a^ib^j$ or $y=b^jc^k$ such that $i,j,k\ge
+1$, then pumping it would cause the new string to contain a substring of the
+form $c^ka^i$, $b^ja^i$, or $c^kb^j$ such that $i,j,k\ge 1$ respectively,
+which means that the pumped string is not in $L_1$. Thus $y$ must only contain
+a single symbol from $\Sigma$. But if $y=a^i$ or $y=b^j$ such that $i,j\ge 1$
+then it would again break the pumping property since it implies that $z$ must
+contain all the $p$ $c$'s in $w$ and thus pumping $y$ would eventually cause
+the pumped string to contain more $a$'s or $b$'s then $c$'s respectively,
+which again means the pumped string is not in $L_1$. Thus we have the above
+restriction to $y$ i.e. that $y=c^k$ such that $k\ge 0$. With this restriction
+and we can again use the properties of Ogden's lemma to restrict $u$, $v$, and
+$x$ to the forms:
+\begin{itemize}
+\item $x=a^ib^nc^k$ such that $i\ge 1$ and $k\ge 0$
+\item $u=a^i,\ v=a^j$ such that $i,j\ge 1$
+\end{itemize}
+since $x$ must contain a marked occurence and therefore must also contain all
+$b$'s in $w$ since $y$ contains only $c$'s. Further, $u$ and $v$ must contain
+marked occurences since it is impossible for both $y$ and $z$ to. This final
+form of the decomposition of $w=uvxyz$ also breaks the pumping property since
+pumping $v$ will cause the number of $a$'s to be greater than the number of
+$b$'s (which don't get pumped since they are all in $x$) and thus the pumped
+string is not in $L_1$. Therefore, Ogden's lemma does not hold for the language
+$L_1$, which is a contradiction, so $L_1$ is not context-free.
+
+\subsection*{(ii)}Prove that the language
+$L_2 = \{a^nb^nc^p \mid n,p\ge 1, p\neq n\}$ is not context-free.
+\medskip \newline
+Proof by contradiction, so assume $L_2$ is context-free, then it must also
+satisfy Ogden's lemma. Let $m$ be the constant $K > 1$ for Ogden's lemma.
+Let $p=m!$. Let $w = a^{2p}b^{2p}c^p$ such that $w \in L_2$. Mark every $c$ in
+$w$, no $a$'s or $b$'s are marked. The condition that $w$ contains at least
+$m$ marked occurences holds since it contains $m!$ marked occurences.
+By Ogden's lemma there exists some decomposition of $w = uvxyz$ of the following
+form:
+\begin{itemize}
+\item $u=a^ib^jc^k$ such that $i,j,k\ge 0$
+\item $v=a^ib^jc^k$ such that $i,j,k\ge 0$
+\item $x=a^ib^jc^k$ such that $i,j\ge 0$ and $k\ge 1$
+\item $y=c^i$ such that $i\ge 0$
+\item $z=c^i$ such that $i\ge 0$
+\item $u=a^{2p}b^{2p}c^i,\ v=c^j$ such that $i,j\ge 1$ \textbf{or}
+$y=c^i,\ z=c^j$ such that $i,j\ge 1$
+\item $vxy = a^ib^{2p}c^k$ such that $0\le k<m$
+\end{itemize}
+Now we can further narrow down the decomposition of $w$ by applying the pumping
+property, that is, since $w = uvxyz \in L(G)$ then $uv^nxy^nz \in L(G)$ for all
+$n \ge 0$. By this property we can further restrict $v$ to the form
+\begin{itemize}
+\item $v=c^k$ such that $k\ge 0$
+\end{itemize}
+since pumping any other $v \in \Sigma^*$ would break the pumping property. We
+can easily prove this by case analysis. If $v$ contained more than one symbol
+from $\Sigma$, i.e. $v=a^ib^jc^k$, $v=a^ib^j$ or $v=b^jc^k$ such that $i,j,k\ge
+1$, then pumping it would cause the new string to contain a substring of the
+form $c^ka^i$, $b^ja^i$, or $c^kb^j$ such that $i,j,k\ge 1$ respectively,
+which means that the pumped string is not in $L_2$. Thus $y$ must only contain
+a single symbol from $\Sigma$. But if $y=a^i$ such that $i\ge 1$ then it would
+break the pumping property since it implies that $x$ would contain all the $2p$
+$b$'s in $w$ in which case pumping $v$ would cause the pumped string to contain
+more $a$'s than $b$'s which means the pumped string would not be in the language.
+And if $y=b^j$ such that $j\ge 1$ then it would again break the pumping property
+since it implies that $u$ would contain all the $2p$ $a$'s in $w$ in which case
+pumping $v$ would cause the pumped string to contain more $b$'s than $a$'s which
+means the pumped string would not be in the language. Thus we have the above
+restriction to $v$ i.e. that $v=c^k$ such that $k\ge 0$. With this we can
+further restrict the decomposition of $w$ to the following form:
+$$u=a^{2p}b^{2p}c^f, v=c^h, x=c^j, y=c^k,\text{ and } z=c^l
+\text{ such that } f,h,k,l\ge 0 \text{ and } j\ge1$$
+And so we have that:
+$$w = a^{2p}b^{2p}c^{f+h+j+k+l} \text{ where } f,h,k,l\ge 0, j\ge 1,
+\text{ and } f+h+j+k+l=p$$
+which by the pumping property of Ogden's lemma implies that
+$$w = a^{2p}b^{2p}c^{i(h+k) + (f+j+l)} \text { where } i(h+k)+(f+j+l)\neq 2p
+\text{ for all } i\ge 0$$
+where either $f,h\ge 1$ or $k,l\ge 1$ by the property of Ogden's lemma that
+either both $u$ and $v$ or both $y$ and $z$ must contain some marked occurences.
+So, for Ogden's lemma to hold it must be the case that:
+$$i \neq \frac{2p-(f+j+l)}{(h+k)} \text{ for all } i\ge 0$$
+where $f,h,k,l \ge 0, j\ge 1,$ either $f,h\ge 1$ or $k,l\ge 1$ and
+$f+j+l+h+l = p$ i.e. $(f+j+l) \le p \le 2p$ and $(h+k) \le p \le 2p$. And we
+know that
+$$p = m!$$
+where $h+j+k < m$ by the property of Ogden's lemma that $v,x,y$ must contain
+less than $m$ marked occurences. Which means that
+$$\frac{2p}{(h+k)}-\frac{(f+j+l)}{(h+k)}$$
+is a positive integer which is a contradiction since $i\ge 0$ is any positive
+integer therefore Ogden's lemma does not hold, so $L_2$ is not context-free.
+
+\section*{Problem B3}
+Given a context-free language $L$ and a regular language $R$, prove that
+$L\cap R$ is context-free. Proof by construction of a CFG $G_2$ such that
+$L(G_2) = L\cap R$. Let $G = (V,\Sigma,P,S)$ be a CFG in Chomsky normal form
+such that $L(G) = L$ and $N = V - \Sigma$ be the set of nonterminals in $G$.
+Let $D = (Q,\Sigma, \delta, q_0, F)$ be a DFA such that $L(D) = R$.
+Let $G_2 = (V',\Sigma,P',S_0)$ be a CFG where $N' = V' - \Sigma$ be the set of
+nonterminals in $G_2$ where $N' = Q\times N\times Q \cup \{S_0\}$ and
+productions in $P'$ are defined by the following properties:
+\begin{itemize}
+\item $(S_0 \rightarrow (q_0,S,f)) \in P'$ for every $f \in F$
+\item $(S_0 \rightarrow \epsilon) \in P' \iff (S\rightarrow \epsilon) \in P$ and
+$q_0 \in F$
+\item $((p,A,\delta(p,a)) \rightarrow a) \in P' \iff (A \rightarrow a) \in P$
+for all $a \in \Sigma$, all $A \in N$, and all $p \in Q$.
+\item $((p,A,s) \rightarrow (p,B,q)(q,C,s)) \in P' \iff (A \rightarrow BC)\in P$
+for all $p,q,s \in Q$ and all $A,B,C \in N$
+\end{itemize}
+\textbf{Claim: } For all $p,q\in Q$, all $A\in N$, all $w\in \Sigma^+$,
+and all $n\ge 1$
+$$(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w
+\iff A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$$
+\textbf{Case: } $(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w
+\implies A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$
+\newline \textbf{Proof: } By induction on $n$
+\newline \textbf{Base Case: } $n = 1$.
+\medskip \newline
+So given that
+$$((p,A,q) \rightarrow a) \in P' \text{ for } a\in \Sigma$$
+We need to prove that
+$$ (A \rightarrow a) \in P \text{ and } \delta(p,a) = q$$
+Which we have immediately from our above construction of $P'$ where
+$$((p,A,\delta(p,a)) \rightarrow a) \in P' \implies
+((p,A,q) \rightarrow a) \in P' \text{ where } q=\delta(p,a) \text{ and }
+(A\rightarrow a) \in P$$
+\newline \textbf{Inductive Case: } $n = n+1$.
+\newline \textbf{Induction Hypothesis: }
+$(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w
+\implies A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$.
+\medskip \newline
+So given that
+$$(p,A,q) \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G_2} w$$
+We need to prove that
+$$A \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$$
+From our construction of $G_2$ above we have that
+$$(p,A,q) \rightarrow (p,B,s)(s,C,q)
+\underset{lm}{\overset{n}{\Longrightarrow}}_{G} w$$
+Let $w=uv$ where $u,v\in \Sigma^*$ then we have
+$$ (p,A,q) \underset{lm}{\Longrightarrow}_{G} (p,B,s)(s,C,q)
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} u(s,C,q)
+\underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} uv = w
+\text{ where } n_1,n_2 \le n $$
+Then by the induction hypothesis we have that
+$$B \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} u
+\text{ and } \delta^*(p,u) = s$$
+$$C \underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} v
+\text{ and } \delta^*(s,v) = q$$
+And by construction we have
+$$A\rightarrow BC \in P$$
+So we have that
+$$A \underset{lm}{\Longrightarrow}_{G} BC
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uC
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uv
+\text{ and } \delta^*(\delta^*(p,u),v) = q$$
+which is equivalent to
+$$A \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$$
+which is what we are trying to prove.
+\medskip \newline
+\textbf{Case: } $A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q \implies
+(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w$
+\newline \textbf{Proof: } By induction on $n$
+\newline \textbf{Base Case: } $n = 1$.
+\medskip \newline
+So given that
+$$ (A \rightarrow a) \in P \text{ and } \delta(p,a) = q$$
+We need to prove that
+$$((p,A,q) \rightarrow a) \in P' \text{ for } a\in \Sigma$$
+By construction we have that
+$$(A \rightarrow a) \in P \implies ((p,A,\delta(p,a)) \rightarrow a) \in P'$$
+and by substituion we have
+$$((p,A,q) \rightarrow a) \in P'$$
+so the base case is proven trivially.
+\medskip \newline
+\textbf{Inductive Case: } $n = n+1$.
+\newline \textbf{Induction Hypothesis: }
+$A \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q \implies
+(p,A,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w$
+\medskip \newline
+So given that
+$$A \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(p,w) = q$$
+We need to prove that
+$$(p,A,q) \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G_2} w$$
+Since $G$ is in Chomskey normal form we have that
+$$A \rightarrow BC \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w$$
+Let $w =uv$ for $u,v\in \Sigma^*$, then we have
+$$A \underset{lm}{\Longrightarrow}_{G} BC
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} uC
+\underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} uv
+\text{ where } n_1,n_2\le n$$
+So we have
+$$B \underset{lm}{\overset{n_1}{\Longrightarrow}}_{G} u
+\text{ and } \exists s\in Q,\ \delta^*(p,u) = s$$
+$$C \underset{lm}{\overset{n_2}{\Longrightarrow}}_{G} v
+\text{ and } \exists q\in Q,\ \delta^*(s,u) = q$$
+So by the induction hypothesis we have
+$$(p,B,s) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} u$$
+$$(s,C,q) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} v$$
+and by construction given that we have (from above) that
+$$A \rightarrow BC \in P$$
+we have
+$$(p,A,q) \rightarrow (p,B,s)(s,C,q) \in P'$$
+so by substitution we have
+$$(p,A,q) \underset{lm}{\Longrightarrow}_{G} (p,B,s)(s,C,q)
+\underset{lm}{\overset{n_1}{\Longrightarrow}}_{G_2} u(s,C,q)
+\underset{lm}{\overset{n_2}{\Longrightarrow}}_{G_2} uv$$
+which is equivalent to
+$$(p,A,q) \underset{lm}{\overset{n+1}{\Longrightarrow}}_{G_2} w$$
+which is what we are trying to prove. So our claim is fully proven.
+We can now show that $L(G_2) = L\cap R$. By definition
+$L(G_2) = \{w \in \Sigma^* \mid S_0 \overset{+}{\Longrightarrow} w\}$,
+$L = L(G) = \{w \in \Sigma^* \mid S \overset{+}{\Longrightarrow} w\}$, and
+$R = L(D) = \{w \in \Sigma^* \mid \delta^*(q_0,w) \in F\}$. By our
+construction of $G_2$ we have that
+$$(S_0 \rightarrow (q_0,S,f)) \in P' \text{ for every } f \in F$$
+and by our above claim we know that
+$$(q_0,S,f) \underset{lm}{\overset{n}{\Longrightarrow}}_{G_2} w \iff
+S \underset{lm}{\overset{n}{\Longrightarrow}}_{G} w
+\text{ and } \delta^*(q_0,w) = f \text{ where } f\in F$$
+Therefore it is immediate that
+$$ S_0 \overset{+}{\Longrightarrow}_{G_2} w \iff
+S \overset{+}{\Longrightarrow}_{G} w \text{ and } \delta^*(q_0,w) \in F$$
+thus $L(G_2) = L\cap R$ which implies that the language $L\cap R$ is
+context-free.
+
+\section*{Problem B4}
+\subsection*{(i)} Consider $r = k!$ where $k$ is the constant of the pumping
+lemma for the context-free language $G$. We prove that for all $w \in L$,
+if $|w|\ge k$, then $\{wa^{rn} | n \ge 0 \} \subseteq L$. Let $w=uvxyz$, where
+$u=a^{i_1}$, $v=a^{i_2}$, $x=a^{i_3}$ , $y=a^{i_4}$ , and $z=a^{i_5}$.
+From the pumping lemma we have that $i_3 \ge 1$, $i_2 + i_4 \ge 1$ and
+$i_2 + i_3 + i_4 \le k$. Then consider $uv^mxy^mz \in L$ for all $m \ge 0$.
+So, $uv^mxy^mz = a^{i_1+i_3+i_5 + m(i_2 + i_4)}$. Let $k_1 = i_1 + i_3 + i_5$
+and $k_2 = i_2 + i_4$. Then, $a^{k_1 + mk_2} \in L$ for all $m \ge 0$.
+We have that $1 \le k_2 \le k$ and $p=k_1+k_2$. For any $n \ge 0$ we can find
+an $m$ such that $mk_2=k_2 +nk$ by letting $m=1+ \dfrac{nr}{k_2}$. So,
+$k_1+mk_2=k_1+k_2+nr=p+nr$. This shows that
+$a^{k_1+mk_2}=a^{p+nr}=wa^{nr} \in L$, which is what we wanted to prove.
+
+\subsection*{(ii)}
+For any $i$ such that $0 \le i < r$ let
+$$L_i = \{a^n |a^n \in L, n \ge k , n \equiv i \bmod r \}$$
+Then clearly,
+$$L = \{ a^n | a^n \in L , n < k\} \cup \bigcup_{0 \le i < r} L_i$$
+where $\{ a^n | a^n \in L , n < k\}$ is finite.
+If $L_i \neq \emptyset$, then let $z_i$ be the shortest string in $L_i$
+such that $|z_i| \ge k$. We claim that
+$$L_i = \{z_i a^{rm} | m \ge 0\}$$
+By part (i) we know that $\{z_i a^{rm} | m \ge 0\} \subseteq L_i$.
+To prove the reverse induction, we can choose any $a^n \in L_i$.
+Let $z_i = a^{n_i}$. Then we have $n \ge n_i$, $n_i = m_ir + i$ and $n=mr +i$.
+We also know that $m \ge m_i$ which gives $n=(m-m_i)k + m_ik + i$.
+So we have that $n=(m-m_i)k + n_i$. But $m-m_i \ge 0$,
+so $a_n=a^{n_i}a^{(m-m_i)r}=z_ia^{(m-m_i)r}$.
+Since each $L_i$ can be written as a regular expression of the form
+$\{z_ia^r\}^*$ each $L_i$ is regular. Since $L$ is the union of a finite set of
+$L_i$'s together with the union of another trivially regular language,
+$L$ is regular.
+
+\subsection*{(iii)}
+We just showed that $L_i$ is regular. Since it is regular, it is also
+context-free so we can construct a grammar $G_i$ for $L_i$ i.e. a grammar such
+that $L(G_i) = L_i$. It is decidable whether or not the start symbol of the
+grammar $G_i$ is in $T(G_i)$. If it isn't then it must be the case that
+$L_i = \emptyset$. Therefore it is decidable whether $L_i = \emptyset$.
+
+\subsection*{(iv)} Given that $L \subseteq \{a,b\}^*$ and $L$ is a context free
+language, it is the case that $\{a\}^* \subseteq L$ if and only if
+$\{a\}^* \cap L=\{a\}^*$. Note that the language $\{a\}^*$ is trivially regular.
+Let $L_1=\{a\}^* \cap L$. Since we have previously proven that context-free
+languages are closed under intersection with regular languages, $L_1$ is a
+context free language. Further, it is clear that $L_1 \subseteq \{a\}^*$.
+By part (ii) of this problem, $L_1$ is regular. Since $L_1$ and $\{a\}^*$ are
+both regular we can create DFAs for both languages, Since it is decidable
+whether two DFAs are equivalent (by comparing their minimal DFAs, where minimal
+DFAs are unique for each regular language) and therefore whether two regular
+languages are equivalent, it is decidable whether $\{a\}^* \subseteq L$
+by testing whether $L_1$ and $\{a\}^*$ are equivalent.
+
+\section*{Problem B5}
+\subsection*{(1)} Let $G_2 = (\Sigma\cup \{S\},\Sigma,P,S)$ be a context-free
+grammer for the language $D_2$ where the productions in P are defined as:
+$$ S \rightarrow SS \mid \epsilon \mid aS\bar a \mid bS\bar b$$
+This is a grammar for the language $D_2$ for the following reasons.
+The smallest string possible is $\epsilon$ which is in the language.
+Llarger words are constructed by pairing an $a$ and an $\bar a$ or a $b$ and a
+$ \bar b$. If we remove these pairings from the word following the rules for
+$\simeq$ we will always get the word $\epsilon$ therefore the word is in $D_2$.
+
+\subsection*{(2)} Let $G_m = (\Sigma\cup \{S\},\Sigma,P,S)$ be a context-free
+grammer for the language $D_m$ where the productions in P are defined as:
+$$S \rightarrow SS\mid \epsilon \mid a_iS\bar a_i \text{ where } 1\le i\le m$$
+Observation (OBS1): if $u \simeq^* \epsilon$ then $wuz \simeq^* wz$\newline
+Proof: if $u \simeq^* \epsilon$ then $u$ is of the type $a_i\ptb{a_i} \rightarrow wuz = wa_i\ptb{a_i}z \rightarrow wa_i\ptb{a_i}z \simeq^* wz$\newline
+We first will prove that $L(G_m) \subseteq D_m$:\newline
+$\forall w \in L(G_m) \rightarrow w \in D_m$ : Proof by Induction: on k $\mid S \rightarrow^k w$\newline
+$k = 0 : S \rightarrow^0 \epsilon$ and $\epsilon \simeq^* \epsilon$\newline
+Inductive step \newline
+$S \rightarrow^{k+1} w$ we have two cases $1) S \rightarrow a_iS\ptb{a_i} \rightarrow^{k} w \text{ or } 2)S \rightarrow SS \rightarrow^{k} w$\newline
+case 1: $w = a_iu\ptb{a_i} \text{ and } S \rightarrow^k u$ from our IH we have $u \simeq^* \epsilon$ and from OBS1 we can remove $u$ so we have $a_i\ptb{a_i} \simeq^* \epsilon$ so good.\newline
+case 2: $w = uv , S\rightarrow^{k_1} u , S\rightarrow^{k_2} v$ with $k_1 + k_2 = k + 1$ and $k1, k2 \le k$.\newline
+from IH we have $u \simeq^* \epsilon$ and $v \simeq^* \epsilon \rightarrow uv  \simeq^* \epsilon$ so $uv \in D_m$
+So we have $w in D_m$ if $w \in L(G_m)$.\newline
+We next prove $D_m \subseteq L(G_m)$
+$\forall w \in D_m \rightarrow w \in L(G_m)$ : Proof by Induction on $|w|$\newline
+$|w| = 0 \rightarrow \epsilon \in D_m$ and $\epsilon \in L(G_m)$ so good.\newline
+Inductive Step:\newline
+$|w| \ge 1 -> w \simeq^* \epsilon$ and we have 2 cases: \newline
+1) $w = a_iu\ptb{a_i} \rightarrow |u| \ge |w| \text{ and from IH } u \simeq^* w \text{ from OBS1 we can remove u and } a_i\ptb{a_i} \simeq^* \epsilon$ so good \newline
+2) $w=uv \rightarrow |u| \le |w| \rightarrow u \simeq^* \epsilon , |v| \le |w| \rightarrow v \simeq^* \epsilon \rightarrow uv \simeq^* \epsilon$ so good\newline
+So now we have $L(G_m) \subseteq D_m \text{ and } D_m \subseteq L(G_m) \text{ therefore } D_m = L(G_m)$
+
+\section*{Problem B6}
+\subsection*{(i)} For the example where
+$\tau$: $\Sigma \rightarrow 2^{\Sigma^*}$ is the subsitution defined such
+that $\tau(a) = \{\epsilon, a\}$, $\tau(L)$ is the language consisting of all
+words $w \in L$ and every modified version of $w$ where any character(s) in $w$
+can be replaced by $\epsilon$ characters. For example if
+$w=a_1a_2\cdots a_n \in L$ then
+$\tau(w) = \{\epsilon, a_1\}\{\epsilon, a_2\}\cdots \{\epsilon, a_n\}
+\subseteq \tau(L)$.
+
+\subsection*{(ii)}
+For every production $A \rightarrow \beta$ in $G$, we want to replace every
+terminal $a$ by $S_a$, $S_a = \tau(a)$, and leave every nonterminal alone.
+We can achieve this by defining a substitution $\tau_1$ such that
+$\tau_1(a)=V_a$ with $a \in \Sigma$ and $\tau_1(\beta)=\beta$ with
+$\beta \in N$ where $V \cap V_a = \emptyset$ and $V_a \cap V_b = \emptyset$
+for all $a \neq b$. We define a grammar,
+$$G_{\tau} = (V \cup \bigcup_{a \in \Sigma} V_a, \Delta,
+P \cup \bigcup_{a \in \Sigma} P_a, S)$$
+where $P_a$ is the set of productions that contain all the
+$V_a$ productions for all $a \in \Sigma$. Since we have constructed a grammar
+that defines the language $L$, it is context-free.
+
+\section*{Problem B7}
+\subsection*{(i)} From the defintion of $\tau_1$ we have that:
+$$\tau_1(b)= v_1bv_2 \text{ such that } v_1,v_2 \in (\bar\Omega \cup \{E\}^*)
+\text{ for all } b\in \Delta$$
+So we can extend $\tau_1$ for languages $L \subseteq \Delta^*$ such that
+$\epsilon \not\in L$ to:
+$$\tau_1(L) = \{v_1b_1v_2\cdots v_nb_nv_{n+1} \mid
+v_j \in (\bar\Omega \cup \{E\}^*),\ b_1\cdots b_n \in L\}$$
+And from the definition of $R$ we have that
+$$ R = \{u_1\bar a_1h(a_1)\cdots u_n\bar a_nh(a_n)
+\mid a\in \Omega,\ u_i\in \{E\}^*\}$$
+So we can define $L_2 = \tau_1(L) \cap R$ as
+$$L_2 = \{u_1\bar a_1h(a_1)\cdots u_n\bar a_nh(a_n)
+\mid u_i \in \{E\}^*.\ h(a_1)\cdots h(a_n) \in L,\ a_i\in \Omega\}$$
+Finally we can see that $L_2 \cap (\bar\Omega\cup\{h(a) \mid a\in \Omega\})^*$
+contains any word from $L_2$ without any instances of $E$ i.e. that all
+$u_i = \epsilon$ so we have
+$$L_2\cap \left(\ptb{\Omega}\cup \{h(a) \mid a\in\Omega\}\right)^*
+=\{\ptb{a_1}h(a_1) \ptb{a_2}h(a_2)\cdots \ptb{a_n}h(a_n)\ |\
+h(a_1a_2\cdots a_n)\in L,\ a_i\in \Omega\}$$
+
+\subsection*{(ii)} If $\epsilon \not\in L$ then we have from above that:
+$$\tau_2(g(\tau_1(L)\cap R)) = \tau_2(g(L_2))$$
+And we can extended the definition of $g$ to languages to give:
+$$L_3 = g(L_2) = \{u_1a_1u_2a_2\cdots u_na_nu_{n+1} \mid u_i \in \{E\}^*
+,\ h(a_1a_2\cdots a_n) \in L,\ a_i\in \Omega
+,\ a_1a_2\cdots a_n \in h^{-1}(L)\}$$
+where all the instances of $h(a_i)$ in strings in $L_2$ where replaced with
+$\epsilon$ by $g$ and all instances of $\bar a_i$ where replaced by
+instances of $a_i$ by $g$. By applying the extension of $\tau_2$ to languages
+we get:
+$$\tau_2(L_3) = \{v_1a_1v_2a_2\cdots v_na_nv_{n_1}
+\mid h(a_1a_2\cdots a_n) \in L,\ v_1\in \Gamma^*\}$$
+where
+$$h(v_1a_1v_2a_2\cdots v_na_nv_{n+1}) = h(a_1a_2\cdots a_n)$$
+since applying the homomorphism $h$ to a an element of $\Gamma$ is replaced by
+$\epsilon$ from the definition of $\Gamma$.
+So since
+$$h(a_1a_2\cdots a_n) \in L$$
+then
+$$h(v_1a_1v_2a_2\cdots v_na_nv_{n+1}) \in L$$
+which implies that
+$$v_1a_1v_2a_2\cdots v_na_nv_{n+1} \in h^{-1}(L)$$
+thus
+$$\tau_2(L_3) = \tau_2(g(\tau_1(L)\cap R)) = h^{-1}(L) \text{ when }
+\epsilon \not\in L$$
+If $\epsilon \in L$, then it is also possible for words from $\Gamma^*$ to be in
+$\tau_2(g(\tau_1(L)\cap R))$ since we need to condider the case when
+$g(a) = \epsilon$ when $a\in \Delta$. So we can modify our above equality to be:
+$$h^{-1}(L) = \tau_2(g(\tau_1(L-\{\epsilon\}) \cap R) \cup \Gamma^*
+\text{ when } \epsilon\in L$$
+Since $L\in \s{L}$ it is closed under substituion, intersection and union with
+regular languages. Since homomorphisms are a special kind of regular substituion
+$L$ is also closed under homomorphism. Therefore
+$$\tau_2(g(\tau_1(L)\cap R)) \in \s{L} \text{ when } \epsilon \not\in L$$
+and
+$$\tau_2(g(\tau_1(L-\{\epsilon\}) \cap R) \cup \Gamma^* \in \s{L} \text{ when }
+\epsilon\in L$$
+which means
+$$h^{-1}(L) \in \s{L}$$
+since we proved its equality to those two languages.
+Therefore $L$ is closed under inverse homomorphism.
+
+\subsection*{(iii)} We proved in the previous problem that context-free languages
+are closed under substituion by regular languages. Further, in problem 3, we
+proved that context-free languages are closed under intersection with regular
+languages. It is given that context-free languages are closed under union
+with regular languages. Therefore, if $L$ is a context-free language,
+$L \in \s{L}$. Since we just proved that $\s{L}$ is closed under inverse
+homomorphism, then it is immediate that $L$ is closed under inverse
+homomorphism. Therefore $h^{-1}(L)$ is context-free if $L$ is context-free.
+
 
 \end{document}
