@@ -44,41 +44,55 @@ $$L_2\cap \left(\ptb{\Omega}\cup \{h(a) \mid a\in\Omega\}\right)^*
 h(a_1a_2\cdots a_n)\in L,\ a_i\in \Omega\}$$
 
 
-\subsection*{(ii)}
-
-Let $\mapdef{g}{\left(\Delta\cup\ptb{\Omega}\cup\{E\}\right)^*}
-{\left(\Sigma\cup \{E\}\right)^*}$
-be the homomorphism defined such that
-\begin{align*}
-g(a) &= \epsilon\quad \hbox{if $a\in\Delta$},\\
-g(\ptb{a}) &= a\quad \hbox{if $a\in\Omega$},\\
-g(E) &= E,
-\end{align*}
-let 
-\[L_3 = g(L_2),\]
+\subsection*{(ii)} If $\epsilon \not\in L$ then we have from above that:
+$$\tau_2(g(\tau_1(L)\cap R)) = \tau_2(g(L_2))$$
+And we can extended the definition of $g$ to languages to give:
+$$L_3 = g(L_2) = \{u_1a_1u_2a_2\cdots u_na_nu_{n+1} \mid u_i \in \{E\}^*
+,\ h(a_1a_2\cdots a_n) \in L,\ a_i\in \Omega
+,\ a_1a_2\cdots a_n \in h^{-1}(L)\}$$
+where all the instances of $h(a_i)$ in strings in $L_2$ where replaced with
+$\epsilon$ by $g$ and all instances of $\bar a_i$ where replaced by
+instances of $a_i$ by $g$. By applying the extension of $\tau_2$ to languages
+we get:
+$$\tau_2(L_3) = \{v_1a_1v_2a_2\cdots v_na_nv_{n_1}
+\mid h(a_1a_2\cdots a_n) \in L,\ v_1\in \Gamma^*\}$$
+where
+$$h(v_1a_1v_2a_2\cdots v_na_nv_{n+1}) = h(a_1a_2\cdots a_n)$$
+since applying the homomorphism $h$ to a an element of $\Gamma$ is replaced by
+$\epsilon$ from the definition of $\Gamma$.
+So since
+$$h(a_1a_2\cdots a_n) \in L$$
+then
+$$h(v_1a_1v_2a_2\cdots v_na_nv_{n+1}) \in L$$
+which implies that
+$$v_1a_1v_2a_2\cdots v_na_nv_{n+1} \in h^{-1}(L)$$
+thus
+$$\tau_2(L_3) = \tau_2(g(\tau_1(L)\cap R)) = h^{-1}(L) \text{ when }
+\epsilon \not\in L$$
+If $\epsilon \in L$, then it is also possible for words from $\Gamma^*$ to be in
+$\tau_2(g(\tau_1(L)\cap R))$ since we need to condider the case when
+$g(a) = \epsilon$ when $a\in \Delta$. So we can modify our above equality to be:
+$$h^{-1}(L) = \tau_2(g(\tau_1(L-\{\epsilon\}) \cap R) \cup \Gamma^*
+\text{ when } \epsilon\in L$$
+Since $L\in \s{L}$ it is closed under substituion, intersection and union with
+regular languages. Since homomorphisms are a special kind of regular substituion
+$L$ is also closed under homomorphism. Therefore
+$$\tau_2(g(\tau_1(L)\cap R)) \in \s{L} \text{ when } \epsilon \not\in L$$
 and
-and let $\tau_2$ be the substitution on $\Sigma\cup\{E\}$
-defined such that
-\begin{align*}
-\tau_2(a) &= \{a\}\quad \hbox{if $a\in\Sigma$},\\
-\tau_2(E) &= \Gamma^+.
-\end{align*}
-Remember $L_2 = \tau_1(L) \cap R = \{u_1\bar a_1h(a_1)u_2\bar a_2 h(a_2)...u_n \bar a_n h(a_n) u_{n+1}$ So, $h(a_1)...h(a_n) \in L$ and $h(a_1...a_n) \in L$ with $u_i \in E^*$ and $a_i \in \Omega$. 
+$$\tau_2(g(\tau_1(L-\{\epsilon\}) \cap R) \cup \Gamma^* \in \s{L} \text{ when }
+\epsilon\in L$$
+which means
+$$h^{-1}(L) \in \s{L}$$
+since we proved its equality to those two languages.
+Therefore $L$ is closed under inverse homomorphism.
 
-So, $L_3 = g(L_2)=\{u_1a_1u_2a_2...u_na_nu_{n+1} | h(a_1...a_n) \in L$ and $a_i \in \Omega$ and $u_i \in \{E\}^* \}$ \newline
-
-With the substitution, we have $\tau_2(L_3)= \{v_1a_1v_2a_2...v_na_nv_{n+1} | v_i \in \Gamma^*$ and $h(a_1...a_n) \in L$ and $a_i \in \Omega \}$. From this we can see that the possible strings, when $h$ is applied will be an element of $h^{-1}(L)$. Then we can show that $b_1...b_m=h(a_1)...h(a_n)$. Finally, we conclude that $\tau_2(L_3)= \{v_1a_1v_2a_2...v_na_nv_{n+1} | v_i \in \Gamma^*$ and $h(a_1...a_n) \in L$ and $a_i \in \Omega \} = h^{-1}(L)$ when $\epsilon \not \in L$. And $\tau_2(g(\tau_1(L) \cap R)) = h^{-1}(L)$ when $\epsilon \not \in L$. In the other case, when $\epsilon \in L$, $\tau_2(g(\tau_1(L-\{\epsilon\}) \cap R) \cup \Gamma^* = h^{-1}(L)$ because we need to put back $\Gamma^*$ for the erasables that are from $g(a) = \epsilon$ if $a\in\Delta$. 
-
-\medskip
-
-Conclude that $\s{L}$ is closed under inverse homomorphisms by seeing that $\tau_1(b)$ is a regular expression, as is all of our other expressions. We have closure under homomorphisms, because we have closure under regular substitutions, and a homomorphism is a special kind of a regular substitution. It is also closed under the compliment of regular languages and the union of regular languages. So we obtain closure under inverse homomorphisms. 
-
-\subsection*{(iii)}
-
-Prove that if $L$ is context-free,
-then so is 
-$$h^{-1}(L) = \{w\in \Sigma^* \mid  h(w) \in L\}.$$
-if $L$ is context-free then $\s{L} \cup L$ is context-free from above, and since $L \in \s{L}$ then $L \cup \s{L} = L \rightarrow L \subseteq \s{L}$.  And since $\s{L}$ is closed under inverse homomorphisms then $L$ is closed under homomorphism.
-
+\subsection*{(iii)} We proved in the previous problem that context-free languages
+are closed under substituion by regular languages. Further, in problem 3, we
+proved that context-free languages are closed under intersection with regular
+languages. It is given that context-free languages are closed under union
+with regular languages. Therefore, if $L$ is a context-free language,
+$L \in \s{L}$. Since we just proved that $\s{L}$ is closed under inverse
+homomorphism, then it is immediate that $L$ is closed under inverse
+homomorphism. Therefore $h^{-1}(L)$ is context-free if $L$ is context-free.
 
 \end{document}
