@@ -25,7 +25,11 @@
 \subsection*{(1)} Let $G_2 = (\Sigma\cup \{S\},\Sigma,P,S)$ be a context-free
 grammer for the language $D_2$ where the productions in P are defined as:
 $$ S \rightarrow SS \mid \epsilon \mid aS\bar a \mid bS\bar b$$
-This grammar is correct because the smallest string possible is $\epsilon$ which is in the language. Then, to make larger words, both an $a \bar a$ or a $b \bar b$ must be added. There will always be a pair $a \bar a$ or $b \bar b$ in the word that we can remove, following the rules for $\simeq$, until we get the word $\epsilon$.
+This is a grammar for the language $D_2$ for the following reasons.
+The smallest string possible is $\epsilon$ which is in the language.
+Llarger words are constructed by pairing an $a$ and an $\bar a$ or a $b$ and a
+$ \bar b$. If we remove these pairings from the word following the rules for
+$\simeq$ we will always get the word $\epsilon$ therefore the word is in $D_2$.
 
 \subsection*{(2)} Let $G_m = (\Sigma\cup \{S\},\Sigma,P,S)$ be a context-free
 grammer for the language $D_m$ where the productions in P are defined as:
