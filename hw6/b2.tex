@@ -23,7 +23,12 @@
 
 \maketitle
 
-\section*{Problem B3}
-We can prove that the function, $\mapdef{f}{\Sigma^*}{\Sigma^*}$, is primitive recursive by showing it as a primitive recursive function. \newline
-$$f(w) = a_1^{|w|} \rightarrow f(w) = f(ua_i) \rightarrow f(ua_i) = h_1(u, f(u)) \rightarrow h_1(u, f(u))= S_1 o P^2_2(u, f(u)) = f(w)$$
+\section*{Problem B2}
+\subsection*{i}
+Proof that $v_j = f(u_j, \ptb{x})$ by induction on $|u_j|$: \newline
+$|u_j| = 0 \rightarrow u_j = \epsilon \rightarrow f(\epsilon, \ptb{x}) = g(\ptb{x}) = v_0$\newline
+$|u_j| \ge 1 \rightarrow f(u_j, \ptb{x}) = f(u_{j-1}a_{i_j}, \ptb{x}) = h_j(u_{j-1}, f(u_{j-1}, \ptb{x}), \ptb{x}) = h_j(u_{j-1}, v_{j-1}, \ptb{x}) = v_j$
+
+\subsection*{ii}
+We need to make a sketch of a RAM  program here that I just havent done yet.
 \end{document}
