@@ -1,0 +1,29 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usetikzlibrary{automata, positioning}
+
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+
+\begin{document}
+\pagestyle{plain}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[runin]
+  {\bfseries}{}{1em}{}
+
+\title{Homework 5}
+\author{Brooke Fugate, Michael O'Connor, Rohan Shah}
+\date{}
+
+\maketitle
+
+\section*{Problem B4}
+We can prove that the function, $\mapdef{f}{\Sigma^*}{\Sigma^*}$, is primitive recursive by showing it as a primitive recursive function. \newline
+$$f(w) = a_1^{|w|} \rightarrow f(w) = f(ua_i) \rightarrow f(ua_i) = h_1(u, f(u)) \rightarrow h_1(u, f(u))= S_1 o P^2_2(u, f(u)) = f(w)$$
+\end{document}
