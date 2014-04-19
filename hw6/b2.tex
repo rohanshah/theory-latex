@@ -30,5 +30,21 @@ $|u_j| = 0 \rightarrow u_j = \epsilon \rightarrow f(\epsilon, \ptb{x}) = g(\ptb{
 $|u_j| \ge 1 \rightarrow f(u_j, \ptb{x}) = f(u_{j-1}a_{i_j}, \ptb{x}) = h_j(u_{j-1}, f(u_{j-1}, \ptb{x}), \ptb{x}) = h_j(u_{j-1}, v_{j-1}, \ptb{x}) = v_j$
 
 \subsection*{ii}
-We need to make a sketch of a RAM  program here that I just havent done yet.
+We need to make a sketch of a RAM  program here that I just havent done yet. Initial sketch:\newline
+assume we have 2 new functions suphead and revhead which work as follows: $$suphead(ya_j) = y : suphead(\epsilon) = \epsilon)$$ $$revhead(ya_j) = a_j : revhead(\epsilon) = epsilon$$ and that there exist RAM functions $g , h$, where $h$ is expecting input to be in $R3$.  Also let us assume that $R1$ is initialized with $u_j$ and $R2$ is initialized with $\ptb{x}$
+$$R3 \leftarrow R1$$
+$$R4 \leftarrow R3$$
+$$suphead R3$$
+$$revhead R4$$
+$$R4 jmp_{a_1} N1b$$
+$$R4 jmp_{a_2} N2b$$
+$$...$$
+$$R4 jmp_{a_k} Nkb$$
+$$jmp N(k+1)b$$
+$$N1		h$$
+$$N2		h$$
+$$...$$
+$$Nk		h$$
+$$Nk+1	g$$
+$$R1 \leftarrow R3$$
 \end{document}
