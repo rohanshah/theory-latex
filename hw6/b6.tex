@@ -1,0 +1,32 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usetikzlibrary{automata, positioning}
+
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+
+\begin{document}
+\pagestyle{plain}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[runin]
+  {\bfseries}{}{1em}{}
+
+\title{Homework 6}
+\author{Brooke Fugate, Michael O'Connor, Rohan Shah}
+\date{}
+
+\maketitle
+
+\section*{Problem B6}
+
+For any Grammar $G$ we can build a turing machine $T_G$ such that $L(G) = L(T_G)$.  So if we have a turing machine $T_G$ it is partially recursive so if we an index on the partially recursive functions we can make a characteristic $P_C = \{ x \in N \mid \varphi_x \text{ produces a context-free gramar that generates a regular language} \}$.  $P_C$ is not empty because the grammar $G = S -> ab$ produces both a context free grammar and a regular language and can be turned into a partially recursive function.  $P_C$ is not all the partially recursive because the a context free language $a^ncb^n$ is context free but not a regular language.  So this is undecidable.
+
+Show that Grammars and Regular languages can be made with Turing machines, therefore they can be shown as a P.R.F.  Then show the case of a context free gramar is a regular language and a case where a context free gramar is not a regular language.  Then undecidable.
+
+\end{document}
