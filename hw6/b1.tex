@@ -87,36 +87,52 @@ NFA $N_{C_G}$ for the grammer $G$:
   (q15) edge [bend right=70] node [above] {$\epsilon$} (q3)
   (q18) edge node {$)$} (q19)
   ;
-
-\begin{comment}
-  \node[state] (q2) [right=of q0] {i};
-  \node[state] (q1) [above=of q2] {1};
-  \node[state] (q3) [below=of q2] {n};
-  \node[state, accepting] (q4) [right=of q1] {n+1};
-  \node[state, accepting] (q5) [right=of q2] {n+i};
-  \node[state, accepting] (q6) [right=of q3] {2n};
-  \path[->]
-  (q0) edge node {$\epsilon$} (q1)
-       edge node {$\epsilon$} (q2)
-       edge node {$\epsilon$} (q3)
-  (q1) edge [loop left] node {not $a_1$} (q1)
-  (q1) edge [bend left] node {$a_1$} (q4)
-  (q4) edge [loop right] node {not $a_1$} (q4)
-  (q4) edge [bend left] node {$a_1$} (q1)
-  (q2) edge [loop above] node {not $a_i$} (q2)
-  (q2) edge [bend left] node {$a_i$} (q5)
-  (q5) edge [loop right] node {not $a_i$} (q5)
-  (q5) edge [bend left] node {$a_i$} (q2)
-  (q3) edge [loop left] node {not $a_n$} (q3)
-  (q3) edge [bend left] node {$a_n$} (q6)
-  (q6) edge [loop right] node {not $a_n$} (q6)
-  (q6) edge [bend left] node {$a_n$} (q3)
-  ;
-\end{comment}
 \end{tikzpicture}
 \end{center}
 
 \subsection*{(ii)}
+DFA $D_{C_G}$ for the grammer $G$:
+\newline
+\begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
+  \node[state] (0) {0};
+  \node[state] (4) [below=of 0] {4};
+  \begin{scope}[node distance=2cm]
+  \node[state, accepting] (3) [left=of 4] {3};
+  \node[state, accepting] (1) [left=of 3] {1};
+  \end{scope}
+  \node[state, accepting] (5) [right=of 0] {5};
+  \node[state] (6) [below=of 1] {6};
+  \node[state] (8) [below=of 4] {8};
+  \node[state, accepting] (2) [right=of 8] {2};
+  \node[state] (7) [below=of 2] {7};
+  \node[state, accepting] [below=of 6] (9) {9};
+  \node[state, accepting] [below=of 7] (10) {10};
+  \node[state, accepting] [below=of 8] (11) {11};
 
+  \path[->]
+  (0) edge node [above] {E} (1)
+  (0) edge [bend left] node {T} (2)
+  (0) edge node [left] {F} (3)
+  (0) edge node {(} (4)
+  (0) edge node {a} (5)
+  (1) edge node [left] {+} (6)
+  (2) edge node {*} (7)
+  (4) edge node [left] {E} (8)
+  (4) edge node {T} (2)
+  (4) edge node [above] {F} (3)
+  (4) edge [loop right] node {(} (4)
+  (4) edge node {a} (5)
+  (6) edge node [left] {T} (9)
+  (6) edge node {F} (3)
+  (6) edge node [below] {(} (4)
+  (6) edge [bend left=100] node {a} (5)
+  (7) edge node {F} (10)
+  (7) edge node {(} (4)
+  (7) edge [bend right] node [right] {a} (5)
+  (8) edge node {)} (11)
+  (8) edge node {+} (6)
+  (9) edge [bend right] node [below] {*} (7)
+  ;
+\end{tikzpicture}
 \subsection*{(iii)}
 \end{document}
