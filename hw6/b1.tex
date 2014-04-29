@@ -43,10 +43,10 @@ NFA $N_{C_G}$ for the grammer $G$:
   \end{scope}
   \node[state] (q8) [below=of q4] {\tiny $E \rightarrow E+.T$};
   \node[state] (q9) [below=of q6] {\tiny $T \rightarrow T.*F$};
-  \node[state] (q11) [below=of q7] {\tiny $F \rightarrow .(E)$};
+  \node[state] (q12) [below=of q7] {\tiny $F \rightarrow .a$};
   \begin{scope}[node distance=4cm]
   \node[state, accepting] (q10) [below left=of q7] {\tiny $T \rightarrow F.$};
-  \node[state] (q12) [below right=of q7] {\tiny $F \rightarrow .a$};
+  \node[state] (q11) [below right=of q7] {\tiny $F \rightarrow .(E)$};
   \end{scope}
   \node[state, accepting] (q13) [below=of q8] {\tiny $E \rightarrow E+T.$};
   \node[state] (q14) [below=of q9] {\tiny $T \rightarrow T*.F$};
@@ -54,7 +54,7 @@ NFA $N_{C_G}$ for the grammer $G$:
   \node[state, accepting] (q16) [below=of q12] {\tiny $F \rightarrow a.$};
   \node[state, accepting] (q17) [below=of q14] {\tiny $T \rightarrow T*F.$};
   \node[state] (q18) [below=of q15] {\tiny $F \rightarrow (E.)$};
-  \node[state] (q19) [below=of q18] {\tiny $F \rightarrow (E).$};
+  \node[state, accepting] (q19) [below=of q18] {\tiny $F \rightarrow (E).$};
 
   \path[->]
   (q0) edge node {$E$} (q1)
@@ -66,25 +66,25 @@ NFA $N_{C_G}$ for the grammer $G$:
   (q3) edge node {$T$} (q5)
   (q3) edge node {$\epsilon$} (q6)
   (q3) edge node {$\epsilon$} (q7)
-  (q4) edge node {$+$} (q8)
-  (q6) edge node {$T$} (q9)
+  (q4) edge node [left] {$+$} (q8)
+  (q6) edge node [left] {$T$} (q9)
   (q6) edge [loop left] node {$\epsilon$} (q6)
   (q6) edge [bend right] node [below] {$\epsilon$} (q7)
-  (q7) edge node {$F$} (q10)
+  (q7) edge node [left] {$F$} (q10)
   (q7) edge node {$\epsilon$} (q11)
   (q7) edge node {$\epsilon$} (q12)
-  (q8) edge node {$T$} (q13)
+  (q8) edge node [left] {$T$} (q13)
   (q8) edge node {$\epsilon$} (q6)
-  (q8) edge node {$\epsilon$} (q7)
-  (q9) edge node {$*$} (q14)
+  (q8) edge [bend right=60] node {$\epsilon$} (q7)
+  (q9) edge node [left] {$*$} (q14)
   (q11) edge node {$($} (q15)
   (q12) edge node {$a$} (q16)
-  (q14) edge node {$F$} (q17)
-  (q14) edge node {$\epsilon$} (q11)
-  (q14) edge node {$\epsilon$} (q12)
+  (q14) edge node [left] {$F$} (q17)
+  (q14) edge [bend right=65] node [below] {$\epsilon$} (q11)
+  (q14) edge node [below] {$\epsilon$} (q12)
   (q15) edge node {$E$} (q18)
-  (q15) edge node {$\epsilon$} (q2)
-  (q15) edge node {$\epsilon$} (q3)
+  (q15) edge [bend right=95] node [above] {$\epsilon$} (q2)
+  (q15) edge [bend right=70] node [above] {$\epsilon$} (q3)
   (q18) edge node {$)$} (q19)
   ;
 
