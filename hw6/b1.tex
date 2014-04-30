@@ -23,10 +23,10 @@
 
 \maketitle
 
+\newpage
 \section*{Problem B2}
 \subsection*{(i)}
 NFA $N_{C_G}$ for the grammer $G$:
-\newline
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto]
   \node[state] (q0) {\tiny $S' \rightarrow .E$};
@@ -54,7 +54,7 @@ NFA $N_{C_G}$ for the grammer $G$:
   \node[state, accepting] (q16) [below=of q12] {\tiny $F \rightarrow a.$};
   \node[state, accepting] (q17) [below=of q14] {\tiny $T \rightarrow T*F.$};
   \node[state] (q18) [below=of q15] {\tiny $F \rightarrow (E.)$};
-  \node[state, accepting] (q19) [below=of q18] {\tiny $F \rightarrow (E).$};
+  \node[state, accepting] (q19) [left=of q18] {\tiny $F \rightarrow (E).$};
 
   \path[->]
   (q0) edge node {$E$} (q1)
@@ -85,7 +85,7 @@ NFA $N_{C_G}$ for the grammer $G$:
   (q15) edge node {$E$} (q18)
   (q15) edge [bend right=95] node [above] {$\epsilon$} (q2)
   (q15) edge [bend right=70] node [above] {$\epsilon$} (q3)
-  (q18) edge node {$)$} (q19)
+  (q18) edge node [above] {$)$} (q19)
   ;
 \end{tikzpicture}
 \end{center}
@@ -106,14 +106,16 @@ DFA $D_{C_G}$ for the grammer $G$:
   \node[state, accepting] (2) [right=of 8] {2};
   \node[state] (7) [below=of 2] {7};
   \node[state, accepting] [below=of 6] (9) {9};
-  \node[state, accepting] [below=of 7] (10) {10};
+  \node[state, accepting] [right=of 7] (10) {10};
+  \begin{scope}[node distance=2.5cm]
   \node[state, accepting] [below=of 8] (11) {11};
+  \end{scope}
 
   \path[->]
   (0) edge node [above] {E} (1)
   (0) edge [bend left] node {T} (2)
   (0) edge node [left] {F} (3)
-  (0) edge node {(} (4)
+  (0) edge node [left] {(} (4)
   (0) edge node {a} (5)
   (1) edge node [left] {+} (6)
   (2) edge node {*} (7)
@@ -121,15 +123,15 @@ DFA $D_{C_G}$ for the grammer $G$:
   (4) edge node {T} (2)
   (4) edge node [above] {F} (3)
   (4) edge [loop right] node {(} (4)
-  (4) edge node {a} (5)
+  (4) edge node [below] {a} (5)
   (6) edge node [left] {T} (9)
-  (6) edge node {F} (3)
+  (6) edge node [above] {F} (3)
   (6) edge node [below] {(} (4)
   (6) edge [bend left=100] node {a} (5)
   (7) edge node {F} (10)
   (7) edge node {(} (4)
   (7) edge [bend right] node [right] {a} (5)
-  (8) edge node {)} (11)
+  (8) edge node [left] {)} (11)
   (8) edge node {+} (6)
   (9) edge [bend right] node [below] {*} (7)
   ;
