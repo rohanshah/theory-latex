@@ -136,5 +136,90 @@ DFA $D_{C_G}$ for the grammer $G$:
   (9) edge [bend right] node [below] {*} (7)
   ;
 \end{tikzpicture}
-\subsection*{(iii)}
+
+\newpage
+\subsection*{(iii)} Let $G$ be a reduced context-free grammar where
+$G = (V,\Sigma,P,S')$ and let $C_G$ be the set of characteristic strings of $G$
+defined as:
+$$C_G = \{\alpha\beta \in V^* \mid S' \underset{rm}{\Longrightarrow}^* \alpha Bv
+\underset{rm}{\Longrightarrow} \alpha\beta v,\ \alpha,\beta \in V^*,\ v\in
+\Sigma^*,\ B \rightarrow \beta \in P \}$$
+Let $N_{C_G} = (Q,\Sigma,\delta,q_0,F)$ be the NFA constructed according to the
+method described in Section 1 of the handout
+\textit{A Survey of LR-Parsing Methods etc.}
+\medskip\newline
+\textbf{Claim: } For every rightmost derivation
+$$A \underset{rm}{\Longrightarrow}^* \alpha Bv \underset{rm}{\Longrightarrow}
+\alpha\beta v \text{ implies } \delta^*((A \rightarrow \text{ "."}\zeta)
+,\ \alpha\beta) = (B \rightarrow \beta\text{"."})$$
+where $v \in \Sigma^*$, $A,B\in N$, $\alpha,\beta\in V^*$,
+$(A \rightarrow \text{ "."}\zeta)\in Q$, $(B \rightarrow \beta\text{"."})\in F$
+and $A \rightarrow \zeta$ is the first production in the above rightmost
+derivation.
+\medskip\newline
+\textbf{Proof: } By induction on the length of the rightmost derivations.
+\medskip\newline
+For any nonterminal $A$, every rightmost derivation from $A$ is either of the form
+\begin{enumerate}
+\item[(i)]
+$A \underset{rm}{\Longrightarrow} \zeta$,  for some  production
+$A \rightarrow  \zeta$, in which case $A = B$ and $\zeta = \beta$
+\item[(ii)]
+$A \underset{rm}{\Longrightarrow} \lambda B_{i}\rho
+\underset{rm}{\Longrightarrow}^* \lambda B_{i}w
+\underset{rm}{\Longrightarrow}^* \lambda \alpha _{i}Bw_{i}w
+\underset{rm}{\Longrightarrow} \lambda \alpha _{i}\beta w_{i}w$,
+with $w,w_i \in \Sigma^*$, $A,B,B_i \in  N$,
+$\lambda, \rho, \alpha_i, \beta\in  V^*$, and where
+$$B_i \underset{rm}{\Longrightarrow} \alpha_i Bw_i
+\underset{rm}{\Longrightarrow} \alpha_i \beta w_i \text{ and }
+\rho \underset{rm}{\Longrightarrow}^* w.$$
+\end{enumerate}
+
+\noindent Let $B_i \rightarrow \zeta_i$ be the first production applied
+in the rightmost derivation from $B_i$.
+In the first case, there is a computation in $N_{C_G}$ from
+state $A \rightarrow  \text{"."}\zeta$
+to the final state $A \rightarrow \zeta \text{"."}$
+(where again, $A \rightarrow \zeta = B \rightarrow \beta$),
+and in the second case, there is a computation in $N_{C_G}$ from state
+$A \rightarrow \text{ "."}\lambda B_i \rho$
+to $B_i \rightarrow \text{ "."}\zeta_i$
+on input $\lambda$, and a computation from
+state $B_i \rightarrow \text{ "."}\zeta_i$ to
+the final state $B \rightarrow \beta\text{"."}$
+on input $\alpha_i \beta$.
+\medskip\newline
+Therefore $C_G \subseteq L(N_{C_G})$.
+\medskip\newline
+\textbf{Claim: } For any state $(A \rightarrow \text{ "."}\zeta) \in Q$,
+
+$$\delta^*((A \rightarrow \text{ "."}\zeta),\ \gamma) =
+(B \rightarrow \beta\text{"."}) \in F \text{ implies }
+A \underset{rm}{\Longrightarrow}^* \alpha Bv \underset{rm}{\Longrightarrow}
+\alpha \beta v$$
+such that, the production applied in the first
+rightmost derivation step is $A \rightarrow \zeta$, and $\gamma=\alpha\beta$.
+\medskip\newline
+\textbf{Proof: } By induction on the number of $\epsilon$-transitions in a
+computation in $N_{C_G}$
+\begin{enumerate}
+\item[(i)]
+Either $\gamma = \zeta$  and the computation is from state
+$A \rightarrow \text{ "."}\zeta$ to state $A \rightarrow \zeta\text{ "."}$
+\item[(ii)]
+$\zeta$ is of the form $\lambda B_i\rho$,
+$\gamma$ is of the form $\lambda \alpha_i \beta$, and there is
+a computation on input
+$\alpha_i \beta$ from some state of the form
+$B_i \rightarrow \text{ "."}\zeta_i$
+to the final state $B \rightarrow \beta\text{"."}$,
+and a rightmost derivation as in Claim 1.
+\end{enumerate}
+
+\noindent Therefore $L(N_{C_G}) \subseteq C_G$.
+\medskip\newline
+Since we have sufficiently proven that $C_G \subseteq L(N_{C_G})$
+and that $L(N_{C_G}) \subseteq C_G$ it follows that $C_G = L(N_{C_G})$.
+
 \end{document}
