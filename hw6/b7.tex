@@ -1,0 +1,32 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usetikzlibrary{automata, positioning}
+
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+
+\begin{document}
+\pagestyle{plain}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[runin]
+  {\bfseries}{}{1em}{}
+
+\title{Homework 6}
+\author{Brooke Fugate, Michael O'Connor, Rohan Shah}
+\date{}
+
+\maketitle
+
+\section*{Problem B5}
+\subsection*{i}
+To show that the tiling problem with a single initial tile is NEXP-complete, we must show that the tiling problem $\in$ NEXP and the tiling problem is NEXP-hard. To show that it is $\in$ NEXP, we must prove there is an exponentially bounded nondeterministic Turing machine that accepts the tiling problem with a single initial tile. The size of the rectangular grid is $2s^2$, which is exponential in the length of the input, $log_2s+C+1$, so we need to check an exponential in the length of the input number of tiles to see if our solution is correct, and we can do this with an exponentially bounded nondeterministic Turing machine.
+To show that the tiling problem is NEXP-hard, we must show that there is a polynomial reduction from every language $L_1 \in NEXP$ to L. Similarly to how the origional tiling problem from the course slides was shown to be NP-hard, we can show that this version is NEXP-hard.  Let $L \subseteq \Sigma^*$ be any language in NP and let u be any string in $\Sigma^*$. Assume that L is accepted in exponential time.  Construct an instance of the tiling probem, similarly to in the course slides, so that $u \in L$ iff the tiling problem has a solution.
+
+\subsection*{ii} 
+\end{document}
