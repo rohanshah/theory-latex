@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usetikzlibrary{automata, positioning}
+
+\input ../libraries/mac.tex
+\input ../libraries/mathmac.tex
+
+\begin{document}
+\pagestyle{plain}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[runin]
+  {\bfseries}{}{1em}{}
+
+\title{Homework 6}
+\author{Brooke Fugate, Michael O'Connor, Rohan Shah}
+\date{}
+
+\maketitle
+
+\section*{Problem B8}
+\subsection*{i}
+It is clear that the 0-1 integer programming problem has the same complexity as multiplying a matrix by a vector if you can guess the solution, so it is in NP.
+
+\subsection*{ii}
+We start by allowing $x_{mnt} \in \{0,1\}$.  We see that to express the fact that every position is tiled by a
+single tile, we use the equation
+\[
+\sum_{t\in \s{T}} x_{m n t} = 1,
+\]
+for all $m, n$ with $1 \leq m \leq 2 s$ and $1 \leq n \leq s$.
+Then, we set the horizontal constraints 
+\[
+x_{mnt} + \sum_{t'} x_{(m+1) n t'} \le 1
+\] 
+for all $(t,t') \in \s{T} x \s{T} - H$ and we set the vertical constriants 
+\[
+x_{mnt} + \sum_{t'} x_{m (n+1) t'} \le 1
+\] 
+for all $(t,t') \in \s{T} x \s{T} - V$.  We let $\sigma_0$ be the perscribed bottom row, and we have $x_{m1\sigma_0 (m)} = 1$. To change the inequalities to equalities, we add slack variables so that the functions become: for the horizontal constraints
+\[
+x_{mnt} + \sum_{t'} x_{(m+1) n t'} + x_{mnt} = 1
+\]
+for all $(t,t') \in \s{T} x \s{T} - H$ and for the vertical constriants
+\[
+x_{mnt} + \sum_{t'} x_{m (n+1) t'} + y_{mnt}  = 1
+\]
+for all $(t,t') \in \s{T} x \s{T} - V$ and $x_{m1\sigma_0 (m)} + z_{mnt} = 1$.
+Using these equations we relate the tiling problem to a system of linear equations.  It is clear that a solution to the system of linear equations is found iff the tiling problem has a solution. We have shown a polynomial-time reduction from the bounded-tiling problem and therefore it is shown that the 0-1 integer programming problem is NP-Complete.  
+
+\subsection*{iii}
+It is clear from the proof of part ii that the restricted 0-1 integer programming problem in which the coefficients of A are 0 or 1 and all entries in b are equal to 1 is also NP-complete.
+
+\end{document}
