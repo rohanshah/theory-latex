@@ -36,15 +36,15 @@ $$R3 \leftarrow R1$$
 $$R4 \leftarrow R3$$
 $$suphead R3$$
 $$revhead R4$$
-$$R4 jmp_{a_1} N1b$$
-$$R4 jmp_{a_2} N2b$$
+$$R4,  \text{ }  jmp_{a_1},  \text{ }  N1b$$
+$$R4,  \text{ }  jmp_{a_2},  \text{ }  N2b$$
 $$...$$
-$$R4 jmp_{a_k} Nkb$$
-$$jmp N(k+1)b$$
-$$N1		h$$
-$$N2		h$$
+$$R4,  \text{ }  jmp_{a_k},  \text{ }  Nkb$$
+$$jmp \text{ } N(k+1)b$$
+$$N1,  \text{ } h$$
+$$N2,  \text{ } h$$
 $$...$$
-$$Nk		h$$
-$$Nk+1	g$$
+$$Nk,  \text{ } h$$
+$$N(k+1), \text{ }  g$$
 $$R1 \leftarrow R3$$
 \end{document}
